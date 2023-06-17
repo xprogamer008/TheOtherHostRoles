@@ -9,7 +9,7 @@ DISCORD SERVER: https://discord.gg/AcZ8K3Bp --- Recommended after Innersloth int
 ## Releases
 
 AmongUs Version: **2023.3.28s**<br>
-**Latest Version: 
+Latest Version: 
 
 Old Versions:
 
@@ -40,6 +40,7 @@ New contend with Town of Roles added to this game:
 - Added Tank
 - Added Lawyer
 - Added Dracula
+- Added Unseeable
 - Added Soulhandler
 
 However, please note that the following restrictions apply.<br>
