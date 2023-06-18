@@ -37,6 +37,7 @@ New contend with Town of Roles added to this game:
 - Added Knight
 - Added Detective
 - Added Transparent
+- Added Time Traveler
 - Added Tank
 - Added Lawyer
 - Added Dracula
@@ -146,15 +147,15 @@ Below is an example:
 | [BountyHunter](#bountyhunter)       | [Investigator](#investigator)     | [Vulture](#vulture)               | [Arsonist](#arsonist)           | [Coven Leader](#coven-leader)  | [Bait](#bait)              |
 | [Camouflager](#camouflager)         | [Dictator](#dictator)             | [Hacker](#hacker)                 | [Egoist](#egoist)               | [Medusa](#medusa)              | [Bewilder](#bewilder)      |
 | [FireWorks](#fireworks)             | [Doctor](#doctor)                 | [Executioner](#executioner)       | [Juggernaut](#juggernaut)       | [Hex Master](#hex-master)      | [Sleuth](#sleuth)          |
-| [Mare](#mare)                       | [Lighter](#lighter)               | [Jester](#jester)                 | [PlagueBearer](#plaguebearer)   | Potion Master                  | [Oblivious](#oblivious)    |
-| [Puppeteer](#puppeteer)             | [Mayor](#mayor)                   | [SchrodingerCat](#schrodingercat) | [The-Glitch](#the-glitch)       | Necromancer                    | [Torch](#torch)            |
-| [Mercenary](#mercenary)             | [Mystic](#mystic)                 | [Opportunist](#opportunist)       | [Werewolf](#werewolf)           | Mimic                          | [Flash](#flash)            |
-| [Sniper](#sniper)                   | [SabotageMaster](#sabotagemaster) | [Terrorist](#terrorist)           | [Pestilence](#pestilence)       | Conjuror                       | [Lovers](#lovers)          |
+| [Mare](#mare)                       | [Lighter](#lighter)               | [Jester](#jester)                 | [PlagueBearer](#plaguebearer)   |				                 | [Oblivious](#oblivious)    |
+| [Puppeteer](#puppeteer)             | [Mayor](#mayor)                   | [SchrodingerCat](#schrodingercat) | [The-Glitch](#the-glitch)       |           		             | [Torch](#torch)            |
+| [Mercenary](#mercenary)             | [Mystic](#mystic)                 | [Opportunist](#opportunist)       | [Werewolf](#werewolf)           |			                     | [Flash](#flash)            |
+| [Sniper](#sniper)                   | [SabotageMaster](#sabotagemaster) | [Terrorist](#terrorist)           | [Pestilence](#pestilence)       |		                         | [Lovers](#lovers)          |
 | [TimeThief](#timethief)             | [Sheriff](#sheriff)               | [Pirate](#guesser)                | [Serial Killer](#serial-killer) |                                | [Watcher](#watcher)        |
 | [Vampire](#vampire)                 | [Snitch](#snitch)                 | [Guardian-Angel](#guardian-angel) | [Marksman](#marksman)           |                                | [Diseased](#diseased)      |
 | [Warlock](#warlock)                 | [SpeedBooster](#speedbooster)     | [Amnesiac](#amnesiac)             | [Crewpostor](#crewpostor)       |                                | [Soulhandler](#soulhandler)|
-| [Witch](#witch)                     | [Trapper](#trapper)               | [Phantom](#phantom)               | [Dracula](#dracula)             |                                |                            |
-| [Mafia](#mafia)                     | [Demolitionist](#demolitionist)   | [Swapper](#swapper)               |                                 |                                |                            |
+| [Witch](#witch)                     | [Trapper](#trapper)               | [Phantom](#phantom)               | [Dracula](#dracula)             |                                | [Guesser](#Guesser)        |
+| [Mafia](#mafia)                     | [Demolitionist](#demolitionist)   | [Swapper](#swapper)               | [Unseeable](#unseeable)         |                                |                            |
 | [Madmate](#madmate)                 | [Bastion](#bastion)               | [Hitman](#hitman)                 |                                 |                                |                            |
 | [MadGuardian](#madguardian)         | [Vigilante](#guesser)             | [Lawyer](#lawyer)                 |                                 |                                |                            |
 | [MadSnitch](#madsnitch)             | [Veteran](#veteran)               |					                  |                                 |                                |                            |
@@ -163,12 +164,13 @@ Below is an example:
 | [Traitor](#traitor)                 | [Detective](#detective)           |                                   |                                 |                                |                            |
 | [Assassin](#guesser)                | [Tank](#tank)                     |                                   |                                 |                                |                            |
 | [Parasite](#parasite)               | [Transparent](#transparent)       |                                   |                                 |                                |                            |
-| [Miner](#miner)                     |                                   |                                   |                                 |                                | 
-| [Grenadier](#grenadier)             |                                   |                                   |                                 |                                |
-| [Ying Yanger](#ying-yanger)         |                                   |                                   |                                 |                                |
-| [Pickpocket](#pickpocket)           |                                   |                                   |                                 |                                |
-| [Cleaner](#cleaner)                 |                                   |                                   |                                 |                                |
-| [Freezer](#freezer)                 |                                   |                                   |                                 |                                |
+| [Miner](#miner)                     | [Time Traveler](#Time-Traveler)   |                                   |                                 |                                |							  |
+| [Grenadier](#grenadier)             |                                   |                                   |                                 |                                |							  |
+| [a Yanger](#ying-yanger)         |                                   |                                   |                                 |                                |							  |
+| [Pickpocket](#pickpocket)           |                                   |                                   |                                 |                                |							  |
+| [Cleaner](#cleaner)                 |                                   |                                   |                                 |                                |							  |
+| [Freezer](#freezer)				  |                                   |                                   |                                 |                                |							  |
+| [Knight](#knight)					  |									  |									  |									|								 |							  |
 #### Notes
 
 Roles without a redirect mean they are not implemented yet but are planned.
@@ -429,6 +431,16 @@ Team : Impostors<br>
 Basis : Shapeshifter<br>
 
 The Freezer is an Impostor who can shapeshift into a player to freeze them in place for a set amount of time.<br>
+
+### Knight
+
+Made by EXC4LIBUR
+
+Team : Impostors<br>
+Basis : Impostor<br>
+
+The Knight is a Impstor role who gets a few sconds of immortality when he kills someone.<br>
+The immortalitys duration can be configured in the settings.<br>
 
 ## Madmate
 
@@ -863,6 +875,22 @@ When he vents again while he is invisible, he will be visible to everyone again.
 | Invisibility Cooldown		    |
 | Invisibility Duration			|
 
+### Time Traveler
+
+Create and idea by EXC4LIBUR<br>
+  
+Team : Crewmates<br>
+Basis : Crewmate<br>
+
+The Time Traveler can travel back to his postion he marked with his pet.<br>
+He can mark his place to go back with his pet.<br>
+Áfter the Recall-Cooldown is done you can pet your pet to go back were you origanally were making you travel to the past.<br>
+
+| Name                          |
+| ----------------------------- |
+| Mark Cooldwon				    |
+| Mark Duration					|
+
 ## Neutral
 
 #### Settings
@@ -937,7 +965,7 @@ Basis : Impostor<br>
 When the Dracula kills, the kill is delayed (the bitten player will die after some time or when the next meeting is called).<br>
 If the Dracula bites [Bait](#Bait), the player will die immediately and a self-report will be forced.<br>
 
-### Dracula
+### Unseeable
 
 Started by Honest, Continued by EXC4LIBUR
 
@@ -1363,6 +1391,26 @@ Assigned to: All but Doctor and Investigator<br>
 
 The Necroview is a modifier that allows to see the teams of the dead players.<br>
 
+### Guesser
+
+Created by Loonie<br>
+
+Team : Impostors, Crewmates, or Neutral<br>
+Basis : Impostor or Crewmates<br>
+
+If you can guess target's role during meeting, you can kill the target.<br>
+In addition, Evil Guesser has a chance to kill even after being exiled.<br>
+There is also a neutral Guesser called Pirate. Their goal is guess a number of people to succesfully win.<br>
+
+
+
+#### Guesser Commands
+
+| Command                      | Function                         |
+| ---------------------------- | -------------------------------- |
+| /shoot show                  | Show role IDs and player IDs     |
+| /shoot playerID roleID       | Shoot a player ID with a role ID |
+
 ### Lovers
 
 Created by Discussions<br>
@@ -1632,8 +1680,9 @@ Orinal Develipors:
 - [Tommy-XL](https://github.com/Tommy-XL) - Rus Translations
 - [TheSkullCreeper/Loonie](https://github.com/Loonie-Toons) - Art Direction
 - [단풍잎/ImaMapleTree](https://github.com/ImaMapleTree) - 12.8 Port Help
+
 Town Of Roles Develipors:
-- [EXC4LIBUR](Discord:EXC4LIBUR#4643) - Continuing the Project
+- [EXC4LIBUR](https://github.com/xprogamer008) - Continuing the Project
 - [Honest](https://www.youtube.com/channel/UCby0ws4qWwnmWujmJlu3AMQ) - Started this Project
 - [PUMPkin Gaming](https://www.youtube.com/@pumpkingaming5548) - Helped a ton in the Project
 - [TheSkullCreeper/Loonie](https://github.com/Loonie-Toons) - Helped a bit in the Project
