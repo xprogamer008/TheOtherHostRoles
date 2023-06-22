@@ -8,7 +8,7 @@ DISCORD SERVER: https://discord.gg/AcZ8K3Bp --- Recommended after Innersloth int
 
 ## Releases
 
-AmongUs Version: **2023.3.28s**<br>
+AmongUs Version: **2023.6.13**<br>
 Latest Version: 
 
 Old Versions:
@@ -24,7 +24,6 @@ KNOWN BUGS:
 - Chat sometimes disappears for the host when a player leaves the game (this prevents commands from working until the host dies. Use SHIFT C ENTER or smth to force chat)
 - Some or all roles disappear for ghosts in meetings, this does not apply to players with the mod
 - If GA turns into a SidekickMadmate then the GA target dies, the GA turned SidekickMadmate will still turn into the role set in the settings for GA
-- Knights ability doesn't work properly.
 
 ## Features
 
@@ -34,15 +33,40 @@ If you are going to play on Custom Servers, such as MNA and MEU, it would requir
 
 New contend with Town of Roles added to this game:
 
-- Added Knight
+New Impostor Roles:
+
+- Added Wildling
+
+New Madmate Roles:
+
+- Added MadMayor
+
+New Crewmate Roles:
+
 - Added Detective
 - Added Transparent
 - Added Time Traveler
 - Added Tank
+- Added Tracker
+
+New Neutral Roles:
+
 - Added Lawyer
 - Added Dracula
 - Added Unseeable
+
+New Modifiers:
+
 - Added Soulhandler
+
+New Aditions:
+
+- Werewolf can Vent now.(the ability still doesnt work)
+- The Glitch can Vent now.(the ability works by petting your pet. not by venting)
+- Swooper has his own Custom Vent image.
+- Transproters vent icon says ''TRANSPARENCY''
+- Swoopers vent ican says ''SWOOP''
+- Also pretty obvious that many roles have been added and there will be more to add
 
 However, please note that the following restrictions apply.<br>
 
@@ -66,7 +90,6 @@ Note that if a player other than the host plays with this mod installed, the fol
 | ------------------- | ------------------------------ | --------------- |
 | `Shift`+`L`+`Enter` | Terminate the game             | In Game         |
 | `Shift`+`M`+`Enter` | Skip meeting to end            | In Game         |
-| `Shift`+`C`+`Enter` | Force chat to be visible       | In Meeting      |
 | `Ctrl`+`N`          | Show active role descriptions  | Lobby&In Game   |
 | `C`                 | Cancel game start              | In Countdown    |
 | `Shift`             | Start the game immediately     | In Countdown    |
@@ -80,9 +103,6 @@ Note that if a player other than the host plays with this mod installed, the fol
 | `Tab`       | Option list page feed                                                  | Lobby        |
 | `Ctrl`+`F1` | Output log to desktop                                                  | Anywhere     |
 | `F11`       | Change resolution<br>480x270 → 640x360 → 800x450 → 1280x720 → 1600x900 | Anywhere     |
-| `Ctrl`+`C`  | Copy the text                                                          | Chat         |
-| `Ctrl`+`V`  | Paste the text                                                         | Chat         |
-| `Ctrl`+`X`  | Cut the text                                                           | Chat         |
 | `↑`         | Go back in time of chat send history                                   | Chat         |
 | `↓`         | Go future in time of chat send history                                 | Chat         |
 
@@ -158,7 +178,7 @@ Below is an example:
 | [Mafia](#mafia)                     | [Demolitionist](#demolitionist)   | [Swapper](#swapper)               | [Unseeable](#unseeable)         |                                |                            |
 | [Madmate](#madmate)                 | [Bastion](#bastion)               | [Hitman](#hitman)                 |                                 |                                |                            |
 | [MadGuardian](#madguardian)         | [Vigilante](#guesser)             | [Lawyer](#lawyer)                 |                                 |                                |                            |
-| [MadSnitch](#madsnitch)             | [Veteran](#veteran)               |					                  |                                 |                                |                            |
+| [MadSnitch](#madsnitch)			  | [Veteran](#veteran)               |					                  |                                 |                                |                            |
 | [SidekickMadmate](#sidekickmadmate) | [Child](#child)                   |                                   |                                 |                                |                            |
 | [Silencer](#silencer)               | [Psychic](#psychic)               |                                   |                                 |                                |                            |
 | [Traitor](#traitor)                 | [Detective](#detective)           |                                   |                                 |                                |                            |
@@ -166,11 +186,12 @@ Below is an example:
 | [Parasite](#parasite)               | [Transparent](#transparent)       |                                   |                                 |                                |                            |
 | [Miner](#miner)                     | [Time Traveler](#Time-Traveler)   |                                   |                                 |                                |							  |
 | [Grenadier](#grenadier)             |                                   |                                   |                                 |                                |							  |
-| [a Yanger](#ying-yanger)         |                                   |                                   |                                 |                                |							  |
+| [a Yanger](#ying-yanger)			  |                                   |                                   |                                 |                                |							  |
 | [Pickpocket](#pickpocket)           |                                   |                                   |                                 |                                |							  |
 | [Cleaner](#cleaner)                 |                                   |                                   |                                 |                                |							  |
 | [Freezer](#freezer)				  |                                   |                                   |                                 |                                |							  |
-| [Knight](#knight)					  |									  |									  |									|								 |							  |
+| [Wildling](#Wildling)				  |									  |									  |									|								 |							  |
+| [MadMayor](#madmayor)				  |									  |									  |									|								 |							  |
 #### Notes
 
 Roles without a redirect mean they are not implemented yet but are planned.
@@ -432,14 +453,14 @@ Basis : Shapeshifter<br>
 
 The Freezer is an Impostor who can shapeshift into a player to freeze them in place for a set amount of time.<br>
 
-### Knight
+### Wildling
 
-Made by EXC4LIBUR
+Made by Loonie<br>
 
 Team : Impostors<br>
 Basis : Impostor<br>
 
-The Knight is a Impstor role who gets a few sconds of immortality when he kills someone.<br>
+The Wildling is a Impstor role who gets a few sconds of immortality when he kills someone.<br>
 The immortalitys duration can be configured in the settings.<br>
 
 ## Madmate
@@ -497,6 +518,24 @@ Depending on option, they can use vents.<br>
 | ---------------------- |
 | MadSnitch Can Use Vent |
 | MadSnitch Tasks        |
+
+### MadMayor
+
+Team : Crewmates<br>
+Basis : Crewmate or Engineer<br>
+
+Made by EXC4LIBUR<br>
+
+The MadMayors' votes count twice or more.<br>
+Depending on the options, they can call emergency meeting by entering vents.<br>
+
+#### Game Options
+
+| Name                              |
+| --------------------------------- |
+| MadMayor Additional Votes Count      |
+| MadMayor Has Mobile Emergency Button |
+| Number Of Mobile Emergency Button |
 
 ### Parasite
 
@@ -891,6 +930,16 @@ He can mark his place to go back with his pet.<br>
 | Mark Cooldwon				    |
 | Mark Duration					|
 
+### Tracker
+
+Create and idea by EXC4LIBUR<br>
+  
+Team : Crewmates<br>
+Basis : Crewmate<br>
+
+The Tracker is able to track bodies.<br>
+He will have a arrow under his name and he will be able to track every body that isn't cleaned by the cleaner or eaten by the vulture.<br>
+
 ## Neutral
 
 #### Settings
@@ -957,7 +1006,7 @@ Their goal is to be the last one standing.<br>
 
 ### Dracula
 
-Inspired by PUMPkin Gaming
+Inspired by PUMPkin Gaming<br>
 
 Team : Neutral<br>
 Basis : Impostor<br>
@@ -967,7 +1016,7 @@ If the Dracula bites [Bait](#Bait), the player will die immediately and a self-r
 
 ### Unseeable
 
-Started by Honest, Continued by EXC4LIBUR
+Started by Honest, Continued by EXC4LIBUR<br>
 
 Team : Neutral<br>
 Basis : Impostor<br>
@@ -1070,6 +1119,8 @@ If their target wins, so does the Guardian Angel.<br>
 | Target Knows They have a GA |
 
 ### Lawyer
+
+Made by EXC4LIBUR<br>
 
 Team : Neutral<br>
 Basis : Crewmate<br>
