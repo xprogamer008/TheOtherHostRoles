@@ -59,10 +59,13 @@ namespace TownOfHost
     [HarmonyPatch(typeof(EOSManager), nameof(EOSManager.IsAllowedOnline))]
     class RunLoginPatch
     {
+        public static int ClickCount = 0;
         public static void Prefix(ref bool canOnline)
         {
-            // if (ThisAssembly.Git.Branch != "main" && CultureInfo.CurrentCulture.Name != "ja-JP") canOnline = false;
-            canOnline = true;
+#if DEBUG
+            if (ClickCount < 10) canOnline = true;
+            if (ClickCount >= 10) ModUpdater.forceUpdate = false;
+#endif
         }
     }
 }

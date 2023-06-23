@@ -663,6 +663,13 @@ namespace TownOfHost
                                  text += $"\n{d.GetName(disableColor: true)}:{d.GetString()}";
                              }
                          }
+                         if (c.Name == "MadMayorHasPortableButton" && c.GetBool() == true)
+                         {
+                             foreach (var d in c.Children)
+                             {
+                                 text += $"\n{d.GetName(disableColor: true)}:{d.GetString()}";
+                             }
+                         }
                          text = text.RemoveHtmlTags();
                      }
                  }*/
@@ -1365,6 +1372,10 @@ namespace TownOfHost
                 {
                     SelfSuffix = "Current Mode: " + Escapist.GetEscapistState(seer);
                 }
+                if (seer.Is(CustomRoles.TimeTraveler))
+                {
+                    SelfSuffix = "Current Mode: " + TimeTraveler.GetTimeTravelerState(seer);
+                }
                 if (seer.Is(CustomRoles.Bomber))
                 {
                     PlayerControl bombedPlayer = Utils.GetPlayerById(Bomber.CurrentBombedPlayer);
@@ -1467,6 +1478,21 @@ namespace TownOfHost
                 {
                     var TaskState = Options.DetectiveArrow.GetBool();
                     if (TaskState)
+                    {
+                        if (!isMeeting)
+                        {
+                            foreach (var arrow in Main.targetArrows)
+                            {
+                                if (Main.DeadPlayersThisRound.Contains(arrow.Key.Item2))
+                                    if (arrow.Key.Item1 == seer.PlayerId && PlayerState.isDead[arrow.Key.Item2])
+                                        SelfSuffix += arrow.Value;
+                            }
+                        }
+                    }
+                }
+                if (seer.Is(CustomRoles.Tracker))
+                {
+                    var TaskState = Main.TrackerArrow;
                     {
                         if (!isMeeting)
                         {
@@ -2172,6 +2198,41 @@ namespace TownOfHost
                 return false;
             }
         }
+        public static Texture2D LoadTextureFromResources(string path)
+        {
+            try
+            {
+                var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path);
+                var texture = new Texture2D(1, 1, TextureFormat.ARGB32, false);
+                using MemoryStream ms = new();
+                stream.CopyTo(ms);
+                ImageConversion.LoadImage(texture, ms.ToArray(), false);
+                return texture;
+            }
+            catch
+            {
+                Logger.Error($"读入Texture失败：{path}", "LoadImage");
+            }
+            return null;
+        }
+
+        public static Dictionary<string, Sprite> CachedSprites = new();
+        public static Sprite LoadSprite(string path, float pixelsPerUnit = 1f)
+        {
+            try
+            {
+                if (CachedSprites.TryGetValue(path + pixelsPerUnit, out var sprite)) return sprite;
+                Texture2D texture = LoadTextureFromResources(path);
+                sprite = Sprite.Create(texture, new(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f), pixelsPerUnit);
+                sprite.hideFlags |= HideFlags.HideAndDontSave | HideFlags.DontSaveInEditor;
+                return CachedSprites[path + pixelsPerUnit] = sprite;
+            }
+            catch
+            {
+                Logger.Error($"读入Texture失败：{path}", "LoadImage");
+            }
+            return null;
+        }
         public static bool IsProtectedByBodyGuard(PlayerControl player)
         {
             if (Main.CurrentTarget.ContainsValue(player.PlayerId))
@@ -2217,7 +2278,7 @@ namespace TownOfHost
                         //main.AirshipMeetingTimer.Add(pc.PlayerId , 0f);
                         Main.AllPlayerKillCooldown[pc.PlayerId] *= 2;
                     }
-                if (pc.Is(CustomRoles.EvilGuesser) || pc.Is(CustomRoles.NiceGuesser) || pc.Is(CustomRoles.Pirate))
+                if  ((pc.Is(CustomRoles.EvilGuesser) || pc.Is(CustomRoles.NiceGuesser) || pc.Is(CustomRoles.Pirate)))
                 {
                     Guesser.IsSkillUsed[pc.PlayerId] = false;
                 }

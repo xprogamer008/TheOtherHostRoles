@@ -71,6 +71,7 @@ namespace TownOfHost
         SetTransportState,
         SendPostmanInfo,
         SetEscapistState,
+        SetTimeTravelerState,
         SetBomberTargets
     }
     public enum Sounds
@@ -250,6 +251,9 @@ namespace TownOfHost
                     break;
                 case CustomRPC.SetEscapistState:
                     Escapist.HandleRpc(reader);
+                    break;
+                case CustomRPC.SetTimeTravelerState:
+                    TimeTraveler.HandleRpc(reader);
                     break;
                 case CustomRPC.SetBomberTargets:
                     Bomber.RecieveRPC(reader);

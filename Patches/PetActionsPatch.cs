@@ -73,6 +73,10 @@ class ExternalRpcPetPatch
         {
             Escapist.OnPet(playerControl);
         }
+        if (playerControl.Is(CustomRoles.TimeTraveler))
+        {
+            TimeTraveler.OnPet(playerControl);
+        }
         if (playerControl.Is(CustomRoles.Creeper))
         {
             Logger.Info("The creeper ignited!", "Creeper");

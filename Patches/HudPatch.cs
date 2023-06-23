@@ -219,10 +219,16 @@ namespace TownOfHost
                 case CustomRoles.Transparent:
                     __instance.AbilityButton.OverrideText($"TRANSPARENCY");
                     break;
+                case CustomRoles.Swooper:
+                        __instance.ImpostorVentButton.OverrideText($"SWOOP");
+                    break;
                 case CustomRoles.Medium:
                     __instance.AbilityButton.OverrideText($"MEDITATE");
                     break;
                 case CustomRoles.Mayor:
+                    __instance.AbilityButton.OverrideText($"BUTTON");
+                    break;
+                case CustomRoles.MadMayor:
                     __instance.AbilityButton.OverrideText($"BUTTON");
                     break;
                 case CustomRoles.GuardianAngelTOU:
@@ -267,6 +273,10 @@ namespace TownOfHost
                 else if (player.Is(CustomRoles.Escapist))
                 {
                     LowerInfoText.text = "Current Mode: " + Escapist.GetEscapistState(player);
+                }
+                else if (player.Is(CustomRoles.TimeTraveler))
+                {
+                    LowerInfoText.text = "Current Mode: " + TimeTraveler.GetTimeTravelerState(player);
                 }
                 else if (player.Is(CustomRoles.HexMaster))
                 {
@@ -722,6 +732,13 @@ namespace TownOfHost
                     __instance.SabotageButton.ToggleVisible(isActive && Options.JackalCanUseSabotage.GetBool());
                     __instance.ImpostorVentButton.ToggleVisible(isActive && Options.JackalCanVent.GetBool());
                     __instance.AbilityButton.ToggleVisible(false);
+                    break;
+                case CustomRoles.Wildling:
+                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
+                        //    __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
+                        //    __instance.SabotageButton.ToggleVisible(true);
+                        __instance.ImpostorVentButton.ToggleVisible(isActive && Options.WildlingCanVent.GetBool());
+                    //       __instance.AbilityButton.ToggleVisible(false);
                     break;
                 case CustomRoles.CorruptedSheriff:
                     if (player.Data.Role.Role != RoleTypes.GuardianAngel)

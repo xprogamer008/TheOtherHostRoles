@@ -60,6 +60,8 @@ namespace TownOfHost
                 canUse = couldUse = Options.JuggerCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Marksman))
                 canUse = couldUse = Options.MarksmanCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.Wildling))
+                canUse = couldUse = Options.WildlingCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Camouflager))
                 canUse = couldUse = Camouflager.CanVent();
             else if (pc.Object.Is(CustomRoles.Hitman))
@@ -67,7 +69,7 @@ namespace TownOfHost
             else if (pc.Object.Is(CustomRoles.BloodKnight))
                 canUse = couldUse = Options.BKcanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.TheGlitch))
-                canUse = couldUse = false;
+                canUse = couldUse = true;
             else if (pc.Object.Is(CustomRoles.Dracula))
                 canUse = couldUse = true;
             else if (pc.Object.Is(CustomRoles.Unseeable))

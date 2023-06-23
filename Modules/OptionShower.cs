@@ -90,6 +90,10 @@ namespace TownOfHost
                     {
                         text += $"\t{Options.MayorNumOfUseButton.GetName()}: {Options.MayorNumOfUseButton.GetString()}\n";
                     }
+                    if (kvp.Key == CustomRoles.MadMayor && Options.MadMayorHasPortableButton.GetBool())
+                    {
+                        text += $"\t{Options.MadMayorNumOfUseButton.GetName()}: {Options.MadMayorNumOfUseButton.GetString()}\n";
+                    }
                     text += "\n";
                 }
                 //Onの時に子要素まで表示するメソッド

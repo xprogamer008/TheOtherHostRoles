@@ -9,6 +9,7 @@ namespace TownOfHost
         private static Sprite Douse => Main.DouseSprite;
         private static Sprite Hack => Main.HackSprite;
         private static Sprite Infect => Main.InfectSprite;
+        private static Sprite Swoop => Main.SwoopSprite;
         private static Sprite Poison => Main.PoisonSprite;
         private static Sprite Seer => Main.SeerSprite;
         private static Sprite Sheriff => Main.SheriffSprite;
@@ -257,6 +258,10 @@ namespace TownOfHost
                  case CustomRoles.Veteran:
                      __instance.AbilityButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                      __instance.AbilityButton.graphic.sprite = Alert;
+                     break;
+                 case CustomRoles.Swooper:
+                     __instance.AbilityButton.transform.Find("Text_TMP").gameObject.SetActive(true);
+                     __instance.AbilityButton.graphic.sprite = Swoop;
                      break;
                  case CustomRoles.Miner:
                      __instance.AbilityButton.transform.Find("Text_TMP").gameObject.SetActive(false);

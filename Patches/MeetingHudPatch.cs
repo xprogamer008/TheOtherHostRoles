@@ -170,6 +170,17 @@ namespace TownOfHost
                             });
                         }
                     }
+                    if (IsMadMayor(ps.TargetPlayerId) && !Options.MadMayorVotesAppearBlack.GetBool())
+                    {
+                        for (var i2 = 0; i2 < Options.MadMayorAdditionalVote.GetFloat(); i2++)
+                        {
+                            statesList.Add(new MeetingHud.VoterState()
+                            {
+                                VoterId = ps.TargetPlayerId,
+                                VotedForId = ps.VotedFor
+                            });
+                        }
+                    }
                     if (IsMayor(ps.TargetPlayerId) && !Options.MayorVotesAppearBlack.GetBool())
                     {
                         for (var i2 = 0; i2 < Options.MayorAdditionalVote.GetFloat(); i2++)
@@ -421,6 +432,11 @@ namespace TownOfHost
             var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
             return player != null && player.Is(CustomRoles.Mayor);
         }
+        public static bool IsMadMayor(byte id)
+        {
+            var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
+            return player != null && player.Is(CustomRoles.MadMayor);
+        }
         public static bool IsEvilMayor(byte id)
         {
             var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
@@ -448,6 +464,7 @@ namespace TownOfHost
                 {
                     int VoteNum = 1;
                     if (CheckForEndVotingPatch.IsMayor(ps.TargetPlayerId)) VoteNum += Options.MayorAdditionalVote.GetInt();
+                    if (CheckForEndVotingPatch.IsMadMayor(ps.TargetPlayerId)) VoteNum += Options.MadMayorAdditionalVote.GetInt();
                     if (CheckForEndVotingPatch.IsEvilMayor(ps.TargetPlayerId)) VoteNum += Main.MayorUsedButtonCount[ps.TargetPlayerId];
                     if (CheckForEndVotingPatch.IsPhantom(ps.VotedFor)) VoteNum = -1;
                     if (CheckForEndVotingPatch.IsPhantom(ps.TargetPlayerId) && !CheckForEndVotingPatch.IsPhantom(ps.VotedFor)) VoteNum = -1;

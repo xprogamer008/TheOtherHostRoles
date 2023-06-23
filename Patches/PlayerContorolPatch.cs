@@ -413,6 +413,10 @@ namespace TownOfHost
                 {
                     if (!killer.Is(CustomRoles.Arsonist) && !killer.Is(CustomRoles.PlagueBearer) && !killer.Is(CustomRoles.Investigator) && Main.bkProtected) return false;
                 }
+                if (target.Is(CustomRoles.Wildling))
+                {
+                    if (!killer.Is(CustomRoles.Arsonist) && !killer.Is(CustomRoles.PlagueBearer) && !killer.Is(CustomRoles.Investigator) && Main.WildlingProtected) return false;
+                }
                 if (target.Is(CustomRoles.CovenWitch) && !Main.WitchProtected)
                 {
                     // killer.RpcGuardAndKill(target);
@@ -760,6 +764,7 @@ namespace TownOfHost
                         }
                         break;
                     case CustomRoles.Hitman:
+                    //       case CustomRoles.Wildling:
                     case CustomRoles.Sidekick:
                     case CustomRoles.Jackal:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
@@ -1363,54 +1368,14 @@ namespace TownOfHost
                         if (Main.KillCount[killer.PlayerId] == Options.KillsForVote.GetInt())
                         {
                             Main.MayorUsedButtonCount[killer.PlayerId] += Options.VoteAmtOnCompletion.GetInt();
+                            Main.MadMayorUsedButtonCount[killer.PlayerId] += Options.VoteAmtOnCompletion.GetInt();
                             Main.KillCount[killer.PlayerId] = 0;
                         }
-                        Logger.Msg($"Kills Until Next Vote:{Main.KillCount[killer.PlayerId]} - Votes: {Main.MayorUsedButtonCount[killer.PlayerId]}", $"Pickpocket Progress Check");
+                        Logger.Msg($"Kills Until Next Vote:{Main.KillCount[killer.PlayerId]} - Votes: {Main.MayorUsedButtonCount[killer.PlayerId]} {Main.MadMayorUsedButtonCount[killer.PlayerId]}", $"Pickpocket Progress Check");
                         MessageWriter writeree = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.RpcSetPickpocketProgress, Hazel.SendOption.Reliable, -1);
                         writeree.Write(killer.PlayerId);
                         writeree.Write(Main.KillCount[killer.PlayerId]);
                         AmongUsClient.Instance.FinishRpcImmediately(writeree);
-                        break;
-                    case CustomRoles.Knight:
-
-                        if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
-                        {
-                            target.RpcMurderPlayer(killer);
-                            return false;
-                        }
-                        if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
-                        {
-                            target.RpcMurderPlayer(killer);
-                            new LateTask(() =>
-                            {
-                                Main.unreportableBodies.Add(killer.PlayerId);
-                            }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
-                            return false;
-                        }
-                        if (!Main.bkProtected)
-                        {
-                            Main.bkProtected = true;
-                            new LateTask(() =>
-                            {
-                                Main.bkProtected = false;
-                            }, Options.BKprotectDur.GetFloat(), "Knight Duration");
-                        }
-                        break;
-                    default:
-                        if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
-                        {
-                            target.RpcMurderPlayer(killer);
-                            return false;
-                        }
-                        if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
-                        {
-                            target.RpcMurderPlayer(killer);
-                            new LateTask(() =>
-                            {
-                                Main.unreportableBodies.Add(killer.PlayerId);
-                            }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
-                            return false;
-                        }
                         break;
                     case CustomRoles.YingYanger:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
@@ -1574,6 +1539,16 @@ namespace TownOfHost
                         writereee.Write(target.PlayerId);
                         AmongUsClient.Instance.FinishRpcImmediately(writereee);
                         return false;
+                    case CustomRoles.Wildling:
+                        if (!Main.WildlingProtected)
+                        {
+                            Main.WildlingProtected = true;
+                            new LateTask(() =>
+                            {
+                                Main.WildlingProtected = false;
+                            }, Options.WildlingProtectDuration.GetFloat(), "Wildling Duration");
+                        }
+                        break;
                     case CustomRoles.BloodKnight:
 
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
@@ -1599,6 +1574,7 @@ namespace TownOfHost
                             }, Options.BKprotectDur.GetFloat(), "Blood Knight Duration");
                         }
                         break;
+                    default:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
@@ -2314,6 +2290,7 @@ namespace TownOfHost
                 if (__instance.Is(CustomRoles.Alturist))
                 {
                     //Main.MayorUsedButtonCount[__instance.PlayerId] += 1;
+                    //Main.MadMayorUsedButtonCount[__instance.PlayerId] += 1;
                     var reviving = Utils.GetPlayerById(target.PlayerId);
                     Main.DeadPlayersThisRound.Remove(reviving.PlayerId);
                     reviving.Revive();
@@ -2338,11 +2315,16 @@ namespace TownOfHost
             Main.IsGazing = false;
             Main.GazeReady = false;
             Main.bkProtected = false;
+            Main.WildlingProtected = false;
             if (target == null) //ボタン
             {
                 if (__instance.Is(CustomRoles.Mayor))
                 {
                     Main.MayorUsedButtonCount[__instance.PlayerId] += 1;
+                }
+                if (__instance.Is(CustomRoles.MadMayor))
+                {
+                    Main.MadMayorUsedButtonCount[__instance.PlayerId] += 1;
                 }
             }
 
@@ -2351,6 +2333,7 @@ namespace TownOfHost
                 if (__instance.GetCustomSubRole() == CustomRoles.Sleuth)
                 {
                     //Main.MayorUsedButtonCount[__instance.PlayerId] += 1;
+                    //Main.MadMayorUsedButtonCount[__instance.PlayerId] += 1;
                     Utils.SendMessage("The body you reported had a clue about their role. They were " + Utils.GetRoleName(target.GetCustomRole()) + ".", __instance.PlayerId);
                     foreach (var ar in Main.SleuthReported)
                     {
@@ -2363,12 +2346,13 @@ namespace TownOfHost
                     }
                 }
             }
-            if (target != null) //Detective Report for Non-Buttons
+            if (target != null) // Detective Report for Non-Buttons
             {
                 var killer = Utils.GetPlayerById(Main.whoKilledWho[target.PlayerId]);
                 if (__instance.GetCustomRole() == CustomRoles.Detective)
                 {
                     //Main.MayorUsedButtonCount[__instance.PlayerId] += 1;
+                    //Main.MadMayorUsedButtonCount[__instance.PlayerId] += 1;
                     if (killer.PlayerId == target.PlayerId)
                     {
 
@@ -4124,6 +4108,28 @@ namespace TownOfHost
                             }
                         }
                     }
+                    if (target.Is(CustomRoles.Tracker))
+                    {
+                        var TaskState = Main.TrackerArrow;
+                        {
+                            var coloredArrow = true;
+                            var update = false;
+                            foreach (DeadBody deadBody in GameObject.FindObjectsOfType<DeadBody>())
+                            {
+                                update = VultureArrowUpdate(target, deadBody, update, coloredArrow);
+                                var key = (target.PlayerId, deadBody.ParentId);
+                                if (target.AmOwner)
+                                {
+                                    Suffix += Main.targetArrows[key];
+                                }
+                            }
+                            if (AmongUsClient.Instance.AmHost && seer.PlayerId != target.PlayerId && update)
+                            {
+                                //更新があったら非Modに通知
+                                Utils.NotifyRoles(SpecifySeer: target);
+                            }
+                        }
+                    }
 
                     /*if(main.AmDebugger.Value && main.BlockKilling.TryGetValue(target.PlayerId, out var isBlocked)) {
                         Mark = isBlocked ? "(true)" : "(false)";
@@ -4364,6 +4370,14 @@ namespace TownOfHost
                         pc.MyPhysics.RpcBootFromVent(__instance.Id);
                     }
                 }
+                if (pc.Is(CustomRoles.TimeTraveler))
+                {
+                    if (!TimeTraveler.CanVent())
+                    {
+                        skipCheck = true;
+                        pc.MyPhysics.RpcBootFromVent(__instance.Id);
+                    }
+                }
                 if (pc.Is(CustomRoles.Camouflager))
                 {
                     if (!Camouflager.CanVent())
@@ -4389,6 +4403,15 @@ namespace TownOfHost
                 if (pc.Is(CustomRoles.Mayor))
                 {
                     if (Main.MayorUsedButtonCount.TryGetValue(pc.PlayerId, out var count) && count < Options.MayorNumOfUseButton.GetInt())
+                    {
+                        pc?.CmdReportDeadBody(null);
+                    }
+                    pc?.MyPhysics?.RpcBootFromVent(__instance.Id);
+                    skipCheck = true;
+                }
+                if (pc.Is(CustomRoles.MadMayor))
+                {
+                    if (Main.MadMayorUsedButtonCount.TryGetValue(pc.PlayerId, out var count) && count < Options.MadMayorNumOfUseButton.GetInt())
                     {
                         pc?.CmdReportDeadBody(null);
                     }
@@ -4556,6 +4579,14 @@ namespace TownOfHost
                         Options.TransparentCooldown.GetFloat(), "TransparentCooldown", true);
                     }
                 }
+                if (pc.Is(CustomRoles.Wildling))
+                {
+                    if (!Options.WildlingCanVent.GetBool())
+                    {
+                        skipCheck = true;
+                        pc.MyPhysics.RpcBootFromVent(__instance.Id);
+                    }
+                }
                 if (pc.Is(CustomRoles.TheGlitch))
                 {
                     pc.MyPhysics.RpcBootFromVent(__instance.Id);
@@ -4653,6 +4684,7 @@ namespace TownOfHost
                 (__instance.myPlayer.Is(CustomRoles.Juggernaut) && !Options.JuggerCanVent.GetBool()) ||
                 (__instance.myPlayer.Is(CustomRoles.CovenWitch) && !Main.HasNecronomicon) || (__instance.myPlayer.Is(CustomRoles.HexMaster) && !Main.HasNecronomicon) ||
                 (__instance.myPlayer.Is(CustomRoles.Mayor) && Main.MayorUsedButtonCount.TryGetValue(__instance.myPlayer.PlayerId, out var count) && count >= Options.MayorNumOfUseButton.GetInt()) ||
+                (__instance.myPlayer.Is(CustomRoles.MadMayor) && Main.MadMayorUsedButtonCount.TryGetValue(__instance.myPlayer.PlayerId, out var Madcount) && Madcount >= Options.MadMayorNumOfUseButton.GetInt()) ||
                 (__instance.myPlayer.Is(CustomRoles.Jackal) && !Options.JackalCanVent.GetBool()) ||
                 (__instance.myPlayer.Is(CustomRoles.Hitman) && !Options.HitmanCanVent.GetBool()) ||
                 (__instance.myPlayer.Is(CustomRoles.Marksman) && !Options.MarksmanCanVent.GetBool()) ||

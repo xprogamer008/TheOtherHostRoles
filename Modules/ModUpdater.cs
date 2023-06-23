@@ -19,6 +19,7 @@ namespace TownOfHost
         private static string BetaBuildURL = "";
         // https://api.github.com/repos/music-discussion/TownOfHost-TheOtherRoles
         public static bool hasUpdate = false;
+        public static bool forceUpdate = false;
         public static bool isBroken = false;
         public static bool isChecked = false;
         public static Version latestVersion = null;
@@ -36,16 +37,8 @@ namespace TownOfHost
             InfoPopup.TextAreaTMP.GetComponent<RectTransform>().sizeDelta = new(2.5f, 2f);
             if (!isChecked)
             {
-                CheckRelease(BetaBuildURL != "").GetAwaiter().GetResult();
+                CheckRelease(ModUpdater.BetaBuildURL != "").GetAwaiter().GetResult();
             }
-            MainMenuManagerPatch.updateButton.SetActive(hasUpdate);
-            MainMenuManagerPatch.updateButton.transform.position = MainMenuManagerPatch.template.transform.position + new Vector3(0.25f, 0.75f);
-            __instance.StartCoroutine(Effects.Lerp(0.01f, new Action<float>((p) =>
-            {
-                MainMenuManagerPatch.updateButton.transform
-                    .GetChild(0).GetComponent<TMPro.TMP_Text>()
-                    .SetText($"{GetString("updateButton")}\n{latestTitle}");
-            })));
         }
         public static async Task<bool> CheckRelease(bool beta = false)
         {

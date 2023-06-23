@@ -133,6 +133,9 @@ namespace TownOfHost
         public static CustomOption MayorAdditionalVote;
         public static CustomOption MayorHasPortableButton;
         public static CustomOption MayorNumOfUseButton;
+        public static CustomOption MadMayorAdditionalVote;
+        public static CustomOption MadMayorHasPortableButton;
+        public static CustomOption MadMayorNumOfUseButton;
         public static CustomOption DoctorTaskCompletedBatteryCharge;
         public static CustomOption SnitchEnableTargetArrow;
         public static CustomOption SnitchCanGetArrowColor;
@@ -197,6 +200,10 @@ namespace TownOfHost
         public static CustomOption VultureArrow;
         public static CustomOption MediumArrow;
         public static CustomOption AmnesiacArrow;
+
+        // SHAPESHIFTER //
+        public static CustomOption ShiftCooldown;
+        public static CustomOption ShiftDuration;
 
         // COLOR WARS //
 
@@ -339,10 +346,6 @@ namespace TownOfHost
         public static CustomOption UnseeableDuration;
         public static CustomOption UnseeableCooldown;
 
-        // KNIGHT //
-        public static CustomOption knightcanVent;
-        public static CustomOption knightprotectDur;
-
         // SURVIVOR //
         public static CustomOption VestCD;
         public static CustomOption VestDuration;
@@ -408,6 +411,11 @@ namespace TownOfHost
         public static CustomOption TraitorCanSpawnIfCoven;
         public static CustomOption LaptopPercentages;
 
+        // WILDLING//
+        public static CustomOption WildlingKillCD;
+        public static CustomOption WildlingCanVent;
+        public static CustomOption WildlingProtectDuration;
+
         // PSYCHIC //
         public static CustomOption CkshowEvil;
         public static CustomOption NBshowEvil;
@@ -437,6 +445,10 @@ namespace TownOfHost
         public static CustomOption MayorVotesAppearBlack;
         public static CustomOption TOuRMayor;
         public static CustomOption MayorInitialVoteBank;
+        // MADMAYOR //
+        public static CustomOption MadMayorVotesAppearBlack;
+        public static CustomOption TOuRMadMayor;
+        public static CustomOption MadMayorInitialVoteBank;
         // Escort //
         public static CustomOption EscortCooldown;
         public static CustomOption EscortPreventsVent;
@@ -560,9 +572,15 @@ namespace TownOfHost
             SetupRoleOptions(1301, CustomRoles.Morphling, AmongUsExtensions.OptionType.Impostor);
             SetupRoleOptions(1302, CustomRoles.Mechanic, AmongUsExtensions.OptionType.Crewmate);
             SetupRoleOptions(1303, CustomRoles.Physicist, AmongUsExtensions.OptionType.Crewmate);
+            SetupRoleOptions(1306, CustomRoles.Shapeshifter, AmongUsExtensions.OptionType.Impostor);
+            ShiftCooldown = CustomOption.Create(130610, Color.white, "ShiftCooldown", AmongUsExtensions.OptionType.Impostor, 15f, 2.5f, 180f, 2.5f, CustomRoleSpawnChances[CustomRoles.Shapeshifter]);
+            ShiftDuration = CustomOption.Create(130611, Color.white, "ShiftDuration", AmongUsExtensions.OptionType.Impostor, 30f, 2.5f, 180f, 2.5f, CustomRoleSpawnChances[CustomRoles.Shapeshifter]);
             // Impostor
             BountyHunter.SetupCustomOption();
             SerialKiller.SetupCustomOption();
+            SetupRoleOptions(130609, CustomRoles.Wildling, AmongUsExtensions.OptionType.Impostor);
+            WildlingProtectDuration = CustomOption.Create(130612, Color.white, "ProtectDuration", AmongUsExtensions.OptionType.Impostor, 15, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Wildling]);
+            WildlingCanVent = CustomOption.Create(130613, Color.white, "CanVent", AmongUsExtensions.OptionType.Impostor, false, CustomRoleSpawnChances[CustomRoles.Wildling]);
             // SetupRoleOptions(1200, CustomRoles.ShapeMaster);
             // ShapeMasterShapeshiftDuration = CustomOption.Create(1210, Color.white, "ShapeMasterShapeshiftDuration", 10, 1, 1000, 1, CustomRoleSpawnChances[CustomRoles.ShapeMaster]);
             SetupRoleOptions(1300, CustomRoles.Vampire, AmongUsExtensions.OptionType.Impostor);
@@ -606,9 +624,6 @@ namespace TownOfHost
             PlayersForTraitor = CustomOption.Create(2040030, Color.white, "TraitorSpawn", AmongUsExtensions.OptionType.Impostor, 1, 0, 15, 1, CustomRoleSpawnChances[CustomRoles.CorruptedSheriff]);
             TraitorCanSpawnIfNK = CustomOption.Create(2040031, Color.white, "TraitorCanSpawnIfNK", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.CorruptedSheriff]);
             TraitorCanSpawnIfCoven = CustomOption.Create(2040032, Color.white, "TraitorCanSpawnIfCoven", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.CorruptedSheriff]);
-            SetupSingleRoleOptions(509000, CustomRoles.Knight, 1, AmongUsExtensions.OptionType.Impostor, locked: true);
-            BKcanVent = CustomOption.Create(09005, Color.white, "CanVent", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.Knight]);
-            BKprotectDur = CustomOption.Create(509011, Color.white, "BKdur", AmongUsExtensions.OptionType.Impostor, 15, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Knight]);
             SetupSingleRoleOptions(2600, CustomRoles.Swooper, 1, AmongUsExtensions.OptionType.Impostor);
             SwooperDuration = CustomOption.Create(260010, Color.white, "SwooperDuration", AmongUsExtensions.OptionType.Impostor, 30f, 2.5f, 60f, 2.5f, CustomRoleSpawnChances[CustomRoles.Swooper]);
             SwooperCooldown = CustomOption.Create(260011, Color.white, "SwooperCooldown", AmongUsExtensions.OptionType.Impostor, 15f, 2.5f, 60f, 2.5f, CustomRoleSpawnChances[CustomRoles.Swooper]);
@@ -627,6 +642,11 @@ namespace TownOfHost
             MadGuardianCanSeeWhoTriedToKill = CustomOption.Create(10110, Color.white, "MadGuardianCanSeeWhoTriedToKill", AmongUsExtensions.OptionType.Impostor, false, CustomRoleSpawnChances[CustomRoles.MadGuardian]);
             //ID10120~10123を使用
             MadGuardianTasks = OverrideTasksData.Create(10120, CustomRoles.MadGuardian, AmongUsExtensions.OptionType.Impostor);
+            SetupRoleOptions(20200, CustomRoles.MadMayor, AmongUsExtensions.OptionType.Impostor);
+            MadMayorAdditionalVote = CustomOption.Create(20210, Color.white, "MadMayorAdditionalVote", AmongUsExtensions.OptionType.Crewmate, 1, 1, 99, 1, CustomRoleSpawnChances[CustomRoles.MadMayor]);
+            MadMayorVotesAppearBlack = CustomOption.Create(20213, Color.white, "MadMayorVotesAppearBlack", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.MadMayor]);
+            MadMayorHasPortableButton = CustomOption.Create(20211, Color.white, "MadMayorHasPortableButton", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.MadMayor]);
+            MadMayorNumOfUseButton = CustomOption.Create(20212, Color.white, "MadMayorNumOfUseButton", AmongUsExtensions.OptionType.Crewmate, 1, 1, 99, 1, MadMayorHasPortableButton);
             SetupRoleOptions(205000, CustomRoles.CrewPostor, AmongUsExtensions.OptionType.Impostor);
             CrewPostorTasks = OverrideTasksData.Create(10121, CustomRoles.CrewPostor, AmongUsExtensions.OptionType.Neutral);
             SetupRoleOptions(10200, CustomRoles.MadSnitch, AmongUsExtensions.OptionType.Impostor);
@@ -677,7 +697,7 @@ namespace TownOfHost
             SetupRoleOptions(9920603, CustomRoles.Detective, AmongUsExtensions.OptionType.Crewmate);
             DetectiveArrow = CustomOption.Create(9920602, Color.white, "DetectiveHasArrow", AmongUsExtensions.OptionType.Neutral, false, CustomRoleSpawnChances[CustomRoles.Detective]);
             SetupRoleOptions(20100, CustomRoles.Lighter, AmongUsExtensions.OptionType.Crewmate);
-            SetupSingleRoleOptions(2600, CustomRoles.Transparent, 1, AmongUsExtensions.OptionType.Impostor);
+            SetupSingleRoleOptions(040808, CustomRoles.Transparent, 1, AmongUsExtensions.OptionType.Impostor);
             TransparentDuration = CustomOption.Create(260010, Color.white, "TransparentDuration", AmongUsExtensions.OptionType.Crewmate, 30f, 2.5f, 60f, 2.5f, CustomRoleSpawnChances[CustomRoles.Transparent]);
             TransparentCooldown = CustomOption.Create(260011, Color.white, "TransparentCooldown", AmongUsExtensions.OptionType.Crewmate, 15f, 2.5f, 60f, 2.5f, CustomRoleSpawnChances[CustomRoles.Transparent]);
             //TransparentCanVentInvis = CustomOption.Create(260012, Color.white, "TransparentCanVentInvis", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.Transparent]);
@@ -690,6 +710,7 @@ namespace TownOfHost
             MayorNumOfUseButton = CustomOption.Create(20212, Color.white, "MayorNumOfUseButton", AmongUsExtensions.OptionType.Crewmate, 1, 1, 99, 1, MayorHasPortableButton);
             SabotageMaster.SetupCustomOption();
             Sheriff.SetupCustomOption();
+            TimeTraveler.SetupCustomOption();
             Investigator.SetupCustomOption();
             SetupRoleOptions(99910100, CustomRoles.Tank, AmongUsExtensions.OptionType.Crewmate);
             TankCanSeeWhoTriedToKill = CustomOption.Create(99910110, Color.white, "TankCanSeeWhoTriedToKill", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.Tank]);
@@ -710,6 +731,7 @@ namespace TownOfHost
             MediumArrow = CustomOption.Create(6000021, Utils.GetRoleColor(CustomRoles.Target), "MediumHasArrow", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.Medium]);
             MediumCooldown = CustomOption.Create(6000022, Color.white, "MediumCooldown", AmongUsExtensions.OptionType.Crewmate, 30, 2.5f, 60, 2.5f, MediumArrow);
             MediumArrow.SetBroken(true);
+            SetupRoleOptions(826392, CustomRoles.Tracker, AmongUsExtensions.OptionType.Crewmate);
             SetupRoleOptions(20600, CustomRoles.SpeedBooster, AmongUsExtensions.OptionType.Crewmate);
             SpeedBoosterUpSpeed = CustomOption.Create(20610, Color.white, "SpeedBoosterUpSpeed", AmongUsExtensions.OptionType.Crewmate, 2f, 0.25f, 3f, 0.25f, CustomRoleSpawnChances[CustomRoles.SpeedBooster]);
             SetupRoleOptions(20700, CustomRoles.Doctor, AmongUsExtensions.OptionType.Crewmate);
@@ -884,6 +906,7 @@ namespace TownOfHost
 
             SetupSingleRoleOptions(200025, CustomRoles.Oblivious, 1, AmongUsExtensions.OptionType.Modifier);
             SetupSingleRoleOptions(200026, CustomRoles.DoubleShot, 1, AmongUsExtensions.OptionType.Modifier);
+            //   SetupSingleRoleOptions(2000666, CustomRoles.Guesser, 1, AmongUsExtensions.OptionType.Modifier);
             SetupSingleRoleOptions(200028, CustomRoles.Obvious, 1, AmongUsExtensions.OptionType.Modifier);
             SetupSingleRoleOptions(200035, CustomRoles.Flash, 1, AmongUsExtensions.OptionType.Modifier);
             FlashSpeed = CustomOption.Create(200305, Color.white, "SpeedBoosterUpSpeed", AmongUsExtensions.OptionType.Modifier, 2f, 0.25f, 3f, 0.25f, CustomRoleSpawnChances[CustomRoles.Flash]);

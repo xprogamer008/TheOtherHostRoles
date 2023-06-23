@@ -437,6 +437,10 @@ namespace TownOfHost
                 case CustomRoles.Warlock:
                     shapeshifterOptions.ShapeshifterCooldown = Main.isCursed ? 1f : Options.DefaultKillCooldown;
                     break;
+                case CustomRoles.Wildling:
+                    shapeshifterOptions.ShapeshifterCooldown = Options.ShiftCooldown.GetFloat() / 2;
+                    shapeshifterOptions.ShapeshifterDuration = Options.ShiftDuration.GetFloat() / 2;
+                    break;
                 case CustomRoles.SerialKiller:
                     SerialKiller.ApplyGameOptions(options);
                     break;
@@ -445,6 +449,9 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Escapist:
                     Escapist.ApplyGameOptions(player, options);
+                    break;
+                case CustomRoles.TimeTraveler:
+                    TimeTraveler.ApplyGameOptions(player, options);
                     break;
                 case CustomRoles.Bomber:
                     Bomber.ApplyGameOptions(player, options);
@@ -510,6 +517,13 @@ namespace TownOfHost
                 case CustomRoles.Mayor:
                     engineerOptions.EngineerCooldown =
                         Main.MayorUsedButtonCount.TryGetValue(player.PlayerId, out var count) && count < Options.MayorNumOfUseButton.GetInt()
+                        ? options.EmergencyCooldown
+                        : 300f;
+                    engineerOptions.EngineerInVentMaxTime = 1;
+                    break;
+                case CustomRoles.MadMayor:
+                    engineerOptions.EngineerCooldown =
+                        Main.MadMayorUsedButtonCount.TryGetValue(player.PlayerId, out var Madcount) && Madcount < Options.MadMayorNumOfUseButton.GetInt()
                         ? options.EmergencyCooldown
                         : 300f;
                     engineerOptions.EngineerInVentMaxTime = 1;

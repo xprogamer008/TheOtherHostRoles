@@ -108,6 +108,7 @@ namespace TownOfHost
             { CustomRoles.Vampire, RoleTypes.Impostor },
             //{ CustomRoles.ShapeMaster, RoleTypes.Shapeshifter },
             { CustomRoles.Madmate, RoleTypes.Engineer },
+            { CustomRoles.Wildling, RoleTypes.Shapeshifter},
             { CustomRoles.Terrorist, RoleTypes.Engineer },
             { CustomRoles.Mare, RoleTypes.Impostor },
             { CustomRoles.Painter, RoleTypes.Impostor },

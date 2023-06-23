@@ -47,8 +47,8 @@ namespace TownOfHost
             private static TMPro.TextMeshPro ErrorText;
             static void Postfix(VersionShower __instance)
             {
-                Main.credentialsText = $"\r\n<color={Main.modColor}>Town Of Roles</color>\r\n<color={Main.modColor}>v{Main.PluginVersion}b" + (Main.CachedDevMode ? Main.FullDevVersion : "") + $"</color>\r\nMod by: EXC4LIBUR\r\nHelp From: PUMPkin, Loonie";
-                Main.versionText = $"\r\nTown Of Roles v{Main.PluginVersion}b" + (Main.CachedDevMode ? Main.FullDevVersion : "") + $"\r\nMod by: EXC4LIBUR\r\nHelp From: PUMPkin gaming, Loonie";
+                Main.credentialsText = $"\r\n<color={Main.modColor}>Town Of Roles</color>\r\n<color={Main.modColor}>v{Main.PluginVersion}b";
+                Main.versionText = $"\r\nTown Of Roles v{Main.PluginVersion}b";
                 if (Main.NewYears)
                 {
                     Main.credentialsText += "\r\nHAPPY NEW YEAR!";
@@ -61,8 +61,8 @@ namespace TownOfHost
                 }
                 var credentials = UnityEngine.Object.Instantiate<TMPro.TextMeshPro>(__instance.text);
                 credentials.text = Main.credentialsText;
-                credentials.alignment = TMPro.TextAlignmentOptions.TopRight;
-                credentials.transform.position = new Vector3(4.3f, __instance.transform.localPosition.y + 0.3f, 0);
+                credentials.alignment = TMPro.TextAlignmentOptions.Right;
+                credentials.transform.position = new Vector3(1f, 2.65f, -2f);
 
                 if (Main.hasArgumentException && !Main.ExceptionMessageIsShown)
                 {
@@ -99,7 +99,7 @@ namespace TownOfHost
                 }
 
                 var tohLogo = new GameObject("tohtor-logo");
-                tohLogo.transform.position = Vector3.up;
+                tohLogo.transform.position = new Vector3(2.095f, -0.25f, 520f);
                 tohLogo.transform.localScale *= 1.2f;
                 var renderer = tohLogo.AddComponent<SpriteRenderer>();
                 renderer.sprite = Helpers.LoadSpriteFromResources("TownOfHost.Resources.tohtor-logo.png", 300f);

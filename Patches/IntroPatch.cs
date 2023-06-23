@@ -369,6 +369,7 @@ namespace TownOfHost
 
                 case CustomRoles.Mayor:
                 case CustomRoles.Dictator:
+                case CustomRoles.MadMayor:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = HudManager.Instance.Chat.MessageSound;
                     break;
                 case CustomRoles.Medium:

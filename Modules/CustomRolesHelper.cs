@@ -14,6 +14,7 @@ namespace TownOfHost
                 CustomRoles.BountyHunter or
                 CustomRoles.Vampire or
                 CustomRoles.Vampress or
+                CustomRoles.Wildling or
                 CustomRoles.Escapist or
                 CustomRoles.Creeper or
                 CustomRoles.Witch or
@@ -33,7 +34,6 @@ namespace TownOfHost
                 CustomRoles.Manipulator or
                 CustomRoles.Sniper or
                 CustomRoles.Swooper or
-                CustomRoles.Knight or
                 CustomRoles.Camouflager or
                 CustomRoles.VoteStealer or
                 CustomRoles.YingYanger or
@@ -54,6 +54,7 @@ namespace TownOfHost
                 CustomRoles.SKMadmate or
                 CustomRoles.MadGuardian or
                 CustomRoles.MadSnitch or
+                CustomRoles.MadMayor or
                 CustomRoles.Parasite or
                 CustomRoles.MSchrodingerCat;
         }
@@ -175,6 +176,8 @@ namespace TownOfHost
                 role is CustomRoles.Jester or
                 CustomRoles.Terrorist or
                 CustomRoles.Transparent or
+                CustomRoles.Dracula or
+                CustomRoles.Werewolf or
                 CustomRoles.GuardianAngelTOU;
         }
         public static bool IsNeutralKilling(this CustomRoles role)
@@ -403,6 +406,7 @@ namespace TownOfHost
                 CustomRoles.Warlock or
                 CustomRoles.SerialKiller or
                 CustomRoles.Morphling or
+                CustomRoles.Wildling or
                 CustomRoles.FireWorks or
                 CustomRoles.Sniper or
                 CustomRoles.Consort or
@@ -423,14 +427,18 @@ namespace TownOfHost
                 CustomRoles.Miner or
                 CustomRoles.Escapist or
                 CustomRoles.TheGlitch or
+                CustomRoles.Werewolf or
+                CustomRoles.TimeTraveler or
                 CustomRoles.Transporter;
         }
         public static bool IsEngineer(this CustomRoles role)
         {
             if (Options.JesterCanVent.GetBool() && role == CustomRoles.Jester) return true;
+            if (TimeTraveler.TimeTravelerCanVent.GetBool() && role == CustomRoles.TimeTraveler) return true;
             if (Options.VultureCanVent.GetBool() && role == CustomRoles.Vulture) return true;
             if (Options.MadSnitchCanVent.GetBool() && role == CustomRoles.MadSnitch) return true;
             if (Options.MayorHasPortableButton.GetBool() && role == CustomRoles.Mayor) return true;
+            if (Options.MadMayorHasPortableButton.GetBool() && role == CustomRoles.MadMayor) return true;
             if (Options.MediumArrow.GetBool() && role == CustomRoles.Medium) return true;
             // VENT INSTEAD OF PET
             return

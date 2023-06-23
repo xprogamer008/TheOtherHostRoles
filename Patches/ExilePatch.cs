@@ -188,6 +188,8 @@ namespace TownOfHost
                     pc.ResetKillCooldown(meeting: true);
                     if (Options.MayorHasPortableButton.GetBool() && pc.Is(CustomRoles.Mayor))
                         pc.RpcResetAbilityCooldown();
+                    if (Options.MadMayorHasPortableButton.GetBool() && pc.Is(CustomRoles.MadMayor))
+                        pc.RpcResetAbilityCooldown();
                     if (pc.Is(CustomRoles.Veteran))
                         pc.RpcResetAbilityCooldown();
                     if (pc.Is(CustomRoles.Warlock))
@@ -320,6 +322,7 @@ namespace TownOfHost
                 Main.GazeReady = false;
                 Main.WitchesThisRound = 0;
                 Main.bkProtected = false;
+                Main.WildlingProtected = false;
                 Main.VetIsAlerted = false;
                 Main.VetCanAlert = false;
                 MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetVetAlertState, Hazel.SendOption.Reliable, -1);
