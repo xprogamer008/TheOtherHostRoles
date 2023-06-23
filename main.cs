@@ -38,6 +38,8 @@ namespace TownOfHost
         public static bool hasArgumentException = false;
         public static string ExceptionMessage;
         public static bool ExceptionMessageIsShown = false;
+        public static readonly bool ShowQQButton = true;
+        public static readonly string QQInviteUrl = "https://jq.qq.com/?_wv=1027&k=2RpigaN6";
         public static bool CachedDevMode = false;
         public static string credentialsText;
         public static string versionText;
@@ -46,6 +48,7 @@ namespace TownOfHost
         public static ConfigEntry<string> HideColor { get; private set; }
         public static ConfigEntry<bool> ForceJapanese { get; private set; }
         public static ConfigEntry<bool> JapaneseRoleName { get; private set; }
+        public static ConfigEntry<bool> UnlockFPS { get; private set; }
         public static ConfigEntry<bool> AmDebugger { get; private set; }
         public static ConfigEntry<string> ShowPopUpVersion { get; private set; }
         public static ConfigEntry<float> MessageWait { get; private set; }
@@ -90,6 +93,7 @@ namespace TownOfHost
         public static bool Grenaiding = false;
         public static bool ResetVision = false;
         public static bool IsInvis = false;
+        public static bool IsAprilFools = DateTime.Now.Month == 4 && DateTime.Now.Day is 1;
 
         public static Dictionary<byte, CustomRoles> HasModifier = new();
         public static List<CustomRoles> modifiersList = new();
@@ -121,6 +125,7 @@ namespace TownOfHost
         public static Dictionary<byte, byte> CurrentTarget = new(); //Key : Player, Value : Target
         public static Dictionary<byte, byte> SpeedBoostTarget = new();
         public static Dictionary<byte, int> MayorUsedButtonCount = new();
+        public static Dictionary<byte, int> MadMayorUsedButtonCount = new();
         public static Dictionary<byte, int> HackerFixedSaboCount = new();
         public static Dictionary<byte, Vent> LastEnteredVent = new();
         public static Dictionary<byte, Vent> CurrentEnterdVent = new();
@@ -165,10 +170,12 @@ namespace TownOfHost
         public static string nickName = "";
         public static bool introDestroyed = false;
         public static bool bkProtected = false;
+        public static bool WildlingProtected = false;
         public static bool devIsHost = false;
         public static int DiscussionTime;
         public static int VotingTime;
         public static int JugKillAmounts;
+        public static int TrackerArrow;
         public static int AteBodies;
         public static byte currentDousingTarget;
         public static byte currentFreezingTarget;
@@ -281,6 +288,7 @@ namespace TownOfHost
         public static Sprite MinerSprite;
         public static Sprite TargetSprite;
         public static Sprite AssassinateSprite;
+        public static Sprite SwoopSprite;
         public static int WitchesThisRound = 0;
         public static string LastWinner = "None";
 
@@ -352,6 +360,7 @@ namespace TownOfHost
             GuardianAngelTarget = new Dictionary<byte, byte>();
             LawyerTarget = new Dictionary<byte, byte>();
             MayorUsedButtonCount = new Dictionary<byte, int>();
+            MadMayorUsedButtonCount = new Dictionary<byte, int>();
             HackerFixedSaboCount = new Dictionary<byte, int>();
             LastEnteredVent = new Dictionary<byte, Vent>();
             CurrentEnterdVent = new Dictionary<byte, Vent>();
@@ -447,6 +456,7 @@ namespace TownOfHost
             MinerSprite = Helpers.LoadSpriteFromResourcesTOR("TownOfHost.Resources.Mine.png", 100f);
             TargetSprite = Helpers.LoadSpriteFromResourcesTOR("TownOfHost.Resources.NinjaMarkButton.png", 100f);
             AssassinateSprite = Helpers.LoadSpriteFromResourcesTOR("TownOfHost.Resources.NinjaAssassinateButton.png", 100f);
+            SwoopSprite = Helpers.LoadSpriteFromResourcesTOR("TownOfHost.Resources.Swoop.png", 100f);
 
             // OTHER//
 
@@ -513,7 +523,9 @@ namespace TownOfHost
                     { CustomRoles.Trapper, "#5a8fd0"},
                     { CustomRoles.Dictator, "#df9b00"},
                     { CustomRoles.Detective, "#4D4DFF"},
-                    { CustomRoles.Transparent, "#80ffdd"},
+                    { CustomRoles.Tracker, "#642aeb"},
+                    { CustomRoles.Transparent, "#80FFDD"},
+                    { CustomRoles.TimeTraveler, "#86EE75"},
                     { CustomRoles.Sleuth, "#803333"},
                     { CustomRoles.Crusader, "#c65c39"},
                     { CustomRoles.Escort, "#ffb9eb"},
@@ -571,6 +583,7 @@ namespace TownOfHost
                     { CustomRoles.Obvious, "#D3D3D3"},
                     { CustomRoles.Escalation, "#FFB34D"},
                     { CustomRoles.Soulhandler, "#663399"},
+                    { CustomRoles.Guesser, "#FFFF00"},
 
                     { CustomRoles.Coven, "#bd5dfd"},
                     { CustomRoles.Veteran, "#998040"},
@@ -848,7 +861,9 @@ namespace TownOfHost
                     { CustomRoles.Dictator, DefenseEnum.None},
                     { CustomRoles.Sleuth ,DefenseEnum.None},
                     { CustomRoles.Detective ,DefenseEnum.None},
+                    { CustomRoles.Tracker, DefenseEnum.None},
                     { CustomRoles.Transparent, DefenseEnum.None},
+                    { CustomRoles.TimeTraveler, DefenseEnum.None},
                     { CustomRoles.Crusader, DefenseEnum.None},
                     { CustomRoles.Escort, DefenseEnum.None},
                     { CustomRoles.PlagueBearer, DefenseEnum.None},
@@ -1021,7 +1036,6 @@ namespace TownOfHost
         Mafia,
         SerialKiller,
         Escapist,
-        Knight,
         //ShapeMaster,
         Sniper,
         Vampire,
@@ -1035,6 +1049,7 @@ namespace TownOfHost
         Grenadier,
         Disperser,
         Puppeteer,
+        Wildling,
         // EVENT WINNING ROLES
         IdentityTheft,
         Manipulator,
@@ -1055,6 +1070,7 @@ namespace TownOfHost
         MadGuardian,
         Madmate,
         MadSnitch,
+        MadMayor,
         CrewPostor,
         CorruptedSheriff,
         SKMadmate,
@@ -1088,7 +1104,9 @@ namespace TownOfHost
         Oracle,
         Medic,
         Detective,
+        Tracker,
         Transparent,
+        TimeTraveler,
         Bodyguard,
         Sheriff,
         Investigator,
@@ -1182,6 +1200,7 @@ namespace TownOfHost
         Obvious,
         DoubleShot,
         Soulhandler,
+        Guesser,
 
         // CREW MODIFIERS //
         Bewilder, // DONE
