@@ -48,6 +48,8 @@ New Crewmate Roles:
 - Added Time Traveler
 - Added Tank
 - Added Tracker
+- Added Cursed
+- Added Marshall
 
 New Neutral Roles:
 
@@ -184,9 +186,9 @@ Below is an example:
 | [Traitor](#traitor)                 | [Detective](#detective)           |                                   |                                 |                                |                            |
 | [Assassin](#guesser)                | [Tank](#tank)                     |                                   |                                 |                                |                            |
 | [Parasite](#parasite)               | [Transparent](#transparent)       |                                   |                                 |                                |                            |
-| [Miner](#miner)                     | [Time Traveler](#Time-Traveler)   |                                   |                                 |                                |							  |
-| [Grenadier](#grenadier)             |                                   |                                   |                                 |                                |							  |
-| [a Yanger](#ying-yanger)			  |                                   |                                   |                                 |                                |							  |
+| [Miner](#miner)                     | [Time Traveler](#Time-Traveler)	  |                                   |                                 |                                |							  |
+| [Grenadier](#grenadier)             | [Cursed](#cursed)	              |                                   |                                 |                                |							  |
+| [a Yanger](#ying-yanger)			  | [Marshall](#marshall)             |                                   |                                 |                                |							  |
 | [Pickpocket](#pickpocket)           |                                   |                                   |                                 |                                |							  |
 | [Cleaner](#cleaner)                 |                                   |                                   |                                 |                                |							  |
 | [Freezer](#freezer)				  |                                   |                                   |                                 |                                |							  |
@@ -939,6 +941,28 @@ Basis : Crewmate<br>
 
 The Tracker is able to track bodies.<br>
 He will have a arrow under his name and he will be able to track every body that isn't cleaned by the cleaner or eaten by the vulture.<br>
+
+### Cursed
+
+Created by EXC4LIBUR<br>
+  
+Team : Crewmates<br>
+Basis : Crewmate<br>
+
+The Cursed is Crewmate wich has a curse on it self.<br>
+If the Cursed Reports a body till his time is not up he will be able to report normaly.<br>
+but if he takes to long to report a body, he will instead make the body unreportablefor everyone.<br>
+
+### Marshall
+  
+Create and idea by Loonie<br>
+  
+Team : Crewmates<br>
+Basis : Crewmate<br>
+
+The Marshall is a crewmate that, on task completion, is revealed to all crewmates.<br>
+Impostors and neutrals cannot see the revealed Marshall.<br>
+Optionally, Madmates can see the revealed Marshall.<br>
 
 ## Neutral
 
