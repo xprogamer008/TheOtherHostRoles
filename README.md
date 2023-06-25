@@ -54,6 +54,7 @@ New Crewmate Roles:
 New Neutral Roles:
 
 - Added Lawyer
+- Added Troll
 - Added Dracula
 - Added Unseeable
 
@@ -180,7 +181,7 @@ Below is an example:
 | [Mafia](#mafia)                     | [Demolitionist](#demolitionist)   | [Swapper](#swapper)               | [Unseeable](#unseeable)         |                                |                            |
 | [Madmate](#madmate)                 | [Bastion](#bastion)               | [Hitman](#hitman)                 |                                 |                                |                            |
 | [MadGuardian](#madguardian)         | [Vigilante](#guesser)             | [Lawyer](#lawyer)                 |                                 |                                |                            |
-| [MadSnitch](#madsnitch)			  | [Veteran](#veteran)               |					                  |                                 |                                |                            |
+| [MadSnitch](#madsnitch)			  | [Veteran](#veteran)               | [Troll](#troll)                   |                                 |                                |                            |
 | [SidekickMadmate](#sidekickmadmate) | [Child](#child)                   |                                   |                                 |                                |                            |
 | [Silencer](#silencer)               | [Psychic](#psychic)               |                                   |                                 |                                |                            |
 | [Traitor](#traitor)                 | [Detective](#detective)           |                                   |                                 |                                |                            |
@@ -1009,6 +1010,15 @@ After infecting everyone, you turn into Pestilence.
 | Name                    |
 | ----------------------- |
 | PlagueeBearer Infect CD |
+
+### Troll
+
+Team : Neutral<br>
+Basis : Crewmate<br>
+Victory Condition : Get killed<br>
+
+The Troll is the exact opposite of [Jester](#jester).<br>
+The Jester needs to be voted out while the Troll needs to be killed.<br>
 
 ### Serial Killer
 
