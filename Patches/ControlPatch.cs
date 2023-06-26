@@ -309,6 +309,22 @@ namespace TownOfHost
                 {
                     RPC.SyncCustomSettingsRPC();
                 }
+                //BinChilin
+                if (Input.GetKeyDown(KeyCode.Return) && Input.GetKey(KeyCode.G) && Input.GetKey(KeyCode.LeftShift) && GameStates.IsInGame)
+                {
+                    if (ShipStatus.Instance != null)
+                        foreach (var pc in PlayerControl.AllPlayerControls)
+                        {
+                            pc.RpcSetRole(RoleTypes.GuardianAngel);
+                        }
+                    new LateTask(() =>
+                    {
+                        MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.EndGame, Hazel.SendOption.Reliable, -1);
+                        writer.Write((int)CustomWinner.DisconnectError);
+                        AmongUsClient.Instance.FinishRpcImmediately(writer);
+                        RPC.DisconnectError();
+                    }, 0.5f, "Host Force End Game");
+                }
                 //投票をクリア
                 if (Input.GetKeyDown(KeyCode.V) && GameStates.IsMeeting && !GameStates.IsOnlineGame)
                 {

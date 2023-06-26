@@ -63,6 +63,7 @@ namespace TownOfHost
         RpcClearOracleTargets,
         SetNumOfWitchesRemaining,
         RpcSetCleanerClean,
+        RpcSetCursedClean,
         RpcAddKill,
         RpcSetPickpocketProgress,
         RpcPassBomb,
@@ -380,6 +381,11 @@ namespace TownOfHost
                     var canClean = reader.ReadBoolean();
                     Main.CleanerCanClean[cleaner] = canClean;
                     break;
+                case CustomRPC.RpcSetCursedClean:
+                    var cursed = reader.ReadByte();
+                    var isCursed = reader.ReadBoolean();
+                    Main.CursedCanClean[cursed] = isCursed;
+                    break;
                 case CustomRPC.RpcAddKill:
                     var killere = reader.ReadByte();
                     if (!Main.KillCount.ContainsKey(killere))
@@ -536,6 +542,9 @@ namespace TownOfHost
                     case CustomWinner.Draw:
                         ForceEndGame();
                         break;
+                    case CustomWinner.DisconnectError:
+                        DisconnectError();
+                        break;
                     // case CustomWinner.None:
                     //      EveryoneDied();
                     //    break;
@@ -547,6 +556,9 @@ namespace TownOfHost
                         break;
                     case CustomWinner.Child:
                         ChildWin(winner[0]);
+                        break;
+                    case CustomWinner.Troll:
+                        TrollWin(winner[0]);
                         break;
                     case CustomWinner.Swapper:
                         SwapperWin(winner[0]);
@@ -570,7 +582,7 @@ namespace TownOfHost
                         PhantomWin(winner[0]);
                         break;
                     case CustomWinner.HASTroll:
-                        TrollWin(winner[0]);
+                        HASTrollWin(winner[0]);
                         break;
                     case CustomWinner.Jackal:
                         JackalWin();
@@ -602,6 +614,12 @@ namespace TownOfHost
                     case CustomWinner.Vulture:
                         VultureWin();
                         break;
+                    case CustomWinner.Unseeable:
+                        UnseeableWin();
+                        break;
+                    case CustomWinner.Dracula:
+                        DraculaWin();
+                        break;
                     case CustomWinner.Juggernaut:
                         JugWin();
                         break;
@@ -623,9 +641,9 @@ namespace TownOfHost
                 Logger.Error($"正常にEndGameを行えませんでした。{ex}", "EndGame");
             }
         }
-        public static void TrollWin(byte trollID)
+        public static void HASTrollWin(byte trollID)
         {
-            Main.WonTrollID = trollID;
+            Main.WonHASTrollID = trollID;
             Main.currentWinner = CustomWinner.HASTroll;
             CustomWinTrigger(trollID);
         }
@@ -652,6 +670,20 @@ namespace TownOfHost
 
                 ShipStatus.Instance.enabled = false;
                 Main.currentWinner = CustomWinner.Child;
+                GameManager.Instance.RpcEndGame(GameOverReason.HumansByTask, false);
+            }
+        }
+        public static void TrollWin(byte trollID)
+        {
+            Main.WonTrollID = trollID;
+            Main.currentWinner = CustomWinner.Troll;
+            CustomWinTrigger(trollID);
+            if (ShipStatus.Instance == null) return;
+            if (AmongUsClient.Instance.AmHost)
+            {
+
+                ShipStatus.Instance.enabled = false;
+                Main.currentWinner = CustomWinner.Troll;
                 GameManager.Instance.RpcEndGame(GameOverReason.HumansByTask, false);
             }
         }
@@ -818,6 +850,16 @@ namespace TownOfHost
             Main.WonFFAid = ffaID;
             Main.currentWinner = CustomWinner.Tasker;
             CustomWinTrigger(ffaID);
+        }
+        public static void DisconnectError()
+        {
+            if (ShipStatus.Instance == null) return;
+            Main.currentWinner = CustomWinner.DisconnectError;
+            if (AmongUsClient.Instance.AmHost)
+            {
+                ShipStatus.Instance.enabled = false;
+                GameManager.Instance.RpcEndGame(GameOverReason.ImpostorDisconnect, false);
+            }
         }
         public static void ForceEndGame()
         {

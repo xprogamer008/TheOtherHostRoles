@@ -144,8 +144,11 @@ namespace TownOfHost
                 case CustomRoles.Cleaner:
                     __instance.ReportButton.OverrideText("CLEAN");
                     break;
+                case CustomRoles.Cursed:
+                    __instance.ReportButton.OverrideText("CURSED");
+                    break;
                 case CustomRoles.Warlock:
-                    if (!Main.CheckShapeshift[player.PlayerId])
+                        if (!Main.CheckShapeshift[player.PlayerId])
                     {
                         __instance.KillButton.OverrideText($"{GetString("WarlockCurseButtonText")}");
                     }
@@ -327,13 +330,13 @@ namespace TownOfHost
                     LowerInfoText.text = "Is Swooping: " + ModeLang;
                     LowerInfoText.text += "\nCan Swoop: " + ReadyLang;
                 }
-                else if (player.Is(CustomRoles.Unseeable))
+                /*else if (player.Is(CustomRoles.Unseeable))
                 {
                     var ModeLang = Main.IsInvis ? "Yes" : "No";
                     var ReadyLang = Main.CanGoInvis ? "Yes" : "No";
                     LowerInfoText.text = "Unseeable: " + ModeLang;
                     LowerInfoText.text += "\nInvisibility is Ready: " + ReadyLang;
-                }
+                } */
                 else if (player.Is(CustomRoles.Transparent))
                 {
                     var ModeLang = Main.IsInvis ? "Yes" : "No";
@@ -351,6 +354,11 @@ namespace TownOfHost
                 {
                     var ModeLang = Main.CleanerCanClean[player.PlayerId] ? "Yes" : "No";
                     LowerInfoText.text = "Cleaner Can Clean: " + ModeLang;
+                }
+                else if (player.Is(CustomRoles.Cursed))
+                {
+                    var ModeLang = Main.CursedCanClean[player.PlayerId] ? "Yes" : "No";
+                    LowerInfoText.text = "Cursed is Cursed: " + ModeLang;
                 }
                 else
                 {

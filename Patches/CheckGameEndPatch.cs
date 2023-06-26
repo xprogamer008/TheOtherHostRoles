@@ -75,6 +75,7 @@ namespace TownOfHost
                     if (CheckAndEndGameForCrewmateWin(instance, statistics)) return false;
                     if (CheckAndEndGameForJuggyWin(instance, statistics)) return false;
                     if (CheckAndEndGameForCovenWin(instance, statistics)) return false;
+                    if (CheckAndEndGameForUnseeableWin(instance, statistics)) return false;
                     if (CheckAndEndGameForWolfWin(instance, statistics)) return false;
                     if (CheckAndEndGameForAgitater(instance, statistics)) return false;
                     if (CheckAndEndGameForGlitchWin(instance, statistics)) return false;
@@ -779,7 +780,7 @@ namespace TownOfHost
             }
             return false;
         }
-        private static bool CheckAndEndGameForUnseeable(ShipStatus __instance, PlayerStatistics statistics)
+        private static bool CheckAndEndGameForUnseeableWin(ShipStatus __instance, PlayerStatistics statistics)
         {
             if (statistics.TeamUnseeableAlive >= statistics.TotalAlive - statistics.TeamUnseeableAlive &&
                 statistics.TeamImpostorsAlive <= 0 && statistics.TeamMarksAlive <= 0 && statistics.TeamJuggernautAlive <= 0 && statistics.TeamPestiAlive <= 0 && statistics.TeamJackalAlive <= 0 && statistics.TeamAgiAlive <= 0 && statistics.TeamDraculaAlive <= 0

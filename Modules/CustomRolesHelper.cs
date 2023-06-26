@@ -63,6 +63,7 @@ namespace TownOfHost
         {
             return
                 role is CustomRoles.Jester or
+                CustomRoles.Troll or
                 CustomRoles.Vulture or
                 CustomRoles.Opportunist or
                 CustomRoles.Survivor or
@@ -105,6 +106,7 @@ namespace TownOfHost
                 CustomRoles.MMSchrodingerCat or
                 CustomRoles.PesSchrodingerCat or
                 CustomRoles.WWSchrodingerCat or
+                CustomRoles.DRSchrodingerCat or   
                 CustomRoles.TGSchrodingerCat;
         }
         public static bool IsNeutralBad(this CustomRoles role)
@@ -142,12 +144,14 @@ namespace TownOfHost
                 CustomRoles.MMSchrodingerCat or
                 CustomRoles.PesSchrodingerCat or
                 CustomRoles.WWSchrodingerCat or
+                CustomRoles.DRSchrodingerCat or
                 CustomRoles.TGSchrodingerCat;
         }
         public static bool IsNonNk(this CustomRoles role)
         {
             return
                 role is CustomRoles.Jester or
+                CustomRoles.Troll or
                 CustomRoles.Vulture or
                 CustomRoles.Opportunist or
                 CustomRoles.Survivor or
@@ -177,6 +181,7 @@ namespace TownOfHost
                 CustomRoles.Terrorist or
                 CustomRoles.Transparent or
                 CustomRoles.Dracula or
+                CustomRoles.Unseeable or
                 CustomRoles.Werewolf or
                 CustomRoles.GuardianAngelTOU;
         }
@@ -406,7 +411,6 @@ namespace TownOfHost
                 CustomRoles.Warlock or
                 CustomRoles.SerialKiller or
                 CustomRoles.Morphling or
-                CustomRoles.Wildling or
                 CustomRoles.FireWorks or
                 CustomRoles.Sniper or
                 CustomRoles.Consort or
@@ -440,6 +444,7 @@ namespace TownOfHost
             if (Options.MayorHasPortableButton.GetBool() && role == CustomRoles.Mayor) return true;
             if (Options.MadMayorHasPortableButton.GetBool() && role == CustomRoles.MadMayor) return true;
             if (Options.MediumArrow.GetBool() && role == CustomRoles.Medium) return true;
+            if (SabotageMaster.SabotageMasterCanVent.GetBool() && role == CustomRoles.SabotageMaster) return true;
             // VENT INSTEAD OF PET
             return
                 role is CustomRoles.Engineer or

@@ -191,6 +191,14 @@ namespace TownOfHost
                     if (CustomRolesHelper.IsCoven(p.GetCustomRole())) winner.Add(p);
                 }
             }
+            if (Main.currentWinner == CustomWinner.DisconnectError)
+            {
+                winner = new List<PlayerControl>();
+                foreach (var p in PlayerControl.AllPlayerControls)
+                {
+                    winner.Add(p);
+                }
+            }
 
             //廃村時の処理など
             if (endGameResult.GameOverReason == GameOverReason.HumansDisconnect ||
@@ -281,6 +289,17 @@ namespace TownOfHost
                     }
                 }
             }
+            if (Main.currentWinner == CustomWinner.Troll && CustomRoles.Troll.IsEnable())
+            {
+                winner = new();
+                foreach (var p in PlayerControl.AllPlayerControls)
+                {
+                    if (p.PlayerId == Main.WonTrollID)
+                    {
+                        winner.Add(p);
+                    }
+                }
+            }
             if (Main.currentWinner == CustomWinner.Arsonist && CustomRoles.Arsonist.IsEnable())
             {
                 winner = new();
@@ -299,7 +318,7 @@ namespace TownOfHost
             var winnerIDs = new List<byte>();
             foreach (var pc in PlayerControl.AllPlayerControls)
             {
-                if (pc.Is(CustomRoles.Opportunist) && !pc.Data.IsDead | Main.AliveAtTheEndOfTheRound.Contains(pc.PlayerId) && Main.currentWinner != CustomWinner.Draw && Main.currentWinner != CustomWinner.Terrorist && Main.currentWinner != CustomWinner.Child && Main.currentWinner != CustomWinner.Jester && Main.currentWinner != CustomWinner.Executioner && Main.currentWinner != CustomWinner.Swapper)
+                if (pc.Is(CustomRoles.Opportunist) && !pc.Data.IsDead | Main.AliveAtTheEndOfTheRound.Contains(pc.PlayerId) && Main.currentWinner != CustomWinner.Draw && Main.currentWinner != CustomWinner.Terrorist && Main.currentWinner != CustomWinner.Child && Main.currentWinner != CustomWinner.Troll && Main.currentWinner != CustomWinner.Jester && Main.currentWinner != CustomWinner.Executioner && Main.currentWinner != CustomWinner.Swapper)
                 {
                     winner.Add(pc);
                     Main.additionalwinners.Add(AdditionalWinners.Opportunist);
@@ -510,6 +529,13 @@ namespace TownOfHost
                     textRenderer.text = GetString("ForceEndText");
                     textRenderer.color = Color.gray;
                     break;
+                case CustomWinner.DisconnectError:
+                    __instance.WinText.text = $"Player Disconnected\nBy Error";
+                    //    __instance.WinText.color = Color.white;
+                    __instance.BackgroundBar.material.color = Utils.GetRoleColor(CustomRoles.Impostor);
+                    textRenderer.text = "Game force ended to prevent black screens";
+                    //    textRenderer.color = Utils.GetRoleColor(CustomRoles.Marshall);
+                    break;
             }
 
             foreach (var additionalwinners in Main.additionalwinners)
@@ -517,7 +543,7 @@ namespace TownOfHost
                 var addWinnerRole = (CustomRoles)additionalwinners;
                 AdditionalWinnerText += "＆" + Helpers.ColorString(Utils.GetRoleColor(addWinnerRole), Utils.GetRoleName(addWinnerRole));
             }
-            if (Main.currentWinner != CustomWinner.Draw /*&& Main.currentWinner != CustomWinner.None*/)
+            if (Main.currentWinner != CustomWinner.Draw && Main.currentWinner != CustomWinner.DisconnectError /*&& Main.currentWinner != CustomWinner.None*/)
             {
                 textRenderer.text = $"<color={CustomWinnerColor}>{CustomWinnerText}{AdditionalWinnerText}{GetString("Win")}</color>";
             }

@@ -174,6 +174,7 @@ namespace TownOfHost
                 Main.bkProtected = false;
                 Main.WildlingProtected = false;
                 Main.CleanerCanClean = new Dictionary<byte, bool>();
+                Main.CursedCanClean = new Dictionary<byte, bool>();
                 Main.bombedVents = new List<int>();
                 Logger.Msg("Game Starting. Resetting vars (4/4)", "Load Check (CoStartGame)");
                 if (CustomRoles.Transporter.IsEnable())
@@ -458,6 +459,9 @@ namespace TownOfHost
                     {
                         if (RoleGoingInList(CustomRoles.Jester))
                             rolesChosenNon.Add(CustomRoles.Jester);
+
+                        if (RoleGoingInList(CustomRoles.Troll))
+                            rolesChosenNon.Add(CustomRoles.Troll);
 
                         if (RoleGoingInList(CustomRoles.Survivor))
                             rolesChosenNon.Add(CustomRoles.Survivor);
@@ -1115,6 +1119,13 @@ namespace TownOfHost
                                 writer.Write(true);
                                 AmongUsClient.Instance.FinishRpcImmediately(writer);
                                 break;
+                            case CustomRoles.Cursed:
+                                Main.CursedCanClean.Add(pc.PlayerId, true);
+                                MessageWriter writerC = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.RpcSetCursedClean, Hazel.SendOption.Reliable, -1);
+                                writerC.Write(pc.PlayerId);
+                                writerC.Write(true);
+                                AmongUsClient.Instance.FinishRpcImmediately(writerC);
+                                break;
                             case CustomRoles.Swapper:
                             case CustomRoles.Executioner:
                                 List<PlayerControl> targetList = new();
@@ -1523,6 +1534,7 @@ namespace TownOfHost
             foreach (var player in PlayerControl.AllPlayerControls)
             {
                 if (player.Is(CustomRoles.Child)) continue;
+                if (player.Is(CustomRoles.Troll)) continue;
                 if (player.Is(CustomRoles.Phantom)) continue;
                 if (player.Is(CustomRoles.GM)) continue;
                 if (Main.HasModifier.ContainsKey(player.PlayerId)) continue;
@@ -1594,12 +1606,12 @@ namespace TownOfHost
                     switch (role)
                     {
                         case CustomRoles.Sleuth:
-                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Amnesiac or CustomRoles.Detective or CustomRoles.Vulture or CustomRoles.Cleaner) continue;
+                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Amnesiac or CustomRoles.Detective or CustomRoles.Vulture or CustomRoles.Cleaner or CustomRoles.Cursed) continue;
                             break;
                         case CustomRoles.TieBreaker:
                             break;
                         case CustomRoles.Oblivious:
-                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Tracker or CustomRoles.Detective or CustomRoles.Amnesiac or CustomRoles.Vulture or CustomRoles.Cleaner) continue;
+                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Tracker or CustomRoles.Detective or CustomRoles.Amnesiac or CustomRoles.Vulture or CustomRoles.Cleaner or CustomRoles.Cursed) continue;
                             break;
                         case CustomRoles.Escalation:
                         case CustomRoles.Flash:

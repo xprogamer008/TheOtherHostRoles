@@ -1066,6 +1066,7 @@ namespace TownOfHost
             if (killer.Is(CustomRoles.Marksman) && target.Is(CustomRoles.MMSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Pestilence) && target.Is(CustomRoles.PesSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Werewolf) && target.Is(CustomRoles.WWSchrodingerCat)) return true;
+            if (killer.Is(CustomRoles.Dracula) && target.Is(CustomRoles.DRSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.TheGlitch) && target.Is(CustomRoles.TGSchrodingerCat)) return true;
             return false;
         }
@@ -1577,7 +1578,7 @@ namespace TownOfHost
                     player.Data.Role.CanVent = true;
                     return;
                 case CustomRoles.Unseeable:
-                    //    bool Unseeable_CanUse = true;
+                    //   bool Unseeable_CanUse = true;
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(true && !player.Data.IsDead);
                     player.Data.Role.CanVent = true;
                     return;

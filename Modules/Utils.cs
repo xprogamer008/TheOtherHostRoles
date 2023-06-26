@@ -261,6 +261,7 @@ namespace TownOfHost
                 {
                     if (cRole == CustomRoles.GM) hasTasks = false;
                     if (cRole == CustomRoles.Jester) hasTasks = false;
+                    if (cRole == CustomRoles.Troll) hasTasks = false;
                     if (cRole == CustomRoles.MadGuardian && ForRecompute) hasTasks = false;
                     if (cRole == CustomRoles.MadSnitch && ForRecompute) hasTasks = false;
                     if (cRole == CustomRoles.Opportunist) hasTasks = false;
@@ -279,6 +280,7 @@ namespace TownOfHost
                     if (cRole == CustomRoles.Impostor) hasTasks = false;
                     if (cRole == CustomRoles.Dracula) hasTasks = false;
                     if (cRole == CustomRoles.Unseeable) hasTasks = false;
+                    if (cRole == CustomRoles.MadMayor) hasTasks = false;
                     if (cRole == CustomRoles.Shapeshifter) hasTasks = false;
                     if (cRole == CustomRoles.AgiTater) hasTasks = false;
                     if (cRole == CustomRoles.Arsonist) hasTasks = false;
@@ -979,7 +981,7 @@ namespace TownOfHost
                             if (Options.NBshowEvil.GetBool())
                                 if (role is CustomRoles.Opportunist or CustomRoles.Survivor or CustomRoles.GuardianAngelTOU or CustomRoles.Lawyer or CustomRoles.Amnesiac or CustomRoles.SchrodingerCat) badPlayers.Add(pc);
                             if (Options.NEshowEvil.GetBool())
-                                if (role is CustomRoles.Jester or CustomRoles.Terrorist or CustomRoles.Executioner or CustomRoles.Swapper or CustomRoles.Hacker or CustomRoles.Vulture) badPlayers.Add(pc);
+                                if (role is CustomRoles.Jester or CustomRoles.Troll or CustomRoles.Terrorist or CustomRoles.Executioner or CustomRoles.Swapper or CustomRoles.Hacker or CustomRoles.Vulture) badPlayers.Add(pc);
                             break;
                         case RoleType.Madmate:
                             if (!Options.MadmatesAreEvil.GetBool()) break;
@@ -1081,6 +1083,40 @@ namespace TownOfHost
             AmongUsClient.Instance.FinishRpcImmediately(writer);
             RPC.ChildWin(Child.PlayerId);
             EndGameHelper.AssignWinner(Child.PlayerId);
+        }
+        public static void TrollWin(GameData.PlayerInfo Troll)
+        {
+            if (!AmongUsClient.Instance.AmHost) return;
+            foreach (var pc in PlayerControl.AllPlayerControls)
+            {
+                if (pc.Is(CustomRoles.Troll))
+                {
+                    if (PlayerState.GetDeathReason(pc.PlayerId) == PlayerState.DeathReason.Vote)
+                    {
+                        PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.Screamed);
+                    }
+                    else
+                    {
+                        //キルされた場合は自爆扱い
+                        PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.Screamed);
+                    }
+                }
+                else if (!pc.Data.IsDead)
+                {
+                    if (!pc.Is(CustomRoles.Pestilence))
+                    {
+                        pc.RpcMurderPlayer(pc);
+                        PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.EarDamage);
+                        PlayerState.SetDead(pc.PlayerId);
+                    }
+                }
+            }
+            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.EndGame, Hazel.SendOption.Reliable, -1);
+            writer.Write((byte)CustomWinner.Troll);
+            writer.Write(Troll.PlayerId);
+            AmongUsClient.Instance.FinishRpcImmediately(writer);
+            RPC.TrollWin(Troll.PlayerId);
+            EndGameHelper.AssignWinner(Troll.PlayerId);
         }
         public static void SendMessage(string text, byte sendTo = byte.MaxValue)
         {
@@ -1338,6 +1374,11 @@ namespace TownOfHost
                     SelfSuffix = "Can Clean: ";
                     SelfSuffix += Main.CleanerCanClean[seer.PlayerId] ? "Yes" : "No";
                 }
+                if (seer.Is(CustomRoles.Cursed))
+                {
+                    SelfSuffix = "Is Cursed: ";
+                    SelfSuffix += Main.CursedCanClean[seer.PlayerId] ? "Yes" : "No";
+                }
                 if (seer.Is(CustomRoles.HexMaster))
                 {
                     SelfSuffix = seer.IsHexMode() ? "Mode:" + "Hexing" : "Mode:" + "Killing";
@@ -1397,7 +1438,7 @@ namespace TownOfHost
                     var ReadyLang = Main.CanGoInvis ? "Yes" : "No";
                     SelfSuffix = "Unseeable: " + ModeLang;
                     SelfSuffix += "\nInvisibility is Ready: " + ReadyLang;
-                }
+                } 
                 if (seer.Is(CustomRoles.Transparent))
                 {
                     var ModeLang = Main.IsInvis ? "Yes" : "No";
@@ -1965,6 +2006,14 @@ namespace TownOfHost
                                 TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Impostor), TargetPlayerName);
                             if (target.Is(RoleType.Coven) && target.Data.IsDead)
                                 TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.NeutWitch), TargetPlayerName);
+                        }
+                        if (target.Is(CustomRoles.Marshall) && target.GetPlayerTaskState().IsTaskFinished && seer.GetCustomRole().IsCrewmate())
+                        {
+                            TargetPlayerName = Helpers.ColorString(GetRoleColor(target.GetCustomRole()), TargetPlayerName);
+                        }
+                        if (target.Is(CustomRoles.Marshall) && target.GetPlayerTaskState().IsTaskFinished && seer.GetCustomRole().IsMadmate() && Options.MadmatesSeeMarshall.GetBool())
+                        {
+                            TargetPlayerName = Helpers.ColorString(GetRoleColor(target.GetCustomRole()), TargetPlayerName);
                         }
 
                         if (target.Is(CustomRoles.Mare) && isMeeting)

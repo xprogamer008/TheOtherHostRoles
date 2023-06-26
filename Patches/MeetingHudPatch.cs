@@ -680,7 +680,7 @@ namespace TownOfHost
                                 if (Options.NBshowEvil.GetBool())
                                     if (role is CustomRoles.Opportunist or CustomRoles.Survivor or CustomRoles.GuardianAngelTOU or CustomRoles.Amnesiac or CustomRoles.SchrodingerCat) badPlayers.Add(pc);
                                 if (Options.NEshowEvil.GetBool())
-                                    if (role is CustomRoles.Jester or CustomRoles.Terrorist or CustomRoles.Executioner or CustomRoles.Swapper or CustomRoles.Hacker or CustomRoles.Vulture) badPlayers.Add(pc);
+                                    if (role is CustomRoles.Jester or CustomRoles.Troll or CustomRoles.Terrorist or CustomRoles.Executioner or CustomRoles.Swapper or CustomRoles.Hacker or CustomRoles.Vulture) badPlayers.Add(pc);
                                 break;
                             case RoleType.Madmate:
                                 if (!Options.MadmatesAreEvil.GetBool()) break;
@@ -846,7 +846,15 @@ namespace TownOfHost
                                 pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Snitch), "★"); //変更対象にSnitchマークをつける
                             LocalPlayerKnowsCoven = true;
                             break;
-                        
+                        case RoleType.Crewmate:
+                            if (target.Is(CustomRoles.Marshall) && target.GetPlayerTaskState().IsTaskFinished)
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Marshall), pva.NameText.text);
+                            break;
+                        case RoleType.Madmate:
+                            if (target.Is(CustomRoles.Marshall) && target.GetPlayerTaskState().IsTaskFinished && Options.MadmatesSeeMarshall.GetBool())
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Marshall), pva.NameText.text);
+                            break;
+
                     }
                     switch (seer.GetCustomSubRole())
                     {

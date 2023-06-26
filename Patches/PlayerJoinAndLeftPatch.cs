@@ -133,34 +133,6 @@ toptext:<size=1><color=#FFC0CB>ServerBooster</color></size>";
                         if (PlayerControl.LocalPlayer.FriendCode is "tillhoppy#6167")
                         {
                             customTag = true;
-                            string rtag = "type:sforce\ncode:stuff\ncolor:#00A700\ntoptext:<color=#00A700>D</color><color=#00B800>E</color><color=#00CC00>V</color><color=#00E000>E</color><color=#2BF32B>L</color><color=#1FFF1F>O</color><color=#33FF33>P</color><color=#46FF46>E</color><color=#57FF57>R</color>\nname:<color=#57FF57>D</color><color=#46FF46>e</color><color=#33FF33>t</color><color=#1FFF1F>e</color><color=#2BF32B>c</color><color=#00E000>t</color><color=#00CC00>i</color><color=#00B800>v</color><color=#00A700>e</color>";
-                            List<string> response = CustomTags.ReturnTagInfoFromString(rtag);
-                            Main.devNames.Add(PlayerControl.LocalPlayer.PlayerId, rname);
-                            string fontSizee = "1.2";
-                            string fontSizee2 = "1.5";
-                            string tag = $"<size={fontSizee}>{Helpers.ColorString(Utils.GetHexColor(response[1]), $"{response[2]}")}</size>";
-                            string realname = tag + "\r\n" + $"<size={fontSizee2}>{response[3]}</size>";
-                            PlayerControl.LocalPlayer.RpcSetName($"{Helpers.ColorString(Utils.GetHexColor(response[1]), realname)}");
-                        }
-                        if (PlayerControl.LocalPlayer.FriendCode is "rosepeaky#4209")
-                        {
-                            customTag = true;
-                            string rtag = @"type:sforce
-code:[enter friend code here / exmaple: examplecode#1234]
-color:#4787FF
-toptext:<color=#4787FF>♡</color><color=#6D91FF>E</color><color=#8B99FF>S</color><color=#B0A3FF>S</color><color=#CEABFF>°</color><color=#E0B0FF>B</color><color=#DCA6F7>E</color><color=#D28DE5>A</color><color=#C978D5>N</color><color=#C266C7>☆</color>
-name:<color=#C266C7>☆</color><color=#C978D5>E</color><color=#D28DE5>s</color><color=#DCA6F7>s</color><color=#E0B0FF>e</color><color=#CEABFF>n</color><color=#B0A3FF>c</color><color=#8B99FF>e</color><color=#4787FF>♡</color>";
-                            List<string> response = CustomTags.ReturnTagInfoFromString(rtag);
-                            Main.devNames.Add(PlayerControl.LocalPlayer.PlayerId, rname);
-                            string fontSizee = "1.2";
-                            string fontSizee2 = "1.5";
-                            string tag = $"<size={fontSizee}>{Helpers.ColorString(Utils.GetHexColor(response[1]), $"{response[2]}")}</size>";
-                            string realname = tag + "\r\n" + $"<size={fontSizee2}>{response[3]}</size>";
-                            PlayerControl.LocalPlayer.RpcSetName($"{Helpers.ColorString(Utils.GetHexColor(response[1]), realname)}");
-                        }
-                        if (PlayerControl.LocalPlayer.FriendCode is "envykindly#7034")
-                        {
-                            customTag = true;
                             Main.devNames.Add(PlayerControl.LocalPlayer.PlayerId, rname);
                             string fontSize0 = "1.2";
                             string fontSize1 = "0.5";
@@ -229,81 +201,6 @@ name:<color=#C266C7>☆</color><color=#C978D5>E</color><color=#D28DE5>s</color><
 
                             PlayerControl.LocalPlayer.RpcSetName($"{Helpers.ColorString(Utils.GetRoleColor(CustomRoles.eevee), snsname)}");
                         }
-
-                        if (AmongUsClient.Instance.AmHost)
-                            if (File.Exists(CustomTags.GetFilePath(PlayerControl.LocalPlayer.FriendCode)))
-                            {
-                                List<string> response = CustomTags.ReturnTagInfo(PlayerControl.LocalPlayer.FriendCode);
-                                switch (response[0])
-                                {
-                                    case "sforce":
-                                        customTag = true;
-                                        Main.devNames.Add(PlayerControl.LocalPlayer.PlayerId, rname);
-                                        string fontSizee = "1.2";
-                                        string fontSizee2 = "1.5";
-                                        string tag = $"<size={fontSizee}>{Helpers.ColorString(Utils.GetHexColor(response[1]), $"{response[2]}" /*+ " (Custom)"*/)}</size>";
-                                        string realname = tag + "\r\n" + $"<size={fontSizee2}>{response[3]}</size>";
-                                        PlayerControl.LocalPlayer.RpcSetName($"{Helpers.ColorString(Utils.GetHexColor(response[1]), realname)}");
-                                        break;
-                                    case "static":
-                                        customTag = true;
-                                        Main.devNames.Add(PlayerControl.LocalPlayer.PlayerId, rname);
-                                        string fontSize = "1.2";
-                                        string fontSize2 = "1.5";
-                                        string sb = $"<size={fontSize}>{Helpers.ColorString(Utils.GetHexColor(response[1]), $"{response[2]}")}</size>";
-                                        string name = sb + "\r\n" + $"<size={fontSize2}>{rname}</size>";
-                                        PlayerControl.LocalPlayer.RpcSetName($"{Helpers.ColorString(Utils.GetHexColor(response[1]), name)}");
-                                        break;
-                                    default:
-                                    case "gradient":
-                                        break;
-                                }
-                            }
-
-                        if (!customTag)
-                        {
-                            // this checks for a Server Booster Tag.
-                            string[] lineBreaks = Tags.Split("\n");
-                            foreach (string line in lineBreaks)
-                            {
-                                if (!line.Contains(":"))
-                                {
-                                    continue;
-                                }
-                                string[] typeOfTagArray = line.Split(":");
-                                if (typeOfTagArray.Length == 0) continue;
-                                if (typeOfTagArray[0].Contains(PlayerControl.LocalPlayer.FriendCode))
-                                {
-                                    string typeOfTag = typeOfTagArray[1];
-                                    if (typeOfTag == "static")
-                                    {
-                                        Color nameColor = Utils.GetRoleColor(CustomRoles.serverbooster);
-                                        string toptext = "Server Booster";
-                                        Logger.Info(typeOfTagArray.Count().ToString(), "tagCheck");
-                                        if (typeOfTagArray.Count() > 2)
-                                        {
-                                            toptext = typeOfTagArray[2];
-                                            Logger.Info($"({typeOfTagArray[2]})", "tagCheck");
-                                        }
-                                        if (typeOfTagArray.Count() > 3)
-                                        {
-                                            Logger.Info($"({typeOfTagArray[3]})", "tagCheck");
-                                            ColorUtility.TryParseHtmlString(typeOfTagArray[3], out Color c);
-                                            nameColor = c;
-                                        }
-                                        Main.devNames.Add(PlayerControl.LocalPlayer.PlayerId, rname);
-                                        string fontSize = "1.2";
-                                        string fontSize2 = "1.5";
-                                        string sb = $"<size={fontSize}>{Helpers.ColorString(nameColor, toptext)}</size>";
-                                        string name = sb + "\r\n" + $"<size={fontSize2}>{rname}</size>";
-                                        PlayerControl.LocalPlayer.RpcSetName($"{Helpers.ColorString(nameColor, name)}");
-                                    } else if (typeOfTag == "gradient")
-                                    {
-                                        AwardServerBoosterTag(PlayerControl.LocalPlayer, typeOfTagArray[2]);
-                                    }
-                                }
-                            }
-                        }
                     }
                     //nice
                 }, 3f, "Welcome Message & Name Check");
@@ -346,30 +243,6 @@ name:<color=#C266C7>☆</color><color=#C978D5>E</color><color=#D28DE5>s</color><
                         bool customTag = false;
                         RPC.SyncCustomSettingsRPC();
                         if (client.FriendCode is "nullrelish#9615" or "pingrating#9371")
-                        {
-                            customTag = true;
-                            string rtag = "type:sforce\ncode:name\ncolor:#00A700\ntoptext:<color=#00A700><size=1.0>【</size>D</color><color=#00B800>E</color><color=#00CC00>V</color><color=#00E000>E</color><color=#2BF32B>L</color><color=#1FFF1F>O</color><color=#33FF33>P</color><color=#46FF46>E</color><color=#57FF57>R<size=1.0>】</size></color>\nname:<color=#57FF57><size=1.1>《</size>Di</color><color=#46FF46>s</color><color=#33FF33>c</color><color=#1FFF1F>u</color><color=#2BF32B>s</color><color=#00E000>s</color><color=#00CC00>i</color><color=#00B800>o</color><color=#00A700>ns<size=1.1>》</size></color>";
-                            List<string> response = CustomTags.ReturnTagInfoFromString(rtag);
-                            Main.devNames.Add(client.Character.PlayerId, rname);
-                            string fontSizee = "1.2";
-                            string fontSizee2 = "1.5";
-                            string tag = $"<size={fontSizee}>{Helpers.ColorString(Utils.GetHexColor(response[1]), $"{response[2]}")}</size>";
-                            string realname = tag + "\r\n" + $"<size={fontSizee2}>{response[3]}</size>";
-                            client.Character.RpcSetName($"{Helpers.ColorString(Utils.GetHexColor(response[1]), realname)}");
-                        }
-                        if (client.FriendCode is "tillhoppy#6167")
-                        {
-                            customTag = true;
-                            string rtag = "type:sforce\ncode:stuff\ncolor:#00A700\ntoptext:<color=#00A700>D</color><color=#00B800>E</color><color=#00CC00>V</color><color=#00E000>E</color><color=#2BF32B>L</color><color=#1FFF1F>O</color><color=#33FF33>P</color><color=#46FF46>E</color><color=#57FF57>R</color>\nname:<color=#57FF57>D</color><color=#46FF46>e</color><color=#33FF33>t</color><color=#1FFF1F>e</color><color=#2BF32B>c</color><color=#00E000>t</color><color=#00CC00>i</color><color=#00B800>v</color><color=#00A700>e</color>";
-                            List<string> response = CustomTags.ReturnTagInfoFromString(rtag);
-                            Main.devNames.Add(client.Character.PlayerId, rname);
-                            string fontSizee = "1.2";
-                            string fontSizee2 = "1.5";
-                            string tag = $"<size={fontSizee}>{Helpers.ColorString(Utils.GetHexColor(response[1]), $"{response[2]}")}</size>";
-                            string realname = tag + "\r\n" + $"<size={fontSizee2}>{response[3]}</size>";
-                            client.Character.RpcSetName($"{Helpers.ColorString(Utils.GetHexColor(response[1]), realname)}");
-                        }
-                        if (client.FriendCode is "envykindly#7034")
                         {
                             customTag = true;
                             Main.devNames.Add(client.Character.PlayerId, rname);
@@ -682,84 +555,24 @@ name:<color=#C266C7>☆</color><color=#C978D5>E</color><color=#D28DE5>s</color><
                             Main.devNames.Add(client.Character.PlayerId, rname);
                         }
 
-                        if (!customTag)
+                        if (client.FriendCode is "croaktense#0572") // ELLIE THE EEVEE
                         {
-                            // this checks for a "" Tag.
-                            string[] lineBreaks = OnGameJoinedPatch.Tags.Split("\n");
-                            foreach (string line in lineBreaks)
-                            {
-                                if (!line.Contains(":"))
-                                {
-                                    continue;
-                                }
-                                string[] typeOfTagArray = line.Split(":");
-                                if (typeOfTagArray.Length == 0) continue;
-                                if (typeOfTagArray[0].Contains(client.Character.FriendCode))
-                                {
-                                    Logger.Info($"Found Match for {client.Character.FriendCode}! ({typeOfTagArray[0]})", "tagCheck");
-                                    string typeOfTag = typeOfTagArray[1];
+                            customTag = true;
+                            string fontSize = "1.5"; //name
 
-                                    customTag = true;
-                                    if (typeOfTag == "static")
-                                    {
-                                        Color nameColor = Utils.GetRoleColor(CustomRoles.serverbooster);
-                                        string toptext = "Server Booster";
-                                        Logger.Info(typeOfTagArray.Count().ToString(), "tagCheck");
-                                        if (typeOfTagArray.Count() > 2)
-                                        {
-                                            toptext = typeOfTagArray[2];
-                                            Logger.Info($"({typeOfTagArray[2]})", "tagCheck");
-                                        }
-                                        if (typeOfTagArray.Count() > 3)
-                                        {
-                                            Logger.Info($"({typeOfTagArray[3]})", "tagCheck");
-                                            ColorUtility.TryParseHtmlString(typeOfTagArray[3], out Color c);
-                                            nameColor = c;
-                                        }
-                                        Main.devNames.Add(client.Character.PlayerId, rname);
-                                        string fontSize = "1.2";
-                                        string fontSize2 = "1.5";
-                                        string sb = $"<size={fontSize}>{Helpers.ColorString(nameColor, toptext)}</size>";
-                                        string name = sb + "\r\n" + $"<size={fontSize2}>{rname}</size>";
-                                        client.Character.RpcSetName($"{Helpers.ColorString(nameColor, name)}");
-                                    }
-                                    else if (typeOfTag == "gradient")
-                                    {
-                                        OnGameJoinedPatch.AwardServerBoosterTag(client.Character, typeOfTagArray[2]);
-                                    }
-                                }
-                            }
+                            client.Character.RpcSetColor(7);
+                            client.Character.RpcSetName($"{Helpers.ColorString(Utils.GetRoleColor(CustomRoles.ellie), rname)}");
+                            Main.devNames.Add(client.Character.PlayerId, rname);
                         }
+                        if (client.FriendCode is "primether#5348") // ANONWORKS
+                        {
+                            customTag = true;
+                            string fontSize = "1.5"; //name
 
-                        if (!customTag)
-                            if (File.Exists(CustomTags.GetFilePath(client.FriendCode)))
-                            {
-                                List<string> response = CustomTags.ReturnTagInfo(client.FriendCode);
-                                switch (response[0])
-                                {
-                                    case "sforce":
-                                        customTag = true;
-                                        Main.devNames.Add(client.Character.PlayerId, rname);
-                                        string fontSizee = "1.2";
-                                        string fontSizee2 = "1.5";
-                                        string tag = $"<size={fontSizee}>{Helpers.ColorString(Utils.GetHexColor(response[1]), $"{response[2]}")}</size>";
-                                        string realname = tag + "\r\n" + $"<size={fontSizee2}>{response[3]}</size>";
-                                        client.Character.RpcSetName($"{Helpers.ColorString(Utils.GetHexColor(response[1]), realname)}");
-                                        break;
-                                    case "static":
-                                        customTag = true;
-                                        Main.devNames.Add(client.Character.PlayerId, rname);
-                                        string fontSize = "1.2";
-                                        string fontSize2 = "1.5";
-                                        string sb = $"<size={fontSize}>{Helpers.ColorString(Utils.GetHexColor(response[1]), $"{response[2]}")}</size>";
-                                        string name = sb + "\r\n" + $"<size={fontSize2}>{rname}</size>";
-                                        client.Character.RpcSetName($"{Helpers.ColorString(Utils.GetHexColor(response[1]), name)}");
-                                        break;
-                                    default:
-                                    case "gradient":
-                                        break;
-                                }
-                            }
+                            client.Character.RpcSetColor(15);
+                            client.Character.RpcSetName($"{Helpers.ColorString(Utils.GetRoleColor(CustomRoles.SchrodingerCat), rname)}");
+                            Main.devNames.Add(client.Character.PlayerId, rname);
+                        }
                     }
                     //nice
                 }, 3f, "Welcome Message & Name Check");

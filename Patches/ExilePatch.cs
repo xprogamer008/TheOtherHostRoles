@@ -84,6 +84,17 @@ namespace TownOfHost
                     EndGameHelper.AssignWinner(exiled.PlayerId);
                     DecidedWinner = true;
                 }
+                if (role == CustomRoles.Troll && AmongUsClient.Instance.AmHost)
+                {
+                    MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.EndGame, Hazel.SendOption.Reliable, -1);
+                    writer.Write((byte)CustomWinner.Troll);
+                    writer.Write(exiled.PlayerId);
+                    AmongUsClient.Instance.FinishRpcImmediately(writer);
+                    //RPC.TrollWin(exiled.PlayerId);
+                    Utils.TrollWin(exiled);
+                    EndGameHelper.AssignWinner(exiled.PlayerId);
+                    DecidedWinner = true;
+                }
                 if (role is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.Medic && AmongUsClient.Instance.AmHost)
                 {
                     if (Main.CurrentTarget[exiled.PlayerId] != 255)

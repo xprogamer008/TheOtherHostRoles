@@ -311,6 +311,7 @@ namespace TownOfHost
                 case CustomRoles.CrewPostor:
                 case CustomRoles.Snitch:
                 case CustomRoles.MadSnitch:
+                case CustomRoles.Marshall:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = DestroyableSingleton<HudManager>.Instance.TaskCompleteSound;
                     break;
 
@@ -336,6 +337,7 @@ namespace TownOfHost
 
                 case CustomRoles.Veteran:
                 case CustomRoles.Sheriff:
+                case CustomRoles.Troll:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = PlayerControl.LocalPlayer.KillSfx;
                     break;
 

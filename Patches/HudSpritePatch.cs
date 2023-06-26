@@ -136,6 +136,7 @@ namespace TownOfHost
     {
         private static Sprite Remember => Main.RememberSprite;
         private static Sprite Clean => Main.CleanSprite;
+        private static Sprite Cursed => Main.CursedSprite;
         private static Sprite Report;
         private static bool HasCustomButton(CustomRoles role)
         {
@@ -173,6 +174,10 @@ namespace TownOfHost
                 case CustomRoles.Cleaner:
                     __instance.ReportButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                     __instance.ReportButton.graphic.sprite = Clean;
+                    break;
+                case CustomRoles.Cursed:
+                    __instance.ReportButton.transform.Find("Text_TMP").gameObject.SetActive(false);
+                    __instance.ReportButton.graphic.sprite = Cursed;
                     break;
                 default:
                     __instance.ReportButton.transform.Find("Text_TMP").gameObject.SetActive(true);
