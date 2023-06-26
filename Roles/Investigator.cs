@@ -17,6 +17,7 @@ namespace TownOfHost
         private static CustomOption CrewKillingRed;
         public static CustomOption CovenIsPurple;
         private static CustomOption ChildIsRed;
+        private static CustomOption TrollIsRed;
         private static CustomOption TerroIsRed;
         public static CustomOption CSheriffSwitches;
         private static CustomOption MadMateIsRed;
@@ -34,6 +35,7 @@ namespace TownOfHost
             CrewKillingRed = CustomOption.Create(Id + 14, Color.white, "CrewKillingRed", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Investigator]);
             CovenIsPurple = CustomOption.Create(Id + 15, Color.white, "CovenIsPurple", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Investigator]);
             ChildIsRed = CustomOption.Create(Id + 15, Color.white, "ChildIsRed", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Investigator]);
+            TrollIsRed = CustomOption.Create(Id + 15, Color.white, "TrollIsRed", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Investigator]);
             TerroIsRed = CustomOption.Create(Id + 16, Color.white, "TerroIsRed", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Investigator]);
             CSheriffSwitches = CustomOption.Create(Id + 17, Color.white, "CSheriffSwitches", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Investigator]);
             MadMateIsRed = CustomOption.Create(Id + 18, Color.white, "MadMateIsRed", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Investigator]);
@@ -112,6 +114,7 @@ namespace TownOfHost
                 CustomRoles.BloodKnight => NKareRed.GetBool(),
                 CustomRoles.Werewolf => NKareRed.GetBool(),
                 CustomRoles.Child => ChildIsRed.GetBool(),
+                CustomRoles.Troll => TrollIsRed.GetBool(),
                 CustomRoles.Sheriff => CrewKillingRed.GetBool(),
                 CustomRoles.Demolitionist => CrewKillingRed.GetBool(),
                 CustomRoles.Bodyguard => CrewKillingRed.GetBool(),
