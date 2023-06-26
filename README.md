@@ -181,7 +181,7 @@ Below is an example:
 | [Mafia](#mafia)                     | [Demolitionist](#demolitionist)   | [Swapper](#swapper)               | [Unseeable](#unseeable)         |                                |                            |
 | [Madmate](#madmate)                 | [Bastion](#bastion)               | [Hitman](#hitman)                 |                                 |                                |                            |
 | [MadGuardian](#madguardian)         | [Vigilante](#guesser)             | [Lawyer](#lawyer)                 |                                 |                                |                            |
-| [MadSnitch](#madsnitch)			  | [Veteran](#veteran)               | [Troll](#troll)                   |                                 |                                |                            |
+| [MadSnitch](#madsnitch)			  | [Veteran](#veteran)               |	[Troll](#troll)                   |                                 |                                |                            |
 | [SidekickMadmate](#sidekickmadmate) | [Child](#child)                   |                                   |                                 |                                |                            |
 | [Silencer](#silencer)               | [Psychic](#psychic)               |                                   |                                 |                                |                            |
 | [Traitor](#traitor)                 | [Detective](#detective)           |                                   |                                 |                                |                            |
