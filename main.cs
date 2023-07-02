@@ -29,7 +29,7 @@ namespace TownOfHost
         public static readonly string BANNEDFRIENDCODES_FILE_PATH = "./TOR_DATA/bannedfriendcodes.txt";
         public static readonly string DiscordInviteUrl = "https://discord.gg/tohtor";
         public static readonly bool ShowDiscordButton = true;
-        public const string PluginVersion = "1.1";
+        public const string PluginVersion = "1.2";
         public const string DevVersion = "1";
         public const string FullDevVersion = $" dev {DevVersion}";
         public Harmony Harmony { get; } = new Harmony(PluginGuid);
@@ -525,6 +525,7 @@ namespace TownOfHost
                     { CustomRoles.Transporter, "#00EEFF"},
                     { CustomRoles.Doctor, "#ADCAE6"},
                     { CustomRoles.Child, "#FFFFFF"},
+                    { CustomRoles.Clumsy, "#EA6E6E"},
                     { CustomRoles.Trapper, "#5a8fd0"},
                     { CustomRoles.Dictator, "#df9b00"},
                     { CustomRoles.Detective, "#4D4DFF"},
@@ -810,6 +811,7 @@ namespace TownOfHost
                     { CustomRoles.Bastion, AttackEnum.Unstoppable},
                     { CustomRoles.Hacker, AttackEnum.None},
                     { CustomRoles.CrewPostor, AttackEnum.Basic},
+                    { CustomRoles.Clumsy, AttackEnum.Basic},
                     { CustomRoles.CPSchrodingerCat, AttackEnum.None},
                     { CustomRoles.TGSchrodingerCat, AttackEnum.None},
                     { CustomRoles.WWSchrodingerCat, AttackEnum.None},
@@ -917,6 +919,7 @@ namespace TownOfHost
                     { CustomRoles.Bastion, DefenseEnum.Basic},
                     { CustomRoles.Hacker, DefenseEnum.None},
                     { CustomRoles.CrewPostor, DefenseEnum.None},
+                    { CustomRoles.Clumsy, DefenseEnum.None},
                     { CustomRoles.CPSchrodingerCat, DefenseEnum.None},
                     { CustomRoles.TGSchrodingerCat, DefenseEnum.None},
                     { CustomRoles.WWSchrodingerCat, DefenseEnum.None},
@@ -1114,6 +1117,7 @@ namespace TownOfHost
         Mystic,
         Swapper,
         Mayor,
+        Clumsy,
         SabotageMaster,
         Oracle,
         Medic,

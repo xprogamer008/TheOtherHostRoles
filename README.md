@@ -50,6 +50,7 @@ New Crewmate Roles:
 - Added Tracker
 - Added Cursed
 - Added Marshall
+- Added Clumsy
 
 New Neutral Roles:
 
@@ -190,7 +191,7 @@ Below is an example:
 | [Miner](#miner)                     | [Time Traveler](#Time-Traveler)	  |                                   |                                 |                                |							  |
 | [Grenadier](#grenadier)             | [Cursed](#cursed)	              |                                   |                                 |                                |							  |
 | [a Yanger](#ying-yanger)			  | [Marshall](#marshall)             |                                   |                                 |                                |							  |
-| [Pickpocket](#pickpocket)           |                                   |                                   |                                 |                                |							  |
+| [Pickpocket](#pickpocket)           | [Clumsy](#clumsy)                 |                                   |                                 |                                |							  |
 | [Cleaner](#cleaner)                 |                                   |                                   |                                 |                                |							  |
 | [Freezer](#freezer)				  |                                   |                                   |                                 |                                |							  |
 | [Wildling](#Wildling)				  |									  |									  |									|								 |							  |
@@ -718,6 +719,16 @@ The impostors also see an arrow pointed in the snitch's direction when the snitc
 | Snitch Can See Colored Arrow   |
 | Snitch Can Find Neutral Killer |
 | Snitch Can Find Coven          |
+
+### Clumsy
+
+Created by EXC4LIBUR<br>
+
+Team : Crewmates<br>
+Basis : Crewmate<br>
+
+The Clumsy is really clumsy doing tasks.<br>
+Every time he does a task he will kill someone.<br>
 
 ### SpeedBooster
 
