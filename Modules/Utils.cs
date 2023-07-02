@@ -312,6 +312,8 @@ namespace TownOfHost
 
                     if (cRole == CustomRoles.CrewPostor && ForRecompute) hasTasks = false;
                     if (cRole == CustomRoles.CrewPostor && p.IsDead) hasTasks = false;
+                    if (cRole == CustomRoles.Clumsy && ForRecompute) hasTasks = false;
+                    if (cRole == CustomRoles.Clumsy && p.IsDead) hasTasks = false;
                     if (cRole == CustomRoles.Phantom && p.IsDead) hasTasks = false;
                     if (cRole == CustomRoles.Phantom && ForRecompute) hasTasks = false;
 
@@ -474,6 +476,46 @@ namespace TownOfHost
                                 else if (targetw.Is(CustomRoles.SchrodingerCat))
                                 {
                                     targetw.RpcSetCustomRole(CustomRoles.CPSchrodingerCat);
+                                    NameColorManager.Instance.RpcAdd(cp.PlayerId, targetw.PlayerId, $"{GetRoleColorCode(CustomRoles.SchrodingerCat)}");
+                                    NotifyRoles();
+                                    CustomSyncAllSettings();
+                                }
+                                else
+                                    cp.RpcMurderPlayerV2(targetw);
+                                cp.RpcGuardAndKill(cp);
+                            }
+                        }
+                    }
+                    else if (realRole == CustomRoles.Clumsy && !GetPlayerById(playerId).Data.IsDead)
+                    {
+                        int amount = Main.lastAmountOfTasks[playerId];
+
+                        if (taskState.CompletedTasksCount != amount) // new task completed //
+                        {
+                            Main.lastAmountOfTasks[playerId] = taskState.CompletedTasksCount;
+                            var cp = GetPlayerById(playerId);
+                            if (!cp.Data.IsDead)
+                            {
+                                Vector2 cppos = cp.transform.position;//呪われた人の位置
+                                Dictionary<PlayerControl, float> cpdistance = new();
+                                float dis;
+                                foreach (PlayerControl p in PlayerControl.AllPlayerControls)
+                                {
+                                    if (!p.Data.IsDead && p != cp && !p.Is(CustomRoles.CSchrodingerCat))
+                                    {
+                                        dis = Vector2.Distance(cppos, p.transform.position);
+                                        cpdistance.Add(p, dis);
+                                        Logger.Info($"{p?.Data?.PlayerName}の位置{dis}", "Clumsy");
+                                    }
+                                }
+                                var min = cpdistance.OrderBy(c => c.Value).FirstOrDefault();//一番小さい値を取り出す
+                                PlayerControl targetw = min.Key;
+                                Logger.Info($"{targetw.GetNameWithRole()}was killed", "Clumsy");
+                                if (targetw.Is(CustomRoles.Pestilence))
+                                    targetw.RpcMurderPlayerV2(cp);
+                                else if (targetw.Is(CustomRoles.SchrodingerCat))
+                                {
+                                    targetw.RpcSetCustomRole(CustomRoles.CSchrodingerCat);
                                     NameColorManager.Instance.RpcAdd(cp.PlayerId, targetw.PlayerId, $"{GetRoleColorCode(CustomRoles.SchrodingerCat)}");
                                     NotifyRoles();
                                     CustomSyncAllSettings();
@@ -1093,12 +1135,12 @@ namespace TownOfHost
                 {
                     if (PlayerState.GetDeathReason(pc.PlayerId) == PlayerState.DeathReason.Vote)
                     {
-                        PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.Screamed);
+                        PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.Trolled);
                     }
                     else
                     {
                         //キルされた場合は自爆扱い
-                        PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.Screamed);
+                        PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.Trolled);
                     }
                 }
                 else if (!pc.Data.IsDead)

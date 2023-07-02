@@ -283,6 +283,7 @@ namespace TownOfHost
         public static OverrideTasksData SnitchTasks;
         public static OverrideTasksData MadSnitchTasks;
         public static OverrideTasksData CrewPostorTasks;
+        public static OverrideTasksData ClumsyTasks;
         public static OverrideTasksData TankTasks;
 
         // その他
@@ -700,6 +701,8 @@ namespace TownOfHost
             VetDuration = CustomOption.Create(20013, Color.white, "VetDur", AmongUsExtensions.OptionType.Crewmate, 15, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Veteran]);
             CrewRolesVetted = CustomOption.Create(20014, Color.white, "CRGV", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Veteran]);
             PestiAttacksVet = CustomOption.Create(20015, Color.white, "PestiAttacks", AmongUsExtensions.OptionType.Crewmate, PestiAttacksVetString, PestiAttacksVetString[2], CustomRoleSpawnChances[CustomRoles.Veteran]);
+            SetupRoleOptions(205000, CustomRoles.Clumsy, AmongUsExtensions.OptionType.Crewmate);
+            ClumsyTasks = OverrideTasksData.Create(10121, CustomRoles.Clumsy, AmongUsExtensions.OptionType.Crewmate);
             SetupRoleOptions(9920603, CustomRoles.Detective, AmongUsExtensions.OptionType.Crewmate);
             DetectiveArrow = CustomOption.Create(9920602, Color.white, "DetectiveHasArrow", AmongUsExtensions.OptionType.Neutral, false, CustomRoleSpawnChances[CustomRoles.Detective]);
             SetupRoleOptions(2007424234, CustomRoles.Cursed, AmongUsExtensions.OptionType.Crewmate);
@@ -794,7 +797,7 @@ namespace TownOfHost
 
             SetupSingleRoleOptions(905003, CustomRoles.Amnesiac, 1, AmongUsExtensions.OptionType.Neutral, locked: true);
             AmnesiacArrow = CustomOption.Create(6000020, Color.white, "AmnesiacHasArrow", AmongUsExtensions.OptionType.Neutral, false, CustomRoleSpawnChances[CustomRoles.Amnesiac]);
-            SetupSingleRoleOptions(905004, CustomRoles.Phantom, 1, AmongUsExtensions.OptionType.Neutral, locked: true);
+            SetupSingleRoleOptions(905004, CustomRoles.Phantom, 1, AmongUsExtensions.OptionType.Neutral);
             TasksRemainingForPhantomClicked = CustomOption.Create(50515, Color.white, "TasksRemainingForPhantomClicked", AmongUsExtensions.OptionType.Neutral, 3, 1, 10, 1, CustomRoleSpawnChances[CustomRoles.Phantom]);
             TasksRemaningForPhantomAlert = CustomOption.Create(50516, Color.white, "TasksRemaningForPhantomAlert", AmongUsExtensions.OptionType.Neutral, 1, 1, 5, 1, CustomRoleSpawnChances[CustomRoles.Phantom]);
             PhantomTaskOverride = OverrideTasksData.Create(3782387, CustomRoles.Phantom, AmongUsExtensions.OptionType.Neutral);

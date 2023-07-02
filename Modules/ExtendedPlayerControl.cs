@@ -1062,6 +1062,7 @@ namespace TownOfHost
         {
             if (killer.Is(CustomRoles.BloodKnight) && target.Is(CustomRoles.BKSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.CrewPostor) && target.Is(CustomRoles.CPSchrodingerCat)) return true;
+            if (killer.Is(CustomRoles.Clumsy) && target.Is(CustomRoles.CSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Juggernaut) && target.Is(CustomRoles.JugSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Marksman) && target.Is(CustomRoles.MMSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Pestilence) && target.Is(CustomRoles.PesSchrodingerCat)) return true;
@@ -1682,6 +1683,8 @@ namespace TownOfHost
                         return $"They were assaulted by a Juggernaut.";
                     case CustomRoles.CrewPostor:
                         return $"They were knocked out by a CrewPostor.";
+                    case CustomRoles.Clumsy:
+                        return $"They were fell into Clumsy's accident.";
                     case CustomRoles.Veteran:
                         return $"They were shot by the Veteran.";
                     case CustomRoles.Crusader:

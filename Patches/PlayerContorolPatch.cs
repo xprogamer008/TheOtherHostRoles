@@ -225,6 +225,9 @@ namespace TownOfHost
                                 case CustomRoles.CrewPostor:
                                     target.RpcSetCustomRole(CustomRoles.CPSchrodingerCat);
                                     break;
+                                case CustomRoles.Clumsy:
+                                    target.RpcSetCustomRole(CustomRoles.CSchrodingerCat);
+                                    break;
                                 case CustomRoles.Juggernaut:
                                     target.RpcSetCustomRole(CustomRoles.JugSchrodingerCat);
                                     break;
@@ -2548,7 +2551,7 @@ namespace TownOfHost
                         case RoleType.Neutral:
                             if (reported.IsNeutralKiller())
                             {
-                                if (!reported.Is(CustomRoles.Pirate) && !reported.Is(CustomRoles.CrewPostor))
+                                if (!reported.Is(CustomRoles.Pirate) && !reported.Is(CustomRoles.CrewPostor) && !reported.Is(CustomRoles.Clumsy))
                                 {
                                     __instance.RpcSetCustomRole(reported.GetCustomRole());
                                     switch (target.GetCustomRole())

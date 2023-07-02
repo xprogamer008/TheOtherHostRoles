@@ -84,6 +84,7 @@ namespace TownOfHost
             EarDamage,
             Guilt,
             Screamed,
+            Trolled,
             etc = -1
         }
     }

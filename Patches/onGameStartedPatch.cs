@@ -1212,6 +1212,9 @@ namespace TownOfHost
                             case CustomRoles.CrewPostor:
                                 Main.lastAmountOfTasks.Add(pc.PlayerId, 0);
                                 break;
+                            case CustomRoles.Clumsy:
+                                Main.lastAmountOfTasks.Add(pc.PlayerId, 0);
+                                break;
                             case CustomRoles.SabotageMaster:
                                 SabotageMaster.Add(pc.PlayerId);
                                 break;

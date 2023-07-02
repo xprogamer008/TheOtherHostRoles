@@ -332,12 +332,14 @@ namespace TownOfHost
                     break;
 
                 case CustomRoles.SabotageMaster:
+                case CustomRoles.Hacker:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = ShipStatus.Instance.SabotageSound;
                     break;
 
                 case CustomRoles.Veteran:
                 case CustomRoles.Sheriff:
                 case CustomRoles.Troll:
+                case CustomRoles.Clumsy:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = PlayerControl.LocalPlayer.KillSfx;
                     break;
 
