@@ -615,8 +615,11 @@ namespace TownOfHost
                     else
                         options.SetVision(player, true);
                     goto InfinityVent;
-                case CustomRoles.Dracula:
                 //break;
+                case CustomRoles.Spy:
+                    options.SetVision(player, true);
+                    goto InfinityVent;
+                case CustomRoles.Dracula:
                 case CustomRoles.Unseeable:
                     break;
                 case CustomRoles.TheGlitch:

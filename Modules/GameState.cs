@@ -85,6 +85,7 @@ namespace TownOfHost
             Guilt,
             Screamed,
             Trolled,
+            Troller,
             etc = -1
         }
     }

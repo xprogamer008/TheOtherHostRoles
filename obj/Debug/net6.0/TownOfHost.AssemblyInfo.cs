@@ -11,9 +11,9 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("Discussions")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Honest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
-[assembly: System.Reflection.AssemblyDescriptionAttribute("Town Of Host The Other Roles")]
+[assembly: System.Reflection.AssemblyDescriptionAttribute("Town Of Roles")]
 [assembly: System.Reflection.AssemblyProductAttribute("TownOfHost")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TownOfHost")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

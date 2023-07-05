@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = TownOfHost
-build_property.ProjectDir = C:\Program Files (x86)\Steam\steamapps\common\TownOfRoles.v1\
+build_property.ProjectDir = C:\Program Files (x86)\Steam\steamapps\common\TownOfRoles-1.2\

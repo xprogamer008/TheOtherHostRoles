@@ -61,6 +61,10 @@ namespace TownOfHost
                     __instance.KillButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                     __instance.KillButton.graphic.sprite = Sheriff;
                     break;
+                case CustomRoles.Swooper:
+                    __instance.ImpostorVentButton.transform.Find("Text_TMP").gameObject.SetActive(false);
+                    __instance.ImpostorVentButton.graphic.sprite = Swoop;
+                    break;        
                 case CustomRoles.PlagueBearer:
                     __instance.KillButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                     __instance.KillButton.graphic.sprite = Infect;

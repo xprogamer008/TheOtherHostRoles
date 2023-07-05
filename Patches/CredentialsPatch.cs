@@ -47,8 +47,8 @@ namespace TownOfHost
             private static TMPro.TextMeshPro ErrorText;
             static void Postfix(VersionShower __instance)
             {
-                Main.credentialsText = $"\r\n<color={Main.modColor}>Town Of Roles</color>\r\n<color={Main.modColor}>v{Main.PluginVersion}b";
-                Main.versionText = $"\r\nTown Of Roles v{Main.PluginVersion}b";
+                Main.credentialsText = $"\r\n<color={Main.modColor}>Town Of Roles</color>\r\n<color={Main.modColor}>v{Main.PluginVersion}";
+                Main.versionText = $"\r\nTown Of Roles v{Main.PluginVersion}";
                 if (Main.NewYears)
                 {
                     Main.credentialsText += "\r\nHAPPY NEW YEAR!";

@@ -180,6 +180,7 @@ namespace TownOfHost
                 role is CustomRoles.Jester or
                 CustomRoles.Terrorist or
                 CustomRoles.Transparent or
+                CustomRoles.Spy or
                 CustomRoles.Dracula or
                 CustomRoles.Unseeable or
                 CustomRoles.Werewolf or
@@ -452,6 +453,7 @@ namespace TownOfHost
                 CustomRoles.Madmate or
                 CustomRoles.Bastion or
                 CustomRoles.Transparent or
+                CustomRoles.Spy or
                 CustomRoles.Mechanic or
                 CustomRoles.Terrorist or
                 CustomRoles.GuardianAngelTOU;

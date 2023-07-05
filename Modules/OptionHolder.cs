@@ -204,7 +204,15 @@ namespace TownOfHost
         // SHAPESHIFTER //
         public static CustomOption ShiftCooldown;
         public static CustomOption ShiftDuration;
-
+        // SPY //
+        public static CustomOption CanSeeDouses;
+        public static CustomOption CanSeeInfects;
+        public static CustomOption CanSeeHexes;
+        public static CustomOption CanSeePuppets;
+        public static CustomOption CanSeeTaglocks;
+        public static CustomOption CanSeeSpells;
+        public static CustomOption CanSeeCurses;
+        public static CustomOption CanSeeSnitch;
         // COLOR WARS //
 
         public static CustomOption CWAllowCloseDoors;
@@ -725,6 +733,15 @@ namespace TownOfHost
             SetupRoleOptions(99910100, CustomRoles.Tank, AmongUsExtensions.OptionType.Crewmate);
             TankCanSeeWhoTriedToKill = CustomOption.Create(99910110, Color.white, "TankCanSeeWhoTriedToKill", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.Tank]);
             TankTasks = OverrideTasksData.Create(99910120, CustomRoles.Tank, AmongUsExtensions.OptionType.Crewmate);
+            SetupRoleOptions(99698, CustomRoles.Spy, AmongUsExtensions.OptionType.Crewmate);
+            CanSeeDouses = CustomOption.Create(99700, Color.white, "CanSeeDouses", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Spy]);
+            CanSeeInfects = CustomOption.Create(99700, Color.white, "CanSeeInfects", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Spy]);
+            CanSeeHexes = CustomOption.Create(99700, Color.white, "CanSeeHexes", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Spy]);
+            //CanSeePuppets = CustomOption.Create(99700, Color.white, "CanSeePuppets", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Spy]);
+            //CanSeeTaglocks = CustomOption.Create(99700, Color.white, "CanSeeTaglocks", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Spy]);
+            //CanSeeSpells = CustomOption.Create(99700, Color.white, "CanSeeSpells", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Spy]);
+            //CanSeeCurses = CustomOption.Create(99700, Color.white, "CanSeeCurses", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Spy]);
+            //CanSeeSnitch = CustomOption.Create(99700, Color.white, "CanSeeSnitch", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Spy]);
             SetupRoleOptions(20500, CustomRoles.Snitch, AmongUsExtensions.OptionType.Crewmate);
             SnitchEnableTargetArrow = CustomOption.Create(20510, Color.white, "SnitchEnableTargetArrow", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.Snitch]);
             SnitchCanGetArrowColor = CustomOption.Create(20511, Color.white, "SnitchCanGetArrowColor", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.Snitch]);

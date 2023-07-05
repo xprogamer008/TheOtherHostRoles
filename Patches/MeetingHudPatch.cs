@@ -891,6 +891,14 @@ namespace TownOfHost
                             if (seer.IsDousedPlayer(target)) //seerがtargetに既にオイルを塗っている(完了)
                                 pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Arsonist), "▲");
                             break;
+                        case CustomRoles.Spy:
+                            if (seer.IsDousedPlayer(target) && Options.CanSeeDouses.GetBool()) //seerがtargetに既にオイルを塗っている(完了)
+                                pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Arsonist), "▲");
+                            if (seer.IsInfectedPlayer(target) && Options.CanSeeInfects.GetBool()) //seerがtargetに既にオイルを塗っている(完了)
+                                pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Pestilence), "▲");
+                            if (seer.IsHexedPlayer(target) && Options.CanSeeHexes.GetBool()) //seerがtargetに既にオイルを塗っている(完了)
+                                pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.HexMaster), "†");
+                            break;
                         case CustomRoles.HexMaster:
                             if (seer.IsHexedPlayer(target)) //seerがtargetに既にオイルを塗っている(完了)
                                 pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.HexMaster), "†");

@@ -353,6 +353,7 @@ namespace TownOfHost
                 case CustomRoles.Werewolf:
                 case CustomRoles.PlagueBearer:
                 case CustomRoles.Lawyer:
+                case CustomRoles.Spy:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Crewmate);
                     break;
 

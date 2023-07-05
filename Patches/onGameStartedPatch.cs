@@ -1636,7 +1636,7 @@ namespace TownOfHost
                             if (player.GetCustomRole() is not CustomRoles.EvilGuesser and not CustomRoles.NiceGuesser) continue;
                             break;
                         case CustomRoles.Torch:
-                            if (player.GetCustomRole() is CustomRoles.Lighter or CustomRoles.Jester or CustomRoles.Lawyer) continue;
+                            if (player.GetCustomRole() is CustomRoles.Spy or CustomRoles.Lighter or CustomRoles.Jester or CustomRoles.Lawyer) continue;
                             break;
                     }
                     if (role.IsCrewModifier())

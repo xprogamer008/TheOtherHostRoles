@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TownOfRoles.v1\\TownOfHost.csproj": {}
+    "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TownOfRoles-1.2\\TownOfHost.csproj": {}
   },
   "projects": {
-    "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TownOfRoles.v1\\TownOfHost.csproj": {
+    "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TownOfRoles-1.2\\TownOfHost.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TownOfRoles.v1\\TownOfHost.csproj",
+        "projectUniqueName": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TownOfRoles-1.2\\TownOfHost.csproj",
         "projectName": "TownOfHost",
-        "projectPath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TownOfRoles.v1\\TownOfHost.csproj",
+        "projectPath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TownOfRoles-1.2\\TownOfHost.csproj",
         "packagesPath": "C:\\Users\\yasin\\.nuget\\packages\\",
-        "outputPath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TownOfRoles.v1\\obj\\",
+        "outputPath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TownOfRoles-1.2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

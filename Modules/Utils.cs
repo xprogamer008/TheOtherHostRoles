@@ -82,6 +82,7 @@ namespace TownOfHost
             if (text.Contains("starting")) return false;
             if (text.Contains("beginner")) return false;
             if (text.Contains("beginned")) return false;
+            if (text.Contains("star")) return false;
             if (text.Contains("start")) return true;
             if (text.Contains("s t a r t")) return true;
             if (text.Contains("begin")) return true;
@@ -1133,14 +1134,9 @@ namespace TownOfHost
             {
                 if (pc.Is(CustomRoles.Troll))
                 {
-                    if (PlayerState.GetDeathReason(pc.PlayerId) == PlayerState.DeathReason.Vote)
-                    {
-                        PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.Trolled);
-                    }
-                    else
                     {
                         //キルされた場合は自爆扱い
-                        PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.Trolled);
+                        PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.Troller);
                     }
                 }
                 else if (!pc.Data.IsDead)
@@ -1148,7 +1144,7 @@ namespace TownOfHost
                     if (!pc.Is(CustomRoles.Pestilence))
                     {
                         pc.RpcMurderPlayer(pc);
-                        PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.EarDamage);
+                        PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.Trolled);
                         PlayerState.SetDead(pc.PlayerId);
                     }
                 }
@@ -1723,6 +1719,7 @@ namespace TownOfHost
                     || Main.SilencedPlayer.Count > 0
                     || seer.Is(CustomRoles.GuardianAngelTOU)
                     || seer.Is(CustomRoles.Lawyer)
+                    || seer.Is(CustomRoles.Spy)
                     || seer.Is(CustomRoles.Executioner)
                     || seer.Is(CustomRoles.Swapper)
                     || seer.Is(CustomRoles.Doctor) //seerがドクター
@@ -1987,7 +1984,10 @@ namespace TownOfHost
                                     TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Impostor), TargetPlayerName);
                             }
                         }
-
+                        if  (target.Is(CustomRoles.Spy))
+                        {
+                            TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Spy), TargetPlayerName);
+                        } 
                         //ターゲットのプレイヤー名の色を書き換えます。
                         if (SeerKnowsImpostors) //Seerがインポスターが誰かわかる状態
                         {

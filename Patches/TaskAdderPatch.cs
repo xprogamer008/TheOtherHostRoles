@@ -94,6 +94,7 @@ namespace TownOfHost
             // Better Translation: Since Every role is thought to be crew by defualt, it is alright not to put "RoleTypes.Crewmate"
             { CustomRoles.GM, RoleTypes.GuardianAngel },
             { CustomRoles.Engineer, RoleTypes.Engineer },
+            { CustomRoles.Spy, RoleTypes.Engineer },
             { CustomRoles.Scientist, RoleTypes.Scientist },
             { CustomRoles.Shapeshifter, RoleTypes.Shapeshifter },
             { CustomRoles.Miner, RoleTypes.Shapeshifter },

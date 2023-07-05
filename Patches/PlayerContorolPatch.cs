@@ -3747,6 +3747,10 @@ namespace TownOfHost
                             if (target.GetRoleType() == RoleType.Coven)
                                 RealName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Coven), RealName);
                             break;
+                        case RoleType.Impostor:
+                            if (target.GetCustomRole() == CustomRoles.Spy)
+                                RealName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Impostor), RealName);
+                            break;
                     }
                     if (seer.Is(CustomRoles.GuardianAngelTOU))
                     {
