@@ -102,6 +102,7 @@ SabotageMaster,SabotageMaster,SabotageMaster,サボタージュマスター,修�
 Sheriff,Sheriff,Sheriff,シェリフ,警长,警長
 Investigator,Investigator,Investigator,Investigator,调查员
 Mystic,Mystic,Mystic,Nystic,灵媒
+Spy,Spy,Spy,Spy,Spy,Spy
 Arsonist,Arsonist,Arsonist,アーソニスト,纵火犯,縱火犯
 Snitch,Snitch,Snitch,スニッチ,告密者,告密者
 SpeedBooster,SpeedBooster,SpeedBooster,スピードブースター,增速者,加速器
@@ -312,6 +313,7 @@ TimeTravelerInfo,Go back in time to the place you marked,Go back in time to the 
 TrackerInfo,Track bodies,Track bodies,Track bodies,Track bodies,Track bodies
 CursedInfo,Report or make them disappear,Report or make them disappear,Report or make them disappear,Report or make them disappear,Report or make them disappear
 MarshallInfo,Complete your tasks to prove your innocence,Complete your tasks to prove your innocence,Complete your tasks to prove your innocence,Complete your tasks to prove your innocence,Complete your tasks to prove your innocence
+SpyInfo,See actions done by others,Beware and find the Impostors,Beware and find the Impostors,Beware and find the Impostors,Beware and find the Impostors
 
 # 第三陣営役職
 ArsonistInfo,Douse and ignite to kill everyone,Пусть они сгорят,燃やせ,火焰给我燃烧起来吧！,"燒吧,燒吧,燃燒吧"
@@ -490,6 +492,7 @@ TimeTravelerInfoLong,"(Crewmates):\nThe Time Traveler can go back in time with h
 TrackerInfoLong,"(Crewmates):\nThe Tracker can track bodies.\nThe Tracker will see a arrow under his name pointing towards a body. \nBe lucky enough and you might catch the killer.","(Crewmates):\nThe Tracker can track bodies.\nThe Tracker will see a arrow under his name pointing towards a body. \nBe lucky enough and you might catch the killer.","(Crewmates):\nThe Tracker can track bodies.\nThe Tracker will see a arrow under his name pointing towards a body. \nBe lucky enough and you might catch the killer.","(Crewmates):\nThe Tracker can track bodies.\nThe Tracker will see a arrow under his name pointing towards a body. \nBe lucky enough and you might catch the killer.","(Crewmates):\nThe Tracker can track bodies.\nThe Tracker will see a arrow under his name pointing towards a body. \nBe lucky enough and you might catch the killer."
 CursedInfoLong,"(Crewmates):\nThe Cursed is a Crewmate role that is curse for the Crewmates. \nThe Cursed has a certain amount of time to find a body and report it but if they wait to long their ability will Remove the body making it not only not reportable for you, it will make the body unreportable for everyone. \nBut once you cursed a body you will gain the ability to report again till your cursed cooldown is ready.","(Crewmates):\nThe Cursed is a Crewmate role that is curse for the Crewmates. \nThe Cursed has a certain amount of time to find a body and report it but if they wait to long their ability will Remove the body making it not only not reportable for you, it will make the body unreportable for everyone. \nBut once you cursed a body you will gain the ability to report again till your cursed cooldown is ready.","(Crewmates):\nThe Cursed is a Crewmate role that is curse for the Crewmates. \nThe Cursed has a certain amount of time to find a body and report it but if they wait to long their ability will Remove the body making it not only not reportable for you, it will make the body unreportable for everyone. \nBut once you cursed a body you will gain the ability to report again till your cursed cooldown is ready.","(Crewmates):\nThe Cursed is a Crewmate role that is curse for the Crewmates. \nThe Cursed has a certain amount of time to find a body and report it but if they wait to long their ability will Remove the body making it not only not reportable for you, it will make the body unreportable for everyone. \nBut once you cursed a body you will gain the ability to report again till your cursed cooldown is ready.","(Crewmates):\nThe Cursed is a Crewmate role that is curse for the Crewmates. \nThe Cursed has a certain amount of time to find a body and report it but if they wait to long their ability will Remove the body making it not only not reportable for you, it will make the body unreportable for everyone. \nBut once you cursed a body you will gain the ability to report again till your cursed cooldown is ready."
 MarshallInfoLong,"(Crewmates):\nThe Marshall is a crewmate that, upon task completion, is revealed to the rest of the crew.\nAnyone not a part of the crew will not see the revealed Marshall (except madmates, optionally).","(Crewmates):\nThe Marshall is a crewmate that, upon task completion, is revealed to the rest of the crew.\nAnyone not a part of the crew will not see the revealed Marshall.","(Crewmates):\nThe Marshall is a crewmate that, upon task completion, is revealed to the rest of the crew.\nAnyone not a part of the crew will not see the revealed Marshall.","(Crewmates):\nThe Marshall is a crewmate that, upon task completion, is revealed to the rest of the crew.\nAnyone not a part of the crew will not see the revealed Marshall.","(Crewmates):\nThe Marshall is a crewmate that, upon task completion, is revealed to the rest of the crew.\nAnyone not a part of the crew will not see the revealed Marshall."
+SpyInfoLong,"(Crewmates):\nThe Spy is a crewmate with the ability to see actions done by other roles.\nThese include Arsonist's douses, Puppeteer's puppets, and Witch's spells.\nAlso the Spy is a crew role but for the impostors he will look like he is his mate because your name will be red for the imps.\n\nUse this info to your advantage.","(Crewmates):\nThe Spy is a crewmate with Impostor vision and venting abilities.\nHowever, the Impostors see them with a red name.\n\nWins with the crew.","(Crewmates):\nThe Spy is a crewmate with Impostor vision and venting abilities.\nHowever, the Impostors see them with a red name.\n\nWins with the crew.","(Crewmates):\nThe Spy is a crewmate with Impostor vision and venting abilities.\nHowever, the Impostors see them with a red name.\n\nWins with the crew.","(Crewmates):\nThe Spy is a crewmate with Impostor vision and venting abilities.\nHowever, the Impostors see them with a red name.\n\nWins with the crew."
 
 # 第三陣営役職
 ArsonistInfoLong,"(Neutrals):\nThey can douse other players by using the kill button and remaining next to the player for a few seconds.\nAfter dousing everyone alive the Arsonists can enter the vents to ignite which results in Arsonist win.","(Нейтрал):\nОн может обливать игроков, нажав на кнопку 'Убить' и находясь рядом с игроком в течение нескольких секунд.\nПосле того как он обольёт всех живых игроков, Arsonist сможет запрыгнуть в вентиляцию чтобы поджечь всех игроков, что приводит к победе Arsonist","(第三陣営):\nキルボタンを使おうとすると、ターゲットに油を塗れる。\nすべてのクルーに油を塗ったら船を燃やして勝利する。","(中立阵营):\n在一名玩家附近时点击击杀按钮，纵火犯可以给那名玩家涂油。\n所有存活玩家都被纵火犯涂油后，纵火犯点火将会单独获得胜利。","(中立):\n當縱火犯嘗試使用殺人鍵,它將對他身邊最近的一個人澆上油,\n當他對所有玩家澆上油之後,縱火縱火犯點火即勝利。"
@@ -845,6 +848,16 @@ AgiTaterCanBombMoreThanOnce,AgiTater Can Bomb More Than Once,AgiTaterCanBombMore
 SwoopCD,Swoop Cooldown,Swoop Откат,Swoop Cooldown,隐身冷却时间
 SwoopDur,Swoop Duration,Swoop Длительность,Swoop Duration,隐身持续时间
 
+# Spy
+CanSeeDouses,Can See Douses,Can See Douses,Can See Douses,Can See Douses,Can See Douses
+CanSeeInfects,Can See Infects,Can See Infects,Can See Infects,Can See Infects,Can See Infects
+CanSeeTaglocks,Can See Taglocks,Can See Taglocks,Can See Taglocks,Can See Taglocks,Can See Taglocks
+CanSeePuppets,Can See Puppets,Can See Puppets,Can See Puppets,Can See Puppets,Can See Puppets
+CanSeeHexes,Can See Hexes,Can See Hexes,Can See Hexes,Can See Hexes,Can See Hexes
+CanSeeSpells,Can See Spells,Can See Spells,Can See Spells,Can See Spells,Can See Spells
+CanSeeCurses,Can See Curses,Can See Curses,Can See Curses,Can See Curses,Can See Curses
+CanSeeSnitch,Can See Revealed Snitch,Can See Revealed Snitch,Can See Revealed Snitch,Can See Revealed Snitch,Can See Revealed Snitch
+
 CamoCD,Camouflage Cooldown,Откат Камуфляжа,Swoop Cooldown,伪装冷却时间
 CamoDur,Camouflage Duration,Длительность Камуфляжа,Swoop Duration,伪装持续时间
 
@@ -984,6 +997,8 @@ DeathReason.Fell,Fall,Упал,転落,摔死,摔死
 DeathReason.Alive,Alive,Выжил,Alive,存活,Alive
 DeathReason.EarDamage,Ear Damage,Повреждение Уха,Ear Damage,耳膜撕裂,耳朵損傷
 DeathReason.Screamed,Screamed,Кричал,Screamed,惊吓,尖叫
+DeathReason.Trolled,Trolled,Trolled,Trolled,Trolled,Trolled
+DeathReason.Troller,Troller,Troller,Troller,Troller,Troller
 DeathReason.etc,Unknown,Неизвестный,その他,其他,其他
 Alive,Alive,Выжил,生存,存活,存活
 Win," Wins"," Победили",勝利,胜利,勝利

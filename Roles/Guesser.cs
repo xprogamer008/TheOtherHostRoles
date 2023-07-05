@@ -624,6 +624,7 @@ namespace TownOfHost
                 if (!role.IsEnable() | revealed.Contains(role)) continue;
                 if (role == CustomRoles.Phantom) continue;
                 if (role == CustomRoles.Child && Options.ChildKnown.GetBool()) continue;
+                if (role == CustomRoles.Spy) continue;
                 if (role.IsModifier())
                 {
                     if (!role.IsCrewModifier() && role != CustomRoles.LoversRecode) continue;
