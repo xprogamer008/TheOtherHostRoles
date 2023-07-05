@@ -18,7 +18,7 @@ using AmongUs.GameOptions;
 [assembly: AssemblyInformationalVersionAttribute(TownOfHost.Main.PluginVersion)]
 namespace TownOfHost
 {
-    [BepInPlugin(PluginGuid, "Town Of Host: The Other Roles", PluginVersion)]
+    [BepInPlugin(PluginGuid, "Town Of Roles", PluginVersion)]
     [BepInProcess("Among Us.exe")]
     public class Main : BasePlugin
     {
@@ -29,7 +29,7 @@ namespace TownOfHost
         public static readonly string BANNEDFRIENDCODES_FILE_PATH = "./TOR_DATA/bannedfriendcodes.txt";
         public static readonly string DiscordInviteUrl = "https://discord.gg/tohtor";
         public static readonly bool ShowDiscordButton = true;
-        public const string PluginVersion = "1.2";
+        public const string PluginVersion = "1.3";
         public const string DevVersion = "1";
         public const string FullDevVersion = $" dev {DevVersion}";
         public Harmony Harmony { get; } = new Harmony(PluginGuid);
@@ -545,6 +545,7 @@ namespace TownOfHost
                     { CustomRoles.Alturist, "#660000"},
                     { CustomRoles.Psychic, "#6F698C"},
                     { CustomRoles.Tank, "#0A649B"},
+                    { CustomRoles.Spy, "#FF1313"},
                     //第三陣営役職
                     { CustomRoles.Arsonist, "#ff6633"},
                     { CustomRoles.Jester, "#ec62a5"},
@@ -782,6 +783,7 @@ namespace TownOfHost
                     { CustomRoles.Medium, AttackEnum.None},
                     { CustomRoles.Alturist, AttackEnum.None},
                     { CustomRoles.Psychic, AttackEnum.None},
+                    { CustomRoles.Spy, AttackEnum.None},
                     { CustomRoles.Arsonist, AttackEnum.Powerful},
                     { CustomRoles.Jester, AttackEnum.None},
                     { CustomRoles.Terrorist, AttackEnum.Unblockable},
@@ -877,6 +879,7 @@ namespace TownOfHost
                     { CustomRoles.Sleuth ,DefenseEnum.None},
                     { CustomRoles.Detective ,DefenseEnum.None},
                     { CustomRoles.Tracker, DefenseEnum.None},
+                    { CustomRoles.Spy, DefenseEnum.None},
                     { CustomRoles.Transparent, DefenseEnum.None},
                     { CustomRoles.Cursed, DefenseEnum.None},
                     { CustomRoles.TimeTraveler, DefenseEnum.None},
@@ -1078,6 +1081,7 @@ namespace TownOfHost
         Silencer,
         Ninja,
         Swooper,
+        Spy,
         Camouflager,
         Freezer,
         Cleaner,

@@ -51,6 +51,7 @@ New Crewmate Roles:
 - Added Cursed
 - Added Marshall
 - Added Clumsy
+- Added Spy
 
 New Neutral Roles:
 
@@ -192,7 +193,7 @@ Below is an example:
 | [Grenadier](#grenadier)             | [Cursed](#cursed)	              |                                   |                                 |                                |							  |
 | [a Yanger](#ying-yanger)			  | [Marshall](#marshall)             |                                   |                                 |                                |							  |
 | [Pickpocket](#pickpocket)           | [Clumsy](#clumsy)                 |                                   |                                 |                                |							  |
-| [Cleaner](#cleaner)                 |                                   |                                   |                                 |                                |							  |
+| [Cleaner](#cleaner)                 | [Spy](#spy)	                      |                                   |                                 |                                |							  |
 | [Freezer](#freezer)				  |                                   |                                   |                                 |                                |							  |
 | [Wildling](#Wildling)				  |									  |									  |									|								 |							  |
 | [MadMayor](#madmayor)				  |									  |									  |									|								 |							  |
@@ -776,6 +777,16 @@ When the Child dies by any matter, the Child Wins.<br>
 | Name           |
 | -------------- |
 | Child Is Known |
+
+### Spy
+
+Idea by [The Other Roles](https://github.com/TheOtherRolesAU/TheOtherRoles)<br>
+  
+Team : Crewmates<br>
+Basis : Engineer<br>
+  
+The Spy is a crewmate role with the vent ability and Impostor vision.<br>
+The catch? Impostors can see them with a red name.<br>
 
 ### Bastion
 
@@ -1782,3 +1793,4 @@ Town Of Roles Develipors:
 - [Honest](https://www.youtube.com/channel/UCby0ws4qWwnmWujmJlu3AMQ) - Started this Project
 - [PUMPkin Gaming](https://www.youtube.com/@pumpkingaming5548) - Helped a ton in the Project
 - [TheSkullCreeper/Loonie](https://github.com/Loonie-Toons) - Helped a bit in the Project
+- [music-discussions](https://github.com/music-discussion) - Helped with Errors in the project

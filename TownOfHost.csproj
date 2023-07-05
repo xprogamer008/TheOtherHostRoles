@@ -4,8 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-    <Description>Town Of Host The Other Roles</Description>
-    <Authors>Discussions</Authors>
+    <Description>Town Of Roles</Description>
+    <Authors>Honest</Authors>
     <langVersion>preview</langVersion>
   </PropertyGroup>
 
