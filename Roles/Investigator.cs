@@ -114,6 +114,7 @@ namespace TownOfHost
                 CustomRoles.BloodKnight => NKareRed.GetBool(),
                 CustomRoles.Werewolf => NKareRed.GetBool(),
                 CustomRoles.Child => ChildIsRed.GetBool(),
+                CustomRoles.Deputy => CrewKillingRed.GetBool(),
                 CustomRoles.Troll => TrollIsRed.GetBool(),
                 CustomRoles.Sheriff => CrewKillingRed.GetBool(),
                 CustomRoles.Demolitionist => CrewKillingRed.GetBool(),

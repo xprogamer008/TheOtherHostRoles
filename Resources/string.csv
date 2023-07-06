@@ -125,6 +125,7 @@ TimeTraveler,Time Traveler,Time Traveler,Time Traveler,Time Traveler
 Tracker,Tracker,Tracker,Tracker,Tracker
 Cursed,Cursed,Cursed,Cursed,Cursed
 Marshall,Marshall,Marshall,Marshall,Marshall,Marshall
+Deputy,Deputy,Deputy,Deputy,Deputy,Deputy
 
 # 第三陣営役職
 Jester,Jester,Jester,ジェスター,小丑,小丑
@@ -260,6 +261,8 @@ EscapistInfo,Mark a Location to Teleport Back To,EscapistInfo,EscapistInfo,Escap
 CreeperInfo,"Creeper... Awww man.","Creeper... Awww man.","Creeper... Awww man.","Creeper... Awww man.","Creeper... Awww man."
 BomberInfo,Bomb Crewmates to Kill for You,Bomb Crewmates to Kill for You,Bomb Crewmates to Kill for You,Bomb Crewmates to Kill for You,Bomb Crewmates to Kill for You
 WildlingInfo,Swiftly kill with your strength and disguise,Swiftly kill with a shorter disguise,Swiftly kill with a shorter disguise,Swiftly kill with a shorter disguise,Swiftly kill with a shorter disguise
+DeputyInfo,Help the Sheriff to kill Impostors,Help the Sheriff,Help the Sheriff,Help the Sheriff,Help the Sheriff
+
 
 # マッドメイト系役職
 MadmateInfo,Help the Impostors,Помогите Предателям,インポスターの援助をしよう,帮助伪装者,幫助狼人
@@ -493,6 +496,7 @@ TrackerInfoLong,"(Crewmates):\nThe Tracker can track bodies.\nThe Tracker will s
 CursedInfoLong,"(Crewmates):\nThe Cursed is a Crewmate role that is curse for the Crewmates. \nThe Cursed has a certain amount of time to find a body and report it but if they wait to long their ability will Remove the body making it not only not reportable for you, it will make the body unreportable for everyone. \nBut once you cursed a body you will gain the ability to report again till your cursed cooldown is ready.","(Crewmates):\nThe Cursed is a Crewmate role that is curse for the Crewmates. \nThe Cursed has a certain amount of time to find a body and report it but if they wait to long their ability will Remove the body making it not only not reportable for you, it will make the body unreportable for everyone. \nBut once you cursed a body you will gain the ability to report again till your cursed cooldown is ready.","(Crewmates):\nThe Cursed is a Crewmate role that is curse for the Crewmates. \nThe Cursed has a certain amount of time to find a body and report it but if they wait to long their ability will Remove the body making it not only not reportable for you, it will make the body unreportable for everyone. \nBut once you cursed a body you will gain the ability to report again till your cursed cooldown is ready.","(Crewmates):\nThe Cursed is a Crewmate role that is curse for the Crewmates. \nThe Cursed has a certain amount of time to find a body and report it but if they wait to long their ability will Remove the body making it not only not reportable for you, it will make the body unreportable for everyone. \nBut once you cursed a body you will gain the ability to report again till your cursed cooldown is ready.","(Crewmates):\nThe Cursed is a Crewmate role that is curse for the Crewmates. \nThe Cursed has a certain amount of time to find a body and report it but if they wait to long their ability will Remove the body making it not only not reportable for you, it will make the body unreportable for everyone. \nBut once you cursed a body you will gain the ability to report again till your cursed cooldown is ready."
 MarshallInfoLong,"(Crewmates):\nThe Marshall is a crewmate that, upon task completion, is revealed to the rest of the crew.\nAnyone not a part of the crew will not see the revealed Marshall (except madmates, optionally).","(Crewmates):\nThe Marshall is a crewmate that, upon task completion, is revealed to the rest of the crew.\nAnyone not a part of the crew will not see the revealed Marshall.","(Crewmates):\nThe Marshall is a crewmate that, upon task completion, is revealed to the rest of the crew.\nAnyone not a part of the crew will not see the revealed Marshall.","(Crewmates):\nThe Marshall is a crewmate that, upon task completion, is revealed to the rest of the crew.\nAnyone not a part of the crew will not see the revealed Marshall.","(Crewmates):\nThe Marshall is a crewmate that, upon task completion, is revealed to the rest of the crew.\nAnyone not a part of the crew will not see the revealed Marshall."
 SpyInfoLong,"(Crewmates):\nThe Spy is a crewmate with the ability to see actions done by other roles.\nThese include Arsonist's douses, Puppeteer's puppets, and Witch's spells.\nAlso the Spy is a crew role but for the impostors he will look like he is his mate because your name will be red for the imps.\n\nUse this info to your advantage.","(Crewmates):\nThe Spy is a crewmate with Impostor vision and venting abilities.\nHowever, the Impostors see them with a red name.\n\nWins with the crew.","(Crewmates):\nThe Spy is a crewmate with Impostor vision and venting abilities.\nHowever, the Impostors see them with a red name.\n\nWins with the crew.","(Crewmates):\nThe Spy is a crewmate with Impostor vision and venting abilities.\nHowever, the Impostors see them with a red name.\n\nWins with the crew.","(Crewmates):\nThe Spy is a crewmate with Impostor vision and venting abilities.\nHowever, the Impostors see them with a red name.\n\nWins with the crew."
+DeputyInfoLong,"(Crewmates):\nThe Deputy is a crewmate that helps the Sheriff.\nDepending on the options, Deputy may kill while the Sheriff is alive.\n\nYou can see the Sheriff and they can see you.","(Crewmates):\nThe Deputy is a crewmate that helps the Sheriff.\nDepending on the options, Deputy may kill while the Sheriff is alive.\n\nYou can see the Sheriff and they can see you.","(Crewmates):\nThe Deputy is a crewmate that helps the Sheriff.\nDepending on the options, Deputy may kill while the Sheriff is alive.\n\nYou can see the Sheriff and they can see you.","(Crewmates):\nThe Deputy is a crewmate that helps the Sheriff.\nDepending on the options, Deputy may kill while the Sheriff is alive.\n\nYou can see the Sheriff and they can see you.","(Crewmates):\nThe Deputy is a crewmate that helps the Sheriff.\nDepending on the options, Deputy may kill while the Sheriff is alive.\n\nYou can see the Sheriff and they can see you."
 
 # 第三陣営役職
 ArsonistInfoLong,"(Neutrals):\nThey can douse other players by using the kill button and remaining next to the player for a few seconds.\nAfter dousing everyone alive the Arsonists can enter the vents to ignite which results in Arsonist win.","(Нейтрал):\nОн может обливать игроков, нажав на кнопку 'Убить' и находясь рядом с игроком в течение нескольких секунд.\nПосле того как он обольёт всех живых игроков, Arsonist сможет запрыгнуть в вентиляцию чтобы поджечь всех игроков, что приводит к победе Arsonist","(第三陣営):\nキルボタンを使おうとすると、ターゲットに油を塗れる。\nすべてのクルーに油を塗ったら船を燃やして勝利する。","(中立阵营):\n在一名玩家附近时点击击杀按钮，纵火犯可以给那名玩家涂油。\n所有存活玩家都被纵火犯涂油后，纵火犯点火将会单独获得胜利。","(中立):\n當縱火犯嘗試使用殺人鍵,它將對他身邊最近的一個人澆上油,\n當他對所有玩家澆上油之後,縱火縱火犯點火即勝利。"
@@ -723,6 +727,8 @@ BanInsteadOfKick,Ban the Person instead of Kicking Them,Забаньте чел�
 BewilderVision,Bewilder Vision,Bewilder Дальность Обзора,Vision,迷幻视野
 SheriffCanKillHitman,Sheriff Can Kill Hitman,Sheriff Может Убить Hitman,SheriffCanKillHitman,警长可以执法雇佣杀手,SheriffCanKillHitman
 SheriffCanKillPostman,Sheriff Can Kill Postman,SheriffCanKillPostman,SheriffCanKillPostman,SheriffCanKillPostman,SheriffCanKillPostman
+DeputyCanKillHitman,Deputy Can Kill Hitman,Deputy Can Kill Hitman,Deputy Can Kill Hitman,Deputy Can Kill Hitman,Deputy Can Kill Hitman
+DeputyCanKillPostman,Deputy Can Kill Postman,Deputy Can Kill Postman,Deputy Can Kill Postman,Deputy Can Kill Postman
 TasksRemainingForPhantomClicked,Tasks Remaining when Phantom can be Killed,Оставшиеся задания у Фантома когда его можно убить,TasksRemainingForPhantomClicked,杀死幻影需要剩余任务数
 TasksRemaningForPhantomAlert,Tasks Remaining when Everyone Gets an Arrow pointing Towards Phantom,Оставшиеся задания когда все игроки узнают о Фантоме,TasksRemaningForPhantomAlert,所有人都可以看到幻影箭头时剩下的任务
 LighterTaskCompletedDisableLightOut,Lighter Gains Impostor Vision,Имеет Дальность Обзора Предателя,タスク完了時に停電を無効にする,完成任务的执灯人不受熄灯影响,完成任務的小燈人視野不受關燈影響
@@ -733,10 +739,12 @@ SabotageMasterFixesCommunications,SabotageMaster Can Fix Both Comms In MIRA HQ,�
 SabotageMasterFixesElectrical,SabotageMaster Can Fix Lights Out All At Once,Может Починить Саботаж Света Сразу,ｻﾎﾞﾀｰｼﾞｭﾏｽﾀｰが停電に対して能力を使える,修理大师可以按一个按钮修复配电,破壞大師拉一根拉桿就可以修理電燈
 SabotageMasterCanVent,SabotageMaster Can Use Vent,SabotageMaster Can Use Vent,SabotageMaster Can Use Vent,SabotageMaster Can Use Vent,SabotageMaster Can Use Vent
 SheriffKillCooldown,Sheriff Kill Cooldown,Откат Убийства Sheriff,シェリフのキルクール,警长执法冷却,警長執法冷卻
+DeputyKillCooldown,Deputy Kill Cooldown,Deputy Kill Cooldown,Deputy Kill Cooldown,Deputy Kill Cooldown,Deputy Kill Cooldown
 DisableTaskWin,Disable Task Win,Отключить Победу По Заданиям,DisableTaskWin,禁用任务胜利
 ControlCooldown,Witch Cooldown,ControlCooldown,ControlCooldown,巫女冷却时间,ControlCooldown
 NumOfWitchesPerRound,Max Witches per Round,NumOfWitchesPerRound,NumOfWitchesPerRound,每轮最大巫女数
 SheriffCanKillArsonist,Sheriff Can kill Arsonist,Sheriff Может Убить Arsonist,シェリフがアーソニストをキルできる,警长可以执法纵火犯,警長可以槍死縱火犯
+DeputyCanKillArsonist,Deputy Can kill ArsonistDeputy Can kill Arsonist,Deputy Can kill Arsonist,Deputy Can kill Arsonist,Deputy Can kill Arsonist
 SA,Hacker Sabotage Amount,Сумма Очков Саботажей,Hacker Sabotage Amount,黑客需要修复破坏获得积分
 LaptopPercentages,Use Laptop Percentages Instead Of File,Использовать проценты ноутбука вместо файла,LaptopPercentages,配置面板显示概率非文件
 SheriffCanKillJester,Sheriff Can Kill Jester,Sheriff Может Убить Jester,シェリフがジェスターをキルできる,警长可以执法小丑,警長可以槍死小丑
@@ -749,6 +757,18 @@ SheriffCanKillPB,Sheriff Can Kill PlagueBearer,Sheriff Может Убить Pla
 SheriffCanKillVulture,Sheriff Can Kill Vulture,Sheriff Может Убить Vulture,SheriffCanKillVulture,警长可以执法秃鹫
 SheriffCanKillCoven,Sheriff Can Kill Coven,Sheriff Может Убить Coven,SheriffCanKillCoven,警长可以执法巫师
 SheriffCanKillAgitater,Sheriff Can Kill Agitater,SheriffCanKillAgitater,SheriffCanKillAgitater,警长可以执法煽动者
+SheriffCanKillClumsy,Sheriff Can Kill Clumsy,Sheriff Can Kill Clumsy,Sheriff Can Kill Clumsy,Sheriff Can Kill Clumsy,Sheriff Can Kill Clumsy
+DeputyCanKillJester,Deputy Can Kill Jester,Deputy Can Kill Jester,Deputy Can Kill Jester,Deputy Can Kill Jester,Deputy Can Kill Jester
+DeputyCanKillTerrorist,Deputy Can Kill Terrorist/CrewPostor,Deputy Can Kill Terrorist/CrewPostor,Deputy Can Kill Terrorist/CrewPostor,Deputy Can Kill Terrorist/CrewPostor,Deputy Can Kill Terrorist/CrewPostor
+DeputyCanKillExecutioner,Deputy Can Kill Executioner/Swapper,Deputy Can Kill Executioner/Swapper,Deputy Can Kill Executioner/Swapper,Deputy Can Kill Executioner/Swapper,Deputy Can Kill Executioner/Swapper
+DeputyCanKillOpportunist,Deputy Can Kill Opportunist/Survivor,Deputy Can Kill Opportunist/Survivor,Deputy Can Kill Opportunist/Survivor,Deputy Can Kill Opportunist/Survivor,Deputy Can Kill Opportunist/Survivor
+DeputyCanKillMadmate,Deputy Can Kill Madmates,Deputy Can Kill Madmates,Deputy Can Kill Madmates,Deputy Can Kill Madmates,Deputy Can Kill Madmates
+DeputyCanKillEgoist,Deputy Can Kill Egoist,Deputy Can Kill Egoist,Deputy Can Kill Egoist,Deputy Can Kill Egoist,Deputy Can Kill Egoist
+DeputyCanKillPB,Deputy Can Kill PlagueBearer,Deputy Can Kill PlagueBearer,Deputy Can Kill PlagueBearer,Deputy Can Kill PlagueBearer
+DeputyCanKillVulture,Deputy Can Kill Vulture,Deputy Can Kill Vulture,Deputy Can Kill Vulture,Deputy Can Kill Vulture
+DeputyCanKillCoven,Deputy Can Kill Coven,Deputy Can Kill Coven,Deputy Can Kill Coven,Deputy Can Kill Coven
+DeputyCanKillAgitater,Deputy Can Kill Agitater,Deputy Can Kill Agitater,Deputy Can Kill Agitater,Deputy Can Kill Agitater
+DeputyCanKillClumsy,Deputy Can Kill Clumsy,Deputy Can Kill Clumsy,Deputy Can Kill Clumsy,Deputy Can Kill Clumsy,Deputy Can Kill Clumsy
 SleuthReport,Sleuth Has to Report,Sleuth Должен Зарепортить,Sleuth Has to Report,侦探必须报告
 SkipInfect,Skip PlagueBearer Infection,Пропустить Инфекцию у PlagueBearer ,Skip PlagueBearer Infection,跳过感染过程成为瘟神
 Bodies,Bodies Needed To Be Eaten,Колличество Трупов Которые Нужно Съесть,Bodies Needed To Be Eaten,需要吃尸体的数量
@@ -758,6 +778,11 @@ SheriffCanKillJackal,Sheriff Can Kill Serial Killer,Sheriff Может Убит�
 SheriffCanKillJShrodingerCat,Sheriff Can Kill Serial KillerSide ShrodingerCat,Sheriff Может Убить Serial Killer Сторону ShrodingerCat,シェリフがジャッカル陣営のシュレディンガーの猫をキルできる,警长可以执法豺狼阵营的薛定谔的猫,警長可以槍死豺狼方的薛定諤的貓
 SheriffCanKillCrewmatesAsIt,Sheriff Can Kill Crewmates As It,Sheriff Может Убивать Членов Экипажа,シェリフがそのままクルーをキルできる,警长执法船员时会同归于尽,警長走火時會讓嘗試槍的玩家同歸於盡
 SheriffShotLimit,Sheriff Shot Limit,Лимит Выстрелов Sheriff,シェリフのキル可能回数,警长最大执法次数,警長最大子彈數量
+DeputyCanKillEgoShrodingerCat,Deputy Can Kill EgoistSide ShrodingerCat,Deputy Can Kill EgoistSide ShrodingerCat,Deputy Can Kill EgoistSide ShrodingerCat,Deputy Can Kill EgoistSide ShrodingerCat,Deputy Can Kill EgoistSide ShrodingerCat
+DeputyCanKillJackal,Deputy Can Kill Serial Killer,Deputy Can Kill Serial Killer,Deputy Can Kill Serial Killer,Deputy Can Kill Serial Killer,Deputy Can Kill Serial Killer
+DeputyCanKillJShrodingerCat,Deputy Can Kill Serial KillerSide ShrodingerCat,Deputy Can Kill Serial KillerSide ShrodingerCat,Deputy Can Kill Serial KillerSide ShrodingerCat,Deputy Can Kill Serial KillerSide ShrodingerCat,Deputy Can Kill Serial KillerSide ShrodingerCat
+DeputyCanKillCrewmatesAsIt,Deputy Can Kill Crewmates As It,Deputy Can Kill Crewmates As It,Deputy Can Kill Crewmates As It,Deputy Can Kill Crewmates As It,Deputy Can Kill Crewmates As It
+DeputyShotLimit,Deputy Shot Limit,Deputy Shot Limit,Deputy Shot Limit,Deputy Shot Limit,Deputy Shot Limit
 HideCommand,Hide Command,Скрыть Команды,HideCommand,隐藏命令,HideCommand
 PuppeteerCanKillAlliedPlayers,Puppeteer can Kill Allied Players,PuppeteerCanKillAlliedPlayers,PuppeteerCanKillAlliedPlayers,PuppeteerCanKillAlliedPlayers
 WarlockCanKillAlliedPlayers,Warlock can Kill Allied Players,WarlockCanKillAlliedPlayers,WarlockCanKillAlliedPlayers,WarlockCanKillAlliedPlayers
@@ -770,6 +795,7 @@ SpeedrunGamemode,Speedrun Gamemode,SpeedrunGamemode,SpeedrunGamemode,SpeedrunGam
 AccurateWinner,Accurate Winner For Clients,AccurateWinner,AccurateWinner,AccurateWinner
 KillFlashDuration,Kill Flash Duration(s),Длительность Вспышки Убийсва,キルフラッシュの長さ(秒),击杀闪烁持续时间(秒)
 SheriffCanKillJug,Sheriff Can Kill Juggernaut/Marksman/BloodKnight,Sheriff Может Убить Juggernaut,シェリフのキル可能回数,警长可以执法欲望杀手/神射手/嗜血骑士
+DeputyCanKillJug,Deputy Can Kill Juggernaut/Marksman/BloodKnight,Deputy Can Kill Juggernaut/Marksman/BloodKnight,Deputy Can Kill Juggernaut/Marksman/BloodKnight,Deputy Can Kill Juggernaut/Marksman/BloodKnight
 DoctorTaskCompletedBatteryCharge,Doctor Battery Duration,Длительность Батарейки Doctor,ドクターがタスクを終わらせたときにセットされるバイタルの秒数,医生电池持续时间,醫生完成任務充電秒數
 SnitchEnableTargetArrow,Snitch Can See Target Arrow,Может Видеть Стрелку Цели,ターゲットを示す矢印が見える,告密者可以看到目标箭头,告密者完成任務後可以看到目標的箭頭
 SnitchCanGetArrowColor,Snitch Can See Colored Arrow,Может Видеть Цвета Стрелок,矢印の色で陣営がわかる,告密者对不同阵营的目标使用不同颜色的箭头,對不同陣營的目標使用不同顏色的箭頭標示
@@ -798,7 +824,7 @@ BombTime,Bomber Bomb Duration,Bomber Bomb Duration,Bomber Bomb Duration,Bomber B
 ArsonistCooldown,Arsonist Douse Cooldown,Arsonist Откат Обливания,アーソニストのクールダウン,纵火犯涂油冷却,縱火犯澆油冷卻
 DetectiveHasArrow,Detective has Arrows Pointing To Bodies,Detective has Arrows Pointing To Bodies,Detective has Arrows Pointing To Bodies,Detective has Arrows Pointing To Bodies,Detective has Arrows Pointing To Bodies
 TankCanSeeWhoTriedToKill,Tank Can See Who Tried To Kill,Tank Can See Who Tried To Kill,Tank Can See Who Tried To Kill,Tank Can See Who Tried To Kill,Tank Can See Who Tried To Kill
-
+RevealsToMadmates,Reveals To Madmates,Reveals To Madmates,Reveals To Madmates,Reveals To Madmates,Reveals To Madmates
 
 TourArso,TOuR Arsonist,TOuR Arsonist,TOuR Arsonist,TOuR的纵火犯
 InfectCD,Infect Cooldown,Откат Заражения,アーソニストの塗り時間,感染冷却时间
@@ -962,6 +988,8 @@ RCD,Rampage Cooldown,Откат Ярости,Translation Unavailble,横冲直撞
 RDur,Rampage Duration,Продолжительность Ярости,Translation Unavailble,横冲直撞持续时间
 SCKWW,Sheriff Can Kill Werewolf,Sheriff Может Убить Werewolf,Translation Unavailble,警长可以执法狼人
 SCKTG,Sheriff Can Kill The Glitch,Sheriff Может Убить The Glitch,Translation Unavailble,警长可以执法混沌
+DCKWW,Deputy Can Kill Werewolf,Deputy Can Kill Werewolf,Deputy Can Kill Werewolf,Deputy Can Kill Werewolf
+DCKTG,Deputy Can Kill The Glitch,Deputy Can Kill The Glitch,Deputy Can Kill The Glitch,Deputy Can Kill The Glitch
 
 ## Global
 RBC,Role Block Cooldown,Откат Блокировки Игрока,Translation Unavailble,职业切换冷却时间

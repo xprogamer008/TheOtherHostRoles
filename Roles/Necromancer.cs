@@ -49,6 +49,7 @@ namespace TownOfHost
                         currentRole = role;
                         break;
                     case CustomRoles.Sheriff:
+                    case CustomRoles.Deputy:
                     case CustomRoles.CorruptedSheriff:
                         if (Options.NecroCanUseSheriff.GetBool())
                             currentRole = role;
@@ -480,6 +481,24 @@ namespace TownOfHost
                         break;
                     }
                     Sheriff.OnCheckMurder(necromancer, target, Process: "RemoveShotLimit");
+                    break;
+                case CustomRoles.Deputy:
+                    skipVetCheck = true;
+                    if (target.Is(CustomRoles.Veteran) && !Main.HasNecronomicon && Main.VetIsAlerted && Options.CrewRolesVetted.GetBool())
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        break;
+                    }
+                    if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        new LateTask(() =>
+                        {
+                            Main.unreportableBodies.Add(necromancer.PlayerId);
+                        }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                        break;
+                    }
+                    Deputy.OnCheckMurder(necromancer, target, Process: "RemoveShotLimit");
                     break;
                 case CustomRoles.BloodKnight:
                     if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
