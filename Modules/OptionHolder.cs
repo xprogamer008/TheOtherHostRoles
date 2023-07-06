@@ -728,6 +728,7 @@ namespace TownOfHost
             MayorNumOfUseButton = CustomOption.Create(20212, Color.white, "MayorNumOfUseButton", AmongUsExtensions.OptionType.Crewmate, 1, 1, 99, 1, MayorHasPortableButton);
             SabotageMaster.SetupCustomOption();
             Sheriff.SetupCustomOption();
+            Deputy.SetupCustomOption();
             TimeTraveler.SetupCustomOption();
             Investigator.SetupCustomOption();
             SetupRoleOptions(99910100, CustomRoles.Tank, AmongUsExtensions.OptionType.Crewmate);

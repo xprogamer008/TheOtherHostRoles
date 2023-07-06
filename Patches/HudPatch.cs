@@ -147,6 +147,9 @@ namespace TownOfHost
                 case CustomRoles.Cursed:
                     __instance.ReportButton.OverrideText("CURSED");
                     break;
+                case CustomRoles.Deputy:
+                    __instance.KillButton.OverrideText("SHOOT");
+                    break;
                 case CustomRoles.Warlock:
                         if (!Main.CheckShapeshift[player.PlayerId])
                     {
@@ -515,6 +518,14 @@ namespace TownOfHost
                     }
                     player.CanUseImpostorVent();
                     goto DesyncImpostor;
+                case CustomRoles.Deputy:
+                    if (Deputy.ShotLimit.TryGetValue(player.PlayerId, out var Dcount) && Dcount == 0)
+                    {
+                        __instance.KillButton.SetDisabled();
+                        __instance.KillButton.ToggleVisible(false);
+                    }
+                    player.CanUseImpostorVent();
+                    goto DesyncImpostor;
                 case CustomRoles.CorruptedSheriff:
                     player.CanUseImpostorVent();
                     goto DesyncImpostor;
@@ -661,6 +672,7 @@ namespace TownOfHost
         {
             var player = PlayerControl.LocalPlayer;
             if ((player.GetCustomRole() == CustomRoles.Sheriff ||
+                player.GetCustomRole() == CustomRoles.Deputy ||
                 player.GetCustomRole() == CustomRoles.Investigator ||
                 player.GetCustomRole() == CustomRoles.CorruptedSheriff ||
                 player.GetCustomRole() == CustomRoles.Arsonist ||
@@ -716,6 +728,7 @@ namespace TownOfHost
                 case CustomRoles.Sheriff:
                 //     case CustomRoles.Dracula:
                 case CustomRoles.NeutWitch:
+                case CustomRoles.Deputy:
                 case CustomRoles.Investigator:
                 case CustomRoles.AgiTater:
                 case CustomRoles.Arsonist:
@@ -925,7 +938,7 @@ namespace TownOfHost
         public static void Prefix(ref RoleTeamTypes __state)
         {
             var player = PlayerControl.LocalPlayer;
-            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.BloodKnight) || player.Is(CustomRoles.NeutWitch) || player.Is(CustomRoles.Escort) || player.Is(CustomRoles.Crusader) || player.Is(CustomRoles.Investigator) || player.Is(CustomRoles.Parasite) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.PlagueBearer) || player.Is(CustomRoles.TheGlitch) || player.Is(CustomRoles.Werewolf) || player.Is(CustomRoles.Opportunist) || player.Is(CustomRoles.Executioner) || player.Is(CustomRoles.Swapper) || player.Is(CustomRoles.Jester) || player.Is(CustomRoles.Pestilence))
+            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.Deputy) || player.Is(CustomRoles.BloodKnight) || player.Is(CustomRoles.NeutWitch) || player.Is(CustomRoles.Escort) || player.Is(CustomRoles.Crusader) || player.Is(CustomRoles.Investigator) || player.Is(CustomRoles.Parasite) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.PlagueBearer) || player.Is(CustomRoles.TheGlitch) || player.Is(CustomRoles.Werewolf) || player.Is(CustomRoles.Opportunist) || player.Is(CustomRoles.Executioner) || player.Is(CustomRoles.Swapper) || player.Is(CustomRoles.Jester) || player.Is(CustomRoles.Pestilence))
             {
                 __state = player.Data.Role.TeamType;
                 player.Data.Role.TeamType = RoleTeamTypes.Crewmate;
@@ -940,7 +953,7 @@ namespace TownOfHost
         public static void Postfix(ref RoleTeamTypes __state)
         {
             var player = PlayerControl.LocalPlayer;
-            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.BloodKnight) || player.Is(CustomRoles.NeutWitch) || player.Is(CustomRoles.Escort) || player.Is(CustomRoles.Crusader) || player.Is(CustomRoles.Investigator) || player.Is(CustomRoles.Parasite) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.PlagueBearer) || player.Is(CustomRoles.TheGlitch) || player.Is(CustomRoles.Werewolf) || player.Is(CustomRoles.Pestilence))
+            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.Deputy) || player.Is(CustomRoles.BloodKnight) || player.Is(CustomRoles.NeutWitch) || player.Is(CustomRoles.Escort) || player.Is(CustomRoles.Crusader) || player.Is(CustomRoles.Investigator) || player.Is(CustomRoles.Parasite) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.PlagueBearer) || player.Is(CustomRoles.TheGlitch) || player.Is(CustomRoles.Werewolf) || player.Is(CustomRoles.Pestilence))
             {
                 player.Data.Role.TeamType = __state;
             }

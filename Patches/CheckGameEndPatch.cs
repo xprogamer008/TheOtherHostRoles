@@ -844,7 +844,7 @@ namespace TownOfHost
             {
                 if (!pc.Data.IsDead) Main.AliveAtTheEndOfTheRound.Add(pc.PlayerId);
                 var LoseImpostorRole = Main.AliveImpostorCount == 0 ? pc.Is(RoleType.Impostor) : pc.Is(CustomRoles.Egoist);
-                if (pc.Is(CustomRoles.Sheriff) || pc.Is(CustomRoles.Investigator) || pc.Is(CustomRoles.Janitor) || (Main.currentWinner != CustomWinner.Dracula && pc.Is(CustomRoles.Dracula)) || pc.Is(CustomRoles.Escort) || pc.Is(CustomRoles.Crusader) ||
+                if (pc.Is(CustomRoles.Sheriff) || pc.Is(CustomRoles.Deputy) || pc.Is(CustomRoles.Investigator) || pc.Is(CustomRoles.Janitor) || (Main.currentWinner != CustomWinner.Dracula && pc.Is(CustomRoles.Dracula)) || pc.Is(CustomRoles.Escort) || pc.Is(CustomRoles.Crusader) ||
                     (!(Main.currentWinner == CustomWinner.Arsonist) && pc.Is(CustomRoles.Arsonist)) || (Main.currentWinner == CustomWinner.Lovers && !Main.LoversPlayers.Contains(pc)) || (pc.Is(CustomRoles.Hitman) && pc.Data.IsDead) || (Main.currentWinner != CustomWinner.Vulture && pc.Is(CustomRoles.Vulture)) || (Main.currentWinner != CustomWinner.Painter && pc.Is(CustomRoles.Painter)) || (Main.currentWinner != CustomWinner.Marksman && pc.Is(CustomRoles.Marksman)) || (Main.currentWinner != CustomWinner.Pirate && pc.Is(CustomRoles.Pirate)) ||
                     (Main.currentWinner != CustomWinner.Jackal && pc.Is(CustomRoles.Jackal)) || (Main.currentWinner != CustomWinner.Swapper && pc.Is(CustomRoles.Swapper)) || (Main.currentWinner != CustomWinner.BloodKnight && pc.Is(CustomRoles.BloodKnight)) || (Main.currentWinner != CustomWinner.Pestilence && pc.Is(CustomRoles.Pestilence)) || (Main.currentWinner != CustomWinner.Coven && pc.GetRoleType() == RoleType.Coven) ||
                     LoseImpostorRole || (Main.currentWinner != CustomWinner.Werewolf && pc.Is(CustomRoles.Werewolf)) || (Main.currentWinner != CustomWinner.TheGlitch && pc.Is(CustomRoles.TheGlitch)) || (Main.currentWinner != CustomWinner.Unseeable && pc.Is(CustomRoles.Unseeable)))
@@ -989,7 +989,7 @@ namespace TownOfHost
                             }
 
                             if (playerInfo.Role.TeamType == RoleTeamTypes.Impostor &&
-                            (playerInfo.GetCustomRole() != CustomRoles.Sheriff || playerInfo.GetCustomRole() != CustomRoles.Arsonist ||
+                            (playerInfo.GetCustomRole() != CustomRoles.Sheriff || playerInfo.GetCustomRole() != CustomRoles.Deputy || playerInfo.GetCustomRole() != CustomRoles.Arsonist ||
                             playerInfo.GetCustomRole() != CustomRoles.PlagueBearer || playerInfo.GetCustomRole() != CustomRoles.TheGlitch ||
                             playerInfo.GetCustomRole() != CustomRoles.Jackal || playerInfo.GetCustomRole() != CustomRoles.Pestilence ||
                             playerInfo.GetCustomRole() != CustomRoles.Juggernaut || playerInfo.GetCustomRole() != CustomRoles.Werewolf ||

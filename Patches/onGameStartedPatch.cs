@@ -262,6 +262,7 @@ namespace TownOfHost
                 Egoist.Init();
                 Bomber.Init();
                 Sheriff.Init();
+                Deputy.Init();
                 Investigator.Init();
                 Camouflager.Init();
                 Postman.Reset();
@@ -669,6 +670,8 @@ namespace TownOfHost
                         AssignDesyncShiftingRole(CustomRoles.Parasite, AllPlayers, sender);
                     if (Main.chosenDesyncRoles.Contains(CustomRoles.Sheriff))
                         AssignDesyncRole(CustomRoles.Sheriff, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
+                    if (Main.chosenDesyncRoles.Contains(CustomRoles.Deputy))
+                        AssignDesyncRole(CustomRoles.Deputy, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
                     if (Main.chosenDesyncRoles.Contains(CustomRoles.Investigator))
                         AssignDesyncRole(CustomRoles.Investigator, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
                     if (Main.chosenDesyncRoles.Contains(CustomRoles.Escort))
@@ -1199,6 +1202,9 @@ namespace TownOfHost
                                 break;
                             case CustomRoles.Sheriff:
                                 Sheriff.Add(pc.PlayerId);
+                                break;
+                            case CustomRoles.Deputy:
+                                Deputy.Add(pc.PlayerId);
                                 break;
                             case CustomRoles.Mayor:
                                 Main.MayorUsedButtonCount[pc.PlayerId] = 0;

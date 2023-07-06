@@ -82,7 +82,6 @@ namespace TownOfHost
             if (text.Contains("starting")) return false;
             if (text.Contains("beginner")) return false;
             if (text.Contains("beginned")) return false;
-            if (text.Contains("star")) return false;
             if (text.Contains("start")) return true;
             if (text.Contains("s t a r t")) return true;
             if (text.Contains("begin")) return true;
@@ -268,6 +267,7 @@ namespace TownOfHost
                     if (cRole == CustomRoles.Opportunist) hasTasks = false;
                     if (cRole == CustomRoles.Survivor && ForRecompute) hasTasks = false;
                     if (cRole == CustomRoles.Sheriff) hasTasks = false;
+                    if (cRole == CustomRoles.Deputy) hasTasks = false;
                     if (cRole == CustomRoles.Escort) hasTasks = false;
                     if (cRole == CustomRoles.Crusader) hasTasks = false;
                     if (cRole == CustomRoles.CorruptedSheriff) hasTasks = false;
@@ -385,6 +385,9 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Sheriff:
                     ProgressText += Sheriff.GetShotLimit(playerId);
+                    break;
+                case CustomRoles.Deputy:
+                    ProgressText += Deputy.GetShotLimit(playerId);
                     break;
                 case CustomRoles.Transporter:
                     ProgressText += Helpers.ColorString(GetRoleColor(CustomRoles.Transporter), $"({Main.TransportsLeft})");
@@ -1013,7 +1016,7 @@ namespace TownOfHost
                     {
                         case RoleType.Crewmate:
                             if (!Options.CkshowEvil.GetBool()) break;
-                            if (role is CustomRoles.Sheriff or CustomRoles.Veteran or CustomRoles.Bodyguard or CustomRoles.Crusader or CustomRoles.Child or CustomRoles.Bastion or CustomRoles.Demolitionist or CustomRoles.NiceGuesser) badPlayers.Add(pc);
+                            if (role is CustomRoles.Sheriff or CustomRoles.Deputy or CustomRoles.Veteran or CustomRoles.Bodyguard or CustomRoles.Crusader or CustomRoles.Child or CustomRoles.Bastion or CustomRoles.Demolitionist or CustomRoles.NiceGuesser) badPlayers.Add(pc);
                             break;
                         case RoleType.Impostor:
                             badPlayers.Add(pc);
@@ -2035,7 +2038,10 @@ namespace TownOfHost
                             target.PlayerId == ExecutionerTarget.Value)
                                 TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Target), TargetPlayerName);
                         }
-
+                        if (seer.Is(CustomRoles.Sheriff) && target.Is(CustomRoles.Deputy))
+                        {
+                            TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Deputy), TargetPlayerName);
+                        }
                         if (seer.Is(CustomRoles.Soulhandler) && target.Data.IsDead)
                         {
                             if (target.Is(RoleType.Crewmate) && target.Data.IsDead)
@@ -2048,6 +2054,10 @@ namespace TownOfHost
                                 TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Impostor), TargetPlayerName);
                             if (target.Is(RoleType.Coven) && target.Data.IsDead)
                                 TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.NeutWitch), TargetPlayerName);
+                        }
+                        if (seer.Is(CustomRoles.Deputy) && target.Is(CustomRoles.Sheriff))
+                        {
+                            TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Sheriff), TargetPlayerName);
                         }
                         if (target.Is(CustomRoles.Marshall) && target.GetPlayerTaskState().IsTaskFinished && seer.GetCustomRole().IsCrewmate())
                         {

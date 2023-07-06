@@ -669,7 +669,7 @@ namespace TownOfHost
                         {
                             case RoleType.Crewmate:
                                 if (!Options.CkshowEvil.GetBool()) break;
-                                if (role is CustomRoles.Sheriff or CustomRoles.Veteran or CustomRoles.Bodyguard or CustomRoles.Crusader or CustomRoles.Child or CustomRoles.Bastion or CustomRoles.Demolitionist or CustomRoles.NiceGuesser) badPlayers.Add(pc);
+                                if (role is CustomRoles.Sheriff or CustomRoles.Deputy or CustomRoles.Veteran or CustomRoles.Bodyguard or CustomRoles.Crusader or CustomRoles.Child or CustomRoles.Bastion or CustomRoles.Demolitionist or CustomRoles.NiceGuesser) badPlayers.Add(pc);
                                 break;
                             case RoleType.Impostor:
                                 badPlayers.Add(pc);
@@ -873,6 +873,14 @@ namespace TownOfHost
                     }
                     switch (seer.GetCustomRole())
                     {
+                        case CustomRoles.Sheriff:
+                            if (target.Is(CustomRoles.Deputy))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Deputy), pva.NameText.text);
+                            break;
+                        case CustomRoles.Deputy:
+                            if (target.Is(CustomRoles.Sheriff))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Sheriff), pva.NameText.text);
+                            break;
                         case CustomRoles.MadSnitch:
                         case CustomRoles.Snitch:
                             if (seer.GetPlayerTaskState().IsTaskFinished) //seerがタスクを終えている

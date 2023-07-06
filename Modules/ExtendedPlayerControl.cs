@@ -457,6 +457,7 @@ namespace TownOfHost
                     Bomber.ApplyGameOptions(player, options);
                     break;
                 case CustomRoles.Sheriff:
+                case CustomRoles.Deputy:
                 case CustomRoles.Investigator:
                 case CustomRoles.Janitor:
                 case CustomRoles.Arsonist:
@@ -946,6 +947,7 @@ namespace TownOfHost
                 CustomRoles.FireWorks => FireWorks.CanUseKillButton(pc),
                 CustomRoles.Sniper => Sniper.CanUseKillButton(pc),
                 CustomRoles.Sheriff => Sheriff.CanUseKillButton(pc),
+                CustomRoles.Deputy => Deputy.CanUseKillButton(pc),
                 CustomRoles.Investigator => Investigator.CanUseKillButton(pc),
                 CustomRoles.Arsonist => false,
                 CustomRoles.PlagueBearer => true,
@@ -1153,6 +1155,9 @@ namespace TownOfHost
                 case CustomRoles.Sheriff:
                     Sheriff.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
                     break;
+                case CustomRoles.Deputy:
+                    Deputy.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
+                    break;
                 case CustomRoles.Investigator:
                     Investigator.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
                     break;
@@ -1259,6 +1264,9 @@ namespace TownOfHost
                 case CustomRoles.CorruptedSheriff:
                 case CustomRoles.Sheriff:
                     Sheriff.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
+                    break;
+                case CustomRoles.Deputy:
+                    Deputy.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
                     break;
                 case CustomRoles.Investigator:
                     Investigator.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
@@ -1534,6 +1542,7 @@ namespace TownOfHost
             {
                 case CustomRoles.Amnesiac:
                 case CustomRoles.Sheriff:
+                case CustomRoles.Deputy:
                 case CustomRoles.Investigator:
                 case CustomRoles.AgiTater:
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(false);
@@ -1666,6 +1675,8 @@ namespace TownOfHost
                         return $"They were mauled by the Werewolf.";
                     case CustomRoles.Sheriff:
                         return $"TThey were shot by the Sheriff.";
+                    case CustomRoles.Deputy:
+                        return $"They were shot by the Sheriff's Deputy.";
                     case CustomRoles.BloodKnight:
                         return $"The Blood Knight fed off of them.";
                     case CustomRoles.Medusa:
@@ -1856,6 +1867,7 @@ namespace TownOfHost
                 CustomRoles.PlagueBearer or
                 CustomRoles.Juggernaut or
                 CustomRoles.Sheriff or
+                CustomRoles.Deputy or
                 CustomRoles.Dracula or
                 CustomRoles.Unseeable or
                 CustomRoles.CorruptedSheriff or

@@ -213,6 +213,12 @@ namespace TownOfHost
                 CustomRoles.JSchrodingerCat or
                 CustomRoles.Sidekick;
         }
+        public static bool IsSheriffTeam(this CustomRoles role)
+        {
+            return
+                role is CustomRoles.Sheriff or
+                CustomRoles.Deputy;
+        }
         public static bool IsCrewmate(this CustomRoles role) => !role.IsImpostorTeam() && !role.IsNeutral() && !role.IsCoven();
         public static bool CanGetCrewModifier(this CustomRoles role) => !role.IsImpostorTeam() && !role.IsNeutralBad() && !role.IsCoven();
         public static bool IsVanilla(this CustomRoles role)
@@ -327,6 +333,7 @@ namespace TownOfHost
             return
                 role is CustomRoles.Sheriff or
                 CustomRoles.Investigator or
+                CustomRoles.Deputy or
                 CustomRoles.Parasite or
                 CustomRoles.Escort or
                 CustomRoles.Hitman or

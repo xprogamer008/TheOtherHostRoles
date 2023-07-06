@@ -24,12 +24,14 @@ namespace TownOfHost
                 case CustomRoles.TheGlitch:
                 case CustomRoles.Arsonist:
                 case CustomRoles.Sheriff:
+                case CustomRoles.Deputy:
                 case CustomRoles.Dracula:
                 case CustomRoles.Vampire:
                 case CustomRoles.Poisoner:
                 case CustomRoles.Pestilence:
                 case CustomRoles.Silencer:
                 case CustomRoles.Investigator:
+                case CustomRoles.Swooper:
                     return true;
                 default:
                     return false;
@@ -58,6 +60,7 @@ namespace TownOfHost
                     __instance.KillButton.graphic.sprite = Douse;
                     break;
                 case CustomRoles.Sheriff:
+                case CustomRoles.Deputy:
                     __instance.KillButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                     __instance.KillButton.graphic.sprite = Sheriff;
                     break;

@@ -21,6 +21,7 @@ namespace TownOfHost
             if (!AmongUsClient.Instance.AmHost) return false;
             Logger.Info("CheckProtect発生: " + __instance.GetNameWithRole() + "=>" + target.GetNameWithRole(), "CheckProtect");
             if (__instance.Is(CustomRoles.Sheriff))
+            if (__instance.Is(CustomRoles.Deputy))
             {
                 if (__instance.Data.IsDead)
                 {
@@ -157,6 +158,10 @@ namespace TownOfHost
                             if (!Options.SidekickCanKill.GetBool())
                                 return false;
                         }
+                        break;
+                    case CustomRoles.Deputy:
+                        if (!Deputy.CanUseKillButton(killer))
+                            return false;
                         break;
                     case CustomRoles.Sheriff:
                         if (!Sheriff.CanUseKillButton(killer))
@@ -390,7 +395,12 @@ namespace TownOfHost
                         //they are both Jackal.
                         return false;
                     }
-                    else if (killer.SameTeamAsTarget(target))
+                if (target.GetCustomRole().IsSheriffTeam() && killer.GetCustomRole().IsSheriffTeam())
+                {
+                    //Sheriff and Deputy cannot kill/misfire each other.
+                    return false;
+                }
+                else if (killer.SameTeamAsTarget(target))
                     {
                         // they are on same team
                         return false;
@@ -1541,6 +1551,34 @@ namespace TownOfHost
                             Sheriff.OnCheckMurder(killer, target, Process: "RemoveShotLimit");
                         }
                         break;
+                    case CustomRoles.Deputy:
+                        if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted && Options.CrewRolesVetted.GetBool())
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            new LateTask(() =>
+                            {
+                                Main.unreportableBodies.Add(killer.PlayerId);
+                            }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (!Deputy.NoDeathPenalty.GetBool())
+                        {
+                            Deputy.OnCheckMurder(killer, target, Process: "RemoveShotLimit");
+
+
+                            if (!Deputy.OnCheckMurder(killer, target, Process: "Suicide"))
+                                return false;
+                        }
+                        else
+                        {
+                            Deputy.OnCheckMurder(killer, target, Process: "RemoveShotLimit");
+                        }
+                        break;
                     case CustomRoles.Investigator:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted && Options.CrewRolesVetted.GetBool())
                         {
@@ -1781,6 +1819,19 @@ namespace TownOfHost
                                 Sheriff.seer.CustomSyncSettings();
                                 Sheriff.csheriff = true;
                                 RPC.SetTraitor(Sheriff.seer.PlayerId);
+                            }
+                        }
+                        Deputy.seer = couldBeTraitors[rando.Next(0, couldBeTraitors.Count)];
+
+                        //foreach (var pva in __instance.playerStates)
+                        if (IsAlive >= Options.PlayersForTraitor.GetFloat() && Deputy.seer != null)
+                        {
+                            if (numCovenAlive == 0 && numNKalive == 0 && numCovenAlive == 0 && numImpsAlive == 0)
+                            {
+                                Deputy.seer.RpcSetCustomRole(CustomRoles.CorruptedSheriff);
+                                Deputy.seer.CustomSyncSettings();
+                                Deputy.cDeputy = true;
+                                RPC.SetTraitor(Deputy.seer.PlayerId);
                             }
                         }
                     }
@@ -2142,6 +2193,8 @@ namespace TownOfHost
                         if (Main.GuardianAngelTarget.ContainsKey(target.PlayerId))
                             Main.GuardianAngelTarget.Remove(target.PlayerId);
                         if (targetm.Is(CustomRoles.Sheriff))
+                            targetm.RpcSetCustomRole(CustomRoles.CorruptedSheriff);
+                        if (targetm.Is(CustomRoles.Deputy))
                             targetm.RpcSetCustomRole(CustomRoles.CorruptedSheriff);
                         else if (targetm.Is(CustomRoles.Investigator))
                             targetm.RpcSetCustomRole(CustomRoles.CorruptedSheriff);
@@ -2547,6 +2600,8 @@ namespace TownOfHost
                         case RoleType.Crewmate:
                             Sheriff.Add(__instance.PlayerId);
                             __instance.RpcSetCustomRole(CustomRoles.Sheriff);
+                            Deputy.Add(__instance.PlayerId);
+                            __instance.RpcSetCustomRole(CustomRoles.Deputy);
                             break;
                         case RoleType.Neutral:
                             if (reported.IsNeutralKiller())
@@ -3516,7 +3571,7 @@ namespace TownOfHost
             //LocalPlayer専用
             if (__instance.AmOwner)
             {
-                if (GameStates.IsInTask && !GameStates.IsLobby && (__instance.Is(CustomRoles.Sheriff) || __instance.Is(CustomRoles.Dracula) || __instance.Is(CustomRoles.Unseeable) || __instance.Is(CustomRoles.AgiTater) || __instance.Is(CustomRoles.NeutWitch) || __instance.Is(CustomRoles.Investigator) || __instance.Is(CustomRoles.Escort) || __instance.Is(CustomRoles.Crusader) || __instance.Is(CustomRoles.Hitman) || __instance.Is(CustomRoles.Janitor) || __instance.Is(CustomRoles.Painter) || __instance.Is(CustomRoles.Marksman) || __instance.Is(CustomRoles.BloodKnight) || __instance.Is(CustomRoles.Sidekick) || __instance.Is(CustomRoles.CorruptedSheriff) || __instance.GetRoleType() == RoleType.Coven || __instance.Is(CustomRoles.Arsonist) || __instance.Is(CustomRoles.Werewolf) || __instance.Is(CustomRoles.TheGlitch) || __instance.Is(CustomRoles.Juggernaut) || __instance.Is(CustomRoles.PlagueBearer) || __instance.Is(CustomRoles.Pestilence) || __instance.Is(CustomRoles.Jackal)) && !__instance.Data.IsDead)
+                if (GameStates.IsInTask && !GameStates.IsLobby && (__instance.Is(CustomRoles.Sheriff) || __instance.Is(CustomRoles.Deputy) || __instance.Is(CustomRoles.Dracula) || __instance.Is(CustomRoles.Unseeable) || __instance.Is(CustomRoles.AgiTater) || __instance.Is(CustomRoles.NeutWitch) || __instance.Is(CustomRoles.Investigator) || __instance.Is(CustomRoles.Escort) || __instance.Is(CustomRoles.Crusader) || __instance.Is(CustomRoles.Hitman) || __instance.Is(CustomRoles.Janitor) || __instance.Is(CustomRoles.Painter) || __instance.Is(CustomRoles.Marksman) || __instance.Is(CustomRoles.BloodKnight) || __instance.Is(CustomRoles.Sidekick) || __instance.Is(CustomRoles.CorruptedSheriff) || __instance.GetRoleType() == RoleType.Coven || __instance.Is(CustomRoles.Arsonist) || __instance.Is(CustomRoles.Werewolf) || __instance.Is(CustomRoles.TheGlitch) || __instance.Is(CustomRoles.Juggernaut) || __instance.Is(CustomRoles.PlagueBearer) || __instance.Is(CustomRoles.Pestilence) || __instance.Is(CustomRoles.Jackal)) && !__instance.Data.IsDead)
                 {
                     var players = __instance.GetPlayersInAbilityRangeSorted(false);
                     PlayerControl closest = players.Count <= 0 ? null : players[0];
@@ -3768,6 +3823,11 @@ namespace TownOfHost
                                             target.GetPlayerTaskState().IsTaskFinished)
                             RealName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Marshall), RealName);
                     }
+                    if (seer.Is(CustomRoles.Sheriff))
+                    {
+                        if (target.Is(CustomRoles.Deputy))
+                            RealName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Deputy), RealName);
+                    }
                     if (seer.Is(CustomRoles.Soulhandler) && target.Data.IsDead)
                     {
                         if (target.Is(RoleType.Crewmate) && target.Data.IsDead)
@@ -3780,6 +3840,11 @@ namespace TownOfHost
                             RealName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Impostor), RealName);
                         if (target.Is(RoleType.Coven) && target.Data.IsDead)
                             RealName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.NeutWitch), RealName);
+                    }
+                    if (seer.Is(CustomRoles.Deputy))
+                    {
+                        if (target.Is(CustomRoles.Sheriff))
+                            RealName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Sheriff), RealName);
                     }
                     if (target.Is(CustomRoles.Phantom) && Main.PhantomAlert)
                     {
@@ -4455,6 +4520,20 @@ namespace TownOfHost
                         pc.MyPhysics.RpcBootFromVent(__instance.Id);
                     }
                 }
+                if (pc.Is(CustomRoles.Sheriff))
+                {
+                    {
+                        skipCheck = true;
+                        pc.MyPhysics.RpcBootFromVent(__instance.Id);
+                    }
+                }
+                if (pc.Is(CustomRoles.Deputy))
+                {
+                    {
+                        skipCheck = true;
+                        pc.MyPhysics.RpcBootFromVent(__instance.Id);
+                    }
+                }
                 if (pc.Is(CustomRoles.TimeTraveler))
                 {
                     if (!TimeTraveler.CanVent())
@@ -4750,6 +4829,7 @@ namespace TownOfHost
                     return true;
                 }
                 if (__instance.myPlayer.Is(CustomRoles.Sheriff) ||
+                __instance.myPlayer.Is(CustomRoles.Deputy) ||
                 __instance.myPlayer.Is(CustomRoles.Investigator) ||
                 __instance.myPlayer.Is(CustomRoles.Escort) ||
                 __instance.myPlayer.Is(CustomRoles.Crusader) ||

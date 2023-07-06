@@ -444,9 +444,9 @@ namespace TownOfHost
                                         numNKalive++;
                                     if (pc.GetCustomRole().IsCoven() && !Options.TraitorCanSpawnIfCoven.GetBool())
                                         numCovenAlive++;
-                                    if (pc.Is(CustomRoles.Sheriff) || pc.Is(CustomRoles.Investigator) || pc.Is(CustomRoles.Hitman))
+                                    if (pc.Is(CustomRoles.Sheriff) || pc.Is(CustomRoles.Deputy) || pc.Is(CustomRoles.Investigator) || pc.Is(CustomRoles.Hitman))
                                         couldBeTraitors.Add(pc);
-                                    if (pc.Is(CustomRoles.Sheriff) || pc.Is(CustomRoles.Investigator) || pc.Is(CustomRoles.Hitman))
+                                    if (pc.Is(CustomRoles.Sheriff) || pc.Is(CustomRoles.Deputy) || pc.Is(CustomRoles.Investigator) || pc.Is(CustomRoles.Hitman))
                                         couldBeTraitorsid.Add(pc.PlayerId);
                                     if (pc.GetCustomRole().IsImpostor())
                                         numImpsAlive++;
@@ -479,6 +479,19 @@ namespace TownOfHost
                                 Sheriff.seer.CustomSyncSettings();
                                 Sheriff.csheriff = true;
                                 RPC.SetTraitor(Sheriff.seer.PlayerId);
+                            }
+                        }
+                        Deputy.seer = couldBeTraitors[rando.Next(0, couldBeTraitors.Count)];
+
+                        //foreach (var pva in __instance.playerStates)
+                        if (IsAlive >= Options.PlayersForTraitor.GetFloat() && Deputy.seer != null)
+                        {
+                            if (numCovenAlive == 0 && numNKalive == 0 && numCovenAlive == 0 && numImpsAlive - 1 <= 0)
+                            {
+                                Deputy.seer.RpcSetCustomRole(CustomRoles.CorruptedSheriff);
+                                Deputy.seer.CustomSyncSettings();
+                                Deputy.cDeputy = true;
+                                RPC.SetTraitor(Deputy.seer.PlayerId);
                             }
                         }
                     }
