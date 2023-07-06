@@ -9,7 +9,7 @@ DISCORD SERVER: https://discord.gg/AcZ8K3Bp --- Recommended after Innersloth int
 ## Releases
 
 AmongUs Version: **2023.6.13**<br>
-**Latest Version:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases)**
+**Latest Version:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases/tag/1.2)**
 
 Old Versions:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases)
 
@@ -52,6 +52,7 @@ New Crewmate Roles:
 - Added Marshall
 - Added Clumsy
 - Added Spy
+- Added Deputy
 
 New Neutral Roles:
 
@@ -194,7 +195,7 @@ Below is an example:
 | [a Yanger](#ying-yanger)			  | [Marshall](#marshall)             |                                   |                                 |                                |							  |
 | [Pickpocket](#pickpocket)           | [Clumsy](#clumsy)                 |                                   |                                 |                                |							  |
 | [Cleaner](#cleaner)                 | [Spy](#spy)	                      |                                   |                                 |                                |							  |
-| [Freezer](#freezer)				  |                                   |                                   |                                 |                                |							  |
+| [Freezer](#freezer)				  | [Deputy](#deputy)                 |                                   |                                 |                                |							  |
 | [Wildling](#Wildling)				  |									  |									  |									|								 |							  |
 | [MadMayor](#madmayor)				  |									  |									  |									|								 |							  |
 #### Notes
@@ -701,6 +702,18 @@ Killing Crewmates will result in suicide. <br>
 | Sheriff Can Kill [SchrodingerCat](#schrodingercat) In Team Egoist |
 | Sheriff Can Kill Crewmates As It                                  |
 | Sheriff Shot Limit                                                |
+
+### Deputy
+
+Team : Crewmates<br>
+Basis : Impostor<br>
+
+Idea by [The Other Roles](https://github.com/TheOtherRolesAU/TheOtherRoles)<br>
+
+The Deputy is the Sheriff's partner, and the Sheriff and Deputy know each other.<br>
+Deputy cannot spawn without a Sheriff.<br>
+All Sheriff settings apply to the Deputy<br>
+
 
 ### Snitch
 

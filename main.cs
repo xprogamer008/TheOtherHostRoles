@@ -194,6 +194,7 @@ namespace TownOfHost
         public static Dictionary<AmongUsExtensions.OptionType, List<CustomOption>> Options = new();
 
         public static bool JackalDied;
+        public static bool SheriffDied;
 
         public static Main Instance;
         public static bool CamoComms;
@@ -512,6 +513,7 @@ namespace TownOfHost
                     { CustomRoles.Snitch, "#b8fb4f"},
                     { CustomRoles.Mayor, "#204d42"},
                     { CustomRoles.Sheriff, "#f8cd46"},
+                    { CustomRoles.Deputy, "#FFA500"},
                     { CustomRoles.Investigator, "#ffca81"},
                     { CustomRoles.Lighter, "#eee5be"},
                     //{ CustomRoles.Bodyguard, "#7FFF00"},
@@ -792,6 +794,7 @@ namespace TownOfHost
                     { CustomRoles.Survivor, AttackEnum.None},
                     { CustomRoles.AgiTater, AttackEnum.Powerful},
                     { CustomRoles.Dracula, AttackEnum.Basic},
+                    { CustomRoles.Deputy, AttackEnum.Basic},
                     { CustomRoles.SchrodingerCat, AttackEnum.None},
                     { CustomRoles.Egoist, AttackEnum.Basic},
                     { CustomRoles.EgoSchrodingerCat, AttackEnum.None},
@@ -862,6 +865,7 @@ namespace TownOfHost
                     { CustomRoles.Snitch, DefenseEnum.None},
                     { CustomRoles.Mayor, DefenseEnum.None},
                     { CustomRoles.Sheriff, DefenseEnum.None},
+                    { CustomRoles.Deputy, DefenseEnum.None },
                     { CustomRoles.Investigator, DefenseEnum.None},
                     { CustomRoles.Lighter, DefenseEnum.None},
                     { CustomRoles.Bodyguard, DefenseEnum.Basic},
@@ -1119,6 +1123,7 @@ namespace TownOfHost
         Crusader,
         Psychic,
         Mystic,
+        Deputy,
         Swapper,
         Mayor,
         Clumsy,
