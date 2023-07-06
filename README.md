@@ -58,6 +58,7 @@ New Neutral Roles:
 
 - Added Lawyer
 - Added Troll
+- Added SchrodingerCat(DraculaTeam)
 - Added Dracula
 - Added Unseeable
 
