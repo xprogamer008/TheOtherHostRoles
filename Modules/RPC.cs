@@ -920,6 +920,9 @@ namespace TownOfHost
                 case CustomRoles.Investigator:
                     Investigator.Add(targetId);
                     break;
+                case CustomRoles.Examiner:
+                    Examiner.Add(targetId);
+                    break;
             }
             HudManager.Instance.SetHudActive(true);
         }

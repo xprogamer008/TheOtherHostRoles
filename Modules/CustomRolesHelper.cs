@@ -279,7 +279,6 @@ namespace TownOfHost
                 CustomRoles.Painter or
                 CustomRoles.Janitor or
                 CustomRoles.Painter or
-                CustomRoles.Alturist or
                 CustomRoles.Amnesiac or
                 CustomRoles.CSchrodingerCat or
                 CustomRoles.MSchrodingerCat;
@@ -333,6 +332,7 @@ namespace TownOfHost
             return
                 role is CustomRoles.Sheriff or
                 CustomRoles.Investigator or
+                CustomRoles.Examiner or
                 CustomRoles.Deputy or
                 CustomRoles.Parasite or
                 CustomRoles.Escort or
@@ -471,6 +471,7 @@ namespace TownOfHost
             return
              role is CustomRoles.Arsonist or
              CustomRoles.Investigator or
+             CustomRoles.Examiner or
              CustomRoles.PlagueBearer or
              CustomRoles.AgiTater;
         }

@@ -345,6 +345,7 @@ namespace TownOfHost
                     break;
 
                 case CustomRoles.Investigator:
+                case CustomRoles.Examiner:
                 case CustomRoles.Bastion:
                 case CustomRoles.Arsonist:
                 case CustomRoles.Jester:

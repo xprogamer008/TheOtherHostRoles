@@ -459,6 +459,7 @@ namespace TownOfHost
                 case CustomRoles.Sheriff:
                 case CustomRoles.Deputy:
                 case CustomRoles.Investigator:
+                case CustomRoles.Examiner:
                 case CustomRoles.Janitor:
                 case CustomRoles.Arsonist:
                 case CustomRoles.Amnesiac:
@@ -500,6 +501,11 @@ namespace TownOfHost
                 case CustomRoles.Juggernaut:
                     options.SetVision(player, true);
                     if (Options.JuggerCanVent.GetBool())
+                        goto InfinityVent;
+                    break;
+                case CustomRoles.Dracula:
+                    options.SetVision(player, true);
+                    if (Options.DraculaCanVent.GetBool())
                         goto InfinityVent;
                     break;
                 case CustomRoles.Freezer:
@@ -620,7 +626,6 @@ namespace TownOfHost
                 case CustomRoles.Spy:
                     options.SetVision(player, true);
                     goto InfinityVent;
-                case CustomRoles.Dracula:
                 case CustomRoles.Unseeable:
                     break;
                 case CustomRoles.TheGlitch:
@@ -697,6 +702,9 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Crusader:
                     options.KillCooldown = Options.CrusadeCooldown.GetFloat();
+                    break;
+                case CustomRoles.Examiner:
+                    options.KillCooldown = Examiner.ExaminerKillCooldown.GetFloat();
                     break;
             }
 
@@ -949,6 +957,7 @@ namespace TownOfHost
                 CustomRoles.Sheriff => Sheriff.CanUseKillButton(pc),
                 CustomRoles.Deputy => Deputy.CanUseKillButton(pc),
                 CustomRoles.Investigator => Investigator.CanUseKillButton(pc),
+                CustomRoles.Examiner => Examiner.CanUseKillButton(pc),
                 CustomRoles.Arsonist => false,
                 CustomRoles.PlagueBearer => true,
                 CustomRoles.Pestilence => true,
@@ -1161,6 +1170,9 @@ namespace TownOfHost
                 case CustomRoles.Investigator:
                     Investigator.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
                     break;
+                case CustomRoles.Examiner:
+                    Examiner.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
+                    break;
                 case CustomRoles.Pestilence:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.PestilKillCooldown.GetFloat();
                     break;
@@ -1270,6 +1282,9 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Investigator:
                     Investigator.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
+                    break;
+                case CustomRoles.Examiner:
+                    Examiner.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
                     break;
                 case CustomRoles.Pestilence:
                     KillCooldown = Options.PestilKillCooldown.GetFloat();
@@ -1544,6 +1559,7 @@ namespace TownOfHost
                 case CustomRoles.Sheriff:
                 case CustomRoles.Deputy:
                 case CustomRoles.Investigator:
+                case CustomRoles.Examiner:
                 case CustomRoles.AgiTater:
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(false);
                     player.Data.Role.CanVent = false;
@@ -1559,6 +1575,11 @@ namespace TownOfHost
                     bool jug_canUse = Options.JuggerCanVent.GetBool();
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(jug_canUse && !player.Data.IsDead);
                     player.Data.Role.CanVent = jug_canUse;
+                    return;
+                case CustomRoles.Dracula:
+                    bool Dracula_canUse = Options.DraculaCanVent.GetBool();
+                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(Dracula_canUse && !player.Data.IsDead);
+                    player.Data.Role.CanVent = Dracula_canUse;
                     return;
                 case CustomRoles.Sidekick:
                 case CustomRoles.Jackal:
@@ -1584,11 +1605,6 @@ namespace TownOfHost
                     bool gl_CanUse = true;
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(gl_CanUse && !player.Data.IsDead);
                     player.Data.Role.CanVent = gl_CanUse;
-                    return;
-                case CustomRoles.Dracula:
-                    //    bool Dracula_CanUse = true;
-                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(true && !player.Data.IsDead);
-                    player.Data.Role.CanVent = true;
                     return;
                 case CustomRoles.Unseeable:
                     //   bool Unseeable_CanUse = true;
@@ -1878,6 +1894,7 @@ namespace TownOfHost
                 CustomRoles.AgiTater or
                 CustomRoles.Arsonist or
                 CustomRoles.Pestilence or
+                CustomRoles.Examiner or
                 CustomRoles.Crusader or
                 CustomRoles.Hitman or
                 CustomRoles.Escort or

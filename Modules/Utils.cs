@@ -272,6 +272,7 @@ namespace TownOfHost
                     if (cRole == CustomRoles.Crusader) hasTasks = false;
                     if (cRole == CustomRoles.CorruptedSheriff) hasTasks = false;
                     if (cRole == CustomRoles.Investigator) hasTasks = false;
+                    if (cRole == CustomRoles.Examiner) hasTasks = false;
                     if (cRole == CustomRoles.Amnesiac && ForRecompute) hasTasks = false;
                     if (cRole == CustomRoles.Amnesiac && ForRecompute) hasTasks = false;
                     if (cRole == CustomRoles.Madmate) hasTasks = false;
@@ -1572,6 +1573,22 @@ namespace TownOfHost
                         }
                     }
                 }
+                if (seer.Is(CustomRoles.Alturist))
+                {
+                    var TaskState = Options.AlturistArrow.GetBool();
+                    if (TaskState)
+                    {
+                        if (!isMeeting)
+                        {
+                            foreach (var arrow in Main.targetArrows)
+                            {
+                                if (Main.DeadPlayersThisRound.Contains(arrow.Key.Item2))
+                                    if (arrow.Key.Item1 == seer.PlayerId && PlayerState.isDead[arrow.Key.Item2])
+                                        SelfSuffix += arrow.Value;
+                            }
+                        }
+                    }
+                }
                 if (seer.Is(CustomRoles.Tracker))
                 {
                     var TaskState = Main.TrackerArrow;
@@ -1733,6 +1750,7 @@ namespace TownOfHost
                     || seer.Is(CustomRoles.BountyHunter)
                     || seer.Is(CustomRoles.Postman)
                     || seer.Is(CustomRoles.Investigator)
+                    || seer.Is(CustomRoles.Examiner)
                     || Bomber.CurrentBombedPlayer != 255
                     || Main.rolesRevealedNextMeeting.Count != 0
                     || Main.PhantomAlert
@@ -2127,7 +2145,49 @@ namespace TownOfHost
                                 if (target == Postman.target) TargetPlayerName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Target), TargetPlayerName);
                             }
                         }
+                        if (seer.Is(CustomRoles.Examiner))
+                        {
+                            if (Examiner.hasSeered[target.PlayerId] == true)
+                            {
+                                if (Examiner.IsImp(target))
+                                {
+                                    if (target.GetCustomRole().IsImpostor())
+                                    {
+                                        TargetPlayerName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Impostor), TargetPlayerName); //targetの名前をエゴイスト色で表示
+                                    }
+                                    if (target.GetCustomRole().IsMadmate())
+                                    {
+                                        TargetPlayerName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Impostor), TargetPlayerName); //targetの名前をエゴイスト色で表示
+                                    }
 
+                                }
+                                if (Examiner.IsCrew(target))
+                                {
+                                    if (target.GetCustomRole().IsCrewmate())
+                                    {
+                                        TargetPlayerName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.SpeedBooster), TargetPlayerName); //targetの名前をエゴイスト色で表示
+                                    }
+
+                                }
+                                if (Examiner.IsNeutral(target))
+                                {
+                                    if (target.GetCustomRole().IsNeutral())
+                                    {
+                                        TargetPlayerName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.SchrodingerCat), TargetPlayerName); //targetの名前をエゴイスト色で表示
+                                    }
+
+                                }
+                                if (Examiner.IsCoven(target))
+                                {
+                                    if (target.GetCustomRole().IsCoven())
+                                    {
+                                        TargetPlayerName = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Coven), TargetPlayerName); //targetの名前をエゴイスト色で表示
+                                    }
+
+                                }
+
+                            }
+                        }
                         if (seer.Is(CustomRoles.Investigator))
                         {
                             if (Investigator.hasSeered.ContainsKey((target.PlayerId)))

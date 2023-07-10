@@ -115,6 +115,7 @@ namespace TownOfHost
         public static CustomOption LastImpostorKillCooldown;
         public static float DefaultKillCooldown = GameOptionsManager.Instance.currentNormalGameOptions.KillCooldown;
         public static CustomOption VampireKillDelay;
+        public static CustomOption DraculaKillDelay;
         public static CustomOption VampireBuff;
         //public static CustomOption ShapeMasterShapeshiftDuration;
         public static CustomOption DefaultShapeshiftCooldown;
@@ -161,6 +162,7 @@ namespace TownOfHost
         public static CustomOption PestilKillCooldown;
         public static CustomOption PestiCanVent;
         public static CustomOption InfectionSkip;
+        public static CustomOption DraculaCanVent;
         public static CustomOption CanBeforeSchrodingerCatWinTheCrewmate;
         public static CustomOption SchrodingerCatExiledTeamChanges;
         public static CustomOption ExecutionerCanTargetImpostor;
@@ -308,6 +310,7 @@ namespace TownOfHost
         public static CustomOption BewilderVision;
         public static CustomOption FlashSpeed;
         public static CustomOption DetectiveArrow;
+        public static CustomOption AlturistArrow;
         public static CustomOption DiseasedMultiplier;
 
         public static CustomOption LoversDieTogether;
@@ -689,7 +692,6 @@ namespace TownOfHost
             FlashSpeed = CustomOption.Create(20030, Color.white, "SpeedBoosterUpSpeed", 2f, 0.25f, 3f, 0.25f, CustomRoleSpawnChances[CustomRoles.Flash]); */
             SetupRoleOptions(20850, CustomRoles.Bastion, AmongUsExtensions.OptionType.Crewmate);
             BastionVentsRemoveOnBomb = CustomOption.Create(1319, Color.white, "BastionVentsRemoveOnBomb", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Bastion]);
-            //SetupRoleOptions(700850, CustomRoles.Alturist);
             SetupRoleOptions(700851, CustomRoles.Bodyguard, AmongUsExtensions.OptionType.Crewmate);
             SetupRoleOptions(700852, CustomRoles.Medic, AmongUsExtensions.OptionType.Crewmate);
             SetupRoleOptions(700853, CustomRoles.Oracle, AmongUsExtensions.OptionType.Crewmate);
@@ -712,10 +714,12 @@ namespace TownOfHost
             SetupRoleOptions(205000, CustomRoles.Clumsy, AmongUsExtensions.OptionType.Crewmate);
             ClumsyTasks = OverrideTasksData.Create(10121, CustomRoles.Clumsy, AmongUsExtensions.OptionType.Crewmate);
             SetupRoleOptions(9920603, CustomRoles.Detective, AmongUsExtensions.OptionType.Crewmate);
-            DetectiveArrow = CustomOption.Create(9920602, Color.white, "DetectiveHasArrow", AmongUsExtensions.OptionType.Neutral, false, CustomRoleSpawnChances[CustomRoles.Detective]);
+            DetectiveArrow = CustomOption.Create(9920602, Color.white, "DetectiveHasArrow", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.Detective]);
+            SetupRoleOptions(700850, CustomRoles.Alturist, AmongUsExtensions.OptionType.Crewmate);
+            AlturistArrow = CustomOption.Create(9920602, Color.white, "AlturistHasArrow", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Alturist]);
             SetupRoleOptions(2007424234, CustomRoles.Cursed, AmongUsExtensions.OptionType.Crewmate);
             SetupRoleOptions(20100, CustomRoles.Lighter, AmongUsExtensions.OptionType.Crewmate);
-            SetupSingleRoleOptions(040808, CustomRoles.Transparent, 1, AmongUsExtensions.OptionType.Impostor);
+            SetupRoleOptions(040808, CustomRoles.Transparent, AmongUsExtensions.OptionType.Crewmate);
             TransparentDuration = CustomOption.Create(260010, Color.white, "TransparentDuration", AmongUsExtensions.OptionType.Crewmate, 30f, 2.5f, 60f, 2.5f, CustomRoleSpawnChances[CustomRoles.Transparent]);
             TransparentCooldown = CustomOption.Create(260011, Color.white, "TransparentCooldown", AmongUsExtensions.OptionType.Crewmate, 15f, 2.5f, 60f, 2.5f, CustomRoleSpawnChances[CustomRoles.Transparent]);
             //TransparentCanVentInvis = CustomOption.Create(260012, Color.white, "TransparentCanVentInvis", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.Transparent]);
@@ -731,6 +735,7 @@ namespace TownOfHost
             Deputy.SetupCustomOption();
             TimeTraveler.SetupCustomOption();
             Investigator.SetupCustomOption();
+            Examiner.SetupCustomOption();
             SetupRoleOptions(99910100, CustomRoles.Tank, AmongUsExtensions.OptionType.Crewmate);
             TankCanSeeWhoTriedToKill = CustomOption.Create(99910110, Color.white, "TankCanSeeWhoTriedToKill", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.Tank]);
             TankTasks = OverrideTasksData.Create(99910120, CustomRoles.Tank, AmongUsExtensions.OptionType.Crewmate);
@@ -793,6 +798,8 @@ namespace TownOfHost
             PestiCanVent = CustomOption.Create(50562, Color.white, "PestiCanVent", AmongUsExtensions.OptionType.Neutral, true, CustomRoleSpawnChances[CustomRoles.PlagueBearer]);
             InfectionSkip = CustomOption.Create(50563, Color.white, "SkipInfect", AmongUsExtensions.OptionType.Neutral, false, CustomRoleSpawnChances[CustomRoles.PlagueBearer]);
             SetupSingleRoleOptions(383012, CustomRoles.Dracula, 1, AmongUsExtensions.OptionType.Neutral);
+            DraculaKillDelay = CustomOption.Create(1310, Color.white, "DraculaKillDelay", AmongUsExtensions.OptionType.Neutral, 5, 1, 60, 1, CustomRoleSpawnChances[CustomRoles.Dracula]);
+            DraculaCanVent = CustomOption.Create(60012, Color.white, "DraculaCanVent", AmongUsExtensions.OptionType.Neutral, true, CustomRoleSpawnChances[CustomRoles.Dracula]);
             SetupRoleOptions(50000, CustomRoles.Jester, AmongUsExtensions.OptionType.Neutral);
             JesterCanVent = CustomOption.Create(50010, Color.white, "JesterVent", AmongUsExtensions.OptionType.Neutral, false, CustomRoleSpawnChances[CustomRoles.Jester]);
             JesterHasImpostorVision = CustomOption.Create(6000013, Color.white, "JesterHasImpostorVision", AmongUsExtensions.OptionType.Neutral, false, CustomRoleSpawnChances[CustomRoles.Jester]);

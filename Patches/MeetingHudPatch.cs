@@ -950,6 +950,53 @@ namespace TownOfHost
                                     pva.AddRoleText(false);
                             }
                             break;
+                        case CustomRoles.Examiner:
+                            if (Examiner.hasSeered[target.PlayerId] == true)
+                            {
+                                // Examiner has Seered Player.
+
+                                {
+                                    if (Examiner.IsImp(target))
+                                    {
+                                        if (target.GetCustomRole().IsImpostor())
+                                        {
+                                            pva.NameText.color = Utils.GetRoleColor(CustomRoles.Impostor);
+                                        }
+                                        if (target.GetCustomRole().IsMadmate())
+                                        {
+                                            pva.NameText.color = Utils.GetRoleColor(CustomRoles.Impostor);
+                                        }
+
+                                    }
+                                    if (Examiner.IsCrew(target))
+                                    {
+                                        if (target.GetCustomRole().IsCrewmate())
+                                        {
+                                            pva.NameText.color = Utils.GetRoleColor(CustomRoles.SpeedBooster);
+                                        }
+
+                                    }
+                                    if (Examiner.IsNeutral(target))
+                                    {
+                                        if (target.GetCustomRole().IsNeutral())
+                                        {
+                                            pva.NameText.color = Utils.GetRoleColor(CustomRoles.SchrodingerCat);
+                                        }
+
+                                    }
+                                    if (Examiner.IsCoven(target))
+                                    {
+                                        if (target.GetCustomRole().IsCoven())
+                                        {
+                                           pva.NameText.color = Utils.GetRoleColor(CustomRoles.Coven);
+                                        }
+
+                                    }
+
+
+                                }
+                            }
+                            break;
                         case CustomRoles.Investigator:
                             if (Investigator.hasSeered[target.PlayerId] == true)
                             {

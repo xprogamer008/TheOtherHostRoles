@@ -264,6 +264,7 @@ namespace TownOfHost
                 Sheriff.Init();
                 Deputy.Init();
                 Investigator.Init();
+                Examiner.Init();
                 Camouflager.Init();
                 Postman.Reset();
                 Ninja.Init();
@@ -674,6 +675,8 @@ namespace TownOfHost
                         AssignDesyncRole(CustomRoles.Deputy, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
                     if (Main.chosenDesyncRoles.Contains(CustomRoles.Investigator))
                         AssignDesyncRole(CustomRoles.Investigator, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
+                    if (Main.chosenDesyncRoles.Contains(CustomRoles.Examiner))
+                        AssignDesyncRole(CustomRoles.Examiner, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
                     if (Main.chosenDesyncRoles.Contains(CustomRoles.Escort))
                         AssignDesyncRole(CustomRoles.Escort, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
                     if (Main.chosenDesyncRoles.Contains(CustomRoles.Crusader))
@@ -1240,6 +1243,13 @@ namespace TownOfHost
                                 foreach (var ar in PlayerControl.AllPlayerControls)
                                 {
                                     Investigator.hasSeered.Add(ar.PlayerId, false);
+                                }
+                                break;
+                            case CustomRoles.Examiner:
+                                Examiner.Add(pc.PlayerId);
+                                foreach (var ar in PlayerControl.AllPlayerControls)
+                                {
+                                    Examiner.hasSeered.Add(ar.PlayerId, false);
                                 }
                                 break;
                             case CustomRoles.Postman:
