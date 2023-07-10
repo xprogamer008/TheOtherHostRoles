@@ -9,7 +9,7 @@ DISCORD SERVER: https://discord.gg/AcZ8K3Bp --- Recommended after Innersloth int
 ## Releases
 
 AmongUs Version: **2023.6.13**<br>
-**Latest Version:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases/tag/1.3)**
+**Latest Version:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases/tag/1.2)**
 
 Old Versions:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases)
 
@@ -53,12 +53,13 @@ New Crewmate Roles:
 - Added Clumsy
 - Added Spy
 - Added Deputy
+- Added Examiner
+- Added Alturist
 
 New Neutral Roles:
 
 - Added Lawyer
 - Added Troll
-- Added SchrodingerCat (DraculaTeam)
 - Added Dracula
 - Added Unseeable
 
@@ -197,8 +198,8 @@ Below is an example:
 | [Pickpocket](#pickpocket)           | [Clumsy](#clumsy)                 |                                   |                                 |                                |							  |
 | [Cleaner](#cleaner)                 | [Spy](#spy)	                      |                                   |                                 |                                |							  |
 | [Freezer](#freezer)				  | [Deputy](#deputy)                 |                                   |                                 |                                |							  |
-| [Wildling](#Wildling)				  |									  |									  |									|								 |							  |
-| [MadMayor](#madmayor)				  |									  |									  |									|								 |							  |
+| [Wildling](#Wildling)				  | [Examiner](#examiner)	    	  |									  |									|								 |							  |
+| [MadMayor](#madmayor)				  |	[Alturist](#alturist)			  |									  |									|								 |							  |
 #### Notes
 
 Roles without a redirect mean they are not implemented yet but are planned.
@@ -712,9 +713,6 @@ Basis : Impostor<br>
 Idea by [The Other Roles](https://github.com/TheOtherRolesAU/TheOtherRoles)<br>
 
 The Deputy is the Sheriff's partner, and the Sheriff and Deputy know each other.<br>
-Deputy cannot spawn without a Sheriff.<br>
-All Sheriff settings apply to the Deputy<br>
-
 
 ### Snitch
 
@@ -744,6 +742,35 @@ Basis : Crewmate<br>
 
 The Clumsy is really clumsy doing tasks.<br>
 Every time he does a task he will kill someone.<br>
+
+## Examiner
+  
+Create and idea by EXC4LIBUR (Role Name by THEBADMAD)<br>
+  
+Team : Crewmates<br>
+Basis : Impostor<br>
+  
+The Examiner is a crewmate role that can find the alignment of others using their kill button.<br>
+Acording to the Lore, The Examiner is the Boss of the Investigator.<br>
+
+- Red = Impostors, Madmates<br>
+- Cyan = Crewmates<br>
+- Gray = Neutrals<br>
+- Purple = Coven<br>
+
+### Alturist
+
+Create and idea by EXC4LIBUR/music-discussions<br>
+Inspired by [Town Of Us-R](https://github.com/eDonnes124/Town-Of-Us-R)<br>
+
+Team : Crewmates<br>
+Basis : Cremates<br>
+
+The Alturist is a Role that is able to revive someone for their own lifes.<br>
+When the Alturist reports a body they will be killed and will revive the person who he reported.<br>
+Due to bugs, the person who he revived will be a powerful ghost like crewmate who can walk through walls and and can see everyones roles.<br>
+Recommedation from Honest is to keep the setting called ''Ghost can see Other Peoples Role'' off so the person revived cannot see roles from other people.<br>
+Optionally he can have arrows towards bodies.<br>
 
 ### SpeedBooster
 

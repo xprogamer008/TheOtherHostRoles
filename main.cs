@@ -29,7 +29,7 @@ namespace TownOfHost
         public static readonly string BANNEDFRIENDCODES_FILE_PATH = "./TOR_DATA/bannedfriendcodes.txt";
         public static readonly string DiscordInviteUrl = "https://discord.gg/tohtor";
         public static readonly bool ShowDiscordButton = true;
-        public const string PluginVersion = "1.3";
+        public const string PluginVersion = "1.4";
         public const string DevVersion = "1";
         public const string FullDevVersion = $" dev {DevVersion}";
         public Harmony Harmony { get; } = new Harmony(PluginGuid);
@@ -529,6 +529,7 @@ namespace TownOfHost
                     { CustomRoles.Child, "#FFFFFF"},
                     { CustomRoles.Clumsy, "#EA6E6E"},
                     { CustomRoles.Trapper, "#5a8fd0"},
+                    { CustomRoles.Examiner, "#007e9e"},
                     { CustomRoles.Dictator, "#df9b00"},
                     { CustomRoles.Detective, "#4D4DFF"},
                     { CustomRoles.Tracker, "#642aeb"},
@@ -1131,6 +1132,7 @@ namespace TownOfHost
         Oracle,
         Medic,
         Marshall,
+        Examiner,
         Detective,
         Tracker,
         Transparent,
