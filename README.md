@@ -175,8 +175,8 @@ Below is an example:
 | [BountyHunter](#bountyhunter)       | [Investigator](#investigator)     | [Vulture](#vulture)               | [Arsonist](#arsonist)           | [Coven Leader](#coven-leader)  | [Bait](#bait)              |
 | [Camouflager](#camouflager)         | [Dictator](#dictator)             | [Hacker](#hacker)                 | [Egoist](#egoist)               | [Medusa](#medusa)              | [Bewilder](#bewilder)      |
 | [FireWorks](#fireworks)             | [Doctor](#doctor)                 | [Executioner](#executioner)       | [Juggernaut](#juggernaut)       | [Hex Master](#hex-master)      | [Sleuth](#sleuth)          |
-| [Mare](#mare)                       | [Lighter](#lighter)               | [Jester](#jester)                 | [PlagueBearer](#plaguebearer)   |				                 | [Oblivious](#oblivious)    |
-| [Puppeteer](#puppeteer)             | [Mayor](#mayor)                   | [SchrodingerCat](#schrodingercat) | [The-Glitch](#the-glitch)       |           		             | [Torch](#torch)            |
+| [Mare](#mare)                       | [Lighter](#lighter)               | [Jester](#jester)                 | [PlagueBearer](#plaguebearer)   | [Poisoner](#poisoner)	         | [Oblivious](#oblivious)    |
+| [Puppeteer](#puppeteer)             | [Mayor](#mayor)                   | [SchrodingerCat](#schrodingercat) | [The-Glitch](#the-glitch)       | [Coven](#Coven)                | [Torch](#torch)            |
 | [Mercenary](#mercenary)             | [Mystic](#mystic)                 | [Opportunist](#opportunist)       | [Werewolf](#werewolf)           |			                     | [Flash](#flash)            |
 | [Sniper](#sniper)                   | [SabotageMaster](#sabotagemaster) | [Terrorist](#terrorist)           | [Pestilence](#pestilence)       |		                         | [Lovers](#lovers)          |
 | [TimeThief](#timethief)             | [Sheriff](#sheriff)               | [Pirate](#guesser)                | [Serial Killer](#serial-killer) |                                | [Watcher](#watcher)        |
@@ -1436,6 +1436,14 @@ Optionally, Hitman can also win with roles like Jester and Executioner.<br>
 
 ## Coven
 
+### Coven
+
+Team : Coven<br>
+Basis : Impostor<br>
+
+The Coven is there just to help the Covens.<br>
+When he holds necrominion he can kill normally.<br>
+
 ### Coven Leader
 
 Team : Coven<br>
@@ -1458,6 +1466,16 @@ Bodies will become unreportable after a certain amount of time.<br>
 | Name                       |
 | -------------------------- |
 | Stone Gaze Cooldown        |
+
+### Poisoner
+
+Team : Coven<br>
+Basis : Impostor<br>
+
+If the setting called ''Vampire Join Coven'' is on then if a Vampire spawn for the impostor side, they will automatically spawn as a coven member called poisoner.<br>
+The Poisoner can poison players.<br>
+Poisoning players means a player will die after a certain amount of time.<br>
+If he holds necrominion he can kill normally.<br>
 
 ### Hex Master
 
