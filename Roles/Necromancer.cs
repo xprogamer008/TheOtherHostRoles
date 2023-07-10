@@ -559,6 +559,8 @@ namespace TownOfHost
                 canUse = couldUse = Options.PestiCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Juggernaut))
                 canUse = couldUse = Options.JuggerCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.Dracula))
+                canUse = couldUse = Options.DraculaCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.BloodKnight))
                 canUse = couldUse = Options.BKcanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.TheGlitch))
@@ -574,6 +576,8 @@ namespace TownOfHost
                     return Options.PestiCanVent.GetBool();
                 case CustomRoles.Juggernaut:
                     return Options.JuggerCanVent.GetBool();
+                case CustomRoles.Dracula:
+                    return Options.DraculaCanVent.GetBool();
                 case CustomRoles.BloodKnight:
                     return Options.BKcanVent.GetBool();
 
