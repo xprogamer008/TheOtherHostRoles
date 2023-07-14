@@ -29,7 +29,7 @@ namespace TownOfHost
         public static readonly string BANNEDFRIENDCODES_FILE_PATH = "./TOR_DATA/bannedfriendcodes.txt";
         public static readonly string DiscordInviteUrl = "https://discord.gg/tohtor";
         public static readonly bool ShowDiscordButton = true;
-        public const string PluginVersion = "1.4";
+        public const string PluginVersion = "1.5";
         public const string DevVersion = "1";
         public const string FullDevVersion = $" dev {DevVersion}";
         public Harmony Harmony { get; } = new Harmony(PluginGuid);
@@ -181,6 +181,7 @@ namespace TownOfHost
         public static byte currentDousingTarget;
         public static byte currentFreezingTarget;
         public static int VetAlerts;
+        public static int ReverserAlerts;
         public static int TransportsLeft;
         public static bool IsRoundOne;
 
@@ -223,6 +224,11 @@ namespace TownOfHost
         public static bool VettedThisRound;
         public static bool VetIsAlerted;
         public static bool VetCanAlert;
+
+        // Reverser STUFF //
+        public static bool ReverserThisRound;
+        public static bool ReverserIsAlerted;
+        public static bool ReverserCanAlert;
 
         public static int GAprotects;
 
@@ -294,6 +300,12 @@ namespace TownOfHost
         public static Sprite TargetSprite;
         public static Sprite AssassinateSprite;
         public static Sprite SwoopSprite;
+        public static Sprite ButtonSprite;
+        public static Sprite InspectSprite;
+        public static Sprite MediateSprite;
+        public static Sprite PortalSprite;
+        public static Sprite RepairSprite;
+        public static Sprite ReviveSprite;
         public static int WitchesThisRound = 0;
         public static string LastWinner = "None";
 
@@ -463,6 +475,12 @@ namespace TownOfHost
             TargetSprite = Helpers.LoadSpriteFromResourcesTOR("TownOfHost.Resources.NinjaMarkButton.png", 100f);
             AssassinateSprite = Helpers.LoadSpriteFromResourcesTOR("TownOfHost.Resources.NinjaAssassinateButton.png", 100f);
             SwoopSprite = Helpers.LoadSpriteFromResourcesTOR("TownOfHost.Resources.Swoop.png", 100f);
+            ButtonSprite = Helpers.LoadSpriteFromResourcesTOR("TownOfHost.Resources.Button.png", 100f);
+            InspectSprite = Helpers.LoadSpriteFromResourcesTOR("TownOfHost.Resources.Inspect.png", 100f);
+            MediateSprite = Helpers.LoadSpriteFromResourcesTOR("TownOfHost.Resources.Mediate.png", 100f);
+            PortalSprite = Helpers.LoadSpriteFromResourcesTOR("TownOfHost.Resources.PlacePortalButton.png", 100f);
+            RepairSprite = Helpers.LoadSpriteFromResourcesTOR("TownOfHost.Resources.RepairButton.png", 100f);
+            ReviveSprite = Helpers.LoadSpriteFromResourcesTOR("TownOfHost.Resources.Revive.png", 100f);
 
             // OTHER//
 
@@ -1061,6 +1079,7 @@ namespace TownOfHost
         Mafia,
         SerialKiller,
         Escapist,
+        Reverser,
         //ShapeMaster,
         Sniper,
         Vampire,
@@ -1097,6 +1116,7 @@ namespace TownOfHost
         Madmate,
         MadSnitch,
         MadMayor,
+        MadMedic,
         CrewPostor,
         CorruptedSheriff,
         SKMadmate,

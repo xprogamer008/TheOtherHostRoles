@@ -8,8 +8,8 @@ DISCORD SERVER: https://discord.gg/AcZ8K3Bp --- Recommended after Innersloth int
 
 ## Releases
 
-AmongUs Version: **2023.6.13**<br>
-**Latest Version:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases/tag/1.4)**
+AmongUs Version: **2023.7.11/2023.7.12**<br>
+**Latest Version:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases/tag/1.5)**
 
 Old Versions:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases)
 
@@ -17,13 +17,13 @@ Old Versions:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases)
 
 KNOWN BUGS:
 
-- Poisoner doesn't replace a Coven
+- When Poisoner is on in coven then there is no chance of Coven winning.
 - Some Roles have double their Cooldown or half their cooldown sometimes.
 - Black screens on consoles when dead affter next meeting when impostors die. Desynced impostor roles can bypass this until they die. (Lag spikes triggered by name changes cause this)
-- Sometimes players will see some or all players using desynced Impostor roles (known as Impostor Desync)
-- Chat sometimes disappears for the host when a player leaves the game (this prevents commands from working until the host dies. Use SHIFT C ENTER or smth to force chat)
-- Some or all roles disappear for ghosts in meetings, this does not apply to players with the mod
-- If GA turns into a SidekickMadmate then the GA target dies, the GA turned SidekickMadmate will still turn into the role set in the settings for GA
+- Revived players can see all the roles of the players.(this can be shut down temporairly by disabling the setting ''Ghost Can See Other Roles'')
+- Revived player can go through walls.
+- Unseeable is completly broken and cant go Invis.
+- Dracula cannot Vent even when the setting ''Dracula Can vent'' is on.
 
 ## Features
 
@@ -36,10 +36,12 @@ New contend with Town of Roles added to this game:
 New Impostor Roles:
 
 - Added Wildling
+- Added Reverser
 
 New Madmate Roles:
 
 - Added MadMayor
+- Added MadMedic
 
 New Crewmate Roles:
 
@@ -175,8 +177,8 @@ Below is an example:
 | [BountyHunter](#bountyhunter)       | [Investigator](#investigator)     | [Vulture](#vulture)               | [Arsonist](#arsonist)           | [Coven Leader](#coven-leader)  | [Bait](#bait)              |
 | [Camouflager](#camouflager)         | [Dictator](#dictator)             | [Hacker](#hacker)                 | [Egoist](#egoist)               | [Medusa](#medusa)              | [Bewilder](#bewilder)      |
 | [FireWorks](#fireworks)             | [Doctor](#doctor)                 | [Executioner](#executioner)       | [Juggernaut](#juggernaut)       | [Hex Master](#hex-master)      | [Sleuth](#sleuth)          |
-| [Mare](#mare)                       | [Lighter](#lighter)               | [Jester](#jester)                 | [PlagueBearer](#plaguebearer)   | [Poisoner](#poisoner)	         | [Oblivious](#oblivious)    |
-| [Puppeteer](#puppeteer)             | [Mayor](#mayor)                   | [SchrodingerCat](#schrodingercat) | [The-Glitch](#the-glitch)       | [Coven](#Coven)                | [Torch](#torch)            |
+| [Mare](#mare)                       | [Lighter](#lighter)               | [Jester](#jester)                 | [PlagueBearer](#plaguebearer)   |				                 | [Oblivious](#oblivious)    |
+| [Puppeteer](#puppeteer)             | [Mayor](#mayor)                   | [SchrodingerCat](#schrodingercat) | [The-Glitch](#the-glitch)       |           		             | [Torch](#torch)            |
 | [Mercenary](#mercenary)             | [Mystic](#mystic)                 | [Opportunist](#opportunist)       | [Werewolf](#werewolf)           |			                     | [Flash](#flash)            |
 | [Sniper](#sniper)                   | [SabotageMaster](#sabotagemaster) | [Terrorist](#terrorist)           | [Pestilence](#pestilence)       |		                         | [Lovers](#lovers)          |
 | [TimeThief](#timethief)             | [Sheriff](#sheriff)               | [Pirate](#guesser)                | [Serial Killer](#serial-killer) |                                | [Watcher](#watcher)        |
@@ -200,6 +202,15 @@ Below is an example:
 | [Freezer](#freezer)				  | [Deputy](#deputy)                 |                                   |                                 |                                |							  |
 | [Wildling](#Wildling)				  | [Examiner](#examiner)	    	  |									  |									|								 |							  |
 | [MadMayor](#madmayor)				  |	[Alturist](#alturist)			  |									  |									|								 |							  |
+| [Reverser](#reverser)				  |									  |									  |									|								 |							  |
+|									  |									  |									  |									|								 |							  |
+|									  |									  |									  |									|								 |							  |
+|									  |									  |									  |									|								 |							  |
+|									  |									  |									  |									|								 |							  |
+|									  |									  |									  |									|								 |							  |
+|									  |									  |									  |									|								 |							  |
+|									  |									  |									  |									|								 |							  |
+|									  |									  |									  |									|								 |							  |
 #### Notes
 
 Roles without a redirect mean they are not implemented yet but are planned.
@@ -470,6 +481,16 @@ Basis : Impostor<br>
 
 The Wildling is a Impstor role who gets a few sconds of immortality when he kills someone.<br>
 The immortalitys duration can be configured in the settings.<br>
+
+### Reverser
+
+Create and idea by EXC4LIBUR<br>
+
+Team : Impostors<br>
+Basis : Impostor<br>
+
+The Reverser can become immortal for a few seconds when petting thier pet.<br>
+After petting you pet every attack will be reversed and the killer will be killed.<br>
 
 ## Madmate
 
@@ -1436,14 +1457,6 @@ Optionally, Hitman can also win with roles like Jester and Executioner.<br>
 
 ## Coven
 
-### Coven
-
-Team : Coven<br>
-Basis : Impostor<br>
-
-The Coven is there just to help the Covens.<br>
-When he holds necrominion he can kill normally.<br>
-
 ### Coven Leader
 
 Team : Coven<br>
@@ -1466,16 +1479,6 @@ Bodies will become unreportable after a certain amount of time.<br>
 | Name                       |
 | -------------------------- |
 | Stone Gaze Cooldown        |
-
-### Poisoner
-
-Team : Coven<br>
-Basis : Impostor<br>
-
-If the setting called ''Vampire Join Coven'' is on then if a Vampire spawn for the impostor side, they will automatically spawn as a coven member called poisoner.<br>
-The Poisoner can poison players.<br>
-Poisoning players means a player will die after a certain amount of time.<br>
-If he holds necrominion he can kill normally.<br>
 
 ### Hex Master
 
