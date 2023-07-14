@@ -1,4 +1,5 @@
 using HarmonyLib;
+using Rewired.Utils.Classes.Data;
 using UnityEngine;
 
 namespace TownOfHost
@@ -14,6 +15,7 @@ namespace TownOfHost
         private static Sprite Seer => Main.SeerSprite;
         private static Sprite Sheriff => Main.SheriffSprite;
         private static Sprite Poisoned => Main.PoisonedSprite;
+        private static Sprite Inspect => Main.InspectSprite;
         private static Sprite Blackmail => Main.BlackmailSprite;
         private static Sprite Target => Main.TargetSprite;
         private static Sprite Kill;
@@ -22,7 +24,9 @@ namespace TownOfHost
             switch (role)
             {
                 case CustomRoles.TheGlitch:
+                case CustomRoles.Examiner:
                 case CustomRoles.Arsonist:
+                case CustomRoles.Detective:
                 case CustomRoles.Sheriff:
                 case CustomRoles.Deputy:
                 case CustomRoles.Dracula:
@@ -63,6 +67,10 @@ namespace TownOfHost
                 case CustomRoles.Deputy:
                     __instance.KillButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                     __instance.KillButton.graphic.sprite = Sheriff;
+                    break;
+                case CustomRoles.Detective:
+                    __instance.ReportButton.transform.Find("Text_TMP").gameObject.SetActive(false);
+                    __instance.ReportButton.graphic.sprite = Inspect;
                     break;
                 case CustomRoles.Swooper:
                     __instance.ImpostorVentButton.transform.Find("Text_TMP").gameObject.SetActive(false);
@@ -128,6 +136,7 @@ namespace TownOfHost
                     }
                     break;
                 case CustomRoles.Investigator:
+                case CustomRoles.Examiner:
                     __instance.KillButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                     __instance.KillButton.graphic.sprite = Seer;
                     break;
@@ -143,6 +152,7 @@ namespace TownOfHost
     {
         private static Sprite Remember => Main.RememberSprite;
         private static Sprite Clean => Main.CleanSprite;
+        private static Sprite Revive => Main.ReviveSprite;
         private static Sprite Cursed => Main.CursedSprite;
         private static Sprite Report;
         private static bool HasCustomButton(CustomRoles role)
@@ -151,7 +161,7 @@ namespace TownOfHost
             {
                 case CustomRoles.Amnesiac:
                 case CustomRoles.Cleaner:
-                    return true;
+                case CustomRoles.Alturist:
                 default:
                     return false;
             }
@@ -184,16 +194,20 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Cursed:
                     __instance.ReportButton.transform.Find("Text_TMP").gameObject.SetActive(false);
-                    __instance.ReportButton.graphic.sprite = Cursed;
+                    __instance.ReportButton.graphic.sprite = Clean;
                     break;
                 default:
                     __instance.ReportButton.transform.Find("Text_TMP").gameObject.SetActive(true);
                     __instance.ReportButton.graphic.sprite = Report;
                     break;
+                case CustomRoles.Alturist:
+                    __instance.ReportButton.transform.Find("Text_TMP").gameObject.SetActive(false);
+                    __instance.ReportButton.graphic.sprite = Revive;
+                    break;
             }
         }
     }
-    /* [HarmonyPatch(typeof(HudManager), nameof(HudManager.Update))]
+    [HarmonyPatch(typeof(HudManager), nameof(HudManager.Update))]
      public class AbilityButtonSprite
      {
          private static Sprite Alert => Main.AlertSprite;
@@ -202,7 +216,8 @@ namespace TownOfHost
          private static Sprite Mimic => Main.MimicSprite;
          private static Sprite Transport => Main.TransportSprite;
          private static Sprite Flash => Main.FlashSprite;
-         private static Sprite Medium => Main.MediumSprite;
+        private static Sprite Button => Main.ButtonSprite;
+        private static Sprite Medium => Main.MediumSprite;
          private static Sprite Miner => Main.MinerSprite;
          private static Sprite Assassinate => Main.AssassinateSprite;
          private static Sprite Ability;
@@ -216,6 +231,7 @@ namespace TownOfHost
                  case CustomRoles.Veteran:
                  case CustomRoles.Miner:
                  case CustomRoles.Medium:
+                 case CustomRoles.Mayor:
                  case CustomRoles.Grenadier:
                  case CustomRoles.Ninja:
                  case CustomRoles.Transporter:
@@ -270,11 +286,7 @@ namespace TownOfHost
                  case CustomRoles.Veteran:
                      __instance.AbilityButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                      __instance.AbilityButton.graphic.sprite = Alert;
-                     break;
-                 case CustomRoles.Swooper:
-                     __instance.AbilityButton.transform.Find("Text_TMP").gameObject.SetActive(true);
-                     __instance.AbilityButton.graphic.sprite = Swoop;
-                     break;
+                    break;
                  case CustomRoles.Miner:
                      __instance.AbilityButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                      __instance.AbilityButton.graphic.sprite = Miner;
@@ -283,7 +295,11 @@ namespace TownOfHost
                      __instance.AbilityButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                      __instance.AbilityButton.graphic.sprite = Medium;
                      break;
-                 case CustomRoles.Grenadier:
+                case CustomRoles.Mayor:
+                    __instance.AbilityButton.transform.Find("Text_TMP").gameObject.SetActive(false);
+                    __instance.AbilityButton.graphic.sprite = Button;
+                    break;
+                case CustomRoles.Grenadier:
                      __instance.AbilityButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                      __instance.AbilityButton.graphic.sprite = Flash;
                      break;
@@ -297,7 +313,7 @@ namespace TownOfHost
                      break;
              }
          }
-     }*/
+     }
     [HarmonyPatch(typeof(HudManager), nameof(HudManager.Update))]
     public class VentButtonSprite
     {

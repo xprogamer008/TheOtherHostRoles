@@ -18,9 +18,9 @@ namespace TownOfHost
         public static Dictionary<byte, ChatController> allControllers = new();
         public static bool Prefix(ChatController __instance)
         {
-            if (__instance.TextArea.text == "") return false;
-            __instance.TimeSinceLastMessage = 3f;
-            var text = __instance.TextArea.text;
+            if (__instance.freeChatField.textArea.text == "") return false;
+            __instance.timeSinceLastMessage = 3f;
+            var text = __instance.freeChatField.textArea.text;
             if (ChatHistory.Count == 0 || ChatHistory[^1] != text) ChatHistory.Add(text);
             ChatControllerUpdatePatch.CurrentHistorySelection = ChatHistory.Count;
             string[] args = text.Split(' ');
@@ -497,9 +497,8 @@ namespace TownOfHost
             if (canceled)
             {
                 Logger.Info("Command Canceled", "ChatCommand");
-                __instance.TextArea.Clear();
-                __instance.TextArea.SetText(cancelVal);
-                __instance.quickChatMenu.ResetGlyphs();
+                __instance.freeChatField.textArea.Clear();
+                __instance.freeChatField.textArea.SetText(cancelVal);
             }
             return !canceled;
         }
@@ -525,9 +524,10 @@ namespace TownOfHost
                 { CustomRoles.Escapist, "esc" },
                 { CustomRoles.Disperser, "dis" },
                 { CustomRoles.Vampire, "va" },
+                { CustomRoles.Reverser, "rev" },
                 { CustomRoles.Warlock, "wa" },
                 { CustomRoles.Witch, "wit" },
-                  { CustomRoles.Consort, "con" },
+                { CustomRoles.Consort, "con" },
                 { CustomRoles.Freezer, "fre" },
                 { CustomRoles.Bomber, "bb" },
                 { CustomRoles.Cleaner, "cle" },
@@ -550,6 +550,7 @@ namespace TownOfHost
                 { CustomRoles.Madmate, "mm" },
                 { CustomRoles.MadSnitch, "msn" },
                 { CustomRoles.MadMayor, "mmy" },
+                { CustomRoles.MadMedic, "mme" },
                 { CustomRoles.SKMadmate, "sm" },
                 { CustomRoles.Parasite, "pa" },
                 //両陣営役職
@@ -729,6 +730,7 @@ namespace TownOfHost
                 { CustomRoles.Witch, "wit" },
                 { CustomRoles.Freezer, "fre" },
                 { CustomRoles.Bomber, "bb" },
+                { CustomRoles.Reverser, "rev" },
                 { CustomRoles.Cleaner, "cle" },
                 { CustomRoles.Silencer, "si" },
                 { CustomRoles.Camouflager,"cf"},
@@ -746,6 +748,7 @@ namespace TownOfHost
                 { CustomRoles.Madmate, "mm" },
                 { CustomRoles.MadSnitch, "msn" },
                 { CustomRoles.MadMayor, "mmy" },
+                { CustomRoles.MadMedic, "mme" },
                 { CustomRoles.SKMadmate, "sm" },
                 { CustomRoles.Parasite, "pa" },
                 //両陣営役職
@@ -1097,7 +1100,7 @@ namespace TownOfHost
     {
         public static void Postfix(ChatController __instance)
         {
-            if (!AmongUsClient.Instance.AmHost || Main.MessagesToSend.Count < 1 || (Main.MessagesToSend[0].Item2 == byte.MaxValue && Main.MessageWait.Value > __instance.TimeSinceLastMessage)) return;
+            if (!AmongUsClient.Instance.AmHost || Main.MessagesToSend.Count < 1 || (Main.MessagesToSend[0].Item2 == byte.MaxValue && Main.MessageWait.Value > __instance.timeSinceLastMessage)) return;
             var player = PlayerControl.AllPlayerControls.ToArray().OrderBy(x => x.PlayerId).Where(x => !x.Data.IsDead).FirstOrDefault();
             if (player == null) return;
             if (Main.SilencedPlayer.Contains(player)) return;
@@ -1108,7 +1111,7 @@ namespace TownOfHost
             MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(player.NetId, (byte)RpcCalls.SendChat, SendOption.None, clientId);
             writer.Write(msg);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
-            __instance.TimeSinceLastMessage = 0f;
+            __instance.timeSinceLastMessage = 0f;
         }
     }
 

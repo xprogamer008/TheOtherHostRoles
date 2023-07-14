@@ -501,6 +501,14 @@ namespace TownOfHost
                                         }
                                     }
 
+                                    if (!Utils.IsProtectedByMadMedic(player))
+                                    {
+                                        if (!Utils.IsProtectedByCrusader(player))
+                                        {
+                                            killer.RpcMurderPlayer(player);
+                                        }
+                                    }
+
                                     if (Utils.IsProtectedByCrusader(player))
                                     {
                                         PlayerControl protector = Utils.GetProtector(player);
@@ -526,6 +534,11 @@ namespace TownOfHost
                                     killer.RpcGuardAndKill(killer);
                                     killer.RpcGuardAndKill(target);
                                     break;
+                                case CustomRoles.MadMedic:
+                                    returnFalse = true;
+                                    killer.RpcGuardAndKill(killer);
+                                    killer.RpcGuardAndKill(target);
+                                    break;
                                 case CustomRoles.Crusader:
                                     returnFalse = true;
                                     player.RpcMurderPlayer(killer);
@@ -542,6 +555,11 @@ namespace TownOfHost
                     //==========インポスター役職==========//
                     case CustomRoles.Crusader:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted && Options.CrewRolesVetted.GetBool())
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -563,6 +581,11 @@ namespace TownOfHost
                         if (Main.HasNecronomicon)
                         {
                             if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                            {
+                                target.RpcMurderPlayer(killer);
+                                return false;
+                            }
+                            if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                             {
                                 target.RpcMurderPlayer(killer);
                                 return false;
@@ -597,11 +620,21 @@ namespace TownOfHost
                                 target.RpcMurderPlayer(killer);
                                 return false;
                             }
+                            if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                            {
+                                target.RpcMurderPlayer(killer);
+                                return false;
+                            }
                             break;
                         }
                         else
                         {
                             if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                            {
+                                target.RpcMurderPlayer(killer);
+                                return false;
+                            }
+                            if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                             {
                                 target.RpcMurderPlayer(killer);
                                 return false;
@@ -615,6 +648,11 @@ namespace TownOfHost
                         break;
                     case CustomRoles.Cleaner:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -660,6 +698,11 @@ namespace TownOfHost
                     case CustomRoles.Swooper:
                     case CustomRoles.Unseeable:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -715,6 +758,11 @@ namespace TownOfHost
                                 target.RpcMurderPlayer(killer);
                                 // return false;
                             }
+                            if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && killer.PlayerId != target.PlayerId)
+                            {
+                                target.RpcMurderPlayer(killer);
+                                // return false;
+                            }
                             else if (target.GetCustomSubRole() == CustomRoles.Bewilder && killer.PlayerId != target.PlayerId)
                             {
                                 Main.KilledBewilder.Add(killer.PlayerId);
@@ -734,6 +782,11 @@ namespace TownOfHost
                         break;
                     case CustomRoles.Escort:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted && Options.CrewRolesVetted.GetBool())
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -771,6 +824,11 @@ namespace TownOfHost
                         return false;
                     case CustomRoles.Consort:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted && Options.CrewRolesVetted.GetBool())
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -820,6 +878,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -838,6 +901,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -851,6 +919,11 @@ namespace TownOfHost
                         break;
                     case CustomRoles.Bomber:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -880,6 +953,10 @@ namespace TownOfHost
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && !Main.IsHackMode)
+                        {
+                            target.RpcMurderPlayer(killer);
                         }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
@@ -950,6 +1027,24 @@ namespace TownOfHost
                     case CustomRoles.Ninja:
                         Ninja.KillCheck(killer, target);
                         return false;
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            switch (Options.PestiAttacksReverser.GetSelection())
+                            {
+                                case 0:
+                                    target.RpcMurderPlayer(killer);
+                                    break;
+                                case 1:
+                                    killer.RpcMurderPlayer(target);
+                                    target.RpcMurderPlayer(killer);
+                                    break;
+                                case 2:
+                                    killer.RpcMurderPlayer(target);
+                                    break;
+                            }
+                            return false;
+                        }
+                        break;
                     case CustomRoles.Necromancer:
                         Necromancer.OnCheckMurder(killer, target);
                         return false;
@@ -957,6 +1052,11 @@ namespace TownOfHost
                         if (Main.IsRampaged)
                         {
                             if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                            {
+                                target.RpcMurderPlayer(killer);
+                                return false;
+                            }
+                            if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                             {
                                 target.RpcMurderPlayer(killer);
                                 return false;
@@ -997,6 +1097,11 @@ namespace TownOfHost
                                             killer.RpcGuardAndKill(killer);
                                             killer.RpcGuardAndKill(target);
                                             break;
+                                        case CustomRoles.MadMedic:
+                                            returnFalse = true;
+                                            killer.RpcGuardAndKill(killer);
+                                            killer.RpcGuardAndKill(target);
+                                            break;
                                         case CustomRoles.Crusader:
                                             returnFalse = true;
                                             player.RpcMurderPlayer(killer);
@@ -1020,6 +1125,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1035,6 +1145,11 @@ namespace TownOfHost
                         break;
                     case CustomRoles.AgiTater:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1056,6 +1171,11 @@ namespace TownOfHost
                     case CustomRoles.Juggernaut:
                         //calculating next kill cooldown
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1085,6 +1205,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1103,6 +1228,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1116,6 +1246,11 @@ namespace TownOfHost
                         break;
                     case CustomRoles.Vampress:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1160,6 +1295,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1200,6 +1340,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1234,6 +1379,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1259,6 +1409,11 @@ namespace TownOfHost
                         break;
                     case CustomRoles.Witch:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1289,6 +1444,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Main.HexesThisRound != Options.MaxHexesPerRound.GetFloat())
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         Main.AllPlayerKillCooldown[killer.PlayerId] = 10f;
                         Utils.CustomSyncAllSettings();
                         if (!Main.isHexed[(killer.PlayerId, target.PlayerId)] && killer.IsHexMode() && Main.HexesThisRound != Options.MaxHexesPerRound.GetFloat())
@@ -1314,6 +1474,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1330,6 +1495,11 @@ namespace TownOfHost
                         return false;
                     case CustomRoles.IdentityTheft:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1362,6 +1532,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1386,6 +1561,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1399,6 +1579,11 @@ namespace TownOfHost
                         break;
                     case CustomRoles.VoteStealer:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1427,6 +1612,11 @@ namespace TownOfHost
                         break;
                     case CustomRoles.YingYanger:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1485,6 +1675,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1511,6 +1706,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1533,6 +1733,11 @@ namespace TownOfHost
                         return false;
                     case CustomRoles.Sheriff:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted && Options.CrewRolesVetted.GetBool())
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1565,6 +1770,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1593,6 +1803,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1617,6 +1832,11 @@ namespace TownOfHost
                         return false;
                     case CustomRoles.Examiner:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted && Options.CrewRolesVetted.GetBool())
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1660,6 +1880,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(killer);
@@ -1680,6 +1905,11 @@ namespace TownOfHost
                         break;
                     default:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1883,6 +2113,11 @@ namespace TownOfHost
                 target.RpcMurderPlayer(killer);
                 // return false;
             }
+            if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && killer.PlayerId != target.PlayerId)
+            {
+                target.RpcMurderPlayer(killer);
+                // return false;
+            }
             else if (target.GetCustomSubRole() == CustomRoles.Bewilder && killer.PlayerId != target.PlayerId)
             {
                 Main.KilledBewilder.Add(killer.PlayerId);
@@ -1936,6 +2171,10 @@ namespace TownOfHost
                 Main.CurrentTarget.Remove(target.PlayerId);
             }
             if (Main.CurrentTarget.ContainsKey(target.PlayerId) && target.Is(CustomRoles.Medic))
+            {
+                Main.CurrentTarget.Remove(target.PlayerId);
+            }
+            if (Main.CurrentTarget.ContainsKey(target.PlayerId) && target.Is(CustomRoles.MadMedic))
             {
                 Main.CurrentTarget.Remove(target.PlayerId);
             }
@@ -2239,6 +2478,8 @@ namespace TownOfHost
                         else if (targetm.Is(CustomRoles.Investigator))
                             targetm.RpcSetCustomRole(CustomRoles.CorruptedSheriff);
                         else if (targetm.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                            targetm.RpcMurderPlayer(shapeshifter);
+                        else if (targetm.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                             targetm.RpcMurderPlayer(shapeshifter);
                         else
                             targetm.RpcSetCustomRole(CustomRoles.SKMadmate);
@@ -2549,6 +2790,19 @@ namespace TownOfHost
                         if (bombed.Is(CustomRoles.Veteran))
                         {
                             if (!Main.VetIsAlerted)
+                            {
+                                bombed.RpcMurderPlayer(bombed);
+                                PlayerState.SetDeathReason(bombed.PlayerId, PlayerState.DeathReason.Bombed);
+                            }
+                        }
+                        else
+                        {
+                            bombed.RpcMurderPlayer(bombed);
+                            PlayerState.SetDeathReason(bombed.PlayerId, PlayerState.DeathReason.Bombed);
+                        }
+                        if (bombed.Is(CustomRoles.Reverser))
+                        {
+                            if (!Main.ReverserIsAlerted)
                             {
                                 bombed.RpcMurderPlayer(bombed);
                                 PlayerState.SetDeathReason(bombed.PlayerId, PlayerState.DeathReason.Bombed);
@@ -2892,6 +3146,67 @@ namespace TownOfHost
                 else
                 {
                     if (Main.VetIsAlerted)
+                    {
+                        PlayerState.SetDeathReason(vampireID, PlayerState.DeathReason.Kill);
+                        //Protectは強制的にはがす
+                        PlayerControl vampire = Utils.GetPlayerById(vampireID);
+                        if (vampire.protectedByGuardian)
+                            vampire.RpcMurderPlayer(vampire);
+                        vampire.RpcMurderPlayer(vampire);
+                        RPC.PlaySoundRPC(bitten.PlayerId, Sounds.KillSound);
+                    }
+                    else
+                    {
+                        if (!bitten.Data.IsDead)
+                        {
+                            PlayerState.SetDeathReason(bitten.PlayerId, PlayerState.DeathReason.Bite);
+                            //Protectは強制的にはがす
+                            if (bitten.protectedByGuardian)
+                                bitten.RpcMurderPlayer(bitten);
+                            bitten.RpcMurderPlayer(bitten);
+                            RPC.PlaySoundRPC(vampireID, Sounds.KillSound);
+                            Logger.Info("Vampireに噛まれている" + bitten?.Data?.PlayerName + "を自爆させました。", "ReportDeadBody");
+                        }
+                        else
+                            Logger.Info("Vampireに噛まれている" + bitten?.Data?.PlayerName + "はすでに死んでいました。", "ReportDeadBody");
+                    }
+                }
+                if (!bitten.Is(CustomRoles.Reverser))
+                {
+                    if (!bitten.Data.IsDead)
+                    {
+                        PlayerControl vampire = Utils.GetPlayerById(vampireID);
+                        if (bitten.Is(CustomRoles.Pestilence))
+                            PlayerState.SetDeathReason(vampire.PlayerId, PlayerState.DeathReason.Bite);
+                        else
+                            PlayerState.SetDeathReason(bitten.PlayerId, PlayerState.DeathReason.Bite);
+                        //Protectは強制的にはがす
+                        // PlayerControl vampire = Utils.GetPlayerById(vampireID);
+                        if (bitten.protectedByGuardian)
+                            bitten.RpcMurderPlayer(bitten);
+                        if (bitten.Is(CustomRoles.Pestilence))
+                            vampire.RpcMurderPlayer(vampire);
+                        else if (bitten.Is(CustomRoles.Survivor))
+                        {
+                            Utils.CheckSurvivorVest(bitten, vampire, false);
+                        }
+                        else
+                            bitten.RpcMurderPlayer(bitten);
+                        RPC.PlaySoundRPC(vampireID, Sounds.KillSound);
+                        if (bitten.Is(CustomRoles.Demolitionist))
+                            Main.KilledDemo.Add(vampireID);
+                        if (bitten.GetCustomSubRole() == CustomRoles.Bewilder)
+                            Main.KilledBewilder.Add(vampireID);
+                        if (bitten.GetCustomSubRole() == CustomRoles.Diseased)
+                            Main.KilledDiseased.Add(vampireID);
+                        Logger.Info("Vampireに噛まれている" + bitten?.Data?.PlayerName + "を自爆させました。", "ReportDeadBody");
+                    }
+                    else
+                        Logger.Info("Vampireに噛まれている" + bitten?.Data?.PlayerName + "はすでに死んでいました。", "ReportDeadBody");
+                }
+                else
+                {
+                    if (Main.ReverserIsAlerted)
                     {
                         PlayerState.SetDeathReason(vampireID, PlayerState.DeathReason.Kill);
                         //Protectは強制的にはがす
@@ -3501,6 +3816,10 @@ namespace TownOfHost
                                 else if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
                                     target.RpcMurderPlayer(player);
                                 else if (player.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                                    player.RpcMurderPlayer(target);
+                                else if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
+                                    target.RpcMurderPlayer(player);
+                                else if (player.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                                     player.RpcMurderPlayer(target);
                                 else if (player.Is(CustomRoles.Survivor)) { Utils.CheckSurvivorVest(target, player, false); }
                                 else if (target.Is(CustomRoles.Survivor)) { Utils.CheckSurvivorVest(player, target, false); }
@@ -4794,6 +5113,13 @@ namespace TownOfHost
                         {
                             if (pcd == null || pcd.Data.IsDead || pcd.Data.Disconnected) continue;
                             if (pcd.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                            {
+                                pcd.RpcMurderPlayer(pc);
+                                PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.Kill);
+                                PlayerState.SetDead(pc.PlayerId);
+                                break;
+                            }
+                            if (pcd.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                             {
                                 pcd.RpcMurderPlayer(pc);
                                 PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.Kill);

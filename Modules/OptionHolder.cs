@@ -104,6 +104,10 @@ namespace TownOfHost
         {
             "VetKillsPesti", "Trade", "PestiKillsVet"
         };
+        public static readonly string[] PestiAttacksReverserString =
+        {
+            "ReverserKillsPesti", "Trade", "PestiKillsReverser"
+        };
         public static readonly CustomRoles[] CRolePestiAttacksVet =
         {
             CustomRoles.Crewmate, CustomRoles.Jester, CustomRoles.Opportunist,
@@ -343,6 +347,13 @@ namespace TownOfHost
         public static CustomOption NumOfVets;
         public static CustomOption CrewRolesVetted;
         public static CustomOption PestiAttacksVet;
+
+        //VETERAN
+        public static CustomOption ReverserCD;
+        public static CustomOption ReverserDuration;
+        public static CustomOption NumOfReverses;
+        public static CustomOption ImpRolesVetted;
+        public static CustomOption PestiAttacksReverser;
 
         // DISPERSER //
         public static CustomOption DisperseCooldown;
@@ -625,6 +636,12 @@ namespace TownOfHost
             KillsForVote = CustomOption.Create(20094340, Color.white, "KillsForVote", AmongUsExtensions.OptionType.Impostor, 1, 1, 12, 1, CustomRoleSpawnChances[CustomRoles.VoteStealer]);
             VoteAmtOnCompletion = CustomOption.Create(20094341, Color.white, "VoteAmtOnCompletion", AmongUsExtensions.OptionType.Impostor, 1, 1, 99, 1, CustomRoleSpawnChances[CustomRoles.VoteStealer]);
             SetupRoleOptions(2008234234, CustomRoles.Miner, AmongUsExtensions.OptionType.Impostor);
+            SetupSingleRoleOptions(20010, CustomRoles.Reverser, 1, AmongUsExtensions.OptionType.Impostor);
+            NumOfReverses = CustomOption.Create(20011, Color.white, "NReverses", AmongUsExtensions.OptionType.Impostor, 30, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Reverser]);
+            ReverserCD = CustomOption.Create(20012, Color.white, "ReverserCD", AmongUsExtensions.OptionType.Impostor, 30, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Reverser]);
+            VetDuration = CustomOption.Create(20013, Color.white, "ReverserDur", AmongUsExtensions.OptionType.Impostor, 15, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Reverser]);
+            //ImpRolesVetted = CustomOption.Create(20014, Color.white, "IRGV", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.Reverser]);
+            PestiAttacksReverser = CustomOption.Create(20015, Color.white, "PestiAttacksReverser", AmongUsExtensions.OptionType.Impostor, PestiAttacksReverserString, PestiAttacksReverserString[2], CustomRoleSpawnChances[CustomRoles.Reverser]);
             SetupRoleOptions(2007424235, CustomRoles.Disperser, AmongUsExtensions.OptionType.Impostor);
             DisperseCooldown = CustomOption.Create(200126, Color.white, "DisperseCooldown", AmongUsExtensions.OptionType.Impostor, 30, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Disperser]);
             SetupRoleOptions(2007424234, CustomRoles.Cleaner, AmongUsExtensions.OptionType.Impostor);
@@ -663,6 +680,7 @@ namespace TownOfHost
             MadMayorVotesAppearBlack = CustomOption.Create(20213, Color.white, "MadMayorVotesAppearBlack", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.MadMayor]);
             MadMayorHasPortableButton = CustomOption.Create(20211, Color.white, "MadMayorHasPortableButton", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.MadMayor]);
             MadMayorNumOfUseButton = CustomOption.Create(20212, Color.white, "MadMayorNumOfUseButton", AmongUsExtensions.OptionType.Crewmate, 1, 1, 99, 1, MadMayorHasPortableButton);
+            SetupRoleOptions(20200, CustomRoles.MadMedic, AmongUsExtensions.OptionType.Impostor);
             SetupRoleOptions(205000, CustomRoles.CrewPostor, AmongUsExtensions.OptionType.Impostor);
             CrewPostorTasks = OverrideTasksData.Create(10121, CustomRoles.CrewPostor, AmongUsExtensions.OptionType.Neutral);
             SetupRoleOptions(10200, CustomRoles.MadSnitch, AmongUsExtensions.OptionType.Impostor);
@@ -820,7 +838,7 @@ namespace TownOfHost
             SetupRoleOptions(50250, CustomRoles.Hacker, AmongUsExtensions.OptionType.Neutral);
             SaboAmount = CustomOption.Create(50260, Color.white, "SA", AmongUsExtensions.OptionType.Neutral, 20, 10, 99, 1, CustomRoleSpawnChances[CustomRoles.Hacker]);
 
-            SetupSingleRoleOptions(905003, CustomRoles.Amnesiac, 1, AmongUsExtensions.OptionType.Neutral, locked: true);
+            SetupSingleRoleOptions(905003, CustomRoles.Amnesiac, 1, AmongUsExtensions.OptionType.Neutral);
             AmnesiacArrow = CustomOption.Create(6000020, Color.white, "AmnesiacHasArrow", AmongUsExtensions.OptionType.Neutral, false, CustomRoleSpawnChances[CustomRoles.Amnesiac]);
             SetupSingleRoleOptions(905004, CustomRoles.Phantom, 1, AmongUsExtensions.OptionType.Neutral);
             TasksRemainingForPhantomClicked = CustomOption.Create(50515, Color.white, "TasksRemainingForPhantomClicked", AmongUsExtensions.OptionType.Neutral, 3, 1, 10, 1, CustomRoleSpawnChances[CustomRoles.Phantom]);

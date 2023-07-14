@@ -7,10 +7,10 @@ namespace TownOfHost
     {
         public static void Prefix(ChatController __instance)
         {
-            if (__instance.IsOpen && !__instance.animating) // (IsOpen==true) == 今から閉じないといけない
+            if (__instance.IsOpenOrOpening && !__instance.IsAnimating) // (IsOpen==true) == 今から閉じないといけない
             {
                 // BanButtonを非表示にする
-                __instance.BanButton.SetVisible(true);
+                __instance.banButton.SetVisible(false);
             }
         }
     }

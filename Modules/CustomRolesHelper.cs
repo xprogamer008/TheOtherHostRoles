@@ -55,6 +55,7 @@ namespace TownOfHost
                 CustomRoles.MadGuardian or
                 CustomRoles.MadSnitch or
                 CustomRoles.MadMayor or
+                CustomRoles.MadMedic or
                 CustomRoles.Parasite or
                 CustomRoles.MSchrodingerCat;
         }
@@ -436,6 +437,7 @@ namespace TownOfHost
         {
             return
                 role is CustomRoles.Veteran or
+                CustomRoles.Reverser or
                 CustomRoles.Miner or
                 CustomRoles.Escapist or
                 CustomRoles.TheGlitch or

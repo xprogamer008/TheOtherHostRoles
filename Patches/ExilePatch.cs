@@ -84,7 +84,7 @@ namespace TownOfHost
                     EndGameHelper.AssignWinner(exiled.PlayerId);
                     DecidedWinner = true;
                 }
-                if (role is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.Medic && AmongUsClient.Instance.AmHost)
+                if (role is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.Medic or CustomRoles.MadMedic && AmongUsClient.Instance.AmHost)
                 {
                     if (Main.CurrentTarget[exiled.PlayerId] != 255)
                     {
@@ -191,6 +191,8 @@ namespace TownOfHost
                     if (Options.MadMayorHasPortableButton.GetBool() && pc.Is(CustomRoles.MadMayor))
                         pc.RpcResetAbilityCooldown();
                     if (pc.Is(CustomRoles.Veteran))
+                        pc.RpcResetAbilityCooldown();
+                    if (pc.Is(CustomRoles.Reverser))
                         pc.RpcResetAbilityCooldown();
                     if (pc.Is(CustomRoles.Warlock))
                     {
@@ -398,7 +400,20 @@ namespace TownOfHost
                         AmongUsClient.Instance.FinishRpcImmediately(writer2);
                         Utils.NotifyRoles();
                     }
-                }, Options.VetCD.GetFloat(), "Transporter Transport Cooldown (After Meeting)");
+                },
+                Options.ReverserCD.GetFloat(), "Reverser Alert Cooldown (After Meeting)");
+                new LateTask(() =>
+                {
+                    if (!GameStates.IsMeeting)
+                    {
+                        Main.CanTransport = true;
+                        MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetTransportState, Hazel.SendOption.Reliable, -1);
+                        writer2.Write(Main.CanTransport);
+                        AmongUsClient.Instance.FinishRpcImmediately(writer2);
+                        Utils.NotifyRoles();
+                    }
+                },
+                Options.VetCD.GetFloat(), "Transporter Transport Cooldown (After Meeting)");
                 new LateTask(() =>
                 {
                     if (!GameStates.IsMeeting)

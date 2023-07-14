@@ -314,6 +314,13 @@ namespace TownOfHost
                     LowerInfoText.text = "Alerted: " + ModeLang;
                     LowerInfoText.text += "\nCan Alert: " + ReadyLang;
                 }
+                else if (player.Is(CustomRoles.Reverser))
+                {
+                    var ModeLang = Main.ReverserIsAlerted ? "True" : "False";
+                    var ReadyLang = Main.ReverserCanAlert ? "True" : "False";
+                    LowerInfoText.text = "Reversing Attacks: " + ModeLang;
+                    LowerInfoText.text += "\nCan Reverse Attacks: " + ReadyLang;
+                }
                 else if (player.Is(CustomRoles.Transporter))
                 {
                     var ReadyLang = Main.CanTransport ? "True" : "False";

@@ -276,6 +276,7 @@ namespace TownOfHost
                     if (cRole == CustomRoles.Amnesiac && ForRecompute) hasTasks = false;
                     if (cRole == CustomRoles.Amnesiac && ForRecompute) hasTasks = false;
                     if (cRole == CustomRoles.Madmate) hasTasks = false;
+                    if (cRole == CustomRoles.MadMedic) hasTasks = false;
                     if (cRole == CustomRoles.SKMadmate) hasTasks = false;
                     if (cRole == CustomRoles.Terrorist && ForRecompute) hasTasks = false;
                     if (cRole == CustomRoles.Executioner) hasTasks = false;
@@ -413,6 +414,9 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Sniper:
                     ProgressText += $"{Sniper.GetBulletCount(playerId)}";
+                    break;
+                case CustomRoles.Reverser:
+                    ProgressText += Helpers.ColorString(GetRoleColor(CustomRoles.Reverser), $"({Main.VetAlerts}/{Options.NumOfVets.GetInt()})");
                     break;
                 case CustomRoles.Vulture:
                     ProgressText = Helpers.ColorString(GetRoleColor(CustomRoles.Vulture), $"({Main.AteBodies}/{Options.BodiesAmount.GetInt()})");
@@ -1446,6 +1450,13 @@ namespace TownOfHost
                     SelfSuffix = "Alerted: " + ModeLang;
                     SelfSuffix += "\nCan Alert: " + ReadyLang;
                 }
+                if (seer.Is(CustomRoles.Reverser))
+                {
+                    var ModeLang = Main.ReverserIsAlerted ? "True" : "False";
+                    var ReadyLang = Main.ReverserCanAlert ? "True" : "False";
+                    SelfSuffix = "Reversing Attacks: " + ModeLang;
+                    SelfSuffix += "\nCan Reverse Attacks: " + ReadyLang;
+                }
                 if (seer.Is(CustomRoles.Transporter))
                 {
                     var ModeLang = Main.CanTransport ? "Yes" : "No";
@@ -2317,7 +2328,28 @@ namespace TownOfHost
                 return false;
             }
         }
+        public static bool IsProtectedByMadMedic(PlayerControl player)
+        {
+            if (Main.CurrentTarget.ContainsValue(player.PlayerId))
+            {
+                foreach (var key in Main.CurrentTarget)
+                {
+                    if (key.Value != player.PlayerId) continue;
+                    var protector = Utils.GetPlayerById(key.Key);
+                    switch (player.GetCustomRole())
+                    {
+                        case CustomRoles.MadMedic:
+                            return true;
+                    }
+                }
 
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public static PlayerControl? GetProtector(PlayerControl player)
         {
             if (Main.CurrentTarget.ContainsValue(player.PlayerId))

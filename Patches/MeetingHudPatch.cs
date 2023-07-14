@@ -136,7 +136,7 @@ namespace TownOfHost
                             }
                         }
                     }
-                    if (voter.GetCustomRole() is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.Medic)
+                    if (voter.GetCustomRole() is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.MadMedic or CustomRoles.Medic)
                     {
                         if (Main.CurrentTarget.ContainsKey(ps.TargetPlayerId))
                             if (Main.CurrentTarget[ps.TargetPlayerId] == 255 && ps.VotedFor != ps.TargetPlayerId && ps.VotedFor != 253 && ps.VotedFor != 254 && ps.VotedFor != 255 && !Main.HasTarget[ps.TargetPlayerId])

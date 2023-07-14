@@ -113,6 +113,7 @@ namespace TownOfHost
             { CustomRoles.Wildling, RoleTypes.Impostor},
             { CustomRoles.Terrorist, RoleTypes.Engineer },
             { CustomRoles.Mare, RoleTypes.Impostor },
+            { CustomRoles.Reverser, RoleTypes.Impostor },
             { CustomRoles.Painter, RoleTypes.Impostor },
             { CustomRoles.Janitor, RoleTypes.Impostor },
             { CustomRoles.Doctor, RoleTypes.Scientist },

@@ -328,6 +328,7 @@ namespace TownOfHost
                 case CustomRoles.Coven:
                 case CustomRoles.Silencer:
                 case CustomRoles.Vampress:
+                case CustomRoles.Reverser:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Shapeshifter);
                     break;
 
@@ -356,6 +357,9 @@ namespace TownOfHost
                 case CustomRoles.PlagueBearer:
                 case CustomRoles.Lawyer:
                 case CustomRoles.Spy:
+                case CustomRoles.Mayor:
+                case CustomRoles.Dictator:
+                case CustomRoles.MadMayor:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Crewmate);
                     break;
 
@@ -371,14 +375,10 @@ namespace TownOfHost
                 case CustomRoles.Madmate:
                 case CustomRoles.MadGuardian:
                 case CustomRoles.SchrodingerCat:
+                case CustomRoles.MadMedic:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Impostor);
                     break;
 
-                case CustomRoles.Mayor:
-                case CustomRoles.Dictator:
-                case CustomRoles.MadMayor:
-                    PlayerControl.LocalPlayer.Data.Role.IntroSound = HudManager.Instance.Chat.MessageSound;
-                    break;
                 case CustomRoles.Medium:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = PlayerControl.LocalPlayer.MyPhysics.ImpostorDiscoveredSound;
                     break;

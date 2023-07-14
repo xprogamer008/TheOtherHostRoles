@@ -1081,6 +1081,9 @@ namespace TownOfHost
                             case CustomRoles.Veteran:
                                 //Main.VetAlerts = Options.NumOfVets.GetInt();
                                 break;
+                            case CustomRoles.Reverser:
+                                //Main.ReverserAlerts = Options.NumOfReverses.GetInt();
+                                break;
                             case CustomRoles.FireWorks:
                                 FireWorks.Add(pc.PlayerId);
                                 break;
@@ -1279,6 +1282,7 @@ namespace TownOfHost
                                 Main.lastAmountOfTasks.Add(pc.PlayerId, 0);
                                 break;
                             case CustomRoles.Medic:
+                            case CustomRoles.MadMedic:
                             case CustomRoles.Bodyguard:
                             case CustomRoles.Oracle:
                             case CustomRoles.Crusader:

@@ -46,6 +46,7 @@ namespace TownOfHost
         SendBadId,
         SendGoodId,
         SetVeteranAlert,
+        SetReverserAlert,
         SetMedusaInfo,
         SetHackerProgress,
         SetPirateProgress,
@@ -69,6 +70,7 @@ namespace TownOfHost
         RpcSetPickpocketProgress,
         RpcPassBomb,
         SetVetAlertState,
+        SetReverserAlertState,
         SetGlitchState,
         SetTransportState,
         SendPostmanInfo,
@@ -313,6 +315,10 @@ namespace TownOfHost
                 case CustomRPC.SetVeteranAlert: // DONE
                     int vet = reader.ReadInt32();
                     Main.VetAlerts = vet;
+                    break;
+                case CustomRPC.SetReverserAlert: // DONE
+                    int Reverser = reader.ReadInt32();
+                    Main.ReverserAlerts = Reverser;
                     break;
                 case CustomRPC.SetPirateProgress: // DONE
                     Guesser.PirateGuess[reader.ReadByte()] = reader.ReadInt32();

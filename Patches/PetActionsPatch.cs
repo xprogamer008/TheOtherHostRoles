@@ -115,6 +115,14 @@ class ExternalRpcPetPatch
                 Utils.NotifyRoles(GameStates.IsMeeting, playerControl);
             }
         }
+        if (playerControl.Is(CustomRoles.Reverser))
+        {
+            if (!Main.ReverserIsAlerted && Main.ReverserCanAlert && Main.ReverserAlerts != Options.NumOfReverses.GetInt())
+            {
+                playerControl.ReverserAlerted();
+                Utils.NotifyRoles(GameStates.IsMeeting, playerControl);
+            }
+        }
         if (playerControl.Is(CustomRoles.TheGlitch))
         {
             Main.IsHackMode = !Main.IsHackMode;

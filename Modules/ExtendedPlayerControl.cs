@@ -327,54 +327,6 @@ namespace TownOfHost
         public static string GetDeathReason(this PlayerControl player) =>
             PlayerState.isDead[player.PlayerId] | player.Data.IsDead ? GetString("DeathReason." + PlayerState.GetDeathReason(player.PlayerId)) : GetString("Alive");
 
-        public static void setDefaultLook(this PlayerControl target)
-        {
-            target.setLook(target.Data.PlayerName, target.Data.DefaultOutfit.ColorId, target.Data.DefaultOutfit.HatId, target.Data.DefaultOutfit.VisorId, target.Data.DefaultOutfit.SkinId, target.Data.DefaultOutfit.PetId);
-        }
-
-        public static void setLook(this PlayerControl target, String playerName, int colorId, string hatId, string visorId, string skinId, string petId)
-        {
-            target.SetColor(colorId);
-            target.SetVisor(visorId, colorId);
-            target.SetHat(hatId, colorId);
-            target.SetName(hidePlayerName(PlayerControl.LocalPlayer, target) ? "" : playerName);
-
-            SkinData skinData = DestroyableSingleton<HatManager>.Instance.GetSkinById(skinId);
-            SkinViewData nextSkin = skinData.viewData.viewData;
-            SkinLayer skinLayer = target.cosmetics.skin;
-            if (skinLayer == null) return;
-
-            AnimationClip clip;
-            PlayerPhysics playerPhysics = target.MyPhysics;
-            PlayerAnimationGroup pAnimationGroup = playerPhysics.Animations.animationGroups[0];
-            SpriteAnim spriteAnimator = skinLayer.animator;
-
-            AnimationClip currentAnimationClip = playerPhysics.Animations.Animator.GetCurrentAnimation();
-
-            if (currentAnimationClip == pAnimationGroup.RunAnim) clip = nextSkin.RunAnim;
-            else if (currentAnimationClip == pAnimationGroup.SpawnAnim) clip = nextSkin.SpawnAnim;
-            else if (currentAnimationClip == pAnimationGroup.EnterVentAnim) clip = nextSkin.EnterVentAnim;
-            else if (currentAnimationClip == pAnimationGroup.ExitVentAnim) clip = nextSkin.ExitVentAnim;
-            else if (currentAnimationClip == pAnimationGroup.IdleAnim) clip = nextSkin.IdleAnim;
-            else clip = nextSkin.IdleAnim;
-            float progress = playerPhysics.Animations.Animator.m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime;
-
-            target.cosmetics.skin.skin = nextSkin;
-            skinLayer.UpdateMaterial();
-
-            spriteAnimator.Play(clip, 1f);
-            spriteAnimator.m_animator.Play("a", 0, progress % 1);
-            spriteAnimator.m_animator.Update(0f);
-
-            if (target.cosmetics.CurrentPet)
-                UnityEngine.Object.Destroy(target.cosmetics.CurrentPet.gameObject);
-
-            PetBehaviour pet = UnityEngine.Object.Instantiate(DestroyableSingleton<HatManager>.Instance.GetPetById(petId).viewData.viewData);
-            pet.transform.position = target.transform.position;
-            pet.Source = target;
-            pet.Visible = target.Visible;
-            target.SetPlayerMaterialColors(pet.rend);
-        }
         public static void CustomSyncSettings(this PlayerControl player)
         {
             if (player == null || !AmongUsClient.Instance.AmHost) return;
@@ -1482,6 +1434,43 @@ namespace TownOfHost
                         }
                     }, Options.VetCD.GetFloat(), "Veteran Cooldown", true);
                 }, Options.VetDuration.GetFloat(), "Veteran Duration", true);
+            }
+        }
+        public static void ReverserAlerted(this PlayerControl reverser)
+        {
+            if (reverser.Is(CustomRoles.Reverser) && !Main.ReverserIsAlerted)
+            {
+                Main.ReverserAlerts++;
+                Main.ReverserThisRound = true;
+                Main.ReverserIsAlerted = true;
+                Main.ReverserCanAlert = false;
+                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetReverserAlert, Hazel.SendOption.Reliable, -1);
+                writer.Write(Main.VetAlerts);
+                AmongUsClient.Instance.FinishRpcImmediately(writer);
+                MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetReverserAlertState, Hazel.SendOption.Reliable, -1);
+                writer2.Write(Main.ReverserCanAlert);
+                AmongUsClient.Instance.FinishRpcImmediately(writer2);
+                if (!GameStates.IsMeeting)
+                    Utils.NotifyRoles(GameStates.IsMeeting, reverser);
+                new LateTask(() =>
+                {
+                    if (!GameStates.IsMeeting)
+                    {
+                        Main.ReverserIsAlerted = false;
+                        Utils.NotifyRoles(GameStates.IsMeeting, reverser);
+                    }
+                    new LateTask(() =>
+                    {
+                        if (!GameStates.IsMeeting)
+                        {
+                            Main.VetCanAlert = true;
+                            MessageWriter writer3 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetReverserAlertState, Hazel.SendOption.Reliable, -1);
+                            writer3.Write(Main.ReverserCanAlert);
+                            AmongUsClient.Instance.FinishRpcImmediately(writer3);
+                            Utils.NotifyRoles(GameStates.IsMeeting, reverser);
+                        }
+                    }, Options.ReverserCD.GetFloat(), "Reverser Cooldown", true);
+                }, Options.ReverserDuration.GetFloat(), "Reverser Duration", true);
             }
         }
         public static void SurvivorVested(this PlayerControl survivor)
