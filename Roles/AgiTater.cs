@@ -71,6 +71,8 @@ namespace TownOfHost
                 CanPass = false;
             if (target.Is(CustomRoles.Pestilence) || (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted))
                 target.RpcMurderPlayer(player);
+            if (target.Is(CustomRoles.Pestilence) || (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted))
+                target.RpcMurderPlayer(player);
             else
             {
                 LastBombedPlayer = CurrentBombedPlayer;
@@ -97,6 +99,14 @@ namespace TownOfHost
                             if (bombed.Is(CustomRoles.Veteran))
                             {
                                 if (!Main.VetIsAlerted)
+                                {
+                                    bombed.RpcMurderPlayer(bombed);
+                                    PlayerState.SetDeathReason(bombed.PlayerId, PlayerState.DeathReason.Bombed);
+                                }
+                            }
+                            if (bombed.Is(CustomRoles.Reverser))
+                            {
+                                if (!Main.ReverserIsAlerted)
                                 {
                                     bombed.RpcMurderPlayer(bombed);
                                     PlayerState.SetDeathReason(bombed.PlayerId, PlayerState.DeathReason.Bombed);

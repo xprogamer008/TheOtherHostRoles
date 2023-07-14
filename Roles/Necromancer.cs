@@ -80,6 +80,11 @@ namespace TownOfHost
                             target.RpcMurderPlayer(necromancer);
                             break;
                         }
+                        if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(necromancer);
+                            break;
+                        }
                         break;
                     }
                     else
@@ -95,11 +100,21 @@ namespace TownOfHost
                             target.RpcMurderPlayer(necromancer);
                             break;
                         }
+                        if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(necromancer);
+                            break;
+                        }
                         break;
                     }
                     else
                     {
                         if (target.Is(CustomRoles.Veteran) && !Main.HasNecronomicon && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(necromancer);
+                            break;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(necromancer);
                             break;
@@ -126,6 +141,11 @@ namespace TownOfHost
                     break;
                 case CustomRoles.TheGlitch:
                     if (target.Is(CustomRoles.Veteran) && !Main.HasNecronomicon && Main.VetIsAlerted && !Main.IsHackMode)
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        break;
+                    }
+                    if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted && !Main.IsHackMode)
                     {
                         target.RpcMurderPlayer(necromancer);
                         break;
@@ -173,6 +193,11 @@ namespace TownOfHost
                     if (Main.IsRampaged)
                     {
                         if (target.Is(CustomRoles.Veteran) && !Main.HasNecronomicon && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(necromancer);
+                            break;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(necromancer);
                             break;
@@ -370,6 +395,11 @@ namespace TownOfHost
                         target.RpcMurderPlayer(necromancer);
                         break;
                     }
+                    if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted && Main.HexesThisRound !=Options.MaxHexesPerRound.GetFloat())
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        break;
+                    }
                     Main.AllPlayerKillCooldown[necromancer.PlayerId] = 10f;
                     Utils.CustomSyncAllSettings();
                     if (!Main.isHexed[(necromancer.PlayerId, target.PlayerId)] && necromancer.IsHexMode() && Main.HexesThisRound != Options.MaxHexesPerRound.GetFloat())
@@ -471,6 +501,11 @@ namespace TownOfHost
                         target.RpcMurderPlayer(necromancer);
                         break;
                     }
+                    if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        break;
+                    }
                     if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                     {
                         target.RpcMurderPlayer(necromancer);
@@ -485,6 +520,11 @@ namespace TownOfHost
                 case CustomRoles.Deputy:
                     skipVetCheck = true;
                     if (target.Is(CustomRoles.Veteran) && !Main.HasNecronomicon && Main.VetIsAlerted && Options.CrewRolesVetted.GetBool())
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        break;
+                    }
+                    if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
                     {
                         target.RpcMurderPlayer(necromancer);
                         break;
@@ -535,6 +575,10 @@ namespace TownOfHost
             if (!skipVetCheck)
             {
                 if (target.Is(CustomRoles.Veteran) && !Main.HasNecronomicon && Main.VetIsAlerted)
+                {
+                    target.RpcMurderPlayer(necromancer);
+                }
+                if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted)
                 {
                     target.RpcMurderPlayer(necromancer);
                 }
