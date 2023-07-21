@@ -199,7 +199,7 @@ namespace TownOfHost
             if (playerId == "show")
             {
                 if (CanHideCommand(killer.GetCustomRole()))
-                    Utils.BlockCommand(19);
+                    Utils.BlockCommand(10);
                 SendShootChoices(killer.PlayerId);
                 SendShootID(killer.PlayerId);
                 return;
@@ -382,7 +382,7 @@ namespace TownOfHost
             text += string.Format(GetString("KilledByGuesser"), pc.name);
             Main.unreportableBodies.Add(pc.PlayerId);
             if (CanHideCommand(pc.GetCustomRole()))
-                Utils.BlockCommand(19);
+                Utils.BlockCommand(10);
             Utils.SendMessage(text, byte.MaxValue);
             if (pc.GetCustomRole() is CustomRoles.LoversRecode)
             {

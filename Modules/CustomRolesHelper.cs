@@ -12,9 +12,12 @@ namespace TownOfHost
                 role is CustomRoles.Impostor or
                 CustomRoles.Shapeshifter or
                 CustomRoles.BountyHunter or
+                CustomRoles.Backstabber or
                 CustomRoles.Vampire or
                 CustomRoles.Vampress or
                 CustomRoles.Wildling or
+                CustomRoles.Undertaker or
+                CustomRoles.Reverser or
                 CustomRoles.Escapist or
                 CustomRoles.Creeper or
                 CustomRoles.Witch or
@@ -81,6 +84,7 @@ namespace TownOfHost
                 CustomRoles.Dracula or
                 CustomRoles.Unseeable or
                 CustomRoles.Pirate or
+                CustomRoles.Undecided or
                 CustomRoles.Jackal or
                 CustomRoles.PlagueBearer or
                 CustomRoles.Pestilence or
@@ -155,6 +159,7 @@ namespace TownOfHost
                 CustomRoles.Troll or
                 CustomRoles.Vulture or
                 CustomRoles.Opportunist or
+                CustomRoles.Undecided or
                 CustomRoles.Survivor or
                 CustomRoles.SchrodingerCat or
                 CustomRoles.Terrorist or
@@ -170,6 +175,7 @@ namespace TownOfHost
         {
             return
                 role is CustomRoles.Opportunist or
+                    CustomRoles.Undecided or
                     CustomRoles.Survivor or
                     CustomRoles.SchrodingerCat or
                     CustomRoles.GuardianAngelTOU or
@@ -269,6 +275,7 @@ namespace TownOfHost
                 CustomRoles.EgoSchrodingerCat or
                 CustomRoles.Impostor or
                 CustomRoles.Phantom or
+                CustomRoles.Revived or
                 CustomRoles.Crewmate or
                 CustomRoles.Engineer or
                 CustomRoles.GuardianAngel or

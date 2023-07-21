@@ -329,6 +329,7 @@ namespace TownOfHost
                 case CustomRoles.Silencer:
                 case CustomRoles.Vampress:
                 case CustomRoles.Reverser:
+                case CustomRoles.Undertaker:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Shapeshifter);
                     break;
 

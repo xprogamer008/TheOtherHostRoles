@@ -84,7 +84,7 @@ namespace TownOfHost
                     EndGameHelper.AssignWinner(exiled.PlayerId);
                     DecidedWinner = true;
                 }
-                if (role is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.Medic or CustomRoles.MadMedic && AmongUsClient.Instance.AmHost)
+                if (role is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.Medic or CustomRoles.MadMedic or CustomRoles.Parademic && AmongUsClient.Instance.AmHost)
                 {
                     if (Main.CurrentTarget[exiled.PlayerId] != 255)
                     {
@@ -170,6 +170,7 @@ namespace TownOfHost
                 exiled.Object.ExiledSchrodingerCatTeamChange();
 
             Main.VetIsAlerted = false;
+            Main.ReverserIsAlerted = false;
             Manipulator.ResetSabotagedMeeting();
             Main.HexesThisRound = 0;
 
@@ -327,9 +328,15 @@ namespace TownOfHost
                 Main.WildlingProtected = false;
                 Main.VetIsAlerted = false;
                 Main.VetCanAlert = false;
+                Main.ReverserIsAlerted = false;
+                Main.ReverserCanAlert = false;
                 MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetVetAlertState, Hazel.SendOption.Reliable, -1);
                 writer.Write(Main.VetCanAlert);
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
+                Main.CanTransport = false;
+                MessageWriter writerR = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetReverserAlertState, Hazel.SendOption.Reliable, -1);
+                writerR.Write(Main.ReverserCanAlert);
+                AmongUsClient.Instance.FinishRpcImmediately(writerR);
                 Main.CanTransport = false;
                 MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetTransportState, Hazel.SendOption.Reliable, -1);
                 writer2.Write(Main.CanTransport);

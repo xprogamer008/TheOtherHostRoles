@@ -100,6 +100,7 @@ namespace TownOfHost
                 Main.KilledDiseased = new List<byte>();
                 EndGameHelper.EveryoneDied = false;
                 Main.VetCanAlert = true;
+                Main.ReverserCanAlert = true;
                 Main.CanTransport = true;
                 Main.JugKillAmounts = 0;
                 Main.AteBodies = 0;
@@ -151,6 +152,8 @@ namespace TownOfHost
                 Main.introDestroyed = false;
                 Main.VettedThisRound = false;
                 Main.VetIsAlerted = false;
+                Main.ReverserThisRound = false;
+                Main.ReverserIsAlerted = false;
                 Main.IsRoundOne = true;
                 Main.IsRoundOneGA = true;
                 Main.MarksmanKills = 0;
@@ -192,6 +195,7 @@ namespace TownOfHost
                 Main.currentDousingTarget = 255;
                 Main.currentFreezingTarget = 255;
                 Main.VetAlerts = 0;
+                Main.ReverserAlerts = 0;
                 Main.ProtectsSoFar = 0;
                 Main.rolesRevealedNextMeeting = new List<byte>();
                 Main.IsProtected = false;
@@ -637,7 +641,7 @@ namespace TownOfHost
                                     Main.chosenDesyncRoles.Add(role);
                                 else if (role.IsEngineer())
                                     Main.chosenEngiRoles.Add(role);
-                                else if (role is CustomRoles.Doctor or CustomRoles.Physicist)
+                                else if (role is CustomRoles.Nurse or CustomRoles.Parademic or CustomRoles.Physicist)
                                     Main.chosenScientistRoles.Add(role);
                                 else
                                     Main.chosenRoles.Add(role);
@@ -1283,6 +1287,7 @@ namespace TownOfHost
                                 break;
                             case CustomRoles.Medic:
                             case CustomRoles.MadMedic:
+                            case CustomRoles.Parademic:
                             case CustomRoles.Bodyguard:
                             case CustomRoles.Oracle:
                             case CustomRoles.Crusader:
@@ -1629,12 +1634,12 @@ namespace TownOfHost
                     switch (role)
                     {
                         case CustomRoles.Sleuth:
-                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Amnesiac or CustomRoles.Detective or CustomRoles.Vulture or CustomRoles.Cleaner or CustomRoles.Cursed) continue;
+                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Amnesiac or CustomRoles.Doctor or CustomRoles.Detective or CustomRoles.Vulture or CustomRoles.Cleaner or CustomRoles.Cursed) continue;
                             break;
                         case CustomRoles.TieBreaker:
                             break;
                         case CustomRoles.Oblivious:
-                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Tracker or CustomRoles.Detective or CustomRoles.Amnesiac or CustomRoles.Vulture or CustomRoles.Cleaner or CustomRoles.Cursed) continue;
+                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Tracker or CustomRoles.Detective or CustomRoles.Amnesiac or CustomRoles.Doctor or CustomRoles.Vulture or CustomRoles.Cleaner or CustomRoles.Cursed) continue;
                             break;
                         case CustomRoles.Escalation:
                         case CustomRoles.Flash:
@@ -1650,7 +1655,7 @@ namespace TownOfHost
                             if (player.GetCustomRole() is CustomRoles.Detective or CustomRoles.Tracker or CustomRoles.Tank) continue;
                             break;
                         case CustomRoles.Soulhandler:
-                            if (player.GetCustomRole() is CustomRoles.Doctor or CustomRoles.Investigator) continue;
+                            if (player.GetCustomRole() is CustomRoles.Nurse or CustomRoles.Parademic or CustomRoles.Investigator) continue;
                             break;
                         case CustomRoles.DoubleShot:
                             if (player.GetCustomRole() is not CustomRoles.EvilGuesser and not CustomRoles.NiceGuesser) continue;

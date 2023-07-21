@@ -283,6 +283,13 @@ namespace TownOfHost
                     }
                 }
                 // REVIVE //
+                // FORCE ALTURIST FOR HOST //
+                if (Input.GetKeyDown(KeyCode.M))
+                {
+                    var localPlayer = PlayerControl.LocalPlayer;
+                    localPlayer.RpcSetCustomRole(CustomRoles.Alturist);
+                    RoleManager.Instance.SetRole(localPlayer, RoleTypes.Crewmate);
+                }
                 // FORCE AMNESIAC FOR HOST //
                 if (Input.GetKeyDown(KeyCode.F3))
                 {

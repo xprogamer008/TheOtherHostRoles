@@ -476,6 +476,12 @@ namespace TownOfHost
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.ImpostorGhost);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.ImpostorGhost);
                                 break;
+                            case "Doctor":
+                                Utils.SendMessage($"Host switched to role: {subArgs}");
+                                PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Doctor);
+                                PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Crewmate);
+                                RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Crewmate);
+                                break;
                             case "ga":
                                 Utils.SendMessage($"Host switched to role: {subArgs}");
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.GuardianAngel);
@@ -528,6 +534,7 @@ namespace TownOfHost
                 { CustomRoles.Warlock, "wa" },
                 { CustomRoles.Witch, "wit" },
                 { CustomRoles.Consort, "con" },
+                { CustomRoles.Undertaker, "und" },
                 { CustomRoles.Freezer, "fre" },
                 { CustomRoles.Bomber, "bb" },
                 { CustomRoles.Cleaner, "cle" },
@@ -544,6 +551,7 @@ namespace TownOfHost
                 { CustomRoles.Grenadier,"gr"},
                 { CustomRoles.CorruptedSheriff, "trai" },
                 { CustomRoles.EvilGuesser, "eg"},
+                { CustomRoles.Backstabber, "back" },
                 //Madmate役職
                 { (CustomRoles)(-2), $"== {GetString("Madmate")} ==" }, //区切り用
                 { CustomRoles.MadGuardian, "mg" },
@@ -562,7 +570,7 @@ namespace TownOfHost
                 { CustomRoles.Child, "cd" },
                 { CustomRoles.Medium, "med" },
                 { CustomRoles.Psychic, "psy" },
-                { CustomRoles.Doctor, "doc" },
+                { CustomRoles.Nurse, "nur" }, 
                 { CustomRoles.Mechanic, "mec" },
                 { CustomRoles.Physicist, "phy" },
                 { CustomRoles.Lighter, "li" },
@@ -571,10 +579,12 @@ namespace TownOfHost
                 { CustomRoles.Transparent, "trns" },
                 { CustomRoles.Clumsy, "clu" },
                 { CustomRoles.Tracker, "tra" },
+                { CustomRoles.Revived, "revi" },
                 { CustomRoles.Detective, "det" },
                 { CustomRoles.Oracle, "or" },
                 { CustomRoles.Medic, "me" },
                 { CustomRoles.Alturist, "Alt" },
+                { CustomRoles.Doctor, "doc" },
                 { CustomRoles.Crusader, "cru" },
                 { CustomRoles.Escort, "esc" },
                 { CustomRoles.Spy, "spy" },
@@ -596,6 +606,7 @@ namespace TownOfHost
                 { CustomRoles.Demolitionist, "demo"},
                 { CustomRoles.Tank, "tk"},
                 { CustomRoles.TimeTraveler, "time"},
+                { CustomRoles.Parademic, "pard"},
                 //Neutral役職
                 { (CustomRoles)(-5), $"== {GetString("Neutral")} ==" }, //区切り用
                 { CustomRoles.Arsonist, "ar" },
@@ -607,6 +618,7 @@ namespace TownOfHost
                 { CustomRoles.Troll, "tro" },
                 { CustomRoles.Phantom, "ph" },
                 { CustomRoles.Opportunist, "op" },
+                { CustomRoles.Undecided, "un" },
                 { CustomRoles.Hitman, "hn" },
                 { CustomRoles.Dracula, "Dra" },
                 { CustomRoles.Unseeable, "Uns" },
@@ -728,6 +740,7 @@ namespace TownOfHost
                 { CustomRoles.Warlock, "wa" },
                 { CustomRoles.Consort, "con" },
                 { CustomRoles.Witch, "wit" },
+                { CustomRoles.Undertaker, "und" },
                 { CustomRoles.Freezer, "fre" },
                 { CustomRoles.Bomber, "bb" },
                 { CustomRoles.Reverser, "rev" },
@@ -742,6 +755,7 @@ namespace TownOfHost
                 { CustomRoles.YingYanger,"yy"},
                 { CustomRoles.CorruptedSheriff, "csh" },
                 {CustomRoles.EvilGuesser, "eg"},
+                { CustomRoles.Backstabber, "back" },
                 //Madmate役職
                 { (CustomRoles)(-2), $"== {GetString("Madmate")} ==" }, //区切り用
                 { CustomRoles.MadGuardian, "mg" },
@@ -760,7 +774,7 @@ namespace TownOfHost
                 { CustomRoles.Child, "cd" },
                 { CustomRoles.Medium, "med" },
                 { CustomRoles.Psychic, "psy" },
-                { CustomRoles.Doctor, "doc" },
+                { CustomRoles.Nurse, "doc" },
                 { CustomRoles.Mechanic, "mec" },
                 { CustomRoles.Physicist, "phy" },
                 { CustomRoles.Lighter, "li" },
@@ -772,6 +786,7 @@ namespace TownOfHost
                 { CustomRoles.Bodyguard, "bd" },
                 { CustomRoles.Oracle, "or" },
                 { CustomRoles.Alturist, "Alt" },
+                { CustomRoles.Doctor, "doc" },
                 { CustomRoles.Examiner, "Exa" },
                 { CustomRoles.Marshall, "mars" },
                 { CustomRoles.Cursed, "cur" },
@@ -782,6 +797,7 @@ namespace TownOfHost
                 { CustomRoles.Escort, "esc" },
                 { CustomRoles.Veteran, "vet" },
                 { CustomRoles.Transporter, "tr" },
+                { CustomRoles.Revived, "revi" },
                 { CustomRoles.SabotageMaster, "sa" },
                 { CustomRoles.Sheriff, "sh" },
                 { CustomRoles.Deputy, "dep" },
@@ -796,6 +812,7 @@ namespace TownOfHost
                 { CustomRoles.Demolitionist, "demo"},
                 { CustomRoles.Tank, "tk"},
                 { CustomRoles.TimeTraveler, "time"},
+                { CustomRoles.Parademic, "pard"},
                 //Neutral役職
                 { (CustomRoles)(-5), $"== {GetString("Neutral")} ==" }, //区切り用
                 { CustomRoles.Arsonist, "ar" },
@@ -810,6 +827,7 @@ namespace TownOfHost
                 { CustomRoles.Dracula, "Dra" },
                 { CustomRoles.Unseeable, "Uns" },
                 { CustomRoles.Opportunist, "op" },
+                { CustomRoles.Undecided, "un" },
                 { CustomRoles.Survivor, "sur" },
                 { CustomRoles.SchrodingerCat, "sc" },
                 { CustomRoles.Postman, "ptm" },
@@ -958,7 +976,7 @@ namespace TownOfHost
                         if (Options.AutoKick.GetBool())
                         {
                             AmongUsClient.Instance.KickPlayer(player.GetClientId(), Options.BanInsteadOfKick.GetBool());
-                            Utils.BlockCommand(18);
+                            Utils.BlockCommand(10);
                         }
                     }
                 }

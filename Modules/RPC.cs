@@ -317,8 +317,8 @@ namespace TownOfHost
                     Main.VetAlerts = vet;
                     break;
                 case CustomRPC.SetReverserAlert: // DONE
-                    int Reverser = reader.ReadInt32();
-                    Main.ReverserAlerts = Reverser;
+                    int reverser = reader.ReadInt32();
+                    Main.ReverserAlerts = reverser;
                     break;
                 case CustomRPC.SetPirateProgress: // DONE
                     Guesser.PirateGuess[reader.ReadByte()] = reader.ReadInt32();
@@ -414,6 +414,9 @@ namespace TownOfHost
                     break;
                 case CustomRPC.SetVetAlertState:
                     Main.VetCanAlert = reader.ReadBoolean();
+                    break;
+                case CustomRPC.SetReverserAlertState:
+                    Main.ReverserCanAlert = reader.ReadBoolean();
                     break;
                 case CustomRPC.SetGlitchState:
                     Main.IsHackMode = reader.ReadBoolean();

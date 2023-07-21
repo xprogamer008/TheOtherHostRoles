@@ -42,7 +42,7 @@ namespace TownOfHost
             var usableDistance = __instance.UsableDistance;
 
             if (pc.IsDead) return false; //死んでる人は強制的にfalseに。
-            else if (pc.Object.Is(CustomRoles.Sheriff) || pc.Object.Is(CustomRoles.Deputy) || pc.Object.Is(CustomRoles.Examiner) || pc.Object.Data.IsImpostor() && GameOptionsManager.Instance.CurrentGameOptions.GameMode == GameModes.HideNSeek || pc.Object.Is(CustomRoles.AgiTater) || pc.Object.Is(CustomRoles.PlagueBearer) || pc.Object.Is(CustomRoles.Dracula) || pc.Object.Is(CustomRoles.Amnesiac) || pc.Object.Is(CustomRoles.Escort) || pc.Object.Is(CustomRoles.Crusader) || pc.Object.Is(CustomRoles.Janitor) || pc.Object.Is(CustomRoles.Investigator) || (pc.Object.Is(CustomRoles.Arsonist) && !pc.Object.IsDouseDone() && !Options.TOuRArso.GetBool()))
+            else if (pc.Object.Is(CustomRoles.Sheriff) || pc.Object.Is(CustomRoles.Deputy) || pc.Object.Is(CustomRoles.Examiner) || pc.Object.Data.IsImpostor() && GameOptionsManager.Instance.CurrentGameOptions.GameMode == GameModes.HideNSeek || pc.Object.Is(CustomRoles.AgiTater) || pc.Object.Is(CustomRoles.PlagueBearer) || pc.Object.Is(CustomRoles.Amnesiac) || pc.Object.Is(CustomRoles.Escort) || pc.Object.Is(CustomRoles.Crusader) || pc.Object.Is(CustomRoles.Janitor) || pc.Object.Is(CustomRoles.Investigator) || (pc.Object.Is(CustomRoles.Arsonist) && !pc.Object.IsDouseDone() && !Options.TOuRArso.GetBool()))
                 return false;
             else if (pc.Object.Is(CustomRoles.Arsonist) && pc.Object.IsDouseDone() && !Options.TOuRArso.GetBool())
                 canUse = couldUse = VentForTrigger = true;
@@ -56,10 +56,14 @@ namespace TownOfHost
                 canUse = couldUse = Options.PestiCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Grenadier))
                 canUse = couldUse = Options.GrenadierCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.Undertaker))
+                canUse = couldUse = Options.UndertakerCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Juggernaut))
                 canUse = couldUse = Options.JuggerCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Marksman))
                 canUse = couldUse = Options.MarksmanCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.Dracula))
+                canUse = couldUse = Options.DraculaCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Wildling))
                 canUse = couldUse = Options.WildlingCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Camouflager))
@@ -70,8 +74,6 @@ namespace TownOfHost
                 canUse = couldUse = Options.BKcanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.TheGlitch))
                 canUse = couldUse = true;
-            else if (pc.Object.Is(CustomRoles.Dracula))
-                canUse = couldUse = Options.DraculaCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Unseeable))
                 canUse = couldUse = true;
             else if (pc.Object.Is(CustomRoles.Painter))

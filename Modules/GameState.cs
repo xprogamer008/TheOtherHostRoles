@@ -86,6 +86,7 @@ namespace TownOfHost
             Screamed,
             Trolled,
             Troller,
+            Hidden,
             etc = -1
         }
     }

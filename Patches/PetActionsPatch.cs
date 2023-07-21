@@ -217,11 +217,11 @@ class ExternalRpcPetPatch
                     {
                         if (!GameStates.IsMeeting)
                         {
-                            Main.CanTransport = true;
-                            MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetTransportState, Hazel.SendOption.Reliable, -1);
-                            writer2.Write(Main.CanTransport);
-                            AmongUsClient.Instance.FinishRpcImmediately(writer2);
-                            Utils.NotifyRoles();
+                           Main.CanTransport = true;
+                           MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetTransportState, Hazel.SendOption.Reliable, -1);
+                           writer2.Write(Main.CanTransport);
+                           AmongUsClient.Instance.FinishRpcImmediately(writer2);
+                           Utils.NotifyRoles();
                         }
                     }, Options.VetCD.GetFloat(), "Transporter Transport Cooldown (Pet Button)", true);
                 }

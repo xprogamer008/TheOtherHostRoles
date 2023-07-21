@@ -223,8 +223,9 @@ namespace TownOfHost
                     {
                         break;
                     }
-                    break;
                 case CustomRoles.Amnesiac:
+                    break;
+                case CustomRoles.Doctor:
                     break;
                 case CustomRoles.Juggernaut:
                     //calculating next kill cooldown
@@ -501,7 +502,7 @@ namespace TownOfHost
                         target.RpcMurderPlayer(necromancer);
                         break;
                     }
-                    if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
+                    if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted)
                     {
                         target.RpcMurderPlayer(necromancer);
                         break;
@@ -524,7 +525,7 @@ namespace TownOfHost
                         target.RpcMurderPlayer(necromancer);
                         break;
                     }
-                    if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
+                    if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted)
                     {
                         target.RpcMurderPlayer(necromancer);
                         break;

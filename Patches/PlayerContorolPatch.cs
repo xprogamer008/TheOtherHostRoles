@@ -187,6 +187,7 @@ namespace TownOfHost
                     case CustomRoles.Executioner:
                     case CustomRoles.Amnesiac:
                     case CustomRoles.Opportunist:
+                    case CustomRoles.Undecided:
                         return false;
                     default:
                         break;
@@ -509,6 +510,14 @@ namespace TownOfHost
                                         }
                                     }
 
+                                    if (!Utils.IsProtectedByParademic(player))
+                                    {
+                                        if (!Utils.IsProtectedByCrusader(player))
+                                        {
+                                            killer.RpcMurderPlayer(player);
+                                        }
+                                    }
+
                                     if (Utils.IsProtectedByCrusader(player))
                                     {
                                         PlayerControl protector = Utils.GetProtector(player);
@@ -559,7 +568,7 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
-                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -786,7 +795,7 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
-                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -828,7 +837,7 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
-                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1023,10 +1032,6 @@ namespace TownOfHost
                             }
                             return false;
                         }
-                        break;
-                    case CustomRoles.Ninja:
-                        Ninja.KillCheck(killer, target);
-                        return false;
                         if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             switch (Options.PestiAttacksReverser.GetSelection())
@@ -1045,6 +1050,9 @@ namespace TownOfHost
                             return false;
                         }
                         break;
+                    case CustomRoles.Ninja:
+                        Ninja.KillCheck(killer, target);
+                        return false;
                     case CustomRoles.Necromancer:
                         Necromancer.OnCheckMurder(killer, target);
                         return false;
@@ -1098,6 +1106,11 @@ namespace TownOfHost
                                             killer.RpcGuardAndKill(target);
                                             break;
                                         case CustomRoles.MadMedic:
+                                            returnFalse = true;
+                                            killer.RpcGuardAndKill(killer);
+                                            killer.RpcGuardAndKill(target);
+                                            break;
+                                        case CustomRoles.Parademic:
                                             returnFalse = true;
                                             killer.RpcGuardAndKill(killer);
                                             killer.RpcGuardAndKill(target);
@@ -1330,6 +1343,46 @@ namespace TownOfHost
                                 killer.CustomSyncSettings(); //負荷軽減のため、killerだけがCustomSyncSettingsを実行
                                 killer.RpcGuardAndKill(target);
                                 Main.BitPlayers.Add(target.PlayerId, (killer.PlayerId, 0f));
+                                return false;
+                            }
+                        }
+                        break;
+                    case CustomRoles.Undertaker:
+                        if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
+                        {
+                            target.RpcMurderPlayer(killer);
+                            new LateTask(() =>
+                            {
+                                Main.unreportableBodies.Add(killer.PlayerId);
+                            }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.GetCustomSubRole() != CustomRoles.Bait)
+                        { //キルキャンセル&自爆処理
+                          //if (!target.Is(CustomRoles.Bewilder))
+                          // {
+                            Utils.CustomSyncAllSettings();
+                            Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown + Options.HiddenCreateDuration.GetFloat();
+                            killer.CustomSyncSettings(); //負荷軽減のため、killerだけがCustomSyncSettingsを実行
+                            killer.RpcGuardAndKill(target);
+                            Main.HiddenPlayers.Add(target.PlayerId, (killer.PlayerId, 0f));
+                            return false;
+                            //  }
+                        }
+                        else
+                        {
+                            if (Options.VampireBuff.GetBool()) //Vampire Buff will still make Vampire report but later.
+                            {
+                                Utils.CustomSyncAllSettings();
+                                Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown * 1;
+                                killer.CustomSyncSettings(); //負荷軽減のため、killerだけがCustomSyncSettingsを実行
+                                killer.RpcGuardAndKill(target);
+                                Main.HiddenPlayers.Add(target.PlayerId, (killer.PlayerId, 0f));
                                 return false;
                             }
                         }
@@ -1737,7 +1790,7 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
-                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1770,7 +1823,7 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
-                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1803,7 +1856,7 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
-                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -1836,7 +1889,7 @@ namespace TownOfHost
                             target.RpcMurderPlayer(killer);
                             return false;
                         }
-                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted && Options.ImpRolesVetted.GetBool())
+                        if (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted)
                         {
                             target.RpcMurderPlayer(killer);
                             return false;
@@ -2175,6 +2228,10 @@ namespace TownOfHost
                 Main.CurrentTarget.Remove(target.PlayerId);
             }
             if (Main.CurrentTarget.ContainsKey(target.PlayerId) && target.Is(CustomRoles.MadMedic))
+            {
+                Main.CurrentTarget.Remove(target.PlayerId);
+            }
+            if (Main.CurrentTarget.ContainsKey(target.PlayerId) && target.Is(CustomRoles.Parademic))
             {
                 Main.CurrentTarget.Remove(target.PlayerId);
             }
@@ -2878,6 +2935,20 @@ namespace TownOfHost
                 }
             }
 
+            if (target != null) //Doctor Reviving Someone
+            {
+                if (__instance.Is(CustomRoles.Doctor))
+                {
+                    var reported = Utils.GetPlayerById(target.PlayerId);
+                    Utils.SendMessage("You Revived the person that you have reported.", __instance.PlayerId);
+                    Utils.SendMessage("Be Greatful because you got a second chance due to the Doctor who has revived You!", reported.PlayerId);
+
+                    reported.SetRevivedRoleType();
+                    //this bug makes people being revived. [PUMPkin used this to make Reviver]
+                    //return false;
+                }
+            }
+
             if (target != null) //Amnesiac Stealing role
             {
                 if (__instance.Is(CustomRoles.Amnesiac))
@@ -2894,13 +2965,11 @@ namespace TownOfHost
                         case RoleType.Crewmate:
                             Sheriff.Add(__instance.PlayerId);
                             __instance.RpcSetCustomRole(CustomRoles.Sheriff);
-                            Deputy.Add(__instance.PlayerId);
-                            __instance.RpcSetCustomRole(CustomRoles.Deputy);
                             break;
                         case RoleType.Neutral:
                             if (reported.IsNeutralKiller())
                             {
-                                if (!reported.Is(CustomRoles.Pirate) && !reported.Is(CustomRoles.CrewPostor) && !reported.Is(CustomRoles.Clumsy))
+                                if (!reported.Is(CustomRoles.Pirate) && !reported.Is(CustomRoles.CrewPostor))
                                 {
                                     __instance.RpcSetCustomRole(reported.GetCustomRole());
                                     switch (target.GetCustomRole())
@@ -2973,7 +3042,6 @@ namespace TownOfHost
                     }
                     if (Options.TosOptions.GetBool() && Options.AmnesiacRememberAnnouncement.GetBool())
                         Utils.SendMessage($"An Amnesiac remembered that they were like the {Utils.GetRoleName(__instance.GetCustomRole())}!");
-                    reported.SetDefaultRole();
                     // attempted revive fix
                     //return false;
                 }
@@ -3169,6 +3237,88 @@ namespace TownOfHost
                         }
                         else
                             Logger.Info("Vampireに噛まれている" + bitten?.Data?.PlayerName + "はすでに死んでいました。", "ReportDeadBody");
+                    }
+                }
+                foreach (var undertaker in Main.HiddenPlayers)
+                {
+                    var eradicatorID = undertaker.Value.Item1;
+                    var acidated = Utils.GetPlayerById(undertaker.Key);
+
+                    if (!acidated.Is(CustomRoles.Veteran))
+                    {
+                        if (!acidated.Data.IsDead)
+                        {
+                            PlayerControl eradicator = Utils.GetPlayerById(eradicatorID);
+                            if (acidated.Is(CustomRoles.Pestilence))
+                                PlayerState.SetDeathReason(eradicator.PlayerId, PlayerState.DeathReason.Hidden);
+                            else
+                                PlayerState.SetDeathReason(acidated.PlayerId, PlayerState.DeathReason.Hidden);
+                            //Protectは強制的にはがす
+                            // PlayerControl vampire = Utils.GetPlayerById(vampireID);
+                            if (acidated.protectedByGuardian)
+                            {
+                                if (acidated.GetCustomRole().IsImpostor())
+                                    acidated.RpcSetRole(RoleTypes.ImpostorGhost);
+                                if (acidated.GetCustomRole().IsDesyncRole())
+                                    acidated.RpcSetRole(RoleTypes.ImpostorGhost);
+                                else
+                                    acidated.RpcSetRole(RoleTypes.CrewmateGhost);
+
+                            }
+                            if (acidated.Is(CustomRoles.Pestilence))
+                                eradicator.RpcMurderPlayer(eradicator);
+                            else if (acidated.Is(CustomRoles.Survivor))
+                            {
+                                Utils.CheckSurvivorVest(acidated, eradicator, false);
+                            }
+                            else
+                                acidated.RpcMurderPlayer(acidated);
+                            RPC.PlaySoundRPC(eradicatorID, Sounds.KillSound);
+                            if (acidated.Is(CustomRoles.Demolitionist))
+                                Main.KilledDemo.Add(eradicatorID);
+                            if (acidated.GetCustomSubRole() == CustomRoles.Bewilder)
+                                Main.KilledBewilder.Add(eradicatorID);
+                            if (acidated.GetCustomSubRole() == CustomRoles.Diseased)
+                                Main.KilledDiseased.Add(eradicatorID);
+                            Logger.Info("Vampireに噛まれている" + acidated?.Data?.PlayerName + "を自爆させました。", "ReportDeadBody");
+                        }
+                        else
+                            Logger.Info("Vampireに噛まれている" + acidated?.Data?.PlayerName + "はすでに死んでいました。", "ReportDeadBody");
+                    }
+                    else
+                    {
+                        if (Main.VetIsAlerted)
+                        {
+                            PlayerState.SetDeathReason(eradicatorID, PlayerState.DeathReason.Kill);
+                            //Protectは強制的にはがす
+                            PlayerControl eradicator = Utils.GetPlayerById(eradicatorID);
+                            if (eradicator.protectedByGuardian)
+                                eradicator.RpcMurderPlayer(eradicator);
+                            eradicator.RpcMurderPlayer(eradicator);
+                            RPC.PlaySoundRPC(acidated.PlayerId, Sounds.KillSound);
+                        }
+                        else
+                        {
+                            if (!acidated.Data.IsDead)
+                            {
+                                PlayerState.SetDeathReason(acidated.PlayerId, PlayerState.DeathReason.Hidden);
+                                //Protectは強制的にはがす
+                                if (acidated.protectedByGuardian)
+                                {
+                                    if (acidated.GetCustomRole().IsImpostor())
+                                        acidated.RpcSetRole(RoleTypes.ImpostorGhost);
+                                    if (acidated.GetCustomRole().IsDesyncRole())
+                                        acidated.RpcSetRole(RoleTypes.ImpostorGhost);
+                                    else
+                                        acidated.RpcSetRole(RoleTypes.CrewmateGhost);
+
+                                }
+                                RPC.PlaySoundRPC(eradicatorID, Sounds.KillSound);
+                                Logger.Info("Vampireに噛まれている" + acidated?.Data?.PlayerName + "を自爆させました。", "ReportDeadBody");
+                            }
+                            else
+                                Logger.Info("Vampireに噛まれている" + acidated?.Data?.PlayerName + "はすでに死んでいました。", "ReportDeadBody");
+                        }
                     }
                 }
                 if (!bitten.Is(CustomRoles.Reverser))
@@ -3478,6 +3628,101 @@ namespace TownOfHost
                         {
                             Main.BitPlayers[player.PlayerId] =
                             (draculaID, killTimer + Time.fixedDeltaTime);
+                        }
+                    }
+                }
+                if (GameStates.IsInTask && CustomRoles.Undertaker.IsEnable())
+                {
+                    //Vampireの処理
+                    if (Main.HiddenPlayers.ContainsKey(player.PlayerId))
+                    {
+                        //__instance:キルされる予定のプレイヤー
+                        //main.HiddenPlayers[__instance.PlayerId].Item1:キルしたプレイヤーのID
+                        //main.HiddenPlayers[__instance.PlayerId].Item2:キルするまでの秒数
+                        byte vampireID = Main.HiddenPlayers[player.PlayerId].Item1;
+                        float killTimer = Main.HiddenPlayers[player.PlayerId].Item2;
+                        if (killTimer >= Options.HiddenKillDelay.GetFloat())
+                        {
+                            var bitten = player;
+                            if (!bitten.Data.IsDead)
+                            {
+                                PlayerState.SetDeathReason(bitten.PlayerId, PlayerState.DeathReason.Hidden);
+                                var vampirePC = Utils.GetPlayerById(vampireID);
+                                if (!bitten.Is(CustomRoles.Bait))
+                                {
+                                    if (vampirePC.IsAlive())
+                                    {
+                                        if (bitten.Is(CustomRoles.Pestilence))
+                                            vampirePC.RpcMurderPlayer(vampirePC);
+                                        else if (bitten.Is(CustomRoles.Survivor))
+                                        {
+                                            foreach (var ar in Main.SurvivorStuff)
+                                            {
+                                                if (ar.Key != bitten.PlayerId) break;
+                                                var stuff = Main.SurvivorStuff[bitten.PlayerId];
+                                                if (stuff.Item2)
+                                                {
+                                                    //killer.RpcGuardAndKill(killer);
+                                                    vampirePC.RpcGuardAndKill(bitten);
+                                                }
+                                                else
+                                                {
+                                                    {
+                                                        if (bitten.GetCustomRole().IsImpostor())
+                                                            bitten.RpcSetRole(RoleTypes.ImpostorGhost);
+                                                        if (bitten.GetCustomRole().IsDesyncRole())
+                                                            bitten.RpcSetRole(RoleTypes.ImpostorGhost);
+                                                        else
+                                                            bitten.RpcSetRole(RoleTypes.CrewmateGhost);
+
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (bitten.GetCustomRole().IsImpostor())
+                                                bitten.RpcSetRole(RoleTypes.ImpostorGhost);
+                                            if (bitten.GetCustomRole().IsDesyncRole())
+                                                bitten.RpcSetRole(RoleTypes.ImpostorGhost);
+                                            else
+                                                bitten.RpcSetRole(RoleTypes.CrewmateGhost);
+
+                                        }
+                                    }
+                                    //bitten.RpcMurderPlayer(bitten);
+
+                                }
+                                else
+                                {
+                                    vampirePC.RpcMurderPlayer(bitten);
+                                }
+
+                                Logger.Info("Vampireに噛まれている" + bitten?.Data?.PlayerName + "を自爆させました。", "Vampire");
+                                if (vampirePC.IsAlive())
+                                {
+                                    RPC.PlaySoundRPC(vampireID, Sounds.KillSound);
+                                    if (bitten.Is(CustomRoles.Trapper))
+                                        vampirePC.TrapperKilled(bitten);
+
+                                    if (bitten.Is(CustomRoles.Demolitionist))
+                                        Main.KilledDemo.Add(vampireID);
+                                    if (bitten.GetCustomSubRole() == CustomRoles.Bewilder)
+                                        Main.KilledBewilder.Add(vampireID);
+                                    if (bitten.GetCustomSubRole() == CustomRoles.Diseased)
+                                        Main.KilledDiseased.Add(vampireID);
+                                }
+                            }
+                            else
+                            {
+                                Logger.Info("Vampireに噛まれている" + bitten?.Data?.PlayerName + "はすでに死んでいました。", "Vampire");
+                            }
+                            Main.HiddenPlayers.Remove(bitten.PlayerId);
+                        }
+                        else
+                        {
+                            Main.HiddenPlayers[player.PlayerId] =
+                            (vampireID, killTimer + Time.fixedDeltaTime);
                         }
                     }
                 }
@@ -4401,10 +4646,15 @@ namespace TownOfHost
                         if (Options.ChildKnown.GetBool())
                             Mark += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Jackal), " (C)");
                     }
-                    if (seer.Is(CustomRoles.Doctor) && target.Data.IsDead && !seer.Data.IsDead)
+                    if (seer.Is(CustomRoles.Nurse) && target.Data.IsDead && !seer.Data.IsDead)
                     {
                         if (!target.Data.Disconnected)
-                            Mark += $"({Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Doctor), Utils.GetVitalText(target.PlayerId))})";
+                            Mark += $"({Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Nurse), Utils.GetVitalText(target.PlayerId))})";
+                    }
+                    if (seer.Is(CustomRoles.Parademic) && target.Data.IsDead && !seer.Data.IsDead)
+                    {
+                        if (!target.Data.Disconnected)
+                            Mark += $"({Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Parademic), Utils.GetVitalText(target.PlayerId))})";
                     }
                     if (seer.Is(CustomRoles.PlagueBearer) || seer.Data.IsDead)
                     {
@@ -4677,6 +4927,29 @@ namespace TownOfHost
                     if (GameStates.IsInTask && Options.VultureArrow.GetBool() && target.Is(CustomRoles.Vulture))
                     {
                         var TaskState = Options.VultureArrow.GetBool();
+                        if (TaskState)
+                        {
+                            var coloredArrow = true;
+                            var update = false;
+                            foreach (DeadBody deadBody in GameObject.FindObjectsOfType<DeadBody>())
+                            {
+                                update = VultureArrowUpdate(target, deadBody, update, coloredArrow);
+                                var key = (target.PlayerId, deadBody.ParentId);
+                                if (target.AmOwner)
+                                {
+                                    Suffix += Main.targetArrows[key];
+                                }
+                            }
+                            if (AmongUsClient.Instance.AmHost && seer.PlayerId != target.PlayerId && update)
+                            {
+                                //更新があったら非Modに通知
+                                Utils.NotifyRoles(SpecifySeer: target);
+                            }
+                        }
+                    }
+                    if (GameStates.IsInTask && Options.DoctorArrow.GetBool() && target.Is(CustomRoles.Doctor))
+                    {
+                        var TaskState = Options.DoctorArrow.GetBool();
                         if (TaskState)
                         {
                             var coloredArrow = true;
@@ -4992,6 +5265,14 @@ namespace TownOfHost
                 if (pc.Is(CustomRoles.Grenadier))
                 {
                     if (!Options.GrenadierCanVent.GetBool())
+                    {
+                        skipCheck = true;
+                        pc.MyPhysics.RpcBootFromVent(__instance.Id);
+                    }
+                }
+                if (pc.Is(CustomRoles.Undertaker))
+                {
+                    if (!Options.UndertakerCanVent.GetBool())
                     {
                         skipCheck = true;
                         pc.MyPhysics.RpcBootFromVent(__instance.Id);
@@ -5331,6 +5612,7 @@ namespace TownOfHost
                 __instance.myPlayer.Is(CustomRoles.Executioner) ||
                 __instance.myPlayer.Is(CustomRoles.Swapper) ||
                 __instance.myPlayer.Is(CustomRoles.Opportunist) ||
+                __instance.myPlayer.Is(CustomRoles.Undecided) ||
                 __instance.myPlayer.Is(CustomRoles.NeutWitch) ||
                 __instance.myPlayer.Is(CustomRoles.Amnesiac) ||
                 __instance.myPlayer.Is(CustomRoles.AgiTater) ||
@@ -5509,7 +5791,7 @@ namespace TownOfHost
             PlayerState.UpdateTask(pc);
             Utils.NotifyRoles();
             if (pc.GetPlayerTaskState().IsTaskFinished &&
-                pc.GetCustomRole() is CustomRoles.Lighter or CustomRoles.SpeedBooster or CustomRoles.Doctor || Main.KilledBewilder.Contains(pc.PlayerId))
+                pc.GetCustomRole() is CustomRoles.Lighter or CustomRoles.SpeedBooster or CustomRoles.Nurse or CustomRoles.Parademic || Main.KilledBewilder.Contains(pc.PlayerId))
             {
                 Utils.CustomSyncAllSettings();
             }

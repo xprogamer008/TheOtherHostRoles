@@ -345,6 +345,37 @@ namespace TownOfHost
                 }
             }
 
+            //Undecided
+            var winnerIDs2 = new List<byte>();
+            foreach (var pc in PlayerControl.AllPlayerControls)
+            {
+                if (pc.Is(CustomRoles.Undecided) && !pc.Data.IsDead | Main.AliveAtTheEndOfTheRound.Contains(pc.PlayerId) && Main.currentWinner != CustomWinner.Draw && Main.currentWinner != CustomWinner.Terrorist && Main.currentWinner != CustomWinner.Child && Main.currentWinner != CustomWinner.Troll && Main.currentWinner != CustomWinner.Jester && Main.currentWinner != CustomWinner.Executioner && Main.currentWinner != CustomWinner.Swapper)
+                {
+                    winner.Add(pc);
+                    Main.additionalwinners.Add(AdditionalWinners.Undecided);
+                }
+                //SchrodingerCat
+                if (Options.CanBeforeSchrodingerCatWinTheCrewmate.GetBool())
+                    if (pc.Is(CustomRoles.SchrodingerCat) && Main.currentWinner == CustomWinner.Crewmate)
+                    {
+                        winner.Add(pc);
+                        Main.additionalwinners.Add(AdditionalWinners.SchrodingerCat);
+                    }
+                if (Main.currentWinner == CustomWinner.Jester)
+                    foreach (var ExecutionerTarget in Main.ExecutionerTarget)
+                    {
+                        if (Main.ExiledJesterID == ExecutionerTarget.Value && pc.PlayerId == ExecutionerTarget.Key)
+                        {
+                            winner.Add(pc);
+                            Main.additionalwinners.Add(AdditionalWinners.Executioner);
+                        }
+                    }
+                if (pc.Is(CustomRoles.NeutWitch) && Main.currentWinner != CustomWinner.Crewmate)
+                {
+
+                }
+            }
+
             foreach (var p in winner)
             {
                 winnerIDs.Add(p.PlayerId);

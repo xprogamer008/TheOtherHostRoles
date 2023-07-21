@@ -136,7 +136,7 @@ namespace TownOfHost
                             }
                         }
                     }
-                    if (voter.GetCustomRole() is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.MadMedic or CustomRoles.Medic)
+                    if (voter.GetCustomRole() is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.Parademic or CustomRoles.MadMedic or CustomRoles.Medic)
                     {
                         if (Main.CurrentTarget.ContainsKey(ps.TargetPlayerId))
                             if (Main.CurrentTarget[ps.TargetPlayerId] == 255 && ps.VotedFor != ps.TargetPlayerId && ps.VotedFor != 253 && ps.VotedFor != 254 && ps.VotedFor != 255 && !Main.HasTarget[ps.TargetPlayerId])
@@ -328,6 +328,7 @@ namespace TownOfHost
                         var coloredRole = Helpers.ColorString(Utils.GetRoleColor(exiledPlayer.GetCustomRole()), $"{role}");
                         var name = "";
                         int impnum = 0;
+                        int crewnum = 0;
                         int covennum = 0;
                         int neutralnum = 0;
                         foreach (var pc in PlayerControl.AllPlayerControls)
@@ -336,6 +337,8 @@ namespace TownOfHost
                             var pc_role = pc.GetCustomRole();
                             if (pc_role.IsImpostor() && pc != exiledPlayer.Object)
                                 impnum++;
+                            else if (pc_role.IsCrewmate() && pc != exiledPlayer.Object)
+                                crewnum++;
                             else if (pc_role.IsNeutralKilling() && pc != exiledPlayer.Object)
                                 neutralnum++;
                             else if (pc_role.IsCoven() && pc != exiledPlayer.Object)
@@ -349,13 +352,16 @@ namespace TownOfHost
                         if (crole != CustomRoles.Jester && !Main.ExecutionerTarget.ContainsValue(exileId))
                         {
                             name += "\n";
-                            string icomma = covennum + neutralnum != 0 ? ", " : "";
-                            string ncomma = covennum + impnum != 0 ? ", " : "";
-                            string ccomma = impnum + neutralnum != 0 ? ", " : "";
+                            string icomma = covennum + neutralnum + crewnum != 0 ? ", " : "";
+                            string ncomma = covennum + impnum + crewnum != 0 ? ", " : "";
+                            string ccomma = impnum + neutralnum + crewnum != 0 ? ", " : "";
+                            string crewcomma = impnum + neutralnum + covennum != 0 ? ", " : "";
                             //if (impnum != 0)
                             name += $"{impnum} Impostor(s) remain{icomma}";
                             if (neutralnum != 0)
-                                name += $"{neutralnum} Neutral(s) remain{neutralnum}";
+                                name += $"{neutralnum} Neutral(s) remain{ncomma}";
+                            if (crewnum != 0)
+                                name += $"{crewnum} Crewmates(s) remain{crewcomma}";
                             if (CustomRoles.Coven.IsEnable())
                                 name += $"{covennum} Coven remain{ccomma}";
                             name += ".<size=0>";
@@ -379,6 +385,8 @@ namespace TownOfHost
                 Main.firstKill.Clear();
                 Main.VettedThisRound = false;
                 Main.VetIsAlerted = false;
+                Main.ReverserThisRound = false;
+                Main.ReverserIsAlerted = false;
                 Main.IsRampaged = false;
                 Main.RampageReady = false;
                 List<byte> change = new();
@@ -678,7 +686,7 @@ namespace TownOfHost
                             case RoleType.Neutral:
                                 if (role.IsNeutralKilling()) badPlayers.Add(pc);
                                 if (Options.NBshowEvil.GetBool())
-                                    if (role is CustomRoles.Opportunist or CustomRoles.Survivor or CustomRoles.GuardianAngelTOU or CustomRoles.Amnesiac or CustomRoles.SchrodingerCat) badPlayers.Add(pc);
+                                    if (role is CustomRoles.Opportunist or CustomRoles.Undecided or CustomRoles.Survivor or CustomRoles.GuardianAngelTOU or CustomRoles.Amnesiac or CustomRoles.SchrodingerCat) badPlayers.Add(pc);
                                 if (Options.NEshowEvil.GetBool())
                                     if (role is CustomRoles.Jester or CustomRoles.Troll or CustomRoles.Terrorist or CustomRoles.Executioner or CustomRoles.Swapper or CustomRoles.Hacker or CustomRoles.Vulture) badPlayers.Add(pc);
                                 break;
@@ -891,9 +899,13 @@ namespace TownOfHost
                         case CustomRoles.CorruptedSheriff:
                             LocalPlayerKnowsImpostor = true;
                             break;
-                        case CustomRoles.Doctor:
+                        case CustomRoles.Nurse:
                             if (target.Data.IsDead) //変更対象が死人
-                                pva.NameText.text += $"({Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Doctor), target.GetDeathReason())})";
+                                pva.NameText.text += $"({Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Nurse), target.GetDeathReason())})";
+                            break;
+                        case CustomRoles.Parademic:
+                            if (target.Data.IsDead) //変更対象が死人
+                                pva.NameText.text += $"({Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Parademic), target.GetDeathReason())})";
                             break;
                         case CustomRoles.Arsonist:
                             if (seer.IsDousedPlayer(target)) //seerがtargetに既にオイルを塗っている(完了)

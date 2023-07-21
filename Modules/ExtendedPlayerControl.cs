@@ -62,6 +62,36 @@ namespace TownOfHost
                     break;
             }
         }
+
+        public static void SetRevivedRoleType(this PlayerControl player)
+        {
+            switch (player.GetRoleType())
+            {
+                case RoleType.Crewmate:
+                    player.RpcSetCustomRole(CustomRoles.Revived);
+                    RoleManager.Instance.SetRole(player, RoleTypes.Crewmate);
+                    break;
+                case RoleType.Impostor:
+                    player.RpcSetCustomRole(CustomRoles.Backstabber);
+                    RoleManager.Instance.SetRole(player, RoleTypes.Impostor);
+                    break;
+                case RoleType.Neutral:
+                    if (!player.GetCustomRole().IsNeutralKilling())
+                    {
+                        player.RpcSetCustomRole(CustomRoles.Undecided);
+                        RoleManager.Instance.SetRole(player, RoleTypes.Crewmate);
+                    }
+                    break;
+                case RoleType.Coven:
+                    player.RpcSetCustomRole(CustomRoles.Coven);
+                    // RoleManager.Instance.SetRole(player, RoleTypes.Impostor);
+                    break;
+                case RoleType.Madmate:
+                    player.RpcSetCustomRole(CustomRoles.Revived);
+                    RoleManager.Instance.SetRole(player, RoleTypes.Crewmate);
+                    break;
+            }
+        }
         public static void RpcSetCustomRole(byte PlayerId, CustomRoles role)
         {
             if (AmongUsClient.Instance.AmHost)
@@ -442,9 +472,13 @@ namespace TownOfHost
                 case CustomRoles.EgoSchrodingerCat:
                     options.SetVision(player, true);
                     break;
-                case CustomRoles.Doctor:
+                case CustomRoles.Nurse:
                     scientistOptions.ScientistCooldown = 0f;
-                    scientistOptions.ScientistBatteryCharge = Options.DoctorTaskCompletedBatteryCharge.GetFloat();
+                    scientistOptions.ScientistBatteryCharge = Options.NurseTaskCompletedBatteryCharge.GetFloat();
+                    break;
+                case CustomRoles.Parademic:
+                    scientistOptions.ScientistCooldown = 0f;
+                    scientistOptions.ScientistBatteryCharge = Options.ParademicTaskCompletedBatteryCharge.GetFloat();
                     break;
                 case CustomRoles.Camouflager:
                     shapeshifterOptions.ShapeshifterCooldown = Camouflager.CamouflagerCamouflageCoolDown.GetFloat();
@@ -531,6 +565,10 @@ namespace TownOfHost
                     engineerOptions.EngineerInVentMaxTime = 1;
                     engineerOptions.EngineerCooldown = 999999;
                     break;
+                case CustomRoles.Undecided:
+                    engineerOptions.EngineerInVentMaxTime = 1;
+                    engineerOptions.EngineerCooldown = 999999;
+                    break;
                 case CustomRoles.GuardianAngelTOU:
                     if (Main.IsRoundOneGA)
                     {
@@ -588,7 +626,9 @@ namespace TownOfHost
                 case CustomRoles.JSchrodingerCat:
                     options.SetVision(player, Options.JackalHasImpostorVision.GetBool());
                     break;
-
+                case CustomRoles.Undertaker:
+                    options.KillCooldown = Options.DefaultKillCooldown + Options.HiddenCreateDuration.GetFloat();
+                    break;
 
                 InfinityVent:
                     engineerOptions.EngineerCooldown = 0;
@@ -1067,6 +1107,9 @@ namespace TownOfHost
                 case CustomRoles.Escort:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.EscortCooldown.GetFloat() + Options.GlobalRoleBlockDuration.GetFloat();
                     break;
+                case CustomRoles.Undertaker:
+                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.DefaultKillCooldown + Options.HiddenCreateDuration.GetFloat();
+                    break;
                 case CustomRoles.Crusader:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.CrusadeCooldown.GetFloat();
                     break;
@@ -1176,6 +1219,9 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Escort:
                     KillCooldown = Options.EscortCooldown.GetFloat() + Options.GlobalRoleBlockDuration.GetFloat();
+                    break;
+                case CustomRoles.Undertaker:
+                    KillCooldown = Options.DefaultKillCooldown + Options.HiddenCreateDuration.GetFloat();
                     break;
                 case CustomRoles.Crusader:
                     KillCooldown = Options.CrusadeCooldown.GetFloat();
@@ -1445,7 +1491,7 @@ namespace TownOfHost
                 Main.ReverserIsAlerted = true;
                 Main.ReverserCanAlert = false;
                 MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetReverserAlert, Hazel.SendOption.Reliable, -1);
-                writer.Write(Main.VetAlerts);
+                writer.Write(Main.ReverserAlerts);
                 AmongUsClient.Instance.FinishRpcImmediately(writer);
                 MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetReverserAlertState, Hazel.SendOption.Reliable, -1);
                 writer2.Write(Main.ReverserCanAlert);
@@ -1463,7 +1509,7 @@ namespace TownOfHost
                     {
                         if (!GameStates.IsMeeting)
                         {
-                            Main.VetCanAlert = true;
+                            Main.ReverserCanAlert = true;
                             MessageWriter writer3 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetReverserAlertState, Hazel.SendOption.Reliable, -1);
                             writer3.Write(Main.ReverserCanAlert);
                             AmongUsClient.Instance.FinishRpcImmediately(writer3);
@@ -1509,7 +1555,8 @@ namespace TownOfHost
                 new LateTask(() =>
                 {
                     Main.IsProtected = false;
-                }, Options.VetDuration.GetFloat(), "Guardian Angel Protect Duration");
+                },
+                Options.VetDuration.GetFloat(), "Guardian Angel Protect Duration");
             }
         }
         public static void StoneGazed(this PlayerControl veteran)
@@ -1569,6 +1616,11 @@ namespace TownOfHost
                     bool Dracula_canUse = Options.DraculaCanVent.GetBool();
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(Dracula_canUse && !player.Data.IsDead);
                     player.Data.Role.CanVent = Dracula_canUse;
+                    return;
+                case CustomRoles.Undertaker:
+                    bool undertaker_canUse = Options.UndertakerCanVent.GetBool();
+                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(undertaker_canUse && !player.Data.IsDead && Options.UndertakerCanVent.GetBool());
+                    player.Data.Role.CanVent = undertaker_canUse;
                     return;
                 case CustomRoles.Sidekick:
                 case CustomRoles.Jackal:

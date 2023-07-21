@@ -23,7 +23,7 @@ namespace TownOfHost
                 if (!File.Exists("percentage.txt"))
                 {
                     HudManager.Instance.Chat.AddChat(PlayerControl.LocalPlayer, "Could not find percentage.txt in the same folder as Among Us.exe. \nPlease redownload the mod.");
-                    File.WriteAllText(@"percentage.txt", "Download the correct version at: https://github.com/music-discussion/TownOfHost-TheOtherRoles");
+                    File.WriteAllText(@"percentage.txt", "Download the correct version at: https://github.com/xprogamer008/TownOfRoles");
                     return 0;
                 }
                 using StreamReader sr = new(@"percentage.txt", Encoding.GetEncoding("UTF-8"));
