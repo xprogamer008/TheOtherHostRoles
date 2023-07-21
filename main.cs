@@ -29,7 +29,7 @@ namespace TownOfHost
         public static readonly string BANNEDFRIENDCODES_FILE_PATH = "./TOR_DATA/bannedfriendcodes.txt";
         public static readonly string DiscordInviteUrl = "https://discord.gg/tohtor";
         public static readonly bool ShowDiscordButton = true;
-        public const string PluginVersion = "1.5";
+        public const string PluginVersion = "1.6";
         public const string DevVersion = "1";
         public const string FullDevVersion = $" dev {DevVersion}";
         public Harmony Harmony { get; } = new Harmony(PluginGuid);
@@ -101,6 +101,7 @@ namespace TownOfHost
         public static Dictionary<byte, float> AllPlayerSpeed = new();
         public static Dictionary<byte, (byte, float)> BitPlayers = new();
         public static Dictionary<byte, float> WarlockTimer = new();
+        public static Dictionary<byte, (byte, float)> HiddenPlayers = new();
         public static Dictionary<byte, PlayerControl> CursedPlayers = new();
         public static List<PlayerControl> SpelledPlayer = new();
         public static List<PlayerControl> Impostors = new();
@@ -435,6 +436,7 @@ namespace TownOfHost
             ChoseWitch = false;
             HasNecronomicon = false;
             VetIsAlerted = false;
+            ReverserIsAlerted = false;
             IsRoundOne = false;
             IsRoundOneGA = false;
             showEjections = false;
@@ -539,14 +541,17 @@ namespace TownOfHost
                     { CustomRoles.Bodyguard, "#5d5d5d"},
                     { CustomRoles.Oracle, "#c88dd0"},
                     { CustomRoles.Medic, "#006600"},
+                    { CustomRoles.Parademic, "#FFA60A"},
                     { CustomRoles.SpeedBooster, "#00ffff"},
                     { CustomRoles.Mystic, "#4D99E6"},
+                    { CustomRoles.Revived, "#4D99E6"},
                     { CustomRoles.Swapper, "#66E666"},
                     { CustomRoles.Transporter, "#00EEFF"},
-                    { CustomRoles.Doctor, "#ADCAE6"},
+                    { CustomRoles.Nurse, "#80FFDD"},
                     { CustomRoles.Child, "#FFFFFF"},
                     { CustomRoles.Clumsy, "#EA6E6E"},
                     { CustomRoles.Trapper, "#5a8fd0"},
+                    { CustomRoles.Doctor, "#ADCAE6"},
                     { CustomRoles.Examiner, "#007e9e"},
                     { CustomRoles.Dictator, "#df9b00"},
                     { CustomRoles.Detective, "#4D4DFF"},
@@ -573,6 +578,7 @@ namespace TownOfHost
                     { CustomRoles.Terrorist, "#00ff00"},
                     { CustomRoles.Executioner, "#C96600"},
                     { CustomRoles.Opportunist, "#00ff00"},
+                    { CustomRoles.Undecided, "#35DBA2"},
                     { CustomRoles.Survivor, "#FFE64D"},
                     { CustomRoles.Troll, "#209424"},
                     { CustomRoles.AgiTater, "#F4A460"},
@@ -784,11 +790,12 @@ namespace TownOfHost
                     { CustomRoles.Bodyguard, AttackEnum.Powerful},
                     { CustomRoles.Oracle, AttackEnum.None},
                     { CustomRoles.Medic, AttackEnum.None},
+                    { CustomRoles.Parademic, AttackEnum.None},
                     { CustomRoles.SpeedBooster, AttackEnum.None},
                     { CustomRoles.Mystic, AttackEnum.None},
                     { CustomRoles.Swapper, AttackEnum.None},
                     { CustomRoles.Transporter, AttackEnum.None},
-                    { CustomRoles.Doctor, AttackEnum.None},
+                    { CustomRoles.Nurse, AttackEnum.None},
                     { CustomRoles.Child, AttackEnum.Unblockable},
                     { CustomRoles.Troll, AttackEnum.Unblockable},
                     { CustomRoles.Trapper, AttackEnum.None},
@@ -803,6 +810,7 @@ namespace TownOfHost
                     { CustomRoles.CSchrodingerCat, AttackEnum.None},
                     { CustomRoles.Medium, AttackEnum.None},
                     { CustomRoles.Alturist, AttackEnum.None},
+                    { CustomRoles.Doctor, AttackEnum.None},
                     { CustomRoles.Psychic, AttackEnum.None},
                     { CustomRoles.Spy, AttackEnum.None},
                     { CustomRoles.Arsonist, AttackEnum.Powerful},
@@ -810,6 +818,7 @@ namespace TownOfHost
                     { CustomRoles.Terrorist, AttackEnum.Unblockable},
                     { CustomRoles.Executioner, AttackEnum.None},
                     { CustomRoles.Opportunist, AttackEnum.None},
+                    { CustomRoles.Undecided, AttackEnum.None},
                     { CustomRoles.Survivor, AttackEnum.None},
                     { CustomRoles.AgiTater, AttackEnum.Powerful},
                     { CustomRoles.Dracula, AttackEnum.Basic},
@@ -890,11 +899,12 @@ namespace TownOfHost
                     { CustomRoles.Bodyguard, DefenseEnum.Basic},
                     { CustomRoles.Oracle, DefenseEnum.None},
                     { CustomRoles.Medic, DefenseEnum.None},
+                    { CustomRoles.Parademic, DefenseEnum.None},
                     { CustomRoles.SpeedBooster, DefenseEnum.None},
                     { CustomRoles.Mystic, DefenseEnum.None},
                     { CustomRoles.Swapper, DefenseEnum.None},
                     { CustomRoles.Transporter, DefenseEnum.None},
-                    { CustomRoles.Doctor, DefenseEnum.None},
+                    { CustomRoles.Nurse, DefenseEnum.None},
                     { CustomRoles.Child, DefenseEnum.None},
                     { CustomRoles.Troll, DefenseEnum.None},
                     { CustomRoles.Trapper, DefenseEnum.None},
@@ -921,6 +931,7 @@ namespace TownOfHost
                     { CustomRoles.Terrorist, DefenseEnum.None},
                     { CustomRoles.Executioner, DefenseEnum.Basic},
                     { CustomRoles.Opportunist, DefenseEnum.None},
+                    { CustomRoles.Undecided, DefenseEnum.None},
                     { CustomRoles.Survivor, DefenseEnum.None},
                     { CustomRoles.AgiTater, DefenseEnum.Basic},
                     { CustomRoles.Dracula, DefenseEnum.Basic},
@@ -941,6 +952,7 @@ namespace TownOfHost
                     { CustomRoles.TheGlitch, DefenseEnum.None},
                     { CustomRoles.Werewolf, DefenseEnum.Basic},
                     { CustomRoles.Amnesiac, DefenseEnum.None},
+                    { CustomRoles.Doctor, DefenseEnum.None},
                     { CustomRoles.Demolitionist, DefenseEnum.None},
                     { CustomRoles.Bastion, DefenseEnum.Basic},
                     { CustomRoles.Hacker, DefenseEnum.None},
@@ -1080,6 +1092,8 @@ namespace TownOfHost
         SerialKiller,
         Escapist,
         Reverser,
+        Undertaker,
+        Backstabber,
         //ShapeMaster,
         Sniper,
         Vampire,
@@ -1146,11 +1160,14 @@ namespace TownOfHost
         Mystic,
         Deputy,
         Swapper,
+        Doctor,
         Mayor,
+        Revived,
         Clumsy,
         SabotageMaster,
         Oracle,
         Medic,
+        Parademic,
         Marshall,
         Examiner,
         Detective,
@@ -1166,7 +1183,7 @@ namespace TownOfHost
         SpeedBooster,
         Trapper,
         Dictator,
-        Doctor,
+        Nurse,
         Tank,
         Child,
         Veteran,
@@ -1193,6 +1210,7 @@ namespace TownOfHost
         Pirate,
         Juggernaut,
         Unseeable,
+        Undecided,
         Opportunist,
         Survivor,
         Terrorist,
@@ -1408,6 +1426,7 @@ namespace TownOfHost
     {
         None = -1,
         Opportunist = CustomRoles.Opportunist,
+        Undecided = CustomRoles.Undecided,
         Survivor = CustomRoles.Survivor,
         SchrodingerCat = CustomRoles.SchrodingerCat,
         Executioner = CustomRoles.Executioner,

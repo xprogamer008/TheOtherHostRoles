@@ -37,6 +37,8 @@ New Impostor Roles:
 
 - Added Wildling
 - Added Reverser
+- Added Undertaker
+- Added Backstabber
 
 New Madmate Roles:
 
@@ -57,6 +59,9 @@ New Crewmate Roles:
 - Added Deputy
 - Added Examiner
 - Added Alturist
+- Added (NEW) Doctor
+- Added Revived
+- Added Parademic
 
 New Neutral Roles:
 
@@ -64,6 +69,7 @@ New Neutral Roles:
 - Added Troll
 - Added Dracula
 - Added Unseeable
+- Added Undecided
 
 New Modifiers:
 
@@ -71,6 +77,8 @@ New Modifiers:
 
 New Aditions:
 
+- A different Doctor added.
+- Original Doctor renamed to nurse
 - Werewolf can Vent now.(the ability still doesnt work)
 - The Glitch can Vent now.(the ability works by petting your pet. not by venting)
 - Swooper has his own Custom Vent image.
@@ -176,7 +184,7 @@ Below is an example:
 | ----------------------------------- | --------------------------------- | --------------------------------- | ------------------------------- | -------------------------------| ---------------------------|
 | [BountyHunter](#bountyhunter)       | [Investigator](#investigator)     | [Vulture](#vulture)               | [Arsonist](#arsonist)           | [Coven Leader](#coven-leader)  | [Bait](#bait)              |
 | [Camouflager](#camouflager)         | [Dictator](#dictator)             | [Hacker](#hacker)                 | [Egoist](#egoist)               | [Medusa](#medusa)              | [Bewilder](#bewilder)      |
-| [FireWorks](#fireworks)             | [Doctor](#doctor)                 | [Executioner](#executioner)       | [Juggernaut](#juggernaut)       | [Hex Master](#hex-master)      | [Sleuth](#sleuth)          |
+| [FireWorks](#fireworks)             | [Nurse](#nurse)                 | [Executioner](#executioner)       | [Juggernaut](#juggernaut)       | [Hex Master](#hex-master)      | [Sleuth](#sleuth)          |
 | [Mare](#mare)                       | [Lighter](#lighter)               | [Jester](#jester)                 | [PlagueBearer](#plaguebearer)   |				                 | [Oblivious](#oblivious)    |
 | [Puppeteer](#puppeteer)             | [Mayor](#mayor)                   | [SchrodingerCat](#schrodingercat) | [The-Glitch](#the-glitch)       |           		             | [Torch](#torch)            |
 | [Mercenary](#mercenary)             | [Mystic](#mystic)                 | [Opportunist](#opportunist)       | [Werewolf](#werewolf)           |			                     | [Flash](#flash)            |
@@ -189,7 +197,7 @@ Below is an example:
 | [Madmate](#madmate)                 | [Bastion](#bastion)               | [Hitman](#hitman)                 |                                 |                                |                            |
 | [MadGuardian](#madguardian)         | [Vigilante](#guesser)             | [Lawyer](#lawyer)                 |                                 |                                |                            |
 | [MadSnitch](#madsnitch)			  | [Veteran](#veteran)               |	[Troll](#troll)                   |                                 |                                |                            |
-| [SidekickMadmate](#sidekickmadmate) | [Child](#child)                   |                                   |                                 |                                |                            |
+| [SidekickMadmate](#sidekickmadmate) | [Child](#child)                   | [Undecided](#undecided)           |                                 |                                |                            |
 | [Silencer](#silencer)               | [Psychic](#psychic)               |                                   |                                 |                                |                            |
 | [Traitor](#traitor)                 | [Detective](#detective)           |                                   |                                 |                                |                            |
 | [Assassin](#guesser)                | [Tank](#tank)                     |                                   |                                 |                                |                            |
@@ -202,9 +210,9 @@ Below is an example:
 | [Freezer](#freezer)				  | [Deputy](#deputy)                 |                                   |                                 |                                |							  |
 | [Wildling](#Wildling)				  | [Examiner](#examiner)	    	  |									  |									|								 |							  |
 | [MadMayor](#madmayor)				  |	[Alturist](#alturist)			  |									  |									|								 |							  |
-| [Reverser](#reverser)				  |									  |									  |									|								 |							  |
-|									  |									  |									  |									|								 |							  |
-|									  |									  |									  |									|								 |							  |
+| [Reverser](#reverser)				  |	[Doctor](#doctor)				  |									  |									|								 |							  |
+| [Undertaker](#undertaker)			  |	[Revived](#revived)				  |									  |									|								 |						      |	  
+| [Backstabber](#backstabber)		  |	[Parademic](#parademic)			  |								      |							        |							     |							  |				
 |									  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
@@ -492,6 +500,31 @@ Basis : Impostor<br>
 The Reverser can become immortal for a few seconds when petting thier pet.<br>
 After petting you pet every attack will be reversed and the killer will be killed.<br>
 
+### Undertaker
+
+Idea by THEBADMAD<br>
+Created by EXC4LIBUR<br>
+Inspired by [Town Of Us-R](https://github.com/eDonnes124/Town-Of-Us-R)<br>
+
+Team : Impostors<br>
+Basis : Impostor<br>
+
+The Undertaker is a master at hiding bodies.<br>
+When they kill someone they do not leave bodies behind.<br>
+He also has a longer kill cooldown to balance it out.<br>
+Optionally the Undertaker can vent according to the settings.<br>
+
+### Backstabber
+
+Create and idea by EXC4LIBUR
+
+Team : Impostors<br>
+Basis : Impostors<br>
+
+The Backstabber cannot be obtained in the settings of that game.
+The only way to get this Role is by being a impostor and getting killed by a neutral killer
+And then getting revived by the Doctor.
+
 ## Madmate
 
 There are common options for Madmates.
@@ -634,18 +667,18 @@ Basis : Crewmate<br>
 When voting for someone in a meeting, the Dictators forcibly break that meeting and exile the player they vote for.<br>
 After exercising the force, the Dictators die just after meeting.<br>
 
-### Doctor
+### Nurse
 
 Team : Crewmates<br>
 Basis : Scientist<br>
 
-The doctor can see when Crewmates die using vitals anywhere in the map.<br>
-By closing the chat, the doctor can see the dead players cause of death next to their name in all meetings.<br>
+The Nurse can see when Crewmates die using vitals anywhere in the map.<br>
+By closing the chat, the Nurse can see the dead players cause of death next to their name in all meetings.<br>
 
 #### Game Options
 | Name                    |
 | ----------------------- |
-| Doctor Battery Duration |
+| Nurse Battery Duration   |
 
 ### Lighter
 
@@ -956,7 +989,7 @@ When a kill occurs, the Mystic gets a flash.<br>
 
 ### Detective
 
-Create and idea by Loonie<br>
+Create and idea by EXC4LIBUR<br>
   
 Team : Crewmates<br>
 Basis : Crewmate<br>
@@ -1048,6 +1081,43 @@ Basis : Crewmate<br>
 The Marshall is a crewmate that, on task completion, is revealed to all crewmates.<br>
 Impostors and neutrals cannot see the revealed Marshall.<br>
 Optionally, Madmates can see the revealed Marshall.<br>
+
+### Doctor
+
+Create and idea by EXC4LIBUR<br>
+Most of the Insperation : [Here](https://www.youtube.com/watch?v=w-G39yJCHeA)
+Based of Reviver from TownOfChaos<br>
+
+Team : Crewmates<br>
+Basis : Crewmate<br>
+
+The Doctor has a special ability that only one roles shares in similarity.<br>
+He can report bodies to revive them but he doesn't suicide like the [Alturist](#alturist).<br>
+Optionally he can have arrows pointing towards bodies.<br>
+
+[QUICK NOTE, This role may have some bugs due to it made by being a bug in the Amnesiacs code]
+
+### Revived
+
+Create and idea by EXC4LIBUR
+
+Team : Crewmates<br>
+Basis : Crewmate<br>
+
+The Undecided cannot be obtained in the settings of that game.
+The only way to get this Role is by being a Crewmate [ANY TYPE] and getting killed by a neutral killer or Impostor
+And then getting revived by the Doctor.
+
+### Parademic
+
+Team : Crewmates<br>
+Basis : Scientist<br>
+
+Original Idea from [PUMPkin Gaming](https://www.youtube.com/@pumpkingaming5548)<br>
+
+The Parademic can shield someone like the Medic.<br>
+Also he can see the cause of death for each person who died like a [Nurse](#nurse).<br>
+The Parademic also has accses to vitals.<br>
 
 ## Neutral
 
@@ -1455,6 +1525,18 @@ The Hitman is a neutral benign role with the ability to kill.<br>
 Hitman can win with anyone and does not count as a killer.<br>
 Optionally, Hitman can also win with roles like Jester and Executioner.<br>
 
+### Undecided
+
+Create and idea by EXC4LIBUR
+
+Team : Neutral<br>
+Basis : Crewmate<br>
+Winning Conditions : Win with all<br>
+
+The Undecided cannot be obtained in the settings of that game.
+The only way to get this Role is by being a Neutral and getting killed by any role
+And then getting revived by the Doctor.
+
 ## Coven
 
 ### Coven Leader
@@ -1556,7 +1638,7 @@ Due to technical limitations, Flash moves at normal speed for other players and 
 
 Create and idea by EXC4LIBUR<br>
 
-Assigned to: All but Doctor and Investigator<br>
+Assigned to: All but Nurse, Parademic and Investigator<br>
 
 The Necroview is a modifier that allows to see the teams of the dead players.<br>
 
