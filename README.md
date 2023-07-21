@@ -9,7 +9,7 @@ DISCORD SERVER: https://discord.gg/AcZ8K3Bp --- Recommended after Innersloth int
 ## Releases
 
 AmongUs Version: **2023.7.11/2023.7.12**<br>
-**Latest Version:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases/tag/1.5)**
+**Latest Version:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases/tag/1.6)**
 
 Old Versions:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases)
 
