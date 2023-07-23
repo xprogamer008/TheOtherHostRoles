@@ -23,7 +23,6 @@ KNOWN BUGS:
 - Revived players can see all the roles of the players.(this can be shut down temporairly by disabling the setting ''Ghost Can See Other Roles'')
 - Revived player can go through walls.
 - Unseeable is completly broken and cant go Invis.
-- Dracula cannot Vent even when the setting ''Dracula Can vent'' is on.
 
 ## Features
 
