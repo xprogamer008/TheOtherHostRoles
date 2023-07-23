@@ -20,8 +20,9 @@ KNOWN BUGS:
 - When Poisoner is on in coven then there is no chance of Coven winning.
 - Some Roles have double their Cooldown or half their cooldown sometimes.
 - Black screens on consoles when dead affter next meeting when impostors die. Desynced impostor roles can bypass this until they die. (Lag spikes triggered by name changes cause this)
-- Revived players can see all the roles of the players.(this can be shut down temporairly by disabling the setting ''Ghost Can See Other Roles'')
-- Revived player can go through walls.
+- Revived players by the [Alturist](#alturist) can see all the roles of the players.(this can be shut down temporairly by disabling the setting ''Ghost Can See Other Roles'')
+- Revived player can go through walls (this only goes for the [Alturist](#alturist) but if you are playing with the mod and get revived by the [Doctor](#doctor) you will be revived with no problems at all and will play like you never got killed)
+- Revived players by the [Doctor](#doctor) can see other peoples roles (this can be shut down by turning the setting ''Roles look Similar to TOU'' off)
 - Unseeable is completly broken and cant go Invis.
 
 ## Features
