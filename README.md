@@ -1925,7 +1925,7 @@ Roles from:
 12.[Town Of Chaos](https://www.youtube.com/@pumpkingaming5548)<br>
 
 ## Developers
-Orinal Develipors:
+Orginal TOH: TOR Develipors:
 - [Discussions](https://github.com/music-discussion) ([YouTube](https://www.youtube.com/channel/UCAawAIWR5XfJE6T0JdYpzzg)) - Coding
 - [MC-AS-Huier](https://github.com/MC-AS-Huier) - SChinese Translations
 - [Tommy-XL](https://github.com/Tommy-XL) - Rus Translations
@@ -1937,4 +1937,4 @@ Town Of Roles Develipors:
 - [Honest](https://www.youtube.com/channel/UCby0ws4qWwnmWujmJlu3AMQ) - Started this Project
 - [PUMPkin Gaming](https://www.youtube.com/@pumpkingaming5548) - Helped a ton in the Project
 - [TheSkullCreeper/Loonie](https://github.com/Loonie-Toons) - Helped a bit in the Project
-- [music-discussions](https://github.com/music-discussion) - Helped with Errors in the project
+- [music-discussions](https://github.com/music-discussion) - Helped with Errors in the Project
