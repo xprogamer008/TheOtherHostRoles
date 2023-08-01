@@ -136,6 +136,9 @@ namespace TownOfHost
                 CustomRoles.SchrodingerCat => NBareRed.GetBool(),
                 CustomRoles.Hacker => true,
                 CustomRoles.Dracula => true,
+                CustomRoles.Wraith => false,
+                CustomRoles.TemplateRole => true,
+                CustomRoles.Hustler => true,
                 CustomRoles.Unseeable => true,
                 _ => cRole.GetRoleType() switch
                 {

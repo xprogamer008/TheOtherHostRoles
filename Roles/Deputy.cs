@@ -260,6 +260,10 @@ namespace TownOfHost
                 CustomRoles.Clumsy => CanKillClumsy.GetBool(),
                 CustomRoles.Pirate => true,
                 CustomRoles.Dracula => true,
+                CustomRoles.TemplateRole => true,
+                CustomRoles.Wraith => false,
+                CustomRoles.Hustler => true,   
+                CustomRoles.Magician => true,
                 CustomRoles.Unseeable => true,
                 // COVEN //
                 CustomRoles.Coven => DeputyCanKillCoven.GetBool(),
