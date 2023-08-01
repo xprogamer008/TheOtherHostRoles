@@ -431,7 +431,6 @@ namespace TownOfHost
 
                     case "/changerole":
                         subArgs = args.Length < 2 ? "" : args[1];
-                        if (!Main.CachedDevMode) break;
                         switch (subArgs)
                         {
                             case "crewmate":
@@ -476,9 +475,23 @@ namespace TownOfHost
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.ImpostorGhost);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.ImpostorGhost);
                                 break;
-                            case "Doctor":
-                                Utils.SendMessage($"Host switched to role: {subArgs}");
+                            case "doctor":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Doctor);
+                                PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Crewmate);
+                                RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Crewmate);
+                                break;
+                            case "lawyer":
+                                PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Lawyer);
+                                PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Crewmate);
+                                RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Crewmate);
+                                break;
+                            case "dracula":
+                                PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Dracula);
+                                PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
+                                RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
+                                break;
+                            case "alturist":
+                                PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Alturist);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Crewmate);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Crewmate);
                                 break;
@@ -615,16 +628,19 @@ namespace TownOfHost
                 { CustomRoles.Executioner, "exe" },
                 { CustomRoles.Swapper, "sw" },
                 { CustomRoles.Jester, "je" },
+                { CustomRoles.Magician, "mag" },
                 { CustomRoles.Troll, "tro" },
                 { CustomRoles.Phantom, "ph" },
                 { CustomRoles.Opportunist, "op" },
                 { CustomRoles.Undecided, "un" },
                 { CustomRoles.Hitman, "hn" },
                 { CustomRoles.Dracula, "Dra" },
+                { CustomRoles.Hustler, "hus"},
                 { CustomRoles.Unseeable, "Uns" },
                 { CustomRoles.Survivor, "sur" },
                 { CustomRoles.SchrodingerCat, "sc" },
                 { CustomRoles.Postman, "ptm" },
+                { CustomRoles.TemplateRole, "temp" },
                 { CustomRoles.Pirate, "pi"},
                 { CustomRoles.Marksman, "mar" },
                 { CustomRoles.Terrorist, "te" },
@@ -640,6 +656,7 @@ namespace TownOfHost
                 { CustomRoles.Coven, "co" },
                 { CustomRoles.CovenWitch, "cw" },
                 { CustomRoles.Poisoner, "poison" },
+                { CustomRoles.Wraith, "wra" },
                 { CustomRoles.HexMaster, "hm" },
                 { CustomRoles.Medusa, "medu" },
                 { CustomRoles.TheGlitch, "gl" },
@@ -659,8 +676,10 @@ namespace TownOfHost
                 { CustomRoles.Torch, "to" },
                 { CustomRoles.Flash, "fl" },
                 { CustomRoles.Bewilder, "be" },
+                { CustomRoles.Menace, "men" },
                 { CustomRoles.TieBreaker, "tb" },
                 { CustomRoles.Watcher, "wat" },
+                { CustomRoles.Underage, "under" },
                 { CustomRoles.Diseased, "di" },
                 { CustomRoles.Soulhandler, "Soul"},
                 //HAS
@@ -822,9 +841,11 @@ namespace TownOfHost
                 { CustomRoles.Swapper, "sw" },
                 { CustomRoles.Jester, "je" },
                 { CustomRoles.Troll, "tro" },
+                { CustomRoles.Magician, "mag" },
                 { CustomRoles.Phantom, "ph" },
                 { CustomRoles.Hitman, "hn" },
                 { CustomRoles.Dracula, "Dra" },
+                { CustomRoles.Hustler, "hus"},
                 { CustomRoles.Unseeable, "Uns" },
                 { CustomRoles.Opportunist, "op" },
                 { CustomRoles.Undecided, "un" },
@@ -833,12 +854,14 @@ namespace TownOfHost
                 { CustomRoles.Postman, "ptm" },
                 { CustomRoles.Terrorist, "te" },
                 { CustomRoles.Marksman, "mar" },
+                { CustomRoles.TemplateRole, "temp" },
                 { CustomRoles.Jackal, "jac" },
                 { CustomRoles.Sidekick, "jacsk" },
                 //{ CustomRoles.Juggernaut, "jn"},
                 { CustomRoles.NeutWitch, "nwi" },
                 { CustomRoles.PlagueBearer, "pb" },
                 { CustomRoles.Pestilence, "pesti" },
+                { CustomRoles.Wraith, "wra" },
                 { CustomRoles.Juggernaut, "jug"},
                 { CustomRoles.Vulture, "vu"},
                 { CustomRoles.Coven, "co" },
@@ -866,6 +889,7 @@ namespace TownOfHost
                 { CustomRoles.Bewilder, "be" },
                 { CustomRoles.TieBreaker, "tb" },
                 { CustomRoles.Watcher, "wat" },
+                { CustomRoles.Underage, "under" },
                 { CustomRoles.Diseased, "di" },
                 { CustomRoles.Soulhandler, "Soul"},
                 //HAS

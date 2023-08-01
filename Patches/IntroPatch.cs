@@ -309,6 +309,7 @@ namespace TownOfHost
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = sound;
                     break;
                 case CustomRoles.CrewPostor:
+                case CustomRoles.Magician:
                 case CustomRoles.Snitch:
                 case CustomRoles.MadSnitch:
                 case CustomRoles.Marshall:
@@ -330,6 +331,7 @@ namespace TownOfHost
                 case CustomRoles.Vampress:
                 case CustomRoles.Reverser:
                 case CustomRoles.Undertaker:
+                case CustomRoles.Wraith:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Shapeshifter);
                     break;
 
@@ -367,6 +369,8 @@ namespace TownOfHost
                 case CustomRoles.BloodKnight:
                 case CustomRoles.Ninja:
                 case CustomRoles.Marksman:
+                case CustomRoles.TemplateRole:
+                case CustomRoles.Hustler:
                 case CustomRoles.Miner:
                 case CustomRoles.TheGlitch:
                 case CustomRoles.Camouflager:

@@ -87,6 +87,7 @@ namespace TownOfHost
             Trolled,
             Troller,
             Hidden,
+            Judged,
             etc = -1
         }
     }

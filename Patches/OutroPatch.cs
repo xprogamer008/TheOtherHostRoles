@@ -98,6 +98,22 @@ namespace TownOfHost
                     if (p.Is(CustomRoles.Marksman) | p.Is(CustomRoles.MMSchrodingerCat)) winner.Add(p);
                 }
             }
+            if (Main.currentWinner == CustomWinner.TemplateRole)
+            {
+                winner.Clear();
+                foreach (var p in PlayerControl.AllPlayerControls)
+                {
+                    if (p.Is(CustomRoles.TemplateRole)) winner.Add(p);
+                }
+            }
+            if (Main.currentWinner == CustomWinner.Hustler)
+            {
+                winner.Clear();
+                foreach (var p in PlayerControl.AllPlayerControls)
+                {
+                    if (p.Is(CustomRoles.Hustler)) winner.Add(p);
+                }
+            }
             if (Main.currentWinner == CustomWinner.Phantom)
             {
                 winner.Clear();
@@ -135,9 +151,25 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Dracula)/* | p.Is(CustomRoles.SKSchrodingerCat)*/) winner.Add(p);
-                    if (p.Is(CustomRoles.Dracula)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.Dracula)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.Dracula) | p.Is(CustomRoles.DRSchrodingerCat)) winner.Add(p);
+                }
+            }
+            if (Main.currentWinner == CustomWinner.Wraith)
+            {
+                winner.Clear();
+                foreach (var p in PlayerControl.AllPlayerControls)
+                {
+                    if (p.Is(CustomRoles.Wraith)/* | p.Is(CustomRoles.WSchrodingerCat)*/) winner.Add(p);
+                    if (p.Is(CustomRoles.Wraith)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Wraith)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                }
+            }
+            if (Main.currentWinner == CustomWinner.Magicain)
+            {
+                winner.Clear();
+                foreach (var p in PlayerControl.AllPlayerControls)
+                {
+                    if (p.Is(CustomRoles.Magician)) winner.Add(p);
                 }
             }
             if (Main.currentWinner == CustomWinner.Unseeable)
@@ -603,6 +635,9 @@ namespace TownOfHost
                         roleSummaryText += $" | {GetString("DeathReason." + deathReason.ToString())}";
                     var killCountFound = Main.KillCount.TryGetValue(key.Key, out var killAmt);
                     if (killCountFound && killAmt != 0 && key.Value != CustomRoles.VoteStealer)
+                        roleSummaryText += $" [Kill Count: {killAmt}]";
+                    var HkillCountFound = Main.KillCount.TryGetValue(key.Key, out var HkillAmt);
+                    if (killCountFound && killAmt != 0 && key.Value != CustomRoles.Hustler)
                         roleSummaryText += $" [Kill Count: {killAmt}]";
                 }
                 catch

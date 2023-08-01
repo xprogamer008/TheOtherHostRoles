@@ -344,7 +344,8 @@ namespace TownOfHost
             if (Camouflager.DidCamo) return true; // No names are visible
             if (target.Is(CustomRoles.Swooper) && Main.IsInvis) return true;
             if (target.Is(CustomRoles.Transparent) && Main.IsInvis) return true;
-            if (target.Is(CustomRoles.Unseeable) && Main.IsInvis) return true;
+            if (target.Is(CustomRoles.Unseeable) && Main.IsInvisible) return true;
+            //    if (target.Is(CustomRoles.Wraith) && Main.IsInvisible) return true;
             if (source == null || target == null) return true;
             return source != target; // Player sees his own name
         }
@@ -399,6 +400,12 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Marksman:
                     options.KillDistance = Main.MarksmanKills;
+                    options.SetVision(player, true);
+                    break;
+                case CustomRoles.TemplateRole:
+                    options.SetVision(player, true);
+                    break;
+                case CustomRoles.Hustler:
                     options.SetVision(player, true);
                     break;
                 case CustomRoles.Terrorist:
@@ -501,11 +508,6 @@ namespace TownOfHost
                 case CustomRoles.Disperser:
                     shapeshifterOptions.ShapeshifterCooldown = Options.DisperseCooldown.GetFloat();
                     shapeshifterOptions.ShapeshifterDuration = 1;
-                    break;
-                case CustomRoles.Vulture:
-                    options.SetVision(player, Options.VultureHasImpostorVision.GetBool());
-                    if (Options.VultureCanVent.GetBool())
-                        goto InfinityVent;
                     break;
                 case CustomRoles.Mayor:
                     engineerOptions.EngineerCooldown =
@@ -629,6 +631,10 @@ namespace TownOfHost
                 case CustomRoles.Undertaker:
                     options.KillCooldown = Options.DefaultKillCooldown + Options.HiddenCreateDuration.GetFloat();
                     break;
+                case CustomRoles.Wraith:
+                    options.SetVision(player, true);
+                    options.NumEmergencyMeetings = -1;
+                    goto InfinityVent;
 
                 InfinityVent:
                     engineerOptions.EngineerCooldown = 0;
@@ -679,6 +685,12 @@ namespace TownOfHost
                     if (kc.Key == player.PlayerId)
                         options.KillCooldown = kc.Value > 0 ? kc.Value : 0.1f;
                 }
+            }
+            switch (player.GetCustomSubRole())
+            {
+                case CustomRoles.Menace:
+                    options.KillCooldown = Options.MenaceKillCooldown.GetFloat();
+                    break;
             }
 
             switch (player.GetCustomRole())
@@ -1080,10 +1092,25 @@ namespace TownOfHost
         public static void ResetKillCooldown(this PlayerControl player, bool meeting = false)
         {
             Main.AllPlayerKillCooldown[player.PlayerId] = Options.DefaultKillCooldown;
+            switch (player.GetCustomSubRole())
+            {
+                case CustomRoles.Menace:
+                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.MenaceKillCooldown.GetFloat();
+                    break;
+            }
             switch (player.GetCustomRole())
             {
                 case CustomRoles.Marksman:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.MarksmanKillCooldown.GetFloat();
+                    break;
+                case CustomRoles.TemplateRole:
+                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.TemplateRoleKillCooldown.GetFloat();
+                    break;
+                case CustomRoles.Dracula:
+                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.DraculaKillCooldown.GetFloat();
+                    break;
+                case CustomRoles.Hustler:
+                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.HustlerKillCooldown.GetFloat();
                     break;
                 case CustomRoles.NeutWitch:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.ControlCooldown.GetFloat();
@@ -1177,6 +1204,9 @@ namespace TownOfHost
                 case CustomRoles.PlagueBearer:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.InfectCooldown.GetFloat();
                     break;
+                case CustomRoles.Wraith:
+                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.WraithKillCD.GetFloat();
+                    break;
                 case CustomRoles.CovenWitch:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.CovenKillCooldown.GetFloat();
                     break;
@@ -1202,10 +1232,25 @@ namespace TownOfHost
         public static float GetKillCooldown(this PlayerControl player)
         {
             float KillCooldown = Options.DefaultKillCooldown;
+            switch (player.GetCustomSubRole())
+            {
+                case CustomRoles.Menace:
+                    KillCooldown = Options.MenaceKillCooldown.GetFloat();
+                    break;
+            }
             switch (player.GetCustomRole())
             {
                 case CustomRoles.Marksman:
                     KillCooldown = Options.MarksmanKillCooldown.GetFloat();
+                    break;
+                case CustomRoles.TemplateRole:
+                    KillCooldown = Options.TemplateRoleKillCooldown.GetFloat();
+                    break;
+                case CustomRoles.Dracula:
+                    KillCooldown = Options.DraculaKillCooldown.GetFloat();
+                    break;
+                case CustomRoles.Hustler:
+                    KillCooldown = Options.HustlerKillCooldown.GetFloat();
                     break;
                 case CustomRoles.NeutWitch:
                     KillCooldown = Options.ControlCooldown.GetFloat();
@@ -1292,6 +1337,9 @@ namespace TownOfHost
                     break;
                 case CustomRoles.PlagueBearer:
                     KillCooldown = Options.InfectCooldown.GetFloat();
+                    break;
+                case CustomRoles.Wraith:
+                    KillCooldown = Options.WraithKillCD.GetFloat();
                     break;
                 case CustomRoles.CovenWitch:
                     KillCooldown = Options.CovenKillCooldown.GetFloat();
@@ -1633,6 +1681,16 @@ namespace TownOfHost
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(marks_canUse && !player.Data.IsDead);
                     player.Data.Role.CanVent = marks_canUse;
                     return;
+                case CustomRoles.TemplateRole:
+                    bool template_canUse = Options.TemplateRoleCanVent.GetBool();
+                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(template_canUse && !player.Data.IsDead);
+                    player.Data.Role.CanVent = template_canUse;
+                    return;
+                case CustomRoles.Hustler:
+                    bool hustler_canUse = Options.HustlerCanVent.GetBool();
+                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(hustler_canUse && !player.Data.IsDead);
+                    player.Data.Role.CanVent = hustler_canUse;
+                    return;
                 case CustomRoles.PlagueBearer:
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(false);
                     player.Data.Role.CanVent = false;
@@ -1659,6 +1717,10 @@ namespace TownOfHost
                     return;
                 case CustomRoles.CorruptedSheriff:
                 case CustomRoles.Medusa:
+                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(true && !player.Data.IsDead);
+                    player.Data.Role.CanVent = true;
+                    return;
+                case CustomRoles.Wraith:
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(true && !player.Data.IsDead);
                     player.Data.Role.CanVent = true;
                     return;
@@ -1714,7 +1776,7 @@ namespace TownOfHost
                 if (PlayerState.GetDeathReason(pc.PlayerId) == PlayerState.DeathReason.Torched)
                     return "They were incinerated by an Arsonist.";
                 if (PlayerState.GetDeathReason(pc.PlayerId) == PlayerState.DeathReason.Bombed)
-                    return "They were bombed by an Agitater, Fireworks, Bastion, Demolitionist, Hex Master, Postman, Terrorist, or a Bomber if they didn't kill in time.";
+                    return "They were bombed by an Agitater, Fireworks, Bastion, Mine Placer, Demolitionist, Hex Master, Postman, Terrorist, or a Bomber if they didn't kill in time.";
                 if (PlayerState.GetDeathReason(pc.PlayerId) == PlayerState.DeathReason.Suicide | PlayerState.GetDeathReason(pc.PlayerId) == PlayerState.DeathReason.LoversSuicide | Main.whoKilledWho[pc.Data.PlayerId] == pc.PlayerId)
                     return "They apparently committed suicide.";
                 var killer = Utils.GetPlayerById(Main.whoKilledWho[pc.Data.PlayerId]);
@@ -1734,6 +1796,8 @@ namespace TownOfHost
                         return $"TThey were shot by the Sheriff.";
                     case CustomRoles.Deputy:
                         return $"They were shot by the Sheriff's Deputy.";
+                    case CustomRoles.Wraith:
+                        return $"They were tripped over by the Wraith.";
                     case CustomRoles.BloodKnight:
                         return $"The Blood Knight fed off of them.";
                     case CustomRoles.Medusa:
@@ -1754,6 +1818,8 @@ namespace TownOfHost
                         return $"They were assaulted by a Juggernaut.";
                     case CustomRoles.CrewPostor:
                         return $"They were knocked out by a CrewPostor.";
+                    case CustomRoles.Magician:
+                        return $"They were knocked out by a Magician.";
                     case CustomRoles.Clumsy:
                         return $"They were fell into Clumsy's accident.";
                     case CustomRoles.Veteran:
@@ -1901,12 +1967,16 @@ namespace TownOfHost
                 CustomRoles.PlagueBearer or
                 CustomRoles.Juggernaut or
                 CustomRoles.Dracula or
+                CustomRoles.Magician or
                 CustomRoles.Unseeable or
+                CustomRoles.Wraith or
                 CustomRoles.AgiTater or
                 CustomRoles.Arsonist or
                 CustomRoles.Pestilence or
                 CustomRoles.Pirate or
                 CustomRoles.Marksman or
+                CustomRoles.TemplateRole or
+                CustomRoles.Hustler or
                 CustomRoles.BloodKnight or
                 CustomRoles.CorruptedSheriff or
                 CustomRoles.TheGlitch or
@@ -1926,10 +1996,12 @@ namespace TownOfHost
                 CustomRoles.Sheriff or
                 CustomRoles.Deputy or
                 CustomRoles.Dracula or
+                CustomRoles.Magician or
                 CustomRoles.Unseeable or
                 CustomRoles.CorruptedSheriff or
                 CustomRoles.Investigator or
                 CustomRoles.Parasite or
+                CustomRoles.Wraith or
                 CustomRoles.Janitor or
                 CustomRoles.Painter or
                 CustomRoles.AgiTater or
@@ -1940,8 +2012,9 @@ namespace TownOfHost
                 CustomRoles.Hitman or
                 CustomRoles.Escort or
                 CustomRoles.NeutWitch or
-                CustomRoles.Dracula or
                 CustomRoles.Marksman or
+                CustomRoles.TemplateRole or
+                CustomRoles.Hustler or
                 CustomRoles.BloodKnight or
                 CustomRoles.CorruptedSheriff or
                 CustomRoles.TheGlitch or

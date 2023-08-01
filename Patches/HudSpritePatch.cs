@@ -13,6 +13,7 @@ namespace TownOfHost
         private static Sprite Swoop => Main.SwoopSprite;
         private static Sprite Poison => Main.PoisonSprite;
         private static Sprite Seer => Main.SeerSprite;
+        private static Sprite Revive => Main.ReviveSprite;
         private static Sprite Sheriff => Main.SheriffSprite;
         private static Sprite Poisoned => Main.PoisonedSprite;
         private static Sprite Inspect => Main.InspectSprite;
@@ -36,6 +37,8 @@ namespace TownOfHost
                 case CustomRoles.Silencer:
                 case CustomRoles.Investigator:
                 case CustomRoles.Swooper:
+                case CustomRoles.Doctor:
+                case CustomRoles.Alturist:
                     return true;
                 default:
                     return false;
@@ -75,7 +78,12 @@ namespace TownOfHost
                 case CustomRoles.Swooper:
                     __instance.ImpostorVentButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                     __instance.ImpostorVentButton.graphic.sprite = Swoop;
-                    break;        
+                    break;
+                case CustomRoles.Doctor:
+                case CustomRoles.Alturist:
+                    __instance.ReportButton.transform.Find("Text_TMP").gameObject.SetActive(false);
+                    __instance.ReportButton.graphic.sprite = Revive;
+                    break;
                 case CustomRoles.PlagueBearer:
                     __instance.KillButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                     __instance.KillButton.graphic.sprite = Infect;

@@ -113,6 +113,7 @@ namespace TownOfHost
                 Main.PhantomAlert = false;
                 Main.PhantomCanBeKilled = false;
                 Main.PickpocketKills = new Dictionary<byte, int>();
+                Main.HustlerKills = new Dictionary<byte, int>();
                 Main.KillCount = new Dictionary<byte, int>();
 
                 Main.LoversPlayers = new List<PlayerControl>();
@@ -194,6 +195,7 @@ namespace TownOfHost
 
                 Main.currentDousingTarget = 255;
                 Main.currentFreezingTarget = 255;
+                Main.currentFreezingTarget2 = 255;
                 Main.VetAlerts = 0;
                 Main.ReverserAlerts = 0;
                 Main.ProtectsSoFar = 0;
@@ -201,6 +203,10 @@ namespace TownOfHost
                 Main.IsProtected = false;
                 Main.IsInvis = false;
                 Main.CanGoInvis = true;
+                Main.IsInvisible2 = false;
+                Main.CanGoInvisible2 = true;
+                Main.IsInvisible = false;
+                Main.CanGoInvisible = true;
                 Main.PlayerColors = new();
                 Main.whoKilledWho = new Dictionary<byte, byte>();
                 Main.SleuthReported = new();
@@ -402,14 +408,26 @@ namespace TownOfHost
                         if (RoleGoingInList(CustomRoles.AgiTater))
                             rolesChosen.Add(CustomRoles.AgiTater);
 
+                        if (RoleGoingInList(CustomRoles.Wraith))
+                            rolesChosen.Add(CustomRoles.Wraith);
+
                         if (RoleGoingInList(CustomRoles.BloodKnight))
                             rolesChosen.Add(CustomRoles.BloodKnight);
 
                         if (RoleGoingInList(CustomRoles.Marksman))
                             rolesChosen.Add(CustomRoles.Marksman);
 
+                        if (RoleGoingInList(CustomRoles.TemplateRole))
+                            rolesChosen.Add(CustomRoles.TemplateRole);
+
+                        if (RoleGoingInList(CustomRoles.Hustler))
+                            rolesChosen.Add(CustomRoles.Hustler);
+
                         if (RoleGoingInList(CustomRoles.CrewPostor))
                             rolesChosen.Add(CustomRoles.CrewPostor);
+
+                        if (RoleGoingInList(CustomRoles.Magician))
+                            rolesChosen.Add(CustomRoles.Magician);
 
                         if (RoleGoingInList(CustomRoles.Dracula))
                             rolesChosen.Add(CustomRoles.Dracula);
@@ -972,6 +990,10 @@ namespace TownOfHost
                         GiveModifier(CustomRoles.TieBreaker);
                     if (RoleGoingInList(CustomRoles.Watcher))
                         GiveModifier(CustomRoles.Watcher);
+                    if (RoleGoingInList(CustomRoles.Underage))
+                        GiveModifier(CustomRoles.Underage);
+                    if (RoleGoingInList(CustomRoles.Menace))
+                        GiveModifier(CustomRoles.Menace);
 
                     Logger.Msg("RoleManager.SelectRoles.Postfix / Check (9/10)", "Load Check (Select Roles.Postfix)");
 
@@ -1054,6 +1076,11 @@ namespace TownOfHost
                                 Main.MadMayorUsedButtonCount[pc.PlayerId] = 0;
                                 Main.PickpocketKills.Add(pc.PlayerId, 0);
                                 break;
+                            case CustomRoles.Hustler:
+                                Main.MayorUsedButtonCount[pc.PlayerId] = 0;
+                                Main.MadMayorUsedButtonCount[pc.PlayerId] = 0;
+                                Main.HustlerKills.Add(pc.PlayerId, 0);
+                                break;
                             case CustomRoles.BountyHunter:
                                 BountyHunter.Add(pc);
                                 break;
@@ -1066,11 +1093,11 @@ namespace TownOfHost
                             case CustomRoles.SerialKiller:
                                 SerialKiller.Add(pc.PlayerId);
                                 break;
-                            case CustomRoles.Escapist:
-                                Escapist.Add(pc);
-                                break;
                             case CustomRoles.TimeTraveler:
                                 TimeTraveler.Add(pc);
+                                break;
+                            case CustomRoles.Escapist:
+                                Escapist.Add(pc);
                                 break;
                             case CustomRoles.Witch:
                                 Main.KillOrSpell.Add(pc.PlayerId, false);
@@ -1226,6 +1253,9 @@ namespace TownOfHost
                                 Main.HackerFixedSaboCount[pc.PlayerId] = 0;
                                 break;
                             case CustomRoles.CrewPostor:
+                                Main.lastAmountOfTasks.Add(pc.PlayerId, 0);
+                                break;
+                            case CustomRoles.Magician:
                                 Main.lastAmountOfTasks.Add(pc.PlayerId, 0);
                                 break;
                             case CustomRoles.Clumsy:
@@ -1639,7 +1669,7 @@ namespace TownOfHost
                         case CustomRoles.TieBreaker:
                             break;
                         case CustomRoles.Oblivious:
-                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Tracker or CustomRoles.Detective or CustomRoles.Amnesiac or CustomRoles.Doctor or CustomRoles.Vulture or CustomRoles.Cleaner or CustomRoles.Cursed) continue;
+                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Wraith or CustomRoles.Tracker or CustomRoles.Detective or CustomRoles.Amnesiac or CustomRoles.Doctor or CustomRoles.Vulture or CustomRoles.Cleaner or CustomRoles.Cursed) continue;
                             break;
                         case CustomRoles.Escalation:
                         case CustomRoles.Flash:
@@ -1654,6 +1684,9 @@ namespace TownOfHost
                         case CustomRoles.Bewilder:
                             if (player.GetCustomRole() is CustomRoles.Detective or CustomRoles.Tracker or CustomRoles.Tank) continue;
                             break;
+                        case CustomRoles.Underage:
+                            if (player.GetCustomRole() is CustomRoles.Wraith or CustomRoles.Phantom or CustomRoles.Mayor or CustomRoles.MadMayor or CustomRoles.VoteStealer or CustomRoles.Hustler) continue;
+                            break;
                         case CustomRoles.Soulhandler:
                             if (player.GetCustomRole() is CustomRoles.Nurse or CustomRoles.Parademic or CustomRoles.Investigator) continue;
                             break;
@@ -1662,6 +1695,9 @@ namespace TownOfHost
                             break;
                         case CustomRoles.Torch:
                             if (player.GetCustomRole() is CustomRoles.Spy or CustomRoles.Lighter or CustomRoles.Jester or CustomRoles.Lawyer) continue;
+                            break;
+                        case CustomRoles.Menace:
+                            if (player.GetRoleType() is RoleType.Neutral or RoleType.Madmate or RoleType.Crewmate or RoleType.Coven) continue;
                             break;
                     }
                     if (role.IsCrewModifier())

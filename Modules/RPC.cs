@@ -68,6 +68,7 @@ namespace TownOfHost
         RpcSetCursedClean,
         RpcAddKill,
         RpcSetPickpocketProgress,
+        RpcSetHustlerProgress,
         RpcPassBomb,
         SetVetAlertState,
         SetReverserAlertState,
@@ -75,6 +76,7 @@ namespace TownOfHost
         SetTransportState,
         SendPostmanInfo,
         SetEscapistState,
+        SetGodState,
         SetTimeTravelerState,
         SetBomberTargets
     }
@@ -406,6 +408,10 @@ namespace TownOfHost
                     var killeree = reader.ReadByte();
                     Main.PickpocketKills[killeree] = reader.ReadInt32();
                     break;
+                case CustomRPC.RpcSetHustlerProgress:
+                    var hustler = reader.ReadByte();
+                    Main.HustlerKills[hustler] = reader.ReadInt32();
+                    break;
                 case CustomRPC.RpcPassBomb:
                     var newbomb = reader.ReadByte();
                     var oldbomb = reader.ReadByte();
@@ -600,11 +606,20 @@ namespace TownOfHost
                     case CustomWinner.Jackal:
                         JackalWin();
                         break;
+                    case CustomWinner.Wraith:
+                        WraithWin();
+                        break;
                     case CustomWinner.Lovers:
                         LoversWin();
                         break;
                     case CustomWinner.Marksman:
                         MarksmanWin();
+                        break;
+                    case CustomWinner.TemplateRole:
+                        TemplateRoleWin();
+                        break;
+                    case CustomWinner.Hustler:
+                        HustlerWin();
                         break;
                     case CustomWinner.Painter:
                         PainterWin();
@@ -632,6 +647,9 @@ namespace TownOfHost
                         break;
                     case CustomWinner.Dracula:
                         DraculaWin();
+                        break;
+                    case CustomWinner.Magicain:
+                        MagicianWin();
                         break;
                     case CustomWinner.Juggernaut:
                         JugWin();
@@ -790,9 +808,29 @@ namespace TownOfHost
             Main.currentWinner = CustomWinner.Marksman;
             CustomWinTrigger(0);
         }
+        public static void WraithWin()
+        {
+            Main.currentWinner = CustomWinner.Wraith;
+            CustomWinTrigger(0);
+        }
+        public static void TemplateRoleWin()
+        {
+            Main.currentWinner = CustomWinner.TemplateRole;
+            CustomWinTrigger(0);
+        }
+        public static void HustlerWin()
+        {
+            Main.currentWinner = CustomWinner.Hustler;
+            CustomWinTrigger(0);
+        }
         public static void DraculaWin()
         {
             Main.currentWinner = CustomWinner.Dracula;
+            CustomWinTrigger(0);
+        }
+        public static void MagicianWin()
+        {
+            Main.currentWinner = CustomWinner.Magicain;
             CustomWinTrigger(0);
         }
         public static void UnseeableWin()

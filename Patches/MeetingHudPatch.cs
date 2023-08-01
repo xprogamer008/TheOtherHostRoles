@@ -22,7 +22,7 @@ namespace TownOfHost
                     PlayerControl pc = Utils.GetPlayerById(pva.TargetPlayerId);
                     if (pc == null) continue;
                     //死んでいないディクテーターが投票済み
-                    if (pc.Is(CustomRoles.Dictator) && pva.DidVote && pc.PlayerId != pva.VotedFor && pva.VotedFor < 253 && !pc.Data.IsDead && !IsPhantom(pva.VotedFor))
+                    if (pc.Is(CustomRoles.Dictator) && pva.DidVote && pc.PlayerId != pva.VotedFor && pva.VotedFor < 253 && !pc.Data.IsDead && !IsPhantom(pva.VotedFor) && !IsWraith(pva.VotedFor) && !IsUnderage(pva.VotedFor))
                     {
                         var voteTarget = Utils.GetPlayerById(pva.VotedFor);
                         Main.DictatesRemaining[pc.PlayerId]--;
@@ -435,6 +435,16 @@ namespace TownOfHost
             var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
             return player != null && player.Is(CustomRoles.Phantom);
         }
+        public static bool IsWraith(byte id)
+        {
+            var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
+            return player != null && player.Is(CustomRoles.Wraith);
+        }
+        public static bool IsUnderage(byte id)
+        {
+            var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
+            return player != null && player.Is(CustomRoles.Underage);
+        }
         public static bool IsMayor(byte id)
         {
             var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
@@ -449,6 +459,11 @@ namespace TownOfHost
         {
             var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
             return player != null && player.Is(CustomRoles.VoteStealer);
+        }
+        public static bool IsNeutralMayor(byte id)
+        {
+            var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
+            return player != null && player.Is(CustomRoles.Hustler);
         }
         public static bool IsTieBreaker(byte id)
         {
@@ -471,10 +486,12 @@ namespace TownOfHost
                 if (ps.VotedFor is not ((byte)252) and not byte.MaxValue and not ((byte)254))
                 {
                     int VoteNum = 1;
-                    if (CheckForEndVotingPatch.IsMayor(ps.TargetPlayerId)) VoteNum += Options.MayorAdditionalVote.GetInt();
-                    if (CheckForEndVotingPatch.IsMadMayor(ps.TargetPlayerId)) VoteNum += Options.MadMayorAdditionalVote.GetInt();
+                    if (CheckForEndVotingPatch.IsMayor(ps.TargetPlayerId)) VoteNum += Options.MayorAdditionalVote.GetInt();                    if (CheckForEndVotingPatch.IsMadMayor(ps.TargetPlayerId)) VoteNum += Options.MadMayorAdditionalVote.GetInt();
+                    if (CheckForEndVotingPatch.IsWraith(ps.TargetPlayerId)) VoteNum += -1;
+                    if (CheckForEndVotingPatch.IsUnderage(ps.TargetPlayerId)) VoteNum += -1;
                     if (CheckForEndVotingPatch.IsEvilMayor(ps.TargetPlayerId)) VoteNum += Main.MayorUsedButtonCount[ps.TargetPlayerId];
                     if (CheckForEndVotingPatch.IsPhantom(ps.VotedFor)) VoteNum = -1;
+                    if (CheckForEndVotingPatch.IsPhantom(ps.TargetPlayerId)) VoteNum = -1;
                     if (CheckForEndVotingPatch.IsPhantom(ps.TargetPlayerId) && !CheckForEndVotingPatch.IsPhantom(ps.VotedFor)) VoteNum = -1;
                     if (Main.IsShapeShifted.Contains(ps.TargetPlayerId))
                     {

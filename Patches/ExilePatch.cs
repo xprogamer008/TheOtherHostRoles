@@ -183,6 +183,10 @@ namespace TownOfHost
                 Main.IsHackMode = false;
                 Main.IsInvis = false;
                 Main.CanGoInvis = false;
+                Main.IsInvisible = false;
+                Main.CanGoInvisible = false;
+                Main.IsInvisible2 = false;
+                Main.CanGoInvisible2 = false;
                 Main.DoingYingYang = true;
                 foreach (var pc in PlayerControl.AllPlayerControls)
                 {
@@ -318,6 +322,10 @@ namespace TownOfHost
                 Main.IsRoundOne = false;
                 Main.IsInvis = false;
                 Main.CanGoInvis = false;
+                Main.IsInvisible = false;
+                Main.CanGoInvisible = false;
+                Main.IsInvisible2 = false;
+                Main.CanGoInvisible2 = false;
                 Main.IsRoundOneGA = false;
                 Main.unvotablePlayers.Clear();
                 Main.unvotablePlayers = new();
@@ -357,32 +365,29 @@ namespace TownOfHost
                 new LateTask(() =>
                 {
                     if (!GameStates.IsMeeting)
-                    Main.CanGoInvis = true;
+                        Main.CanGoInvis = true;
                     Utils.NotifyRoles();
                 },
                 Options.SwooperCooldown.GetFloat(), "Swooper Cooldown (After Meeting)");
                 new LateTask(() =>
                 {
                     if (!GameStates.IsMeeting)
-                    {
-                        Main.VetCanAlert = true;
-                        MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetVetAlertState, Hazel.SendOption.Reliable, -1);
-                        writer2.Write(Main.VetCanAlert);
-                        AmongUsClient.Instance.FinishRpcImmediately(writer2);
-                        Utils.NotifyRoles();
-                    }
+                        Main.CanGoInvisible2 = true;
+                    Utils.NotifyRoles();
+                },
+                Options.GodInvisCooldown.GetFloat(), "God Invisiblity Cooldown (After Meeting)");
+                new LateTask(() =>
+                {
+                    if (!GameStates.IsMeeting)
+                        Main.CanGoInvisible = true;
+                    Utils.NotifyRoles();
                 },
                 Options.UnseeableCooldown.GetFloat(), "Unseeable Cooldown (After Meeting)");
                 new LateTask(() =>
                 {
                     if (!GameStates.IsMeeting)
-                    {
-                        Main.VetCanAlert = true;
-                        MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetVetAlertState, Hazel.SendOption.Reliable, -1);
-                        writer2.Write(Main.VetCanAlert);
-                        AmongUsClient.Instance.FinishRpcImmediately(writer2);
-                        Utils.NotifyRoles();
-                    }
+                        Main.CanGoInvis = true;
+                    Utils.NotifyRoles();
                 },
                 Options.TransparentCooldown.GetFloat(), "Transparent Cooldown (After Meeting)");
                 new LateTask(() =>
@@ -397,6 +402,18 @@ namespace TownOfHost
                     }
                 },
                 Options.VetCD.GetFloat(), "Veteran Alert Cooldown (After Meeting)");
+                new LateTask(() =>
+                {
+                    if (!GameStates.IsMeeting)
+                    {
+                        Main.ReverserCanAlert = true;
+                        MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetReverserAlertState, Hazel.SendOption.Reliable, -1);
+                        writer2.Write(Main.ReverserCanAlert);
+                        AmongUsClient.Instance.FinishRpcImmediately(writer2);
+                        Utils.NotifyRoles();
+                    }
+                },
+                Options.ReverserCD.GetFloat(), "Reverser Alert Cooldown (After Meeting)");
                 new LateTask(() =>
                 {
                     if (!GameStates.IsMeeting)

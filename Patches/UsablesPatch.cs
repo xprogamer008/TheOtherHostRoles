@@ -62,6 +62,10 @@ namespace TownOfHost
                 canUse = couldUse = Options.JuggerCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Marksman))
                 canUse = couldUse = Options.MarksmanCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.TemplateRole))
+                canUse = couldUse = Options.TemplateRoleCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.Hustler))
+                canUse = couldUse = Options.HustlerCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Dracula))
                 canUse = couldUse = Options.DraculaCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Wildling))
@@ -75,6 +79,8 @@ namespace TownOfHost
             else if (pc.Object.Is(CustomRoles.TheGlitch))
                 canUse = couldUse = true;
             else if (pc.Object.Is(CustomRoles.Unseeable))
+                canUse = couldUse = true;
+            else if (pc.Object.Is(CustomRoles.Wraith))
                 canUse = couldUse = true;
             else if (pc.Object.Is(CustomRoles.Painter))
                 canUse = couldUse = Options.STIgnoreVent.GetBool();

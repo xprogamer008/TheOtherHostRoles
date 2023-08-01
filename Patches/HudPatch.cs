@@ -8,6 +8,8 @@ using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using static TownOfHost.Translator;
 using AmongUs.GameOptions;
 using TownOfHost.PrivateExtensions;
+using Sentry;
+using LibCpp2IL.Elf;
 
 namespace TownOfHost
 {
@@ -80,7 +82,7 @@ namespace TownOfHost
                     __instance.KillButton.OverrideText("REVEAL");
                     break;
                 case CustomRoles.Undertaker:
-                    __instance.KillButton.OverrideText("HIDE");
+                    __instance.KillButton.OverrideText("JUDGE");
                     break;
                 case CustomRoles.AgiTater:
                     __instance.KillButton.OverrideText("PASS");
@@ -114,6 +116,9 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Escort:
                     __instance.KillButton.OverrideText("ESCORT");
+                    break;
+                case CustomRoles.Wraith:
+                    __instance.SabotageButton.OverrideText("DOORS");
                     break;
                 case CustomRoles.Crusader:
                     __instance.KillButton.OverrideText("CRUSADE");
@@ -195,6 +200,9 @@ namespace TownOfHost
                 case CustomRoles.Vampire:
                     __instance.KillButton.OverrideText($"{GetString("VampireBiteButtonText")}");
                     break;
+                case CustomRoles.Hustler:
+                    __instance.KillButton.OverrideText($"{GetString("HustlerKillButtonText")}");
+                    break;
                 case CustomRoles.Arsonist:
                     __instance.KillButton.OverrideText($"{GetString("ArsonistDouseButtonText")}");
                     break;
@@ -232,7 +240,7 @@ namespace TownOfHost
                     __instance.AbilityButton.OverrideText($"TRANSPARENCY");
                     break;
                 case CustomRoles.Swooper:
-                        __instance.ImpostorVentButton.OverrideText($"SWOOP");
+                     __instance.ImpostorVentButton.OverrideText($"SWOOP");
                     break;
                 case CustomRoles.Medium:
                     __instance.AbilityButton.OverrideText($"MEDITATE");
@@ -299,6 +307,13 @@ namespace TownOfHost
                     var ModeLang = player.IsHexMode() ? "Hexing" : "Killing";
                     LowerInfoText.text = "Current Mode" + ": " + ModeLang;
                 }
+                /*   else if (player.Is(CustomRoles.Wraith))
+                   {
+                       var ModeLang = Main.IsInvisible ? "Yes" : "No";
+                       var ReadyLang = Main.CanGoInvisible ? "Yes" : "No";
+                       LowerInfoText.text = "Invisible: " + ModeLang;
+                       LowerInfoText.text += "\nInvisibility Ready: " + ReadyLang;
+                   } */
                 else if (player.Is(CustomRoles.Werewolf))
                 {
                     var ModeLang = Main.IsRampaged ? "True" : "False";
@@ -349,13 +364,13 @@ namespace TownOfHost
                     LowerInfoText.text = "Is Swooping: " + ModeLang;
                     LowerInfoText.text += "\nCan Swoop: " + ReadyLang;
                 }
-                /*else if (player.Is(CustomRoles.Unseeable))
+                else if (player.Is(CustomRoles.Unseeable))
                 {
-                    var ModeLang = Main.IsInvis ? "Yes" : "No";
-                    var ReadyLang = Main.CanGoInvis ? "Yes" : "No";
-                    LowerInfoText.text = "Unseeable: " + ModeLang;
-                    LowerInfoText.text += "\nInvisibility is Ready: " + ReadyLang;
-                } */
+                    var ModeLang = Main.IsInvisible ? "Yes" : "No";
+                    var ReadyLang = Main.CanGoInvisible ? "Yes" : "No";
+                    LowerInfoText.text = "Is Unseeable: " + ModeLang;
+                    LowerInfoText.text += "\nReady: " + ReadyLang;
+                }
                 else if (player.Is(CustomRoles.Transparent))
                 {
                     var ModeLang = Main.IsInvis ? "Yes" : "No";
@@ -368,6 +383,12 @@ namespace TownOfHost
                     var voteAmt = Options.VoteAmtOnCompletion.GetInt() == 1 ? "Vote" : "Votes";
                     LowerInfoText.text =
                         $"Kills until {Options.VoteAmtOnCompletion.GetInt()} {voteAmt}: {Options.KillsForVote.GetInt() - Main.PickpocketKills[player.PlayerId]}";
+                }
+                else if (player.Is(CustomRoles.Hustler))
+                {
+                    var voteAmt = Options.VoteAmtOnCompletion.GetInt() == 1 ? "Vote" : "Votes";
+                    LowerInfoText.text =
+                        $"Kills until {Options.VoteAmtOnCompletion.GetInt()} {voteAmt}: {Options.KillsForVote.GetInt() - Main.HustlerKills[player.PlayerId]}";
                 }
                 else if (player.Is(CustomRoles.Cleaner))
                 {
@@ -588,10 +609,13 @@ namespace TownOfHost
                     player.CanUseImpostorVent();
                     goto DesyncImpostor;
                 case CustomRoles.Marksman:
+                case CustomRoles.TemplateRole:
+                case CustomRoles.Hustler:
                 case CustomRoles.Dracula:
                 case CustomRoles.Unseeable:
                 case CustomRoles.Sidekick:
                 case CustomRoles.Jackal:
+                case CustomRoles.Wraith:
                     //   TaskTextPrefix += FakeTasksText;
                     player.CanUseImpostorVent();
                     goto DesyncImpostor;
@@ -708,12 +732,15 @@ namespace TownOfHost
                 player.GetCustomRole() == CustomRoles.Dracula ||
                 player.GetCustomRole() == CustomRoles.Unseeable ||
                 player.GetCustomRole() == CustomRoles.TheGlitch ||
+                player.GetCustomRole() == CustomRoles.Wraith ||
                 player.GetCustomRole() == CustomRoles.Werewolf ||
                 player.GetCustomRole() == CustomRoles.AgiTater ||
                 player.GetCustomRole() == CustomRoles.Painter ||
                 player.GetCustomRole() == CustomRoles.Janitor ||
                 player.GetCustomRole() == CustomRoles.Juggernaut ||
                 player.GetCustomRole() == CustomRoles.Marksman ||
+                player.GetCustomRole() == CustomRoles.TemplateRole ||
+                player.GetCustomRole() == CustomRoles.Hustler ||
                 player.GetCustomRole() == CustomRoles.BloodKnight ||
                 player.GetCustomRole() == CustomRoles.PlagueBearer ||
                 player.GetCustomRole() == CustomRoles.Pestilence ||
@@ -801,6 +828,14 @@ namespace TownOfHost
                     __instance.ImpostorVentButton.ToggleVisible(isActive);
                     __instance.AbilityButton.ToggleVisible(false);
                     break;
+                case CustomRoles.Wraith:
+                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
+                        __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
+                    __instance.SabotageButton.ToggleVisible(true);
+                    __instance.ReportButton.ToggleVisible(false);
+                    __instance.ImpostorVentButton.ToggleVisible(isActive && !player.Data.IsDead);
+                    //       __instance.AbilityButton.ToggleVisible(false);
+                    break;
                 case CustomRoles.CorruptedSheriff:
                     if (player.Data.Role.Role != RoleTypes.GuardianAngel)
                         __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
@@ -869,6 +904,20 @@ namespace TownOfHost
                         __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
                     __instance.SabotageButton.ToggleVisible(false);
                     __instance.ImpostorVentButton.ToggleVisible(Options.MarksmanCanVent.GetBool() && !player.Data.IsDead);
+                    __instance.AbilityButton.ToggleVisible(false);
+                    break;
+                case CustomRoles.TemplateRole:
+                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
+                        __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
+                    __instance.SabotageButton.ToggleVisible(false);
+                    __instance.ImpostorVentButton.ToggleVisible(Options.TemplateRoleCanVent.GetBool() && !player.Data.IsDead);
+                    __instance.AbilityButton.ToggleVisible(false);
+                    break;
+                case CustomRoles.Hustler:
+                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
+                        __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
+                    __instance.SabotageButton.ToggleVisible(false);
+                    __instance.ImpostorVentButton.ToggleVisible(Options.HustlerCanVent.GetBool() && !player.Data.IsDead);
                     __instance.AbilityButton.ToggleVisible(false);
                     break;
                 case CustomRoles.Opportunist:
@@ -971,6 +1020,17 @@ namespace TownOfHost
 
                 }
             }
+            if (PlayerControl.LocalPlayer.GetCustomRole() is CustomRoles.Wraith)
+            {
+                try
+                {
+                    DestroyableSingleton<HudManager>.Instance.ReportButton.SetActive(false);
+                }
+                catch
+                {
+
+                }
+            }
         }
     }
     [HarmonyPatch(typeof(MapBehaviour), "ShowNormalMap")]
@@ -984,7 +1044,7 @@ namespace TownOfHost
                 __state = player.Data.Role.TeamType;
                 player.Data.Role.TeamType = RoleTeamTypes.Crewmate;
             }
-            if (player.Is(CustomRoles.CorruptedSheriff))
+            if (player.Is(CustomRoles.CorruptedSheriff) || player.Is(CustomRoles.Wraith))
             {
                 __state = player.Data.Role.TeamType;
                 player.Data.Role.TeamType = RoleTeamTypes.Impostor;
