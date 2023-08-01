@@ -9,7 +9,7 @@ DISCORD SERVER: https://discord.gg/AcZ8K3Bp --- Recommended after Innersloth int
 ## Releases
 
 AmongUs Version: **2023.7.11/2023.7.12**<br>
-**Latest Version:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases/tag/1.6)**
+**Latest Version:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases/tag/1.5)**
 
 Old Versions:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases)
 
@@ -20,10 +20,10 @@ KNOWN BUGS:
 - When Poisoner is on in coven then there is no chance of Coven winning.
 - Some Roles have double their Cooldown or half their cooldown sometimes.
 - Black screens on consoles when dead affter next meeting when impostors die. Desynced impostor roles can bypass this until they die. (Lag spikes triggered by name changes cause this)
-- Revived players by the [Alturist](#alturist) can see all the roles of the players.(this can be shut down temporairly by disabling the setting ''Ghost Can See Other Roles'')
-- Revived player can go through walls (this only goes for the [Alturist](#alturist) but if you are playing with the mod and get revived by the [Doctor](#doctor) you will be revived with no problems at all and will play like you never got killed)
-- Revived players by the [Doctor](#doctor) can see other peoples roles (this can be shut down by turning the setting ''Roles look Similar to TOU'' off)
+- Revived players can see all the roles of the players.(this can be shut down temporairly by disabling the setting ''Ghost Can See Other Roles'')
+- Revived player can go through walls.
 - Unseeable is completly broken and cant go Invis.
+- Dracula cannot Vent even when the setting ''Dracula Can vent'' is on.
 
 ## Features
 
@@ -39,6 +39,8 @@ New Impostor Roles:
 - Added Reverser
 - Added Undertaker
 - Added Backstabber
+- Added Creeper
+- Added God
 
 New Madmate Roles:
 
@@ -70,10 +72,17 @@ New Neutral Roles:
 - Added Dracula
 - Added Unseeable
 - Added Undecided
+- Added Magician
+- Added Hustler
+- Added Template
+- Added Wraith
+- Added Mine Placer
 
 New Modifiers:
 
 - Added Soulhandler
+- Added Underage
+- Added Menace
 
 New Aditions:
 
@@ -184,7 +193,7 @@ Below is an example:
 | ----------------------------------- | --------------------------------- | --------------------------------- | ------------------------------- | -------------------------------| ---------------------------|
 | [BountyHunter](#bountyhunter)       | [Investigator](#investigator)     | [Vulture](#vulture)               | [Arsonist](#arsonist)           | [Coven Leader](#coven-leader)  | [Bait](#bait)              |
 | [Camouflager](#camouflager)         | [Dictator](#dictator)             | [Hacker](#hacker)                 | [Egoist](#egoist)               | [Medusa](#medusa)              | [Bewilder](#bewilder)      |
-| [FireWorks](#fireworks)             | [Nurse](#nurse)                 | [Executioner](#executioner)       | [Juggernaut](#juggernaut)       | [Hex Master](#hex-master)      | [Sleuth](#sleuth)          |
+| [FireWorks](#fireworks)             | [Nurse](#nurse)                   | [Executioner](#executioner)       | [Juggernaut](#juggernaut)       | [Hex Master](#hex-master)      | [Sleuth](#sleuth)          |
 | [Mare](#mare)                       | [Lighter](#lighter)               | [Jester](#jester)                 | [PlagueBearer](#plaguebearer)   |				                 | [Oblivious](#oblivious)    |
 | [Puppeteer](#puppeteer)             | [Mayor](#mayor)                   | [SchrodingerCat](#schrodingercat) | [The-Glitch](#the-glitch)       |           		             | [Torch](#torch)            |
 | [Mercenary](#mercenary)             | [Mystic](#mystic)                 | [Opportunist](#opportunist)       | [Werewolf](#werewolf)           |			                     | [Flash](#flash)            |
@@ -193,18 +202,18 @@ Below is an example:
 | [Vampire](#vampire)                 | [Snitch](#snitch)                 | [Guardian-Angel](#guardian-angel) | [Marksman](#marksman)           |                                | [Diseased](#diseased)      |
 | [Warlock](#warlock)                 | [SpeedBooster](#speedbooster)     | [Amnesiac](#amnesiac)             | [Crewpostor](#crewpostor)       |                                | [Soulhandler](#soulhandler)|
 | [Witch](#witch)                     | [Trapper](#trapper)               | [Phantom](#phantom)               | [Dracula](#dracula)             |                                | [Guesser](#Guesser)        |
-| [Mafia](#mafia)                     | [Demolitionist](#demolitionist)   | [Swapper](#swapper)               | [Unseeable](#unseeable)         |                                |                            |
-| [Madmate](#madmate)                 | [Bastion](#bastion)               | [Hitman](#hitman)                 |                                 |                                |                            |
-| [MadGuardian](#madguardian)         | [Vigilante](#guesser)             | [Lawyer](#lawyer)                 |                                 |                                |                            |
-| [MadSnitch](#madsnitch)			  | [Veteran](#veteran)               |	[Troll](#troll)                   |                                 |                                |                            |
-| [SidekickMadmate](#sidekickmadmate) | [Child](#child)                   | [Undecided](#undecided)           |                                 |                                |                            |
-| [Silencer](#silencer)               | [Psychic](#psychic)               |                                   |                                 |                                |                            |
+| [Mafia](#mafia)                     | [Demolitionist](#demolitionist)   | [Swapper](#swapper)               | [Unseeable](#unseeable)         |                                | [Underage](#underage)      |
+| [Madmate](#madmate)                 | [Bastion](#bastion)               | [Hitman](#hitman)                 | [Magician](#magician)    	    |                                | [Menace](#menace)          |
+| [MadGuardian](#madguardian)         | [Vigilante](#guesser)             | [Lawyer](#lawyer)                 | [Hustler](#hustler)             |                                |                            |
+| [MadSnitch](#madsnitch)			  | [Veteran](#veteran)               |	[Troll](#troll)                   | [Template](#template)           |                                |                            |
+| [SidekickMadmate](#sidekickmadmate) | [Child](#child)                   | [Undecided](#undecided)           | [Wraith](#wraith)	            |                                |                            |
+| [Silencer](#silencer)               | [Psychic](#psychic)               |							          |                                 |                                |                            |
 | [Traitor](#traitor)                 | [Detective](#detective)           |                                   |                                 |                                |                            |
 | [Assassin](#guesser)                | [Tank](#tank)                     |                                   |                                 |                                |                            |
 | [Parasite](#parasite)               | [Transparent](#transparent)       |                                   |                                 |                                |                            |
 | [Miner](#miner)                     | [Time Traveler](#Time-Traveler)	  |                                   |                                 |                                |							  |
 | [Grenadier](#grenadier)             | [Cursed](#cursed)	              |                                   |                                 |                                |							  |
-| [a Yanger](#ying-yanger)			  | [Marshall](#marshall)             |                                   |                                 |                                |							  |
+| [Ying Yanger](#ying-yanger)		  | [Marshall](#marshall)             |                                   |                                 |                                |							  |
 | [Pickpocket](#pickpocket)           | [Clumsy](#clumsy)                 |                                   |                                 |                                |							  |
 | [Cleaner](#cleaner)                 | [Spy](#spy)	                      |                                   |                                 |                                |							  |
 | [Freezer](#freezer)				  | [Deputy](#deputy)                 |                                   |                                 |                                |							  |
@@ -213,8 +222,8 @@ Below is an example:
 | [Reverser](#reverser)				  |	[Doctor](#doctor)				  |									  |									|								 |							  |
 | [Undertaker](#undertaker)			  |	[Revived](#revived)				  |									  |									|								 |						      |	  
 | [Backstabber](#backstabber)		  |	[Parademic](#parademic)			  |								      |							        |							     |							  |				
-|									  |									  |									  |									|								 |							  |
-|									  |									  |									  |									|								 |							  |
+| [Creeper](#creeper)       		  |									  |									  |									|								 |							  |
+| [God](#god)		a				  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
@@ -482,7 +491,7 @@ The Freezer is an Impostor who can shapeshift into a player to freeze them in pl
 
 ### Wildling
 
-Made by Loonie<br>
+Idea from [TOHE-R](https://Github.com/Loonie-Toons/TOHE-Restored)<br>
 
 Team : Impostors<br>
 Basis : Impostor<br>
@@ -519,11 +528,40 @@ Optionally the Undertaker can vent according to the settings.<br>
 Create and idea by EXC4LIBUR
 
 Team : Impostors<br>
-Basis : Impostors<br>
+Basis : Impostor<br>
 
 The Backstabber cannot be obtained in the settings of that game.
 The only way to get this Role is by being a impostor and getting killed by a neutral killer
 And then getting revived by the Doctor.
+
+### Creeper
+
+Idea by [Project Lotus](https://github.com/ImaMapleTree/Lotus)<br>
+Coded by Disscussions<br>
+
+Team : Impostors<br>
+Basis : Impostor<br>
+
+The Creeper is a normal Impostor that can Sabotage and Kill.<br>
+What is his ability? If you hold your pet button you can ignite yourself and make a huge explosion.<br>
+Everyone in a certain raidius will be killed and after you ignite you will die aswell.<br>
+
+### God
+
+Create and Idea by EXC4LIBUR<br>
+
+Team : Impostors<br>
+Basis : ShapeShifter<br>
+
+The God is the strongest role in the MOD by miles.<br>
+What ability does he have? let me correct myself... What ABILITIES does he have?
+
+1. Turning Invisible<br>
+2. Teleporting by Marking a location<br>
+3. ShapeShifting (the shapeshifted person will be frozen in place)<br>
+4. The Victims of his kills vont drop bodies<br>
+
+I recommend opening this role with concern.<br>
 
 ## Madmate
 
@@ -1073,7 +1111,7 @@ but if he takes to long to report a body, he will instead make the body unreport
 
 ### Marshall
   
-Create and idea by Loonie<br>
+Idea from [TOHE-R](https://Github.com/Loonie-Toons/TOHE-Restored)<br>
   
 Team : Crewmates<br>
 Basis : Crewmate<br>
@@ -1085,7 +1123,7 @@ Optionally, Madmates can see the revealed Marshall.<br>
 ### Doctor
 
 Create and idea by EXC4LIBUR<br>
-Most of the Insperation : [Here](https://www.youtube.com/watch?v=w-G39yJCHeA)
+Most of the Insperation : [Here](https://www.youtube.com/watch?v=w-G39yJCHeA)<br>
 Based of Reviver from TownOfChaos<br>
 
 Team : Crewmates<br>
@@ -1108,12 +1146,12 @@ The Undecided cannot be obtained in the settings of that game.
 The only way to get this Role is by being a Crewmate [ANY TYPE] and getting killed by a neutral killer or Impostor
 And then getting revived by the Doctor.
 
-### Parademic
+### Paramedic
 
 Team : Crewmates<br>
 Basis : Scientist<br>
 
-Original Idea from [PUMPkin Gaming](https://www.youtube.com/@pumpkingaming5548)<br>
+Original Idea from [TownOfChaos](https://www.youtube.com/@pumpkingaming5548)<br>
 
 The Parademic can shield someone like the Medic.<br>
 Also he can see the cause of death for each person who died like a [Nurse](#nurse).<br>
@@ -1194,7 +1232,7 @@ Their goal is to be the last one standing.<br>
 
 ### Dracula
 
-Inspired by PUMPkin Gaming<br>
+Inspired by [TownOfChaos](https://www.youtube.com/@pumpkingaming5548)<br>
 
 Team : Neutral<br>
 Basis : Impostor<br>
@@ -1339,7 +1377,6 @@ If reporting an Impostor body, Amnesiac becomes [Traitor](#traitor).<br>
 If reporting a non killing neutral body, Amnesiac becomes [Opportunist](#opportunist).<br>
 If reporting a neutral killer, Amnesiac becomes that neutral killer.<br>
 
-
 ### Egoist
 
 Create by そうくん<br>
@@ -1403,6 +1440,18 @@ Victory Conditions : Remain alive until the game end<br>
 
 Regardless of the game outcome, Opportunist wins an additional victory if they survive to the end of the match.<br>
 
+### Magician
+
+Team : Neutral<br>
+Basis : Crewmate<br>
+Victory Condition : Kill everyone<br>
+
+Inspired by [TownOfChaos](https://www.youtube.com/@pumpkingaming5548)<br>
+
+As the Magician you can kill someone by doing a task.<br>
+It acts like a Crewpostor but the diffrence?<br>
+He wins alone and not with the Impostors.<br>
+
 ### SchrodingerCat
 
 Team : Neutral<br>
@@ -1413,7 +1462,7 @@ The SchrodingerCats have no tasks and by default, no victory condition. Only aft
 
 1. If killed by **Impostors**, they prevent the kill and belong to **team Impostors**.<br>
 2. If killed by [Sheriff](#sheriff), they prevent the kill and belong to **team Crewmate**.<br>
-3. If killed by **Neutral**, they prevent the kill and belong to the **Neutra team**.<br>
+3. If killed by **Neutral**, they prevent the kill and belong to the **Neutral team**.<br>
 4. If exiled, they die with the victory condition same as before.<br>
 5. If killed with special abilities of Impostors (except for [Vampire](#vampire)), they die with the victory condition same as before.<br>
 
@@ -1537,6 +1586,51 @@ The Undecided cannot be obtained in the settings of that game.
 The only way to get this Role is by being a Neutral and getting killed by any role
 And then getting revived by the Doctor.
 
+### Hustler
+
+Idea by [TownOfChaos](https://www.youtube.com/@pumpkingaming5548)<br>
+
+Team : Neutral<br>
+Basis : Impostor<br>
+
+The Hustler is a Neutral killing role that can kill and vent.<br>
+Every time he kills someone he will gain 1 extra vote.<br>
+
+### Template
+
+Create and idea by EXC4LIBUR<br>
+
+Team : Neutral<br>
+Basis : Impostor<br>
+
+The Template role is really nothing special :/<br>
+The only reason why I have it is because I suck at making neutral killing roles.<br>
+You can still enjoy and play with the roles with like any other special role.<br>
+
+### Wraith
+
+Idea by [TOHE-R](https://Gihub.com/Loonie-Toons/TOHE-Restored)<br>
+  
+Team : Neutral<br>
+Basis : Impostor<br>
+Victory Condition : Kill everyone<br>
+
+The Wraith is a neutral killer that cannot report bodies, call emergency meetings, or cast a vote.<br>
+However, they can sabotage doors.<br>
+Along with that, since they are a ghost-like creature, they show up as innocent to crew roles and can't be found by the Detective.<br>
+
+### Mine Placer
+
+Create and Idea by EXC4LIBUR<br>
+
+Team : Neutral<br>
+Basis : Engineer<br>
+Victory Conditions : Blow players up to win<br>
+
+The Mine Placer is a venting role that can player bombs to vents.<br>
+When a player vents to the Mine Placers bombed vent he will die and the Mine Placer will gain 1 point.<br>
+After getting a certain amount of points you will win.<br>
+
 ## Coven
 
 ### Coven Leader
@@ -1642,26 +1736,6 @@ Assigned to: All but Nurse, Parademic and Investigator<br>
 
 The Necroview is a modifier that allows to see the teams of the dead players.<br>
 
-### Guesser
-
-Created by Loonie<br>
-
-Team : Impostors, Crewmates, or Neutral<br>
-Basis : Impostor or Crewmates<br>
-
-If you can guess target's role during meeting, you can kill the target.<br>
-In addition, Evil Guesser has a chance to kill even after being exiled.<br>
-There is also a neutral Guesser called Pirate. Their goal is guess a number of people to succesfully win.<br>
-
-
-
-#### Guesser Commands
-
-| Command                      | Function                         |
-| ---------------------------- | -------------------------------- |
-| /shoot show                  | Show role IDs and player IDs     |
-| /shoot playerID roleID       | Shoot a player ID with a role ID |
-
 ### Lovers
 
 Created by Discussions<br>
@@ -1693,6 +1767,23 @@ The Diseased is a crewmate modifier which multiplies the killer's kill cooldown 
 | ----------------- |
 | Kill Multiplier   |
 
+### Underage
+
+Create and Idea by EXC4LIBUR.<br>
+
+Assigned to : All execpt Wraith, Phantom, Mayor, MadMayor, PickPocket and Hustler
+
+The Maximum voting age in the ship is 18+.<br>
+Since you are underage to vote, you are not able to vote.<br>
+When you vote someone, in the end you vote vont be counted.<br>
+
+### Menace
+
+Create and Idea by EXC4LIBUR.<br>
+
+Assigned to : Impostors
+
+As the Menace Modifier your kill cooldown will be reduced by certain number determent by the setting.<br>
 
 ## Attribute
 
@@ -1923,9 +2014,10 @@ Roles from:
 10. Mek - Role Ideas (Bewilder, Bastion, Demolitionist)<br>
 11. Original [Town Of Host](https://github.com/tukasa0001/TownOfHost) (Mod itself plus pull requests for roles such as the guesser roles)
 12.[Town Of Chaos](https://www.youtube.com/@pumpkingaming5548)<br>
+13.[TOHE-R](https://Github.com/Loonie-Toons/TOHE-Restored)<br>
 
 ## Developers
-Orginal TOH: TOR Develipors:
+Orinal Develipors:
 - [Discussions](https://github.com/music-discussion) ([YouTube](https://www.youtube.com/channel/UCAawAIWR5XfJE6T0JdYpzzg)) - Coding
 - [MC-AS-Huier](https://github.com/MC-AS-Huier) - SChinese Translations
 - [Tommy-XL](https://github.com/Tommy-XL) - Rus Translations
@@ -1937,4 +2029,4 @@ Town Of Roles Develipors:
 - [Honest](https://www.youtube.com/channel/UCby0ws4qWwnmWujmJlu3AMQ) - Started this Project
 - [PUMPkin Gaming](https://www.youtube.com/@pumpkingaming5548) - Helped a ton in the Project
 - [TheSkullCreeper/Loonie](https://github.com/Loonie-Toons) - Helped a bit in the Project
-- [music-discussions](https://github.com/music-discussion) - Helped with Errors in the Project
+- [music-discussions](https://github.com/music-discussion) - Helped with Errors in the project
