@@ -22,8 +22,6 @@ KNOWN BUGS:
 - Black screens on consoles when dead affter next meeting when impostors die. Desynced impostor roles can bypass this until they die. (Lag spikes triggered by name changes cause this)
 - Revived players can see all the roles of the players.(this can be shut down temporairly by disabling the setting ''Ghost Can See Other Roles'')
 - Revived player can go through walls.
-- Unseeable is completly broken and cant go Invis.
-- Dracula cannot Vent even when the setting ''Dracula Can vent'' is on.
 
 ## Features
 
@@ -40,7 +38,6 @@ New Impostor Roles:
 - Added Undertaker
 - Added Backstabber
 - Added Creeper
-- Added God
 
 New Madmate Roles:
 
@@ -63,7 +60,7 @@ New Crewmate Roles:
 - Added Alturist
 - Added (NEW) Doctor
 - Added Revived
-- Added Parademic
+- Added Paramedic
 
 New Neutral Roles:
 
@@ -76,7 +73,6 @@ New Neutral Roles:
 - Added Hustler
 - Added Template
 - Added Wraith
-- Added Mine Placer
 
 New Modifiers:
 
