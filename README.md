@@ -9,7 +9,7 @@ DISCORD SERVER: https://discord.gg/AcZ8K3Bp --- Recommended after Innersloth int
 ## Releases
 
 AmongUs Version: **2023.7.11/2023.7.12**<br>
-**Latest Version:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases/tag/1.5)**
+**Latest Version:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases/tag/1.7)**
 
 Old Versions:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases)
 
@@ -17,11 +17,12 @@ Old Versions:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases)
 
 KNOWN BUGS:
 
-- When Poisoner is on in coven then there is no chance of Coven winning.
 - Some Roles have double their Cooldown or half their cooldown sometimes.
 - Black screens on consoles when dead affter next meeting when impostors die. Desynced impostor roles can bypass this until they die. (Lag spikes triggered by name changes cause this)
-- Revived players can see all the roles of the players.(this can be shut down temporairly by disabling the setting ''Ghost Can See Other Roles'')
-- Revived player can go through walls.
+- Revived players by the [Alturist](#alturist) can see all the roles of the players.(this can be shut down temporairly by disabling the setting ''Ghost Can See Other Roles'')
+- Revived players by the [Doctor](#doctor) can see all the roles of the players.(this can be shut down temporairly by disabling the setting ''Roles look Similar to TOU'')
+- Revived players by the [Alturist](#alturist) can go through Walls. (Host is included)
+- Revived players by the [Doctor](#doctor) can go through Walls. (Host isn't included)
 
 ## Features
 
@@ -82,6 +83,8 @@ New Modifiers:
 
 New Aditions:
 
+- Serial Killer Renamed to Jackal
+- Hunter Renamed to Sidekick
 - A different Doctor added.
 - Original Doctor renamed to nurse
 - Werewolf can Vent now.(the ability still doesnt work)
@@ -89,7 +92,7 @@ New Aditions:
 - Swooper has his own Custom Vent image.
 - Transproters vent icon says ''TRANSPARENCY''
 - Swoopers vent ican says ''SWOOP''
-- Also pretty obvious that many roles have been added and there will be more to add
+- Also pretty obvious that many roles have been added and there will be more to added
 
 However, please note that the following restrictions apply.<br>
 
@@ -194,7 +197,7 @@ Below is an example:
 | [Puppeteer](#puppeteer)             | [Mayor](#mayor)                   | [SchrodingerCat](#schrodingercat) | [The-Glitch](#the-glitch)       |           		             | [Torch](#torch)            |
 | [Mercenary](#mercenary)             | [Mystic](#mystic)                 | [Opportunist](#opportunist)       | [Werewolf](#werewolf)           |			                     | [Flash](#flash)            |
 | [Sniper](#sniper)                   | [SabotageMaster](#sabotagemaster) | [Terrorist](#terrorist)           | [Pestilence](#pestilence)       |		                         | [Lovers](#lovers)          |
-| [TimeThief](#timethief)             | [Sheriff](#sheriff)               | [Pirate](#guesser)                | [Serial Killer](#serial-killer) |                                | [Watcher](#watcher)        |
+| [TimeThief](#timethief)             | [Sheriff](#sheriff)               | [Pirate](#guesser)                | [Jackal](#jackal)               |                                | [Watcher](#watcher)        |
 | [Vampire](#vampire)                 | [Snitch](#snitch)                 | [Guardian-Angel](#guardian-angel) | [Marksman](#marksman)           |                                | [Diseased](#diseased)      |
 | [Warlock](#warlock)                 | [SpeedBooster](#speedbooster)     | [Amnesiac](#amnesiac)             | [Crewpostor](#crewpostor)       |                                | [Soulhandler](#soulhandler)|
 | [Witch](#witch)                     | [Trapper](#trapper)               | [Phantom](#phantom)               | [Dracula](#dracula)             |                                | [Guesser](#Guesser)        |
@@ -217,9 +220,9 @@ Below is an example:
 | [MadMayor](#madmayor)				  |	[Alturist](#alturist)			  |									  |									|								 |							  |
 | [Reverser](#reverser)				  |	[Doctor](#doctor)				  |									  |									|								 |							  |
 | [Undertaker](#undertaker)			  |	[Revived](#revived)				  |									  |									|								 |						      |	  
-| [Backstabber](#backstabber)		  |	[Parademic](#parademic)			  |								      |							        |							     |							  |				
+| [Backstabber](#backstabber)		  |	[Paramedic](#paramedic)			  |								      |							        |							     |							  |				
 | [Creeper](#creeper)       		  |									  |									  |									|								 |							  |
-| [God](#god)		a				  |									  |									  |									|								 |							  |
+|									  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
@@ -1149,9 +1152,9 @@ Basis : Scientist<br>
 
 Original Idea from [TownOfChaos](https://www.youtube.com/@pumpkingaming5548)<br>
 
-The Parademic can shield someone like the Medic.<br>
+The Paramedic can shield someone like the Medic.<br>
 Also he can see the cause of death for each person who died like a [Nurse](#nurse).<br>
-The Parademic also has accses to vitals.<br>
+The Paramedic also has accses to vitals.<br>
 
 ## Neutral
 
@@ -1208,23 +1211,14 @@ Victory Condition : Get killed<br>
 The Troll is the exact opposite of [Jester](#jester).<br>
 The Jester needs to be voted out while the Troll needs to be killed.<br>
 
-### Serial Killer
+### Jackal
 
 Team: Neutral<br>
 Basis: Impostor<br>
 Victory Condition: Kill Everyone<br>
 
-The Serial Killer can kill both impostors and crewmates.<br>
+The Jackal can kill both impostors and crewmates.<br>
 Their goal is to be the last one standing.<br>
-
-#### Game Options
-
-| Name                    |
-| ----------------------- |
-| SK Kill Cooldown        |
-| SK Can Vent             |
-| SK Can Sabotage         |
-| SK Has Sidekick         |
 
 ### Dracula
 
