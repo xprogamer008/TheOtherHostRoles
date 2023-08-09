@@ -1,4 +1,4 @@
-# Town Of Roles
+# The Other Host Roles
 
 ## Regarding this mod
 
@@ -9,9 +9,9 @@ DISCORD SERVER: https://discord.gg/AcZ8K3Bp --- Recommended after Innersloth int
 ## Releases
 
 AmongUs Version: **2023.7.11/2023.7.12**<br>
-**Latest Version:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases/tag/1.7)**
+**Latest Version:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases/tag/1.8)**
 
-Old Versions:[Here](https://GitHub.com/xprogamer008/TownOfRoles/releases)
+Old Versions:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases)
 
 ## KNOWN BUGS
 
@@ -30,7 +30,7 @@ This mod only needs to be installed on the host's client to work, and works rega
 Unlike mods that use custom servers, there is no need to add servers by editing URLs or files.<br>
 If you are going to play on Custom Servers, such as MNA and MEU, it would require everyone to have the mods the host has.<br>
 
-New contend with Town of Roles added to this game:
+New contend with The Other Host Roles added to this game:
 
 New Impostor Roles:
 
@@ -61,7 +61,7 @@ New Crewmate Roles:
 - Added Alturist
 - Added (NEW) Doctor
 - Added Revived
-- Added Paramedic
+- Added Parademic
 
 New Neutral Roles:
 
@@ -83,21 +83,18 @@ New Modifiers:
 
 New Aditions:
 
-- Serial Killer Renamed to Jackal
-- Hunter Renamed to Sidekick
 - A different Doctor added.
 - Original Doctor renamed to nurse
-- Werewolf can Vent now.(the ability still doesnt work)
 - The Glitch can Vent now.(the ability works by petting your pet. not by venting)
 - Swooper has his own Custom Vent image.
 - Transproters vent icon says ''TRANSPARENCY''
 - Swoopers vent ican says ''SWOOP''
-- Also pretty obvious that many roles have been added and there will be more to added
+- Also pretty obvious that many roles have been added and there will be more to add
 
 However, please note that the following restrictions apply.<br>
 
 - If the host changes and does not have this installed, the server isn't modded and is now just a regular Among Us game.<br>
-- If someone will original TOH and TOH: TOR, joins a TOR lobby, they may experience graphical issues such as blackscreens.<br>
+- If someone will original TOH and TOH: TOR, joins a TOHR lobby, they may experience graphical issues such as blackscreens.<br>
 
 Note that if a player other than the host plays with this mod installed, the following changes will be made.<br>
 
@@ -176,7 +173,7 @@ Also, you can break lines by writing `\n` in the sentence like `tag:line breaks 
 
 #### Welcome Message
 If the tag is set to "welcome" in the template function, it will be sent automatically when a player joins.<br>
-For example: `welcome:This room is using the mod Town Of Roles.`
+For example: `welcome:This room is using the mod The Other Host Roles.`
 
 ### Impostor Disconnect Detection
 If all Impostors leave the game, the game will automatically end with the unused Impostor Disconnected screen. This was done as all impostors leaving the game would black screen all players who do not use desynced Impostor roles after the next meeting.
@@ -197,7 +194,7 @@ Below is an example:
 | [Puppeteer](#puppeteer)             | [Mayor](#mayor)                   | [SchrodingerCat](#schrodingercat) | [The-Glitch](#the-glitch)       |           		             | [Torch](#torch)            |
 | [Mercenary](#mercenary)             | [Mystic](#mystic)                 | [Opportunist](#opportunist)       | [Werewolf](#werewolf)           |			                     | [Flash](#flash)            |
 | [Sniper](#sniper)                   | [SabotageMaster](#sabotagemaster) | [Terrorist](#terrorist)           | [Pestilence](#pestilence)       |		                         | [Lovers](#lovers)          |
-| [TimeThief](#timethief)             | [Sheriff](#sheriff)               | [Pirate](#guesser)                | [Jackal](#jackal)               |                                | [Watcher](#watcher)        |
+| [TimeThief](#timethief)             | [Sheriff](#sheriff)               | [Pirate](#guesser)                | [Serial Killer](#serial-killer) |                                | [Watcher](#watcher)        |
 | [Vampire](#vampire)                 | [Snitch](#snitch)                 | [Guardian-Angel](#guardian-angel) | [Marksman](#marksman)           |                                | [Diseased](#diseased)      |
 | [Warlock](#warlock)                 | [SpeedBooster](#speedbooster)     | [Amnesiac](#amnesiac)             | [Crewpostor](#crewpostor)       |                                | [Soulhandler](#soulhandler)|
 | [Witch](#witch)                     | [Trapper](#trapper)               | [Phantom](#phantom)               | [Dracula](#dracula)             |                                | [Guesser](#Guesser)        |
@@ -220,9 +217,9 @@ Below is an example:
 | [MadMayor](#madmayor)				  |	[Alturist](#alturist)			  |									  |									|								 |							  |
 | [Reverser](#reverser)				  |	[Doctor](#doctor)				  |									  |									|								 |							  |
 | [Undertaker](#undertaker)			  |	[Revived](#revived)				  |									  |									|								 |						      |	  
-| [Backstabber](#backstabber)		  |	[Paramedic](#paramedic)			  |								      |							        |							     |							  |				
+| [Backstabber](#backstabber)		  |	[Parademic](#parademic)			  |								      |							        |							     |							  |				
 | [Creeper](#creeper)       		  |									  |									  |									|								 |							  |
-|									  |									  |									  |									|								 |							  |
+| [God](#god)		a				  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
@@ -1152,9 +1149,9 @@ Basis : Scientist<br>
 
 Original Idea from [TownOfChaos](https://www.youtube.com/@pumpkingaming5548)<br>
 
-The Paramedic can shield someone like the Medic.<br>
+The Parademic can shield someone like the Medic.<br>
 Also he can see the cause of death for each person who died like a [Nurse](#nurse).<br>
-The Paramedic also has accses to vitals.<br>
+The Parademic also has accses to vitals.<br>
 
 ## Neutral
 
@@ -1211,14 +1208,23 @@ Victory Condition : Get killed<br>
 The Troll is the exact opposite of [Jester](#jester).<br>
 The Jester needs to be voted out while the Troll needs to be killed.<br>
 
-### Jackal
+### Serial Killer
 
 Team: Neutral<br>
 Basis: Impostor<br>
 Victory Condition: Kill Everyone<br>
 
-The Jackal can kill both impostors and crewmates.<br>
+The Serial Killer can kill both impostors and crewmates.<br>
 Their goal is to be the last one standing.<br>
+
+#### Game Options
+
+| Name                    |
+| ----------------------- |
+| SK Kill Cooldown        |
+| SK Can Vent             |
+| SK Can Sabotage         |
+| SK Has Sidekick         |
 
 ### Dracula
 
@@ -2014,9 +2020,9 @@ Orinal Develipors:
 - [TheSkullCreeper/Loonie](https://github.com/Loonie-Toons) - Art Direction
 - [단풍잎/ImaMapleTree](https://github.com/ImaMapleTree) - 12.8 Port Help
 
-Town Of Roles Develipors:
-- [EXC4LIBUR](https://github.com/xprogamer008) - Continuing the Project
-- [Honest](https://www.youtube.com/channel/UCby0ws4qWwnmWujmJlu3AMQ) - Started this Project
+The Other Host Roles Develipors:
+- [Honest/EXC4LIBUR](https://www.youtube.com/channel/UCby0ws4qWwnmWujmJlu3AMQ) - Project Leader
 - [PUMPkin Gaming](https://www.youtube.com/@pumpkingaming5548) - Helped a ton in the Project
 - [TheSkullCreeper/Loonie](https://github.com/Loonie-Toons) - Helped a bit in the Project
 - [music-discussions](https://github.com/music-discussion) - Helped with Errors in the project
+- [KARPED1EM](https://github.com/KARPED1EM) - Helped with Project Honest
