@@ -62,6 +62,9 @@ New Crewmate Roles:
 - Added (NEW) Doctor
 - Added Revived
 - Added Parademic
+- Added Unstoppable
+- Added TheGlitch(TOHE)
+- Added Imitator
 
 New Neutral Roles:
 
@@ -218,9 +221,9 @@ Below is an example:
 | [Reverser](#reverser)				  |	[Doctor](#doctor)				  |									  |									|								 |							  |
 | [Undertaker](#undertaker)			  |	[Revived](#revived)				  |									  |									|								 |						      |	  
 | [Backstabber](#backstabber)		  |	[Parademic](#parademic)			  |								      |							        |							     |							  |				
-| [Creeper](#creeper)       		  |									  |									  |									|								 |							  |
-| [God](#god)		a				  |									  |									  |									|								 |							  |
-|									  |									  |									  |									|								 |							  |
+| [Creeper](#creeper)       		  |	[Unstoppable](#unstoppable)		  |									  |									|								 |							  |
+|									  |	[TheGlitch](#the-glitch-tohe)	  |									  |									|								 |							  |
+|									  |	[Imitator](#Imitator)			  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
@@ -541,23 +544,6 @@ Basis : Impostor<br>
 The Creeper is a normal Impostor that can Sabotage and Kill.<br>
 What is his ability? If you hold your pet button you can ignite yourself and make a huge explosion.<br>
 Everyone in a certain raidius will be killed and after you ignite you will die aswell.<br>
-
-### God
-
-Create and Idea by EXC4LIBUR<br>
-
-Team : Impostors<br>
-Basis : ShapeShifter<br>
-
-The God is the strongest role in the MOD by miles.<br>
-What ability does he have? let me correct myself... What ABILITIES does he have?
-
-1. Turning Invisible<br>
-2. Teleporting by Marking a location<br>
-3. ShapeShifting (the shapeshifted person will be frozen in place)<br>
-4. The Victims of his kills vont drop bodies<br>
-
-I recommend opening this role with concern.<br>
 
 ## Madmate
 
@@ -1129,8 +1115,6 @@ The Doctor has a special ability that only one roles shares in similarity.<br>
 He can report bodies to revive them but he doesn't suicide like the [Alturist](#alturist).<br>
 Optionally he can have arrows pointing towards bodies.<br>
 
-[QUICK NOTE, This role may have some bugs due to it made by being a bug in the Amnesiacs code]
-
 ### Revived
 
 Create and idea by EXC4LIBUR
@@ -1139,7 +1123,7 @@ Team : Crewmates<br>
 Basis : Crewmate<br>
 
 The Undecided cannot be obtained in the settings of that game.
-The only way to get this Role is by being a Crewmate [ANY TYPE] and getting killed by a neutral killer or Impostor
+The only way to get this Role is by being a Crewmate [ANY TYPE] and getting killed by a neutral killer or Impostor.
 And then getting revived by the Doctor.
 
 ### Paramedic
@@ -1152,6 +1136,31 @@ Original Idea from [TownOfChaos](https://www.youtube.com/@pumpkingaming5548)<br>
 The Parademic can shield someone like the Medic.<br>
 Also he can see the cause of death for each person who died like a [Nurse](#nurse).<br>
 The Parademic also has accses to vitals.<br>
+
+### Unstoppable
+
+Team : Crewmates<br>
+Basis : Crewmate<br>
+
+Create and idea by EXC4LIBUR<br>
+
+As the Unstoppable you have 2 shield when.<br>
+The Fist one you can give it to a random player by voting them.<br>
+the frist voted player will get the shield.<br>
+The Second one is for you after completing all of your taks.<br>
+After you completed all of your tasks, you and your target will no longer die during the game.<br>
+
+### TheGlitch
+
+Team : Crewmates<br>
+Basis : Crewmate<br>
+
+Originaly based from TOHE<br>
+
+As TheGlitch you are a ghost like creature.<br>
+You can't cast a vote, report bodies and call emergency meetings.<br>
+you will get higher vision (your vison doesn't get affected by the lights) and you are immortal.<br>
+Your body also can not be found by the Detective.<br>
 
 ## Neutral
 
@@ -1402,7 +1411,6 @@ Egoist win means Impostor lose and vice versa.<br>
 
 ### Executioner
 
-
 Team : Neutral<br>
 Basis : Crewmate<br>
 Victory Conditions : Have the target voted out<br>
@@ -1615,17 +1623,24 @@ The Wraith is a neutral killer that cannot report bodies, call emergency meeting
 However, they can sabotage doors.<br>
 Along with that, since they are a ghost-like creature, they show up as innocent to crew roles and can't be found by the Detective.<br>
 
-### Mine Placer
-
-Create and Idea by EXC4LIBUR<br>
+### Imitator
 
 Team : Neutral<br>
-Basis : Engineer<br>
-Victory Conditions : Blow players up to win<br>
+Basis : Impostor<br>
 
-The Mine Placer is a venting role that can player bombs to vents.<br>
-When a player vents to the Mine Placers bombed vent he will die and the Mine Placer will gain 1 point.<br>
-After getting a certain amount of points you will win.<br>
+Originaly based from [TOU-R](https://github.com/eDonnes124/Town-Of-Us-R/releases)<br>
+
+The Imitator is originaly grouped as Crewmate but due to the roles that switch around we decided to make it a Neutral.<br>
+The Imitator can imitate between roles.<br>
+You can Imitate by reporting a dead body.<br>
+When you report a different body you will get that bodys role and your role will switch.<br>
+the role types you report is the roles you will get:<br>
+
+Imp : Imp ability
+Crew : Sheriff ability
+Neutral : Hitman ability
+
+If you report a Covens body, you will become coven and you wont chnage anymore.<br>
 
 ## Coven
 
