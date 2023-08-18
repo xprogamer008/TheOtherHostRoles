@@ -272,6 +272,7 @@ namespace TownOfHost
                 Egoist.Init();
                 Bomber.Init();
                 Sheriff.Init();
+                ImitatorSheriff.Init();
                 Deputy.Init();
                 Investigator.Init();
                 Examiner.Init();
@@ -468,7 +469,7 @@ namespace TownOfHost
                                         else
                                             AssignDesyncRole(role, urself, sender, BaseRole: RoleTypes.Shapeshifter);
                                     }
-                                    else if (role is CustomRoles.CrewPostor or CustomRoles.Pirate)
+                                    else if (role is CustomRoles.CrewPostor or CustomRoles.Pirate or CustomRoles.Magician)
                                         Main.chosenNonNK.Add(role);
                                     else
                                         AssignDesyncRole(role, urself, sender, BaseRole: RoleTypes.Impostor);
@@ -523,6 +524,9 @@ namespace TownOfHost
                         if (RoleGoingInList(CustomRoles.Amnesiac))
                             rolesChosenNon.Add(CustomRoles.Amnesiac);
 
+                        if (RoleGoingInList(CustomRoles.Imitator))
+                            rolesChosenNon.Add(CustomRoles.Imitator);
+
                         if (RoleGoingInList(CustomRoles.Phantom))
                             rolesChosenNon.Add(CustomRoles.Phantom);
 
@@ -545,7 +549,7 @@ namespace TownOfHost
                                     AllnonNKPlayers.Remove(player);
                                     if (role.IsEngineer())
                                         Main.chosenEngiRoles.Add(role);
-                                    else if (role is CustomRoles.Amnesiac or CustomRoles.Hitman)
+                                    else if (role is CustomRoles.Amnesiac or CustomRoles.Imitator or CustomRoles.Hitman)
                                     {
                                         List<PlayerControl> urself = new();
                                         urself.Add(player);
@@ -701,6 +705,8 @@ namespace TownOfHost
                         AssignDesyncRole(CustomRoles.Examiner, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
                     if (Main.chosenDesyncRoles.Contains(CustomRoles.Escort))
                         AssignDesyncRole(CustomRoles.Escort, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
+                    if (Main.chosenDesyncRoles.Contains(CustomRoles.ImitatorSheriff))
+                        AssignDesyncRole(CustomRoles.ImitatorSheriff, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
                     if (Main.chosenDesyncRoles.Contains(CustomRoles.Crusader))
                         AssignDesyncRole(CustomRoles.Crusader, AllPlayers, sender, BaseRole: RoleTypes.Impostor);
 
@@ -994,6 +1000,8 @@ namespace TownOfHost
                         GiveModifier(CustomRoles.Underage);
                     if (RoleGoingInList(CustomRoles.Menace))
                         GiveModifier(CustomRoles.Menace);
+                    if (RoleGoingInList(CustomRoles.Giant))
+                        GiveModifier(CustomRoles.Giant);
 
                     Logger.Msg("RoleManager.SelectRoles.Postfix / Check (9/10)", "Load Check (Select Roles.Postfix)");
 
@@ -1106,6 +1114,7 @@ namespace TownOfHost
                             case CustomRoles.Warlock:
                             case CustomRoles.Consort:
                             case CustomRoles.Escort:
+                            case CustomRoles.ImitatorEscort:
                                 Main.CursedPlayers.Add(pc.PlayerId, null);
                                 Main.isCurseAndKill.Add(pc.PlayerId, false);
                                 break;
@@ -1240,6 +1249,9 @@ namespace TownOfHost
                             case CustomRoles.Sheriff:
                                 Sheriff.Add(pc.PlayerId);
                                 break;
+                            case CustomRoles.ImitatorSheriff:
+                                ImitatorSheriff.Add(pc.PlayerId);
+                                break;
                             case CustomRoles.Deputy:
                                 Deputy.Add(pc.PlayerId);
                                 break;
@@ -1318,6 +1330,7 @@ namespace TownOfHost
                             case CustomRoles.Medic:
                             case CustomRoles.MadMedic:
                             case CustomRoles.Parademic:
+                            case CustomRoles.Unstoppable:
                             case CustomRoles.Bodyguard:
                             case CustomRoles.Oracle:
                             case CustomRoles.Crusader:
@@ -1664,28 +1677,31 @@ namespace TownOfHost
                     switch (role)
                     {
                         case CustomRoles.Sleuth:
-                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Amnesiac or CustomRoles.Doctor or CustomRoles.Detective or CustomRoles.Vulture or CustomRoles.Cleaner or CustomRoles.Cursed) continue;
+                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Amnesiac or CustomRoles.Imitator or CustomRoles.Doctor or CustomRoles.Detective or CustomRoles.Vulture or CustomRoles.Cleaner or CustomRoles.Cursed) continue;
                             break;
                         case CustomRoles.TieBreaker:
                             break;
                         case CustomRoles.Oblivious:
-                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Wraith or CustomRoles.Tracker or CustomRoles.Detective or CustomRoles.Amnesiac or CustomRoles.Doctor or CustomRoles.Vulture or CustomRoles.Cleaner or CustomRoles.Cursed) continue;
+                            if (player.GetCustomRole() is CustomRoles.Medium or CustomRoles.Imitator or CustomRoles.Wraith or CustomRoles.GlitchTOHE or CustomRoles.Tracker or CustomRoles.Detective or CustomRoles.Amnesiac or CustomRoles.Doctor or CustomRoles.Vulture or CustomRoles.Cleaner or CustomRoles.Cursed) continue;
                             break;
                         case CustomRoles.Escalation:
                         case CustomRoles.Flash:
+                            if (player.GetCustomRole() is CustomRoles.SpeedBooster or CustomRoles.Mare) continue;
+                            break;
+                        case CustomRoles.Giant:
                             if (player.GetCustomRole() is CustomRoles.SpeedBooster or CustomRoles.Mare) continue;
                             break;
                         case CustomRoles.Bait:
                             if (player.GetCustomRole() is CustomRoles.Trapper) continue;
                             break;
                         case CustomRoles.Guesser:
-                            if (player.GetCustomRole() is CustomRoles.Pirate or CustomRoles.EvilGuesser or CustomRoles.NiceGuesser) continue;
+                            if (player.GetCustomRole() is CustomRoles.Pirate or CustomRoles.EvilGuesser or CustomRoles.GlitchTOHE or CustomRoles.NiceGuesser) continue;
                             break;
                         case CustomRoles.Bewilder:
                             if (player.GetCustomRole() is CustomRoles.Detective or CustomRoles.Tracker or CustomRoles.Tank) continue;
                             break;
                         case CustomRoles.Underage:
-                            if (player.GetCustomRole() is CustomRoles.Wraith or CustomRoles.Phantom or CustomRoles.Mayor or CustomRoles.MadMayor or CustomRoles.VoteStealer or CustomRoles.Hustler) continue;
+                            if (player.GetCustomRole() is CustomRoles.Wraith or CustomRoles.GlitchTOHE or CustomRoles.Phantom or CustomRoles.Mayor or CustomRoles.MadMayor or CustomRoles.VoteStealer or CustomRoles.Hustler) continue;
                             break;
                         case CustomRoles.Soulhandler:
                             if (player.GetCustomRole() is CustomRoles.Nurse or CustomRoles.Parademic or CustomRoles.Investigator) continue;

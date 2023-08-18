@@ -22,7 +22,7 @@ namespace TownOfHost
                     PlayerControl pc = Utils.GetPlayerById(pva.TargetPlayerId);
                     if (pc == null) continue;
                     //死んでいないディクテーターが投票済み
-                    if (pc.Is(CustomRoles.Dictator) && pva.DidVote && pc.PlayerId != pva.VotedFor && pva.VotedFor < 253 && !pc.Data.IsDead && !IsPhantom(pva.VotedFor) && !IsWraith(pva.VotedFor) && !IsUnderage(pva.VotedFor))
+                    if (pc.Is(CustomRoles.Dictator) && pva.DidVote && pc.PlayerId != pva.VotedFor && pva.VotedFor < 253 && !pc.Data.IsDead && !IsPhantom(pva.VotedFor) && !IsWraith(pva.VotedFor) && !IsUnderage(pva.VotedFor) && !IsGlitchTOHE(pva.VotedFor))
                     {
                         var voteTarget = Utils.GetPlayerById(pva.VotedFor);
                         Main.DictatesRemaining[pc.PlayerId]--;
@@ -136,7 +136,7 @@ namespace TownOfHost
                             }
                         }
                     }
-                    if (voter.GetCustomRole() is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.Parademic or CustomRoles.MadMedic or CustomRoles.Medic)
+                    if (voter.GetCustomRole() is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.Parademic or CustomRoles.MadMedic or CustomRoles.Medic or CustomRoles.Unstoppable)
                     {
                         if (Main.CurrentTarget.ContainsKey(ps.TargetPlayerId))
                             if (Main.CurrentTarget[ps.TargetPlayerId] == 255 && ps.VotedFor != ps.TargetPlayerId && ps.VotedFor != 253 && ps.VotedFor != 254 && ps.VotedFor != 255 && !Main.HasTarget[ps.TargetPlayerId])
@@ -445,6 +445,11 @@ namespace TownOfHost
             var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
             return player != null && player.Is(CustomRoles.Underage);
         }
+        public static bool IsGlitchTOHE(byte id)
+        {
+            var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
+            return player != null && player.Is(CustomRoles.GlitchTOHE);
+        }
         public static bool IsMayor(byte id)
         {
             var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
@@ -489,6 +494,7 @@ namespace TownOfHost
                     if (CheckForEndVotingPatch.IsMayor(ps.TargetPlayerId)) VoteNum += Options.MayorAdditionalVote.GetInt();                    if (CheckForEndVotingPatch.IsMadMayor(ps.TargetPlayerId)) VoteNum += Options.MadMayorAdditionalVote.GetInt();
                     if (CheckForEndVotingPatch.IsWraith(ps.TargetPlayerId)) VoteNum += -1;
                     if (CheckForEndVotingPatch.IsUnderage(ps.TargetPlayerId)) VoteNum += -1;
+                    if (CheckForEndVotingPatch.IsGlitchTOHE(ps.TargetPlayerId)) VoteNum += -1;
                     if (CheckForEndVotingPatch.IsEvilMayor(ps.TargetPlayerId)) VoteNum += Main.MayorUsedButtonCount[ps.TargetPlayerId];
                     if (CheckForEndVotingPatch.IsPhantom(ps.VotedFor)) VoteNum = -1;
                     if (CheckForEndVotingPatch.IsPhantom(ps.TargetPlayerId)) VoteNum = -1;
@@ -694,7 +700,7 @@ namespace TownOfHost
                         {
                             case RoleType.Crewmate:
                                 if (!Options.CkshowEvil.GetBool()) break;
-                                if (role is CustomRoles.Sheriff or CustomRoles.Deputy or CustomRoles.Veteran or CustomRoles.Bodyguard or CustomRoles.Crusader or CustomRoles.Child or CustomRoles.Bastion or CustomRoles.Demolitionist or CustomRoles.NiceGuesser) badPlayers.Add(pc);
+                                if (role is CustomRoles.Sheriff or CustomRoles.ImitatorSheriff or CustomRoles.Deputy or CustomRoles.Veteran or CustomRoles.Bodyguard or CustomRoles.Crusader or CustomRoles.Child or CustomRoles.Bastion or CustomRoles.Demolitionist or CustomRoles.NiceGuesser) badPlayers.Add(pc);
                                 break;
                             case RoleType.Impostor:
                                 badPlayers.Add(pc);
@@ -703,7 +709,7 @@ namespace TownOfHost
                             case RoleType.Neutral:
                                 if (role.IsNeutralKilling()) badPlayers.Add(pc);
                                 if (Options.NBshowEvil.GetBool())
-                                    if (role is CustomRoles.Opportunist or CustomRoles.Undecided or CustomRoles.Survivor or CustomRoles.GuardianAngelTOU or CustomRoles.Amnesiac or CustomRoles.SchrodingerCat) badPlayers.Add(pc);
+                                    if (role is CustomRoles.Opportunist or CustomRoles.Undecided or CustomRoles.Survivor or CustomRoles.GuardianAngelTOU or CustomRoles.Amnesiac or CustomRoles.Imitator or CustomRoles.SchrodingerCat) badPlayers.Add(pc);
                                 if (Options.NEshowEvil.GetBool())
                                     if (role is CustomRoles.Jester or CustomRoles.Troll or CustomRoles.Terrorist or CustomRoles.Executioner or CustomRoles.Swapper or CustomRoles.Hacker or CustomRoles.Vulture) badPlayers.Add(pc);
                                 break;
@@ -927,14 +933,6 @@ namespace TownOfHost
                         case CustomRoles.Arsonist:
                             if (seer.IsDousedPlayer(target)) //seerがtargetに既にオイルを塗っている(完了)
                                 pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Arsonist), "▲");
-                            break;
-                        case CustomRoles.Spy:
-                            if (seer.IsDousedPlayer(target) && Options.CanSeeDouses.GetBool()) //seerがtargetに既にオイルを塗っている(完了)
-                                pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Arsonist), "▲");
-                            if (seer.IsInfectedPlayer(target) && Options.CanSeeInfects.GetBool()) //seerがtargetに既にオイルを塗っている(完了)
-                                pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Pestilence), "▲");
-                            if (seer.IsHexedPlayer(target) && Options.CanSeeHexes.GetBool()) //seerがtargetに既にオイルを塗っている(完了)
-                                pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.HexMaster), "†");
                             break;
                         case CustomRoles.HexMaster:
                             if (seer.IsHexedPlayer(target)) //seerがtargetに既にオイルを塗っている(完了)

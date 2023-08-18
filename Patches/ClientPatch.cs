@@ -11,7 +11,7 @@ namespace TownOfHost
     {
         public static bool Prefix(GameStartManager __instance)
         {
-            bool NameIncludeTOH = DataManager.Player.Customization.Name.ToUpper().Contains("TOR");
+            bool NameIncludeTOH = DataManager.Player.Customization.Name.ToUpper().Contains("TOHR");
             if (ModUpdater.isBroken || ModUpdater.hasUpdate || !NameIncludeTOH)
             {
                 Logger.Info("Game could not be made Public.", "MakePublicPatch (cant make public)");

@@ -51,7 +51,7 @@ namespace TownOfHost
 
                 // Make Public Button
                 bool NameIncludeMod = DataManager.Player.Customization.Name.ToLower().Contains("mod");
-                bool NameIncludeTOR = DataManager.Player.Customization.Name.ToUpper().Contains("TOR");
+                bool NameIncludeTOR = DataManager.Player.Customization.Name.ToUpper().Contains("TOHR");
                 if (ModUpdater.isBroken || ModUpdater.hasUpdate || (NameIncludeMod && !NameIncludeTOR))
                 {
                     __instance.MakePublicButton.color = Palette.DisabledClear;

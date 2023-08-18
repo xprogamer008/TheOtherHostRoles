@@ -84,7 +84,7 @@ namespace TownOfHost
                     EndGameHelper.AssignWinner(exiled.PlayerId);
                     DecidedWinner = true;
                 }
-                if (role is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.Medic or CustomRoles.MadMedic or CustomRoles.Parademic && AmongUsClient.Instance.AmHost)
+                if (role is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.Unstoppable or CustomRoles.Medic or CustomRoles.MadMedic or CustomRoles.Parademic && AmongUsClient.Instance.AmHost)
                 {
                     if (Main.CurrentTarget[exiled.PlayerId] != 255)
                     {
@@ -199,6 +199,16 @@ namespace TownOfHost
                         pc.RpcResetAbilityCooldown();
                     if (pc.Is(CustomRoles.Reverser))
                         pc.RpcResetAbilityCooldown();
+                    if (pc.Is(CustomRoles.Werewolf))
+                    {
+                        Main.IsRampaged = false;
+                        Main.RampageReady = false;
+                        new LateTask(() =>
+                        {
+                            //pc?.MyPhysics?.RpcBootFromVent(__instance.Id);
+                            Main.RampageReady = true;
+                        }, Options.RampageDur.GetFloat(), "Werewolf Rampage Cooldown");
+                    }
                     if (pc.Is(CustomRoles.Warlock))
                     {
                         Main.CursedPlayers[pc.PlayerId] = null;

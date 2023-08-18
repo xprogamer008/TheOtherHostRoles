@@ -10,6 +10,7 @@ using System.Reflection;
 using AmongUs.GameOptions;
 using PowerTools;
 using TownOfHost.PrivateExtensions;
+using System.Runtime.CompilerServices;
 
 namespace TownOfHost
 {
@@ -446,14 +447,17 @@ namespace TownOfHost
                     Bomber.ApplyGameOptions(player, options);
                     break;
                 case CustomRoles.Sheriff:
+                case CustomRoles.ImitatorSheriff:
                 case CustomRoles.Deputy:
                 case CustomRoles.Investigator:
                 case CustomRoles.Examiner:
                 case CustomRoles.Janitor:
                 case CustomRoles.Arsonist:
                 case CustomRoles.Amnesiac:
+                case CustomRoles.Imitator:
                 case CustomRoles.Crusader:
                 case CustomRoles.Escort:
+                case CustomRoles.ImitatorEscort:
                     options.SetVision(player, false);
                     break;
                 case CustomRoles.PlagueBearer:
@@ -608,6 +612,9 @@ namespace TownOfHost
                 case CustomRoles.Hitman:
                     options.SetVision(player, Options.HitmanHasImpVision.GetBool());
                     break;
+                case CustomRoles.ImitatorHitman:
+                    options.SetVision(player, true);
+                    break;
                 case CustomRoles.Werewolf:
                     if (!Main.IsRampaged)
                         options.SetVision(player, false);
@@ -635,6 +642,10 @@ namespace TownOfHost
                     options.SetVision(player, true);
                     options.NumEmergencyMeetings = -1;
                     goto InfinityVent;
+                case CustomRoles.GlitchTOHE:
+                    options.SetVision(player, true);
+                    options.NumEmergencyMeetings = -1;
+                    break;
 
                 InfinityVent:
                     engineerOptions.EngineerCooldown = 0;
@@ -648,8 +659,15 @@ namespace TownOfHost
                     if (Utils.IsActive(SystemTypes.Electrical))
                         options.CrewLightMod *= 5;
                     break;
+                case CustomRoles.GlitchTOHE:
+                    if (Utils.IsActive(SystemTypes.Electrical))
+                        options.CrewLightMod *= 5;
+                    break;
                 case CustomRoles.Flash:
                     Main.AllPlayerSpeed[player.PlayerId] = Options.FlashSpeed.GetFloat();
+                    break;
+                case CustomRoles.Giant:
+                    Main.AllPlayerSpeed[player.PlayerId] = 1f;
                     break;
                 case CustomRoles.Escalation:
                     Main.AllPlayerSpeed[player.PlayerId] = Main.RealOptionsData.AsNormalOptions()!.PlayerSpeedMod;
@@ -703,6 +721,9 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Escort:
                     options.KillCooldown = Options.EscortCooldown.GetFloat() + Options.GlobalRoleBlockDuration.GetFloat();
+                    break;
+                case CustomRoles.ImitatorEscort:
+                    options.KillCooldown = 25 + Options.GlobalRoleBlockDuration.GetFloat();
                     break;
                 case CustomRoles.Crusader:
                     options.KillCooldown = Options.CrusadeCooldown.GetFloat();
@@ -959,6 +980,7 @@ namespace TownOfHost
                 CustomRoles.FireWorks => FireWorks.CanUseKillButton(pc),
                 CustomRoles.Sniper => Sniper.CanUseKillButton(pc),
                 CustomRoles.Sheriff => Sheriff.CanUseKillButton(pc),
+                CustomRoles.ImitatorSheriff => ImitatorSheriff.CanUseKillButton(pc),
                 CustomRoles.Deputy => Deputy.CanUseKillButton(pc),
                 CustomRoles.Investigator => Investigator.CanUseKillButton(pc),
                 CustomRoles.Examiner => Examiner.CanUseKillButton(pc),
@@ -969,7 +991,9 @@ namespace TownOfHost
                 CustomRoles.Dracula => true,
                 CustomRoles.Unseeable => true,
                 CustomRoles.Hitman => true,
+                CustomRoles.ImitatorHitman => true,
                 CustomRoles.Escort => true,
+                CustomRoles.ImitatorEscort => true,
                 CustomRoles.Crusader => true,
                 CustomRoles.Werewolf => true,
                 CustomRoles.TheGlitch => true,
@@ -1080,6 +1104,11 @@ namespace TownOfHost
         {
             if (killer.Is(CustomRoles.BloodKnight) && target.Is(CustomRoles.BKSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.CrewPostor) && target.Is(CustomRoles.CPSchrodingerCat)) return true;
+            if (killer.Is(CustomRoles.Unseeable) && target.Is(CustomRoles.UNSSchrodingerCat)) return true;
+            if (killer.Is(CustomRoles.Wraith) && target.Is(CustomRoles.WRASchrodingerCat)) return true;
+            if (killer.Is(CustomRoles.TemplateRole) && target.Is(CustomRoles.TEMSchrodingerCat)) return true;
+            if (killer.Is(CustomRoles.Hustler) && target.Is(CustomRoles.HUSchrodingerCat)) return true;
+            if (killer.Is(CustomRoles.Magician) && target.Is(CustomRoles.MAGSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Clumsy) && target.Is(CustomRoles.CSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Juggernaut) && target.Is(CustomRoles.JugSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Marksman) && target.Is(CustomRoles.MMSchrodingerCat)) return true;
@@ -1134,6 +1163,9 @@ namespace TownOfHost
                 case CustomRoles.Escort:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.EscortCooldown.GetFloat() + Options.GlobalRoleBlockDuration.GetFloat();
                     break;
+                case CustomRoles.ImitatorEscort:
+                    Main.AllPlayerKillCooldown[player.PlayerId] = 25 + Options.GlobalRoleBlockDuration.GetFloat();
+                    break;
                 case CustomRoles.Undertaker:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.DefaultKillCooldown + Options.HiddenCreateDuration.GetFloat();
                     break;
@@ -1185,6 +1217,9 @@ namespace TownOfHost
                 case CustomRoles.CorruptedSheriff:
                 case CustomRoles.Sheriff:
                     Sheriff.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
+                    break;
+                case CustomRoles.ImitatorSheriff:
+                    ImitatorSheriff.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
                     break;
                 case CustomRoles.Deputy:
                     Deputy.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
@@ -1265,6 +1300,9 @@ namespace TownOfHost
                 case CustomRoles.Escort:
                     KillCooldown = Options.EscortCooldown.GetFloat() + Options.GlobalRoleBlockDuration.GetFloat();
                     break;
+                case CustomRoles.ImitatorEscort:
+                    KillCooldown = 25 + Options.GlobalRoleBlockDuration.GetFloat();
+                    break;
                 case CustomRoles.Undertaker:
                     KillCooldown = Options.DefaultKillCooldown + Options.HiddenCreateDuration.GetFloat();
                     break;
@@ -1319,6 +1357,9 @@ namespace TownOfHost
                 case CustomRoles.CorruptedSheriff:
                 case CustomRoles.Sheriff:
                     Sheriff.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
+                    break;
+                case CustomRoles.ImitatorSheriff:
+                    ImitatorSheriff.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
                     break;
                 case CustomRoles.Deputy:
                     Deputy.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
@@ -1640,7 +1681,9 @@ namespace TownOfHost
             switch (player.GetCustomRole())
             {
                 case CustomRoles.Amnesiac:
+                case CustomRoles.Imitator:
                 case CustomRoles.Sheriff:
+                case CustomRoles.ImitatorSheriff:
                 case CustomRoles.Deputy:
                 case CustomRoles.Investigator:
                 case CustomRoles.Examiner:
@@ -1998,7 +2041,7 @@ namespace TownOfHost
                 CustomRoles.Dracula or
                 CustomRoles.Magician or
                 CustomRoles.Unseeable or
-                CustomRoles.CorruptedSheriff or
+                CustomRoles.ImitatorSheriff or
                 CustomRoles.Investigator or
                 CustomRoles.Parasite or
                 CustomRoles.Wraith or
@@ -2010,7 +2053,9 @@ namespace TownOfHost
                 CustomRoles.Examiner or
                 CustomRoles.Crusader or
                 CustomRoles.Hitman or
+                CustomRoles.ImitatorHitman or
                 CustomRoles.Escort or
+                CustomRoles.ImitatorEscort or
                 CustomRoles.NeutWitch or
                 CustomRoles.Marksman or
                 CustomRoles.TemplateRole or

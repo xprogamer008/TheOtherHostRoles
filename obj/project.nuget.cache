@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Q60LNVDInEDS8aeDFHmzH0axJApYkTqk2P8eeCBUIwzs6C3A1R97ncXTBwBPbgEprGPlRgntjRd7skfgbFkbRw==",
+  "dgSpecHash": "U86bw79OQ1vxHs3d87I7OCyPOci5Ukdp7x3ou41VQYRwC5JAcEug98tIGnSpWXomtXxMFt7wObTO4lsm4q5e2A==",
   "success": true,
-  "projectFilePath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TownOfRoles-1.7\\TownOfHost.csproj",
+  "projectFilePath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TheOtherHostRoles-1.8\\TownOfHost.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yasin\\.nuget\\packages\\gitinfo\\2.0.20\\gitinfo.2.0.20.nupkg.sha512"
   ],

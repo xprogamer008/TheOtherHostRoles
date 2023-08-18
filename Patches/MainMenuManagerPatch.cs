@@ -12,7 +12,7 @@ using UnityEngine;
 using static UnityEngine.UI.Button;
 using Object = UnityEngine.Object;
 
-namespace TownOfRoles;
+namespace TheOtherHostRoles;
 
 [HarmonyPatch]
 public class MainMenuManagerPatch
@@ -92,7 +92,7 @@ public class MainMenuManagerPatch
             if (freeplayButton != null)
             {
                 freeplayButton.GetComponent<PassiveButton>().OnClick = new();
-                freeplayButton.GetComponent<PassiveButton>().OnClick.AddListener((Action)(() => Application.OpenURL("https://GitHub.com/xprogamer008/TownOfRoles")));
+                freeplayButton.GetComponent<PassiveButton>().OnClick.AddListener((Action)(() => Application.OpenURL("https://GitHub.com/xprogamer008/TheOtherHostRoles")));
                 __instance.StartCoroutine(Effects.Lerp(0.01f, new Action<float>((p) => freeplayButton.transform.GetChild(0).GetComponent<TMPro.TMP_Text>().SetText(Translator.GetString("Website")))));
             }
 #endif

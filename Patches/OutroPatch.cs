@@ -79,7 +79,7 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Werewolf) | p.Is(CustomRoles.BKSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Werewolf) | p.Is(CustomRoles.WWSchrodingerCat)) winner.Add(p);
                 }
             }
             if (Main.currentWinner == CustomWinner.AgiTater)
@@ -355,6 +355,11 @@ namespace TownOfHost
                     winner.Add(pc);
                     Main.additionalwinners.Add(AdditionalWinners.Opportunist);
                 }
+                if (pc.Is(CustomRoles.NeutWitch) && !pc.Data.IsDead | Main.AliveAtTheEndOfTheRound.Contains(pc.PlayerId) && Main.currentWinner != CustomWinner.Draw && Main.currentWinner != CustomWinner.Terrorist && Main.currentWinner != CustomWinner.Child && Main.currentWinner != CustomWinner.Jester && Main.currentWinner != CustomWinner.Executioner && Main.currentWinner != CustomWinner.Swapper && Main.currentWinner != CustomWinner.Crewmate)
+                {
+                    winner.Add(pc);
+                    Main.additionalwinners.Add(AdditionalWinners.Witch);
+                }
                 //SchrodingerCat
                 if (Options.CanBeforeSchrodingerCatWinTheCrewmate.GetBool())
                     if (pc.Is(CustomRoles.SchrodingerCat) && Main.currentWinner == CustomWinner.Crewmate)
@@ -385,6 +390,11 @@ namespace TownOfHost
                 {
                     winner.Add(pc);
                     Main.additionalwinners.Add(AdditionalWinners.Undecided);
+                }
+                if (pc.Is(CustomRoles.NeutWitch) && !pc.Data.IsDead | Main.AliveAtTheEndOfTheRound.Contains(pc.PlayerId) && Main.currentWinner != CustomWinner.Draw && Main.currentWinner != CustomWinner.Terrorist && Main.currentWinner != CustomWinner.Child && Main.currentWinner != CustomWinner.Jester && Main.currentWinner != CustomWinner.Executioner && Main.currentWinner != CustomWinner.Swapper && Main.currentWinner != CustomWinner.Crewmate)
+                {
+                    winner.Add(pc);
+                    Main.additionalwinners.Add(AdditionalWinners.Witch);
                 }
                 //SchrodingerCat
                 if (Options.CanBeforeSchrodingerCatWinTheCrewmate.GetBool())
@@ -450,7 +460,16 @@ namespace TownOfHost
                     if (Main.currentWinner == CustomWinner.Swapper && !Options.HitmanCanWinWithExeJes.GetBool()) continue;
                     if (Main.currentWinner == CustomWinner.Lovers && !Options.HitmanCanWinWithExeJes.GetBool()) continue;
                     winner.Add(pc);
-                    Main.additionalwinners.Add(AdditionalWinners.Hitman);
+                    Main.additionalwinners.Add(AdditionalWinners.ImitatorHitman);
+                }
+                if (pc.Is(CustomRoles.ImitatorHitman) && !pc.Data.IsDead | Main.AliveAtTheEndOfTheRound.Contains(pc.PlayerId) && Main.currentWinner != CustomWinner.Draw && Main.currentWinner != CustomWinner.Terrorist && Main.currentWinner != CustomWinner.Child)
+                {
+                    if (Main.currentWinner == CustomWinner.Jester && !true) continue;
+                    if (Main.currentWinner == CustomWinner.Executioner && !true) continue;
+                    if (Main.currentWinner == CustomWinner.Swapper && !true) continue;
+                    if (Main.currentWinner == CustomWinner.Lovers && !true) continue;
+                    winner.Add(pc);
+                    Main.additionalwinners.Add(AdditionalWinners.ImitatorHitman);
                 }
             }
 
@@ -637,8 +656,8 @@ namespace TownOfHost
                     if (killCountFound && killAmt != 0 && key.Value != CustomRoles.VoteStealer)
                         roleSummaryText += $" [Kill Count: {killAmt}]";
                     var HkillCountFound = Main.KillCount.TryGetValue(key.Key, out var HkillAmt);
-                    if (killCountFound && killAmt != 0 && key.Value != CustomRoles.Hustler)
-                        roleSummaryText += $" [Kill Count: {killAmt}]";
+                    if (HkillCountFound && HkillAmt != 0 && key.Value != CustomRoles.Hustler)
+                        roleSummaryText += $" [Kill Count: {HkillAmt}]";
                 }
                 catch
                 {

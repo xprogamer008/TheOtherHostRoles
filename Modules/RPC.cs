@@ -21,6 +21,7 @@ namespace TownOfHost
         SetKillOrSpell,
         SetKillOrSilence,
         SetSheriffShotLimit,
+        SetImitatorShotLimit,
         SetDeputyShotLimit,
         SetTimeThiefKillCount,
         SetDousedPlayer,
@@ -201,6 +202,9 @@ namespace TownOfHost
                     break;
                 case CustomRPC.SetSheriffShotLimit:
                     Sheriff.ReceiveRPC(reader);
+                    break;
+                case CustomRPC.SetImitatorShotLimit:
+                    ImitatorSheriff.ReceiveRPC(reader);
                     break;
                 case CustomRPC.SetDeputyShotLimit:
                     Deputy.ReceiveRPC(reader);
@@ -960,6 +964,9 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Sheriff:
                     Sheriff.Add(targetId);
+                    break;
+                case CustomRoles.ImitatorSheriff:
+                    ImitatorSheriff.Add(targetId);
                     break;
                 case CustomRoles.Deputy:
                     Deputy.Add(targetId);

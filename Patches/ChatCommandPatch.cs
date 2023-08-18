@@ -83,7 +83,11 @@ namespace TownOfHost
                         string subArgs1 = args.Length < 3 ? "" : args[2];
                         Guesser.GuesserShootByID(PlayerControl.LocalPlayer, subArgs, subArgs1);
                         break;
-
+                    case "/r":
+                        canceled = true;
+                        subArgs = text.Remove(0, 2);
+                        PublicGetRolesInfo(subArgs);
+                        break;
                     case "/tag":
                         string type = args.Length < 2 ? "" : args[1];
                         switch (type)
@@ -149,7 +153,7 @@ namespace TownOfHost
                         }
                         break;
 
-                    case "/r":
+                    case "/rn":
                     case "/rename":
                         canceled = true;
                         Main.nickName = args.Length > 1 ? Main.nickName = args[1] : "";
@@ -485,8 +489,18 @@ namespace TownOfHost
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Crewmate);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Crewmate);
                                 break;
+                            case "undertaker":
+                                PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Undertaker);
+                                PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
+                                RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
+                                break;
                             case "dracula":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Dracula);
+                                PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
+                                RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
+                                break;
+                            case "werewolf":
+                                PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Werewolf);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
                                 break;
@@ -565,6 +579,7 @@ namespace TownOfHost
                 { CustomRoles.CorruptedSheriff, "trai" },
                 { CustomRoles.EvilGuesser, "eg"},
                 { CustomRoles.Backstabber, "back" },
+                { CustomRoles.ImitatorImp, "imiimp"},
                 //Madmate役職
                 { (CustomRoles)(-2), $"== {GetString("Madmate")} ==" }, //区切り用
                 { CustomRoles.MadGuardian, "mg" },
@@ -598,10 +613,12 @@ namespace TownOfHost
                 { CustomRoles.Medic, "me" },
                 { CustomRoles.Alturist, "Alt" },
                 { CustomRoles.Doctor, "doc" },
+                { CustomRoles.ImitatorSheriff, "imishe" },
                 { CustomRoles.Crusader, "cru" },
                 { CustomRoles.Escort, "esc" },
                 { CustomRoles.Spy, "spy" },
                 { CustomRoles.Examiner, "Exa" },
+                { CustomRoles.Unstoppable, "uns" },
                 { CustomRoles.Cursed, "cur" },
                 { CustomRoles.Veteran, "vet" },
                 { CustomRoles.Transporter, "tr" },
@@ -615,6 +632,7 @@ namespace TownOfHost
                 { CustomRoles.Snitch, "sn" },
                 { CustomRoles.SpeedBooster, "sb" },
                 { CustomRoles.Trapper, "trp" },
+                { CustomRoles.GlitchTOHE, "glitch" },
                 { CustomRoles.Bastion, "bas"},
                 { CustomRoles.Demolitionist, "demo"},
                 { CustomRoles.Tank, "tk"},
@@ -634,6 +652,7 @@ namespace TownOfHost
                 { CustomRoles.Opportunist, "op" },
                 { CustomRoles.Undecided, "un" },
                 { CustomRoles.Hitman, "hn" },
+                { CustomRoles.ImitatorHitman, "imihit" }, 
                 { CustomRoles.Dracula, "Dra" },
                 { CustomRoles.Hustler, "hus"},
                 { CustomRoles.Unseeable, "Uns" },
@@ -662,6 +681,7 @@ namespace TownOfHost
                 { CustomRoles.TheGlitch, "gl" },
                 { CustomRoles.Werewolf, "ww" },
                 { CustomRoles.Amnesiac, "amne" },
+                { CustomRoles.Imitator, "imi" },
                 { CustomRoles.GuardianAngelTOU, "ga" },
                 { CustomRoles.Lawyer, "law" },
                 { CustomRoles.Hacker, "hac" },
@@ -770,10 +790,11 @@ namespace TownOfHost
                 { CustomRoles.Ninja,"ni"},
                 { CustomRoles.Grenadier,"gr"},
                 { CustomRoles.Miner,"mi"},
-                { CustomRoles.Morphling, "mor" },
+                { CustomRoles.Morphling, "mor"},
+                { CustomRoles.ImitatorImp, "imiimp"},
                 { CustomRoles.YingYanger,"yy"},
                 { CustomRoles.CorruptedSheriff, "csh" },
-                {CustomRoles.EvilGuesser, "eg"},
+                { CustomRoles.EvilGuesser, "eg"},
                 { CustomRoles.Backstabber, "back" },
                 //Madmate役職
                 { (CustomRoles)(-2), $"== {GetString("Madmate")} ==" }, //区切り用
@@ -814,13 +835,16 @@ namespace TownOfHost
                 { CustomRoles.Tracker, "tra" },
                 { CustomRoles.Crusader, "cru" },
                 { CustomRoles.Escort, "esc" },
+                { CustomRoles.ImitatorSheriff, "imishe" },
                 { CustomRoles.Veteran, "vet" },
                 { CustomRoles.Transporter, "tr" },
+                { CustomRoles.Unstoppable, "uns" },
                 { CustomRoles.Revived, "revi" },
                 { CustomRoles.SabotageMaster, "sa" },
                 { CustomRoles.Sheriff, "sh" },
                 { CustomRoles.Deputy, "dep" },
-                {CustomRoles.NiceGuesser, "ng"},
+                { CustomRoles.GlitchTOHE, "glitch" },
+                { CustomRoles.NiceGuesser, "ng"},
                 { CustomRoles.Investigator, "inve" },
                 { CustomRoles.Mystic,"ms"},
                // { CustomRoles.CorruptedSheriff, "csh" },
@@ -853,12 +877,14 @@ namespace TownOfHost
                 { CustomRoles.SchrodingerCat, "sc" },
                 { CustomRoles.Postman, "ptm" },
                 { CustomRoles.Terrorist, "te" },
+                { CustomRoles.ImitatorHitman, "imihit" },
                 { CustomRoles.Marksman, "mar" },
                 { CustomRoles.TemplateRole, "temp" },
                 { CustomRoles.Jackal, "jac" },
                 { CustomRoles.Sidekick, "jacsk" },
                 //{ CustomRoles.Juggernaut, "jn"},
                 { CustomRoles.NeutWitch, "nwi" },
+                { CustomRoles.Imitator, "imi" },
                 { CustomRoles.PlagueBearer, "pb" },
                 { CustomRoles.Pestilence, "pesti" },
                 { CustomRoles.Wraith, "wra" },
@@ -1121,10 +1147,9 @@ namespace TownOfHost
                     }
                     else { Utils.SendMessage("The host has currently disabled access to this command.\nTry again when this command is enabled.", player.PlayerId); }
                     break;
-                case "/roleinfo":
-                    subArgs = args.Length < 3 ? "" : args[1];
+                case "/r":
+                    subArgs = text.Remove(0, 2);
                     PublicGetRolesInfo(subArgs, player.PlayerId);
-                    //PublicGetRolesInfo();
                     break;
                 case "/t":
                 case "/template":

@@ -268,14 +268,18 @@ namespace TownOfHost
                     if (cRole == CustomRoles.Undecided) hasTasks = false;
                     if (cRole == CustomRoles.Survivor && ForRecompute) hasTasks = false;
                     if (cRole == CustomRoles.Sheriff) hasTasks = false;
+                    if (cRole == CustomRoles.ImitatorSheriff) hasTasks = false;
                     if (cRole == CustomRoles.Deputy) hasTasks = false;
                     if (cRole == CustomRoles.Escort) hasTasks = false;
+                    if (cRole == CustomRoles.ImitatorEscort) hasTasks = false;
                     if (cRole == CustomRoles.Crusader) hasTasks = false;
                     if (cRole == CustomRoles.CorruptedSheriff) hasTasks = false;
                     if (cRole == CustomRoles.Investigator) hasTasks = false;
                     if (cRole == CustomRoles.Examiner) hasTasks = false;
                     if (cRole == CustomRoles.Amnesiac && ForRecompute) hasTasks = false;
                     if (cRole == CustomRoles.Amnesiac && ForRecompute) hasTasks = false;
+                    if (cRole == CustomRoles.Imitator && ForRecompute) hasTasks = false;
+                    if (cRole == CustomRoles.Imitator && ForRecompute) hasTasks = false;
                     if (cRole == CustomRoles.Madmate) hasTasks = false;
                     if (cRole == CustomRoles.MadMedic) hasTasks = false;
                     if (cRole == CustomRoles.SKMadmate) hasTasks = false;
@@ -316,6 +320,7 @@ namespace TownOfHost
                     if (cRole == CustomRoles.Hustler) hasTasks = false;
                     if (cRole == CustomRoles.Pirate) hasTasks = false;
                     if (cRole == CustomRoles.Hitman) hasTasks = false;
+                    if (cRole == CustomRoles.ImitatorHitman) hasTasks = false;
 
                     if (cRole == CustomRoles.CrewPostor && ForRecompute) hasTasks = false;
                     if (cRole == CustomRoles.CrewPostor && p.IsDead) hasTasks = false;
@@ -393,6 +398,9 @@ namespace TownOfHost
                 case CustomRoles.Sheriff:
                     ProgressText += Sheriff.GetShotLimit(playerId);
                     break;
+                case CustomRoles.ImitatorSheriff:
+                    ProgressText += ImitatorSheriff.GetShotLimit(playerId);
+                    break;
                 case CustomRoles.Deputy:
                     ProgressText += Deputy.GetShotLimit(playerId);
                     break;
@@ -440,7 +448,7 @@ namespace TownOfHost
                         Main.KillingSpree.Add(playerId);
                     break;
                 default:
-                    if (realRole is CustomRoles.Jackal or CustomRoles.Hitman or CustomRoles.Amnesiac or CustomRoles.Hitman or CustomRoles.AgiTater) break;
+                    if (realRole is CustomRoles.Jackal or CustomRoles.Hitman or CustomRoles.ImitatorHitman or CustomRoles.Amnesiac or CustomRoles.Imitator or CustomRoles.Hitman or CustomRoles.AgiTater) break;
                     checkTasks = true;
                     break;
             }
@@ -507,36 +515,36 @@ namespace TownOfHost
                         if (taskState.CompletedTasksCount != amount) // new task completed //
                         {
                             Main.lastAmountOfTasks[playerId] = taskState.CompletedTasksCount;
-                            var cp = GetPlayerById(playerId);
-                            if (!cp.Data.IsDead)
+                            var mag = GetPlayerById(playerId);
+                            if (!mag.Data.IsDead)
                             {
-                                Vector2 cppos = cp.transform.position;//呪われた人の位置
-                                Dictionary<PlayerControl, float> cpdistance = new();
+                                Vector2 magpos = mag.transform.position;//呪われた人の位置
+                                Dictionary<PlayerControl, float> magdistance = new();
                                 float dis;
                                 foreach (PlayerControl p in PlayerControl.AllPlayerControls)
                                 {
-                                    if (!p.Data.IsDead && p != cp && !p.Is(CustomRoles.CPSchrodingerCat))
+                                    if (!p.Data.IsDead && p != mag && !p.Is(CustomRoles.MAGSchrodingerCat))
                                     {
-                                        dis = Vector2.Distance(cppos, p.transform.position);
-                                        cpdistance.Add(p, dis);
+                                        dis = Vector2.Distance(magpos, p.transform.position);
+                                        magdistance.Add(p, dis);
                                         Logger.Info($"{p?.Data?.PlayerName}の位置{dis}", "Magician");
                                     }
                                 }
-                                var min = cpdistance.OrderBy(c => c.Value).FirstOrDefault();//一番小さい値を取り出す
-                                PlayerControl targetw = min.Key;
+                                var minm = magdistance.OrderBy(c => c.Value).FirstOrDefault();//一番小さい値を取り出す
+                                PlayerControl targetw = minm.Key;
                                 Logger.Info($"{targetw.GetNameWithRole()}was killed", "Magician");
                                 if (targetw.Is(CustomRoles.Pestilence))
-                                    targetw.RpcMurderPlayerV2(cp);
+                                    targetw.RpcMurderPlayerV2(mag);
                                 else if (targetw.Is(CustomRoles.SchrodingerCat))
                                 {
-                                    targetw.RpcSetCustomRole(CustomRoles.CPSchrodingerCat);
-                                    NameColorManager.Instance.RpcAdd(cp.PlayerId, targetw.PlayerId, $"{GetRoleColorCode(CustomRoles.SchrodingerCat)}");
+                                    targetw.RpcSetCustomRole(CustomRoles.MAGSchrodingerCat);
+                                    NameColorManager.Instance.RpcAdd(mag.PlayerId, targetw.PlayerId, $"{GetRoleColorCode(CustomRoles.SchrodingerCat)}");
                                     NotifyRoles();
                                     CustomSyncAllSettings();
                                 }
                                 else
-                                    cp.RpcMurderPlayerV2(targetw);
-                                cp.RpcGuardAndKill(cp);
+                                    mag.RpcMurderPlayerV2(targetw);
+                                mag.RpcGuardAndKill(mag);
                             }
                         }
                     }
@@ -1066,7 +1074,7 @@ namespace TownOfHost
                     {
                         case RoleType.Crewmate:
                             if (!Options.CkshowEvil.GetBool()) break;
-                            if (role is CustomRoles.Sheriff or CustomRoles.Deputy or CustomRoles.Veteran or CustomRoles.Bodyguard or CustomRoles.Crusader or CustomRoles.Child or CustomRoles.Bastion or CustomRoles.Demolitionist or CustomRoles.NiceGuesser) badPlayers.Add(pc);
+                            if (role is CustomRoles.Sheriff or CustomRoles.ImitatorSheriff or CustomRoles.Deputy or CustomRoles.Veteran or CustomRoles.Bodyguard or CustomRoles.Crusader or CustomRoles.Child or CustomRoles.Bastion or CustomRoles.Demolitionist or CustomRoles.NiceGuesser) badPlayers.Add(pc);
                             break;
                         case RoleType.Impostor:
                             badPlayers.Add(pc);
@@ -1075,7 +1083,7 @@ namespace TownOfHost
                         case RoleType.Neutral:
                             if (role.IsNeutralKilling()) badPlayers.Add(pc);
                             if (Options.NBshowEvil.GetBool())
-                                if (role is CustomRoles.Opportunist or CustomRoles.Undecided or CustomRoles.Survivor or CustomRoles.GuardianAngelTOU or CustomRoles.Lawyer or CustomRoles.Amnesiac or CustomRoles.SchrodingerCat) badPlayers.Add(pc);
+                                if (role is CustomRoles.Opportunist or CustomRoles.Undecided or CustomRoles.Survivor or CustomRoles.GuardianAngelTOU or CustomRoles.Lawyer or CustomRoles.Imitator or CustomRoles.Amnesiac or CustomRoles.SchrodingerCat) badPlayers.Add(pc);
                             if (Options.NEshowEvil.GetBool())
                                 if (role is CustomRoles.Jester or CustomRoles.Troll or CustomRoles.Terrorist or CustomRoles.Executioner or CustomRoles.Swapper or CustomRoles.Hacker or CustomRoles.Vulture) badPlayers.Add(pc);
                             break;
@@ -1235,7 +1243,7 @@ namespace TownOfHost
                     case SuffixModes.None:
                         break;
                     case SuffixModes.TOH:
-                        name += "\r\n<color=" + Main.modColor + ">TORv" + Main.PluginVersion + "</color>";
+                        name += "\r\n<color=" + Main.modColor + ">TOHRv" + Main.PluginVersion + "</color>";
                         break;
                     case SuffixModes.Streaming:
                         name += $"\r\n{GetString("SuffixMode.Streaming")}";
@@ -1556,8 +1564,8 @@ namespace TownOfHost
                 }
                 if (seer.Is(CustomRoles.Hustler))
                 {
-                    var voteAmt = Options.VoteAmtOnCompletion.GetInt() == 1 ? "Vote" : "Votes";
-                    SelfSuffix = $"Kills until {Options.VoteAmtOnCompletion.GetInt()} {voteAmt}: {Options.KillsForVote.GetInt() - Main.HustlerKills[seer.PlayerId]}";
+                    var voteAmt1 = Options.VoteAmtOnCompletion2.GetInt() == 1 ? "Vote" : "Votes";
+                    SelfSuffix = $"Kills until {Options.VoteAmtOnCompletion2.GetInt()} {voteAmt1}: {Options.KillsForVote2.GetInt() - Main.HustlerKills[seer.PlayerId]}";
                 }
 
                 //他人用の変数定義
@@ -1702,6 +1710,23 @@ namespace TownOfHost
                 if (seer.Is(CustomRoles.Amnesiac))
                 {
                     var TaskState = Options.AmnesiacArrow.GetBool();
+                    if (TaskState)
+                    {
+                        if (!isMeeting)
+                        {
+                            foreach (var arrow in Main.targetArrows)
+                            {
+                                if (Main.DeadPlayersThisRound.Contains(arrow.Key.Item2))
+                                    if (arrow.Key.Item1 == seer.PlayerId && PlayerState.isDead[arrow.Key.Item2])
+                                        SelfSuffix += arrow.Value;
+                            }
+                        }
+                    }
+                }
+
+                if (seer.Is(CustomRoles.Imitator))
+                {
+                    var TaskState = Options.ImitatorArrow.GetBool();
                     if (TaskState)
                     {
                         if (!isMeeting)
@@ -2430,6 +2455,28 @@ namespace TownOfHost
                     switch (player.GetCustomRole())
                     {
                         case CustomRoles.Parademic:
+                            return true;
+                    }
+                }
+
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public static bool IsProtectedByUnstoppable(PlayerControl player)
+        {
+            if (Main.CurrentTarget.ContainsValue(player.PlayerId))
+            {
+                foreach (var key in Main.CurrentTarget)
+                {
+                    if (key.Value != player.PlayerId) continue;
+                    var protector = Utils.GetPlayerById(key.Key);
+                    switch (player.GetCustomRole())
+                    {
+                        case CustomRoles.Unstoppable:
                             return true;
                     }
                 }

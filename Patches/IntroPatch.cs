@@ -457,7 +457,7 @@ namespace TownOfHost
     {
         public static bool Prefix(IntroCutscene __instance, ref Il2CppSystem.Collections.Generic.List<PlayerControl> yourTeam)
         {
-            if (PlayerControl.LocalPlayer.Is(CustomRoles.Sheriff) || PlayerControl.LocalPlayer.Is(CustomRoles.Deputy) || PlayerControl.LocalPlayer.Is(CustomRoles.Investigator) || PlayerControl.LocalPlayer.Is(CustomRoles.Janitor) || PlayerControl.LocalPlayer.Is(CustomRoles.Escort) || PlayerControl.LocalPlayer.Is(CustomRoles.Crusader))
+            if (PlayerControl.LocalPlayer.Is(CustomRoles.Sheriff) || PlayerControl.LocalPlayer.Is(CustomRoles.ImitatorSheriff) || PlayerControl.LocalPlayer.Is(CustomRoles.Deputy) || PlayerControl.LocalPlayer.Is(CustomRoles.Investigator) || PlayerControl.LocalPlayer.Is(CustomRoles.Janitor) || PlayerControl.LocalPlayer.Is(CustomRoles.Escort) || PlayerControl.LocalPlayer.Is(CustomRoles.ImitatorEscort) | PlayerControl.LocalPlayer.Is(CustomRoles.Crusader))
             {
                 // Begin Crewmate anyways
                 yourTeam = new Il2CppSystem.Collections.Generic.List<PlayerControl>();

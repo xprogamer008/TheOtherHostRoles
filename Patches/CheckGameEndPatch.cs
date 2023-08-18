@@ -787,7 +787,7 @@ namespace TownOfHost
         private static bool CheckAndEndGameForTemplateRole(ShipStatus __instance, PlayerStatistics statistics)
         {
             if (statistics.TeamTemplateRoleAlive >= statistics.TotalAlive - statistics.TeamTemplateRoleAlive &&
-                statistics.TeamImpostorsAlive <= 0 && statistics.TeamJuggernautAlive <= 0 && statistics.TeamPestiAlive <= 0 && statistics.TeamJackalAlive <= 0 && statistics.TeamAgiAlive <= 0 && statistics.TeamWraithAlive <= 0 && statistics.TeamDraculaAlive <= 0 && statistics.TeamUnseeableAlive <= 0
+                statistics.TeamImpostorsAlive <= 0 && statistics.TeamJuggernautAlive <= 0 && statistics.TeamPestiAlive <= 0 && statistics.TeamJackalAlive <= 0 && statistics.TeamAgiAlive <= 0 && statistics.TeamWraithAlive <= 0 && statistics.TeamDraculaAlive <= 0 && statistics.TeamUnseeableAlive <= 0 && statistics.TeamMagicianAlive <= 0
                 && statistics.TeamWolfAlive <= 0 && statistics.TeamCovenAlive <= 0 && statistics.TeamKnightAlive <= 0 && statistics.TeamGlitchAlive <= 0 && statistics.TeamArsoAlive <= 0 && statistics.TeamMarksAlive <= 0 && statistics.TeamHustlerAlive <= 0)
             {
                 if (Options.IsStandardHAS && statistics.TotalAlive - statistics.TeamTemplateRoleAlive != 0) return false;
@@ -813,7 +813,7 @@ namespace TownOfHost
         {
             if (statistics.TeamUnseeableAlive >= statistics.TotalAlive - statistics.TeamUnseeableAlive &&
                 statistics.TeamImpostorsAlive <= 0 && statistics.TeamJuggernautAlive <= 0 && statistics.TeamPestiAlive <= 0 && statistics.TeamJackalAlive <= 0 && statistics.TeamAgiAlive <= 0 && statistics.TeamWraithAlive <= 0 && statistics.TeamDraculaAlive <= 0 && statistics.TeamTemplateRoleAlive <= 0
-                && statistics.TeamWolfAlive <= 0 && statistics.TeamCovenAlive <= 0 && statistics.TeamKnightAlive <= 0 && statistics.TeamGlitchAlive <= 0 && statistics.TeamArsoAlive <= 0 && statistics.TeamMarksAlive <= 0 && statistics.TeamHustlerAlive <= 0)
+                && statistics.TeamWolfAlive <= 0 && statistics.TeamCovenAlive <= 0 && statistics.TeamKnightAlive <= 0 && statistics.TeamGlitchAlive <= 0 && statistics.TeamArsoAlive <= 0 && statistics.TeamMarksAlive <= 0 && statistics.TeamHustlerAlive <= 0 && statistics.TeamMagicianAlive <= 0)
             {
                 if (Options.IsStandardHAS && statistics.TotalAlive - statistics.TeamUnseeableAlive != 0) return false;
                 __instance.enabled = false;
@@ -837,7 +837,7 @@ namespace TownOfHost
         private static bool CheckAndEndGameForDracula(ShipStatus __instance, PlayerStatistics statistics)
         {
             if (statistics.TeamDraculaAlive >= statistics.TotalAlive - statistics.TeamDraculaAlive &&
-                statistics.TeamImpostorsAlive <= 0 && statistics.TeamJuggernautAlive <= 0 && statistics.TeamPestiAlive <= 0 && statistics.TeamJackalAlive <= 0 && statistics.TeamAgiAlive <= 0 && statistics.TeamWraithAlive <= 0 && statistics.TeamTemplateRoleAlive <= 0 && statistics.TeamTemplateRoleAlive <= 0
+                statistics.TeamImpostorsAlive <= 0 && statistics.TeamJuggernautAlive <= 0 && statistics.TeamPestiAlive <= 0 && statistics.TeamJackalAlive <= 0 && statistics.TeamAgiAlive <= 0 && statistics.TeamWraithAlive <= 0 && statistics.TeamTemplateRoleAlive <= 0 && statistics.TeamMagicianAlive <= 0
                 && statistics.TeamWolfAlive <= 0 && statistics.TeamCovenAlive <= 0 && statistics.TeamKnightAlive <= 0 && statistics.TeamGlitchAlive <= 0 && statistics.TeamArsoAlive <= 0 && statistics.TeamMarksAlive <= 0 && statistics.TeamHustlerAlive <= 0)
             {
                 if (Options.IsStandardHAS && statistics.TotalAlive - statistics.TeamDraculaAlive != 0) return false;
@@ -862,7 +862,7 @@ namespace TownOfHost
         private static bool CheckAndEndGameForHustler(ShipStatus __instance, PlayerStatistics statistics)
         {
             if (statistics.TeamHustlerAlive >= statistics.TotalAlive - statistics.TeamHustlerAlive &&
-                statistics.TeamImpostorsAlive <= 0 && statistics.TeamJuggernautAlive <= 0 && statistics.TeamPestiAlive <= 0 && statistics.TeamJackalAlive <= 0 && statistics.TeamAgiAlive <= 0 && statistics.TeamWraithAlive <= 0 && statistics.TeamDraculaAlive <= 0 && statistics.TeamTemplateRoleAlive <= 0 && statistics.TeamTemplateRoleAlive <= 0
+                statistics.TeamImpostorsAlive <= 0 && statistics.TeamJuggernautAlive <= 0 && statistics.TeamPestiAlive <= 0 && statistics.TeamJackalAlive <= 0 && statistics.TeamAgiAlive <= 0 && statistics.TeamWraithAlive <= 0 && statistics.TeamDraculaAlive <= 0 && statistics.TeamTemplateRoleAlive <= 0 && statistics.TeamMagicianAlive <= 0
                 && statistics.TeamWolfAlive <= 0 && statistics.TeamCovenAlive <= 0 && statistics.TeamKnightAlive <= 0 && statistics.TeamGlitchAlive <= 0 && statistics.TeamArsoAlive <= 0 && statistics.TeamMarksAlive <= 0)
             {
                 if (Options.IsStandardHAS && statistics.TotalAlive - statistics.TeamHustlerAlive != 0) return false;
@@ -948,9 +948,9 @@ namespace TownOfHost
             {
                 if (!pc.Data.IsDead) Main.AliveAtTheEndOfTheRound.Add(pc.PlayerId);
                 var LoseImpostorRole = Main.AliveImpostorCount == 0 ? pc.Is(RoleType.Impostor) : pc.Is(CustomRoles.Egoist);
-                if (pc.Is(CustomRoles.Sheriff) || pc.Is(CustomRoles.Deputy) || pc.Is(CustomRoles.Investigator) || pc.Is(CustomRoles.Janitor) || pc.Is(CustomRoles.Escort) || pc.Is(CustomRoles.Crusader) ||
-                    (!(Main.currentWinner == CustomWinner.Arsonist) && pc.Is(CustomRoles.Arsonist)) || (Main.currentWinner == CustomWinner.Lovers && !Main.LoversPlayers.Contains(pc)) || (pc.Is(CustomRoles.Hitman) && pc.Data.IsDead) || (Main.currentWinner != CustomWinner.Vulture && pc.Is(CustomRoles.Vulture)) || (Main.currentWinner != CustomWinner.Painter && pc.Is(CustomRoles.Painter)) || (Main.currentWinner != CustomWinner.Hustler && pc.Is(CustomRoles.Hustler)) || (Main.currentWinner != CustomWinner.Dracula && pc.Is(CustomRoles.Dracula)) || (Main.currentWinner != CustomWinner.Wraith && pc.Is(CustomRoles.Wraith)) || (Main.currentWinner != CustomWinner.Unseeable && pc.Is(CustomRoles.Unseeable)) || (Main.currentWinner != CustomWinner.TemplateRole && pc.Is(CustomRoles.TemplateRole)) || (Main.currentWinner != CustomWinner.Marksman && pc.Is(CustomRoles.Marksman)) || (Main.currentWinner != CustomWinner.Pirate && pc.Is(CustomRoles.Pirate)) ||
-                    (Main.currentWinner != CustomWinner.Jackal && pc.Is(CustomRoles.Jackal)) || (Main.currentWinner != CustomWinner.Swapper && pc.Is(CustomRoles.Swapper)) || (Main.currentWinner != CustomWinner.BloodKnight && pc.Is(CustomRoles.BloodKnight)) || (Main.currentWinner != CustomWinner.Pestilence && pc.Is(CustomRoles.Pestilence)) || (Main.currentWinner != CustomWinner.Coven && pc.GetRoleType() == RoleType.Coven) ||
+                if (pc.Is(CustomRoles.Sheriff) || pc.Is(CustomRoles.ImitatorSheriff) || pc.Is(CustomRoles.Deputy) || pc.Is(CustomRoles.Investigator) || pc.Is(CustomRoles.Janitor) || pc.Is(CustomRoles.Escort) || pc.Is(CustomRoles.ImitatorEscort) || pc.Is(CustomRoles.Crusader) ||
+                    (!(Main.currentWinner == CustomWinner.Arsonist) && pc.Is(CustomRoles.Arsonist)) || (Main.currentWinner == CustomWinner.Lovers && !Main.LoversPlayers.Contains(pc)) || (pc.Is(CustomRoles.ImitatorHitman) && pc.Data.IsDead) || (pc.Is(CustomRoles.Hitman) && pc.Data.IsDead) || (Main.currentWinner != CustomWinner.Vulture && pc.Is(CustomRoles.Vulture)) || (Main.currentWinner != CustomWinner.Painter && pc.Is(CustomRoles.Painter)) || (Main.currentWinner != CustomWinner.Hustler && pc.Is(CustomRoles.Hustler)) || (Main.currentWinner != CustomWinner.Dracula && pc.Is(CustomRoles.Dracula)) || (Main.currentWinner != CustomWinner.Wraith && pc.Is(CustomRoles.Wraith)) || (Main.currentWinner != CustomWinner.Unseeable && pc.Is(CustomRoles.Unseeable)) || (Main.currentWinner != CustomWinner.TemplateRole && pc.Is(CustomRoles.TemplateRole)) || (Main.currentWinner != CustomWinner.Marksman && pc.Is(CustomRoles.Marksman)) || (Main.currentWinner != CustomWinner.Pirate && pc.Is(CustomRoles.Pirate)) ||
+                    (Main.currentWinner != CustomWinner.Jackal && pc.Is(CustomRoles.Jackal)) || (Main.currentWinner != CustomWinner.Swapper && pc.Is(CustomRoles.Swapper)) || (Main.currentWinner != CustomWinner.BloodKnight && pc.Is(CustomRoles.BloodKnight)) || (Main.currentWinner != CustomWinner.Magicain && pc.Is(CustomRoles.Magician)) || (Main.currentWinner != CustomWinner.Pestilence && pc.Is(CustomRoles.Pestilence)) || (Main.currentWinner != CustomWinner.Coven && pc.GetRoleType() == RoleType.Coven) ||
                     LoseImpostorRole || (Main.currentWinner != CustomWinner.Werewolf && pc.Is(CustomRoles.Werewolf)) || (Main.currentWinner != CustomWinner.TheGlitch && pc.Is(CustomRoles.TheGlitch)))
                 {
                     if (Options.AccurateWinner.GetBool())
@@ -1101,7 +1101,8 @@ namespace TownOfHost
                             }
 
                             if (playerInfo.Role.TeamType == RoleTeamTypes.Impostor &&
-                            (playerInfo.GetCustomRole() != CustomRoles.Sheriff || playerInfo.GetCustomRole() != CustomRoles.Deputy || playerInfo.GetCustomRole() != CustomRoles.Arsonist ||
+                            (playerInfo.GetCustomRole() != CustomRoles.Sheriff || playerInfo.GetCustomRole() != CustomRoles.ImitatorSheriff ||
+                            playerInfo.GetCustomRole() != CustomRoles.Deputy || playerInfo.GetCustomRole() != CustomRoles.Arsonist ||
                             playerInfo.GetCustomRole() != CustomRoles.PlagueBearer || playerInfo.GetCustomRole() != CustomRoles.TheGlitch ||
                             playerInfo.GetCustomRole() != CustomRoles.Jackal || playerInfo.GetCustomRole() != CustomRoles.Pestilence ||
                             playerInfo.GetCustomRole() != CustomRoles.Juggernaut || playerInfo.GetCustomRole() != CustomRoles.Werewolf ||
@@ -1109,6 +1110,7 @@ namespace TownOfHost
                             || playerInfo.GetCustomRole() != CustomRoles.BloodKnight || playerInfo.GetCustomRole() != CustomRoles.Sidekick
                             || playerInfo.GetCustomRole() != CustomRoles.Marksman || playerInfo.GetCustomRole() != CustomRoles.Escort
                             || playerInfo.GetCustomRole() != CustomRoles.Crusader || playerInfo.GetCustomRole() != CustomRoles.Hitman
+                            || playerInfo.GetCustomRole() != CustomRoles.ImitatorHitman || playerInfo.GetCustomRole() != CustomRoles.ImitatorEscort
                             || playerInfo.GetCustomRole() != CustomRoles.AgiTater || playerInfo.GetCustomRole() != CustomRoles.Dracula
                             || playerInfo.GetCustomRole() != CustomRoles.Magician || playerInfo.GetCustomRole() != CustomRoles.Unseeable 
                             || playerInfo.GetCustomRole() != CustomRoles.TemplateRole || playerInfo.GetCustomRole() != CustomRoles.Hustler
@@ -1159,6 +1161,7 @@ namespace TownOfHost
                 TeamArsoAlive = arsonists;
                 TeamMarksAlive = marksman;
                 TeamTemplateRoleAlive = numTemplateRoleAlive;
+                TeamMagicianAlive = numMagicianAlive;
                 TeamWraithAlive = numWraithAlive;
                 TeamUnseeableAlive = numUnseeableAlive;
                 TeamDraculaAlive = numDraculaAlive;

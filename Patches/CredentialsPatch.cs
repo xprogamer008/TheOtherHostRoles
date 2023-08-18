@@ -50,17 +50,12 @@ namespace TownOfHost
             private static TMPro.TextMeshPro ErrorText;
             static void Postfix(VersionShower __instance)
             {
-                Main.credentialsText = $"\r\n<color={Main.modColor}>Town Of Roles</color>\r\n<color={Main.modColor}>v{Main.PluginVersion}";
-                Main.versionText = $"\r\nTown Of Roles v{Main.PluginVersion}";
+                Main.credentialsText = $"\r\n<color={Main.modColor}>The Other Host Roles</color> <color={Main.modColor}>v{Main.PluginVersion}";
+                Main.versionText = $"\r\nThe Other Host Roles v{Main.PluginVersion}";
                 if (Main.NewYears)
                 {
                     Main.credentialsText += "\r\nHAPPY NEW YEAR!";
                     Main.versionText += "\r\nHAPPY NEW YEAR!";
-                }
-                if (ThisAssembly.Git.Branch != "main")
-                {
-                    Main.credentialsText += $"\r\n<color={Main.modColor}>{ThisAssembly.Git.Branch}({ThisAssembly.Git.Commit})</color>";
-                    Main.versionText += $"\r\n{ThisAssembly.Git.Branch}({ThisAssembly.Git.Commit})";
                 }
                 var credentials = UnityEngine.Object.Instantiate<TMPro.TextMeshPro>(__instance.text);
                 credentials.text = Main.credentialsText;
