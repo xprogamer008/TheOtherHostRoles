@@ -31,7 +31,7 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     //if (p.GetCustomSubRole() == CustomRoles.LoversRecode) continue;
-                    bool canWin = p.Is(RoleType.Crewmate);
+                    bool canWin = p.Is(RoleType.Crewmate) || p.Is(CustomRoles.Communist);
                     if (canWin) winner.Add(p);
                 }
             }
@@ -43,7 +43,7 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     //if (p.GetCustomSubRole() == CustomRoles.LoversRecode) continue;
-                    bool canWin = p.Is(RoleType.Impostor) || p.Is(RoleType.Madmate) || p.Is(CustomRoles.CrewPostor) || p.Is(CustomRoles.CPSchrodingerCat) || p.Is(CustomRoles.CorruptedSheriff);
+                    bool canWin = p.Is(RoleType.Impostor) || p.Is(RoleType.Madmate) || p.Is(CustomRoles.CrewPostor) || p.Is(CustomRoles.CPSchrodingerCat) || p.Is(CustomRoles.CorruptedSheriff) || p.Is(CustomRoles.Communist);
                     if (canWin) winner.Add(p);
                     if (p.Data.IsDead | PlayerState.isDead[p.PlayerId]) deathAmount++;
                 }
@@ -79,7 +79,7 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Werewolf) | p.Is(CustomRoles.WWSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Werewolf) | p.Is(CustomRoles.BKSchrodingerCat)) winner.Add(p);
                 }
             }
             if (Main.currentWinner == CustomWinner.AgiTater)
@@ -96,22 +96,6 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     if (p.Is(CustomRoles.Marksman) | p.Is(CustomRoles.MMSchrodingerCat)) winner.Add(p);
-                }
-            }
-            if (Main.currentWinner == CustomWinner.TemplateRole)
-            {
-                winner.Clear();
-                foreach (var p in PlayerControl.AllPlayerControls)
-                {
-                    if (p.Is(CustomRoles.TemplateRole)) winner.Add(p);
-                }
-            }
-            if (Main.currentWinner == CustomWinner.Hustler)
-            {
-                winner.Clear();
-                foreach (var p in PlayerControl.AllPlayerControls)
-                {
-                    if (p.Is(CustomRoles.Hustler)) winner.Add(p);
                 }
             }
             if (Main.currentWinner == CustomWinner.Phantom)
@@ -151,7 +135,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Dracula) | p.Is(CustomRoles.DRSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Dracula)/* | p.Is(CustomRoles.SKSchrodingerCat)*/) winner.Add(p);
+                    if (p.Is(CustomRoles.Dracula)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Dracula)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Wraith)
@@ -159,17 +145,33 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Wraith)/* | p.Is(CustomRoles.WSchrodingerCat)*/) winner.Add(p);
+                    if (p.Is(CustomRoles.Wraith) | p.Is(CustomRoles.WRASchrodingerCat)) winner.Add(p);
                     if (p.Is(CustomRoles.Wraith)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
                     if (!p.Is(CustomRoles.Wraith)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
-            if (Main.currentWinner == CustomWinner.Magicain)
+            if (Main.currentWinner == CustomWinner.TemplateRole)
             {
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Magician)) winner.Add(p);
+                    if (p.Is(CustomRoles.TemplateRole) | p.Is(CustomRoles.TEMSchrodingerCat)) winner.Add(p);
+                }
+            }
+            if (Main.currentWinner == CustomWinner.Occultist)
+            {
+                winner.Clear();
+                foreach (var p in PlayerControl.AllPlayerControls)
+                {
+                    if (p.Is(CustomRoles.Occultist) | p.Is(CustomRoles.OCCSchrodingerCat)) winner.Add(p);
+                }
+            }
+            if (Main.currentWinner == CustomWinner.Magician)
+            {
+                winner.Clear();
+                foreach (var p in PlayerControl.AllPlayerControls)
+                {
+                    if (p.Is(CustomRoles.Magician) | p.Is(CustomRoles.MAGSchrodingerCat)) winner.Add(p);
                 }
             }
             if (Main.currentWinner == CustomWinner.Unseeable)
@@ -177,7 +179,7 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Unseeable));
+                    if (p.Is(CustomRoles.Unseeable) | p.Is(CustomRoles.UNSchrodingerCat)) winner.Add(p);
                 }
             }
             if (Main.currentWinner == CustomWinner.BloodKnight)
@@ -460,16 +462,7 @@ namespace TownOfHost
                     if (Main.currentWinner == CustomWinner.Swapper && !Options.HitmanCanWinWithExeJes.GetBool()) continue;
                     if (Main.currentWinner == CustomWinner.Lovers && !Options.HitmanCanWinWithExeJes.GetBool()) continue;
                     winner.Add(pc);
-                    Main.additionalwinners.Add(AdditionalWinners.ImitatorHitman);
-                }
-                if (pc.Is(CustomRoles.ImitatorHitman) && !pc.Data.IsDead | Main.AliveAtTheEndOfTheRound.Contains(pc.PlayerId) && Main.currentWinner != CustomWinner.Draw && Main.currentWinner != CustomWinner.Terrorist && Main.currentWinner != CustomWinner.Child)
-                {
-                    if (Main.currentWinner == CustomWinner.Jester && !true) continue;
-                    if (Main.currentWinner == CustomWinner.Executioner && !true) continue;
-                    if (Main.currentWinner == CustomWinner.Swapper && !true) continue;
-                    if (Main.currentWinner == CustomWinner.Lovers && !true) continue;
-                    winner.Add(pc);
-                    Main.additionalwinners.Add(AdditionalWinners.ImitatorHitman);
+                    Main.additionalwinners.Add(AdditionalWinners.Hitman);
                 }
             }
 
@@ -655,9 +648,6 @@ namespace TownOfHost
                     var killCountFound = Main.KillCount.TryGetValue(key.Key, out var killAmt);
                     if (killCountFound && killAmt != 0 && key.Value != CustomRoles.VoteStealer)
                         roleSummaryText += $" [Kill Count: {killAmt}]";
-                    var HkillCountFound = Main.KillCount.TryGetValue(key.Key, out var HkillAmt);
-                    if (HkillCountFound && HkillAmt != 0 && key.Value != CustomRoles.Hustler)
-                        roleSummaryText += $" [Kill Count: {HkillAmt}]";
                 }
                 catch
                 {

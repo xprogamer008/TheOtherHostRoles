@@ -22,7 +22,7 @@ namespace TownOfHost
                     PlayerControl pc = Utils.GetPlayerById(pva.TargetPlayerId);
                     if (pc == null) continue;
                     //死んでいないディクテーターが投票済み
-                    if (pc.Is(CustomRoles.Dictator) && pva.DidVote && pc.PlayerId != pva.VotedFor && pva.VotedFor < 253 && !pc.Data.IsDead && !IsPhantom(pva.VotedFor) && !IsWraith(pva.VotedFor) && !IsUnderage(pva.VotedFor) && !IsGlitchTOHE(pva.VotedFor))
+                    if (pc.Is(CustomRoles.Dictator) && pva.DidVote && pc.PlayerId != pva.VotedFor && pva.VotedFor < 253 && !pc.Data.IsDead && !IsPhantom(pva.VotedFor) && !IsUnderage(pva.VotedFor) && !IsWraith(pva.VotedFor) && !IsGlitchTOHE(pva.VotedFor))
                     {
                         var voteTarget = Utils.GetPlayerById(pva.VotedFor);
                         Main.DictatesRemaining[pc.PlayerId]--;
@@ -308,6 +308,87 @@ namespace TownOfHost
                         }
                     }
                 }
+                if (!Utils.GetPlayerById(exileId).Is(CustomRoles.Occultist))
+                {
+                    foreach (var p in Main.SpelledOccPlayer)
+                    {
+                        if (!Main.AfterMeetingDeathPlayers.ContainsKey(p.PlayerId))
+                            Main.AfterMeetingDeathPlayers.Add(p.PlayerId, PlayerState.DeathReason.Spell);
+                        if (Main.ExecutionerTarget.ContainsValue(p.PlayerId) && exileId != p.PlayerId && Main.ExeCanChangeRoles)
+                        {
+                            byte Executioner = 0x73;
+                            Main.ExecutionerTarget.Do(x =>
+                            {
+                                if (x.Value == p.PlayerId)
+                                    Executioner = x.Key;
+                            });
+                            Utils.GetPlayerById(Executioner).RpcSetCustomRole(Options.CRoleExecutionerChangeRoles[Options.ExecutionerChangeRolesAfterTargetKilled.GetSelection()]);
+                            Main.ExecutionerTarget.Remove(Executioner);
+                            RPC.RemoveExecutionerKey(Executioner);
+                            Utils.NotifyRoles();
+                        }
+                        if (Main.GuardianAngelTarget.ContainsValue(p.PlayerId) && exileId != p.PlayerId)
+                        {
+                            byte GA = 0x73;
+                            Main.GuardianAngelTarget.Do(x =>
+                            {
+                                if (x.Value == p.PlayerId)
+                                    GA = x.Key;
+                            });
+                            // Utils.GetPlayerById(GA).RpcSetCustomRole(Options.CRoleGuardianAngelChangeRoles[Options.WhenGaTargetDies.GetSelection()]);
+                            if (Utils.GetPlayerById(GA).IsModClient())
+                                Utils.GetPlayerById(GA).RpcSetCustomRole(Options.CRoleGuardianAngelChangeRoles[Options.WhenGaTargetDies.GetSelection()]); //対象がキルされたらオプションで設定した役職にする
+                            else
+                            {
+                                if (Options.CRoleGuardianAngelChangeRoles[Options.WhenGaTargetDies.GetSelection()] != CustomRoles.Amnesiac)
+                                    Utils.GetPlayerById(GA).RpcSetCustomRole(Options.CRoleGuardianAngelChangeRoles[Options.WhenGaTargetDies.GetSelection()]); //対象がキルされたらオプションで設定した役職にする
+                                else
+                                    Utils.GetPlayerById(GA).RpcSetCustomRole(Options.CRoleGuardianAngelChangeRoles[2]);
+                            }
+                            Main.GuardianAngelTarget.Remove(GA);
+                            RPC.RemoveGAKey(GA);
+                            Utils.NotifyRoles();
+                        }
+                        if (Main.LawyerTarget.ContainsValue(p.PlayerId) && exileId != p.PlayerId)
+                        {
+                            byte GA = 0x73;
+                            Main.LawyerTarget.Do(x =>
+                            {
+                                if (x.Value == p.PlayerId)
+                                    GA = x.Key;
+                            });
+                            // Utils.GetPlayerById(GA).RpcSetCustomRole(Options.CRoleGuardianAngelChangeRoles[Options.WhenGaTargetDies.GetSelection()]);
+                            if (Utils.GetPlayerById(GA).IsModClient())
+                                Utils.GetPlayerById(GA).RpcSetCustomRole(Options.CRoleLawyerChangeRoles[Options.WhenClientDies.GetSelection()]); //対象がキルされたらオプションで設定した役職にする
+                            else
+                            {
+                                if (Options.CRoleLawyerChangeRoles[Options.WhenClientDies.GetSelection()] != CustomRoles.Amnesiac)
+                                    Utils.GetPlayerById(GA).RpcSetCustomRole(Options.CRoleLawyerChangeRoles[Options.WhenClientDies.GetSelection()]); //対象がキルされたらオプションで設定した役職にする
+                                else
+                                    Utils.GetPlayerById(GA).RpcSetCustomRole(Options.CRoleLawyerChangeRoles[2]);
+                            }
+                            Main.LawyerTarget.Remove(GA);
+                            RPC.RemoveLawyerKey(GA);
+                            Utils.NotifyRoles();
+                        }
+                        if (CustomRoles.LoversRecode.IsEnable() && Main.isLoversDead == false && Main.LoversPlayers.Find(lp => lp.PlayerId == p.PlayerId) != null)
+                        {
+                            PlayerControl lover = Main.LoversPlayers.ToArray().Where(pc => pc.PlayerId == p.PlayerId).FirstOrDefault();
+                            Main.LoversPlayers.Remove(lover);
+                            Main.isLoversDead = true;
+                            if (Options.LoversDieTogether.GetBool())
+                            {
+                                foreach (var lp in Main.LoversPlayers)
+                                {
+                                    if (!lp.Is(CustomRoles.Pestilence))
+                                        if (!Main.AfterMeetingDeathPlayers.ContainsKey(lp.PlayerId))
+                                            Main.AfterMeetingDeathPlayers.Add(lp.PlayerId, PlayerState.DeathReason.LoversSuicide);
+                                    Main.LoversPlayers.Remove(lp);
+                                }
+                            }
+                        }
+                    }
+                }
                 if (!Utils.GetPlayerById(exileId).Is(CustomRoles.Postman))
                 {
                     Postman.PostmanWins = Postman.DoneDelivering;
@@ -328,7 +409,6 @@ namespace TownOfHost
                         var coloredRole = Helpers.ColorString(Utils.GetRoleColor(exiledPlayer.GetCustomRole()), $"{role}");
                         var name = "";
                         int impnum = 0;
-                        int crewnum = 0;
                         int covennum = 0;
                         int neutralnum = 0;
                         foreach (var pc in PlayerControl.AllPlayerControls)
@@ -337,8 +417,6 @@ namespace TownOfHost
                             var pc_role = pc.GetCustomRole();
                             if (pc_role.IsImpostor() && pc != exiledPlayer.Object)
                                 impnum++;
-                            else if (pc_role.IsCrewmate() && pc != exiledPlayer.Object)
-                                crewnum++;
                             else if (pc_role.IsNeutralKilling() && pc != exiledPlayer.Object)
                                 neutralnum++;
                             else if (pc_role.IsCoven() && pc != exiledPlayer.Object)
@@ -352,16 +430,13 @@ namespace TownOfHost
                         if (crole != CustomRoles.Jester && !Main.ExecutionerTarget.ContainsValue(exileId))
                         {
                             name += "\n";
-                            string icomma = covennum + neutralnum + crewnum != 0 ? ", " : "";
-                            string ncomma = covennum + impnum + crewnum != 0 ? ", " : "";
-                            string ccomma = impnum + neutralnum + crewnum != 0 ? ", " : "";
-                            string crewcomma = impnum + neutralnum + covennum != 0 ? ", " : "";
+                            string icomma = covennum + neutralnum != 0 ? ", " : "";
+                            string ncomma = covennum + impnum != 0 ? ", " : "";
+                            string ccomma = impnum + neutralnum != 0 ? ", " : "";
                             //if (impnum != 0)
                             name += $"{impnum} Impostor(s) remain{icomma}";
                             if (neutralnum != 0)
                                 name += $"{neutralnum} Neutral(s) remain{ncomma}";
-                            if (crewnum != 0)
-                                name += $"{crewnum} Crewmates(s) remain{crewcomma}";
                             if (CustomRoles.Coven.IsEnable())
                                 name += $"{covennum} Coven remain{ccomma}";
                             name += ".<size=0>";
@@ -381,6 +456,7 @@ namespace TownOfHost
                     Main.SurvivorStuff[pc.PlayerId] = stuff;
                 }
                 Main.SpelledPlayer.Clear();
+                Main.SpelledOccPlayer.Clear();
                 Main.SilencedPlayer.Clear();
                 Main.firstKill.Clear();
                 Main.VettedThisRound = false;
@@ -435,15 +511,15 @@ namespace TownOfHost
             var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
             return player != null && player.Is(CustomRoles.Phantom);
         }
-        public static bool IsWraith(byte id)
-        {
-            var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
-            return player != null && player.Is(CustomRoles.Wraith);
-        }
         public static bool IsUnderage(byte id)
         {
             var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
             return player != null && player.Is(CustomRoles.Underage);
+        }
+        public static bool IsWraith(byte id)
+        {
+            var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
+            return player != null && player.Is(CustomRoles.Wraith);
         }
         public static bool IsGlitchTOHE(byte id)
         {
@@ -464,11 +540,6 @@ namespace TownOfHost
         {
             var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
             return player != null && player.Is(CustomRoles.VoteStealer);
-        }
-        public static bool IsNeutralMayor(byte id)
-        {
-            var player = PlayerControl.AllPlayerControls.ToArray().Where(pc => pc.PlayerId == id).FirstOrDefault();
-            return player != null && player.Is(CustomRoles.Hustler);
         }
         public static bool IsTieBreaker(byte id)
         {
@@ -491,13 +562,13 @@ namespace TownOfHost
                 if (ps.VotedFor is not ((byte)252) and not byte.MaxValue and not ((byte)254))
                 {
                     int VoteNum = 1;
-                    if (CheckForEndVotingPatch.IsMayor(ps.TargetPlayerId)) VoteNum += Options.MayorAdditionalVote.GetInt();                    if (CheckForEndVotingPatch.IsMadMayor(ps.TargetPlayerId)) VoteNum += Options.MadMayorAdditionalVote.GetInt();
-                    if (CheckForEndVotingPatch.IsWraith(ps.TargetPlayerId)) VoteNum += -1;
+                    if (CheckForEndVotingPatch.IsMayor(ps.TargetPlayerId)) VoteNum += Options.MayorAdditionalVote.GetInt();
                     if (CheckForEndVotingPatch.IsUnderage(ps.TargetPlayerId)) VoteNum += -1;
+                    if (CheckForEndVotingPatch.IsWraith(ps.TargetPlayerId)) VoteNum += -1;
                     if (CheckForEndVotingPatch.IsGlitchTOHE(ps.TargetPlayerId)) VoteNum += -1;
+                    if (CheckForEndVotingPatch.IsMadMayor(ps.TargetPlayerId)) VoteNum += Options.MadMayorAdditionalVote.GetInt();
                     if (CheckForEndVotingPatch.IsEvilMayor(ps.TargetPlayerId)) VoteNum += Main.MayorUsedButtonCount[ps.TargetPlayerId];
                     if (CheckForEndVotingPatch.IsPhantom(ps.VotedFor)) VoteNum = -1;
-                    if (CheckForEndVotingPatch.IsPhantom(ps.TargetPlayerId)) VoteNum = -1;
                     if (CheckForEndVotingPatch.IsPhantom(ps.TargetPlayerId) && !CheckForEndVotingPatch.IsPhantom(ps.VotedFor)) VoteNum = -1;
                     if (Main.IsShapeShifted.Contains(ps.TargetPlayerId))
                     {
@@ -700,7 +771,7 @@ namespace TownOfHost
                         {
                             case RoleType.Crewmate:
                                 if (!Options.CkshowEvil.GetBool()) break;
-                                if (role is CustomRoles.Sheriff or CustomRoles.ImitatorSheriff or CustomRoles.Deputy or CustomRoles.Veteran or CustomRoles.Bodyguard or CustomRoles.Crusader or CustomRoles.Child or CustomRoles.Bastion or CustomRoles.Demolitionist or CustomRoles.NiceGuesser) badPlayers.Add(pc);
+                                if (role is CustomRoles.Sheriff or CustomRoles.Deputy or CustomRoles.Veteran or CustomRoles.Bodyguard or CustomRoles.Crusader or CustomRoles.Child or CustomRoles.Bastion or CustomRoles.Demolitionist or CustomRoles.NiceGuesser) badPlayers.Add(pc);
                                 break;
                             case RoleType.Impostor:
                                 badPlayers.Add(pc);
@@ -709,7 +780,7 @@ namespace TownOfHost
                             case RoleType.Neutral:
                                 if (role.IsNeutralKilling()) badPlayers.Add(pc);
                                 if (Options.NBshowEvil.GetBool())
-                                    if (role is CustomRoles.Opportunist or CustomRoles.Undecided or CustomRoles.Survivor or CustomRoles.GuardianAngelTOU or CustomRoles.Amnesiac or CustomRoles.Imitator or CustomRoles.SchrodingerCat) badPlayers.Add(pc);
+                                    if (role is CustomRoles.Opportunist or CustomRoles.Undecided or CustomRoles.Survivor or CustomRoles.GuardianAngelTOU or CustomRoles.Amnesiac or CustomRoles.SchrodingerCat) badPlayers.Add(pc);
                                 if (Options.NEshowEvil.GetBool())
                                     if (role is CustomRoles.Jester or CustomRoles.Troll or CustomRoles.Terrorist or CustomRoles.Executioner or CustomRoles.Swapper or CustomRoles.Hacker or CustomRoles.Vulture) badPlayers.Add(pc);
                                 break;
@@ -889,6 +960,10 @@ namespace TownOfHost
                     }
                     switch (seer.GetCustomSubRole())
                     {
+                        case CustomRoles.Seer:
+                            if (target.Data.IsDead) //変更対象が死人
+                                pva.NameText.text += $"({Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Seer), target.GetDeathReason())})";
+                            break;
                         case CustomRoles.Soulhandler:
                             if (target.Is(RoleType.Crewmate) && target.Data.IsDead)
                                 pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.TheGlitch), pva.NameText.text);
@@ -933,6 +1008,14 @@ namespace TownOfHost
                         case CustomRoles.Arsonist:
                             if (seer.IsDousedPlayer(target)) //seerがtargetに既にオイルを塗っている(完了)
                                 pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Arsonist), "▲");
+                            break;
+                        case CustomRoles.Spy:
+                            if (seer.IsDousedPlayer(target) && Options.CanSeeDouses.GetBool()) //seerがtargetに既にオイルを塗っている(完了)
+                                pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Arsonist), "▲");
+                            if (seer.IsInfectedPlayer(target) && Options.CanSeeInfects.GetBool()) //seerがtargetに既にオイルを塗っている(完了)
+                                pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Pestilence), "▲");
+                            if (seer.IsHexedPlayer(target) && Options.CanSeeHexes.GetBool()) //seerがtargetに既にオイルを塗っている(完了)
+                                pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.HexMaster), "†");
                             break;
                         case CustomRoles.HexMaster:
                             if (seer.IsHexedPlayer(target)) //seerがtargetに既にオイルを塗っている(完了)
@@ -1123,6 +1206,8 @@ namespace TownOfHost
                     //呪われている場合
                     if (Main.SpelledPlayer.Find(x => x.PlayerId == target.PlayerId) != null)
                         pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Impostor), "†");
+                    if (Main.SpelledOccPlayer.Find(x => x.PlayerId == target.PlayerId) != null)
+                        pva.NameText.text += Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Occultist), "†");
 
                     if (Main.SilencedPlayer.Count != 0)
                     {

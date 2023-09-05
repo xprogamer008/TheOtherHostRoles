@@ -21,7 +21,6 @@ namespace TownOfHost
         SetKillOrSpell,
         SetKillOrSilence,
         SetSheriffShotLimit,
-        SetImitatorShotLimit,
         SetDeputyShotLimit,
         SetTimeThiefKillCount,
         SetDousedPlayer,
@@ -29,6 +28,7 @@ namespace TownOfHost
         RemoveNameColorData,
         ResetNameColorData,
         DoSpell,
+        DoOccSpell,
         DoSilence,
         SniperSync,
         SetLoversPlayers,
@@ -69,7 +69,6 @@ namespace TownOfHost
         RpcSetCursedClean,
         RpcAddKill,
         RpcSetPickpocketProgress,
-        RpcSetHustlerProgress,
         RpcPassBomb,
         SetVetAlertState,
         SetReverserAlertState,
@@ -77,7 +76,6 @@ namespace TownOfHost
         SetTransportState,
         SendPostmanInfo,
         SetEscapistState,
-        SetGodState,
         SetTimeTravelerState,
         SetBomberTargets
     }
@@ -203,9 +201,6 @@ namespace TownOfHost
                 case CustomRPC.SetSheriffShotLimit:
                     Sheriff.ReceiveRPC(reader);
                     break;
-                case CustomRPC.SetImitatorShotLimit:
-                    ImitatorSheriff.ReceiveRPC(reader);
-                    break;
                 case CustomRPC.SetDeputyShotLimit:
                     Deputy.ReceiveRPC(reader);
                     break;
@@ -246,6 +241,9 @@ namespace TownOfHost
                     break;
                 case CustomRPC.DoSpell:
                     Main.SpelledPlayer.Add(Utils.GetPlayerById(reader.ReadByte()));
+                    break;
+                case CustomRPC.DoOccSpell:
+                    Main.SpelledOccPlayer.Add(Utils.GetPlayerById(reader.ReadByte()));
                     break;
                 case CustomRPC.DoSilence:
                     Main.SilencedPlayer.Add(Utils.GetPlayerById(reader.ReadByte()));
@@ -411,10 +409,6 @@ namespace TownOfHost
                 case CustomRPC.RpcSetPickpocketProgress:
                     var killeree = reader.ReadByte();
                     Main.PickpocketKills[killeree] = reader.ReadInt32();
-                    break;
-                case CustomRPC.RpcSetHustlerProgress:
-                    var hustler = reader.ReadByte();
-                    Main.HustlerKills[hustler] = reader.ReadInt32();
                     break;
                 case CustomRPC.RpcPassBomb:
                     var newbomb = reader.ReadByte();
@@ -616,14 +610,17 @@ namespace TownOfHost
                     case CustomWinner.Lovers:
                         LoversWin();
                         break;
-                    case CustomWinner.Marksman:
-                        MarksmanWin();
-                        break;
                     case CustomWinner.TemplateRole:
                         TemplateRoleWin();
                         break;
-                    case CustomWinner.Hustler:
-                        HustlerWin();
+                    case CustomWinner.Occultist:
+                        OccultistWin();
+                        break;
+                    case CustomWinner.Magician:
+                        MagicianWin();
+                        break;
+                    case CustomWinner.Marksman:
+                        MarksmanWin();
                         break;
                     case CustomWinner.Painter:
                         PainterWin();
@@ -651,9 +648,6 @@ namespace TownOfHost
                         break;
                     case CustomWinner.Dracula:
                         DraculaWin();
-                        break;
-                    case CustomWinner.Magicain:
-                        MagicianWin();
                         break;
                     case CustomWinner.Juggernaut:
                         JugWin();
@@ -802,6 +796,21 @@ namespace TownOfHost
             Main.currentWinner = CustomWinner.TheGlitch;
             CustomWinTrigger(0);
         }
+        public static void TemplateRoleWin()
+        {
+            Main.currentWinner = CustomWinner.TemplateRole;
+            CustomWinTrigger(0);
+        }
+        public static void OccultistWin()
+        {
+            Main.currentWinner = CustomWinner.Occultist;
+            CustomWinTrigger(0);
+        }
+        public static void MagicianWin()
+        {
+            Main.currentWinner = CustomWinner.Magician;
+            CustomWinTrigger(0);
+        }
         public static void PainterWin()
         {
             Main.currentWinner = CustomWinner.Painter;
@@ -812,29 +821,9 @@ namespace TownOfHost
             Main.currentWinner = CustomWinner.Marksman;
             CustomWinTrigger(0);
         }
-        public static void WraithWin()
-        {
-            Main.currentWinner = CustomWinner.Wraith;
-            CustomWinTrigger(0);
-        }
-        public static void TemplateRoleWin()
-        {
-            Main.currentWinner = CustomWinner.TemplateRole;
-            CustomWinTrigger(0);
-        }
-        public static void HustlerWin()
-        {
-            Main.currentWinner = CustomWinner.Hustler;
-            CustomWinTrigger(0);
-        }
         public static void DraculaWin()
         {
             Main.currentWinner = CustomWinner.Dracula;
-            CustomWinTrigger(0);
-        }
-        public static void MagicianWin()
-        {
-            Main.currentWinner = CustomWinner.Magicain;
             CustomWinTrigger(0);
         }
         public static void UnseeableWin()
@@ -893,6 +882,11 @@ namespace TownOfHost
         public static void PestiWin()
         {
             Main.currentWinner = CustomWinner.Pestilence;
+            CustomWinTrigger(0);
+        }
+        public static void WraithWin()
+        {
+            Main.currentWinner = CustomWinner.Wraith;
             CustomWinTrigger(0);
         }
         public static void EveryoneDied()
@@ -965,9 +959,6 @@ namespace TownOfHost
                 case CustomRoles.Sheriff:
                     Sheriff.Add(targetId);
                     break;
-                case CustomRoles.ImitatorSheriff:
-                    ImitatorSheriff.Add(targetId);
-                    break;
                 case CustomRoles.Deputy:
                     Deputy.Add(targetId);
                     break;
@@ -1010,6 +1001,12 @@ namespace TownOfHost
         public static void RpcDoSpell(byte player)
         {
             MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.DoSpell, Hazel.SendOption.Reliable, -1);
+            writer.Write(player);
+            AmongUsClient.Instance.FinishRpcImmediately(writer);
+        }
+        public static void RpcDoOccSpell(byte player)
+        {
+            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.DoOccSpell, Hazel.SendOption.Reliable, -1);
             writer.Write(player);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
         }

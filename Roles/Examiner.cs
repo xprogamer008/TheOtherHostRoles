@@ -46,20 +46,14 @@ namespace TownOfHost
         private static void SendRPC(byte playerId)
         {
             MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetSheriffShotLimit, SendOption.Reliable, -1);
-            MessageWriter Iwriter = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetImitatorShotLimit, SendOption.Reliable, -1);
             writer.Write(playerId);
             writer.Write(ShotLimit[playerId]);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
-            Iwriter.Write(playerId);
-            Iwriter.Write(ShotLimit[playerId]);
-            AmongUsClient.Instance.FinishRpcImmediately(Iwriter);
         }
         public static void ReceiveRPC(MessageReader reader)
         {
             byte SheriffId = reader.ReadByte();
             float Limit = reader.ReadSingle();
-            byte ISheriffId = reader.ReadByte();
-            float ILimit = reader.ReadSingle();
         }
         public static void SetKillCooldown(byte id) => Main.AllPlayerKillCooldown[id] = CurrentKillCooldown[id];
         public static bool CanUseKillButton(PlayerControl player)

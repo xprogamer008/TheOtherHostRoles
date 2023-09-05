@@ -84,7 +84,7 @@ namespace TownOfHost
                     EndGameHelper.AssignWinner(exiled.PlayerId);
                     DecidedWinner = true;
                 }
-                if (role is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.Unstoppable or CustomRoles.Medic or CustomRoles.MadMedic or CustomRoles.Parademic && AmongUsClient.Instance.AmHost)
+                if (role is CustomRoles.Oracle or CustomRoles.Bodyguard or CustomRoles.Medic or CustomRoles.MadMedic or CustomRoles.Parademic or CustomRoles.Unstoppable && AmongUsClient.Instance.AmHost)
                 {
                     if (Main.CurrentTarget[exiled.PlayerId] != 255)
                     {
@@ -179,14 +179,11 @@ namespace TownOfHost
                 if (AmongUsClient.Instance.AmHost && Main.IsFixedCooldown)
                     Main.RefixCooldownDelay = Options.DefaultKillCooldown - 3f;
                 Main.SpelledPlayer.RemoveAll(pc => pc == null || pc.Data == null || pc.Data.IsDead || pc.Data.Disconnected);
+                Main.SpelledOccPlayer.RemoveAll(pc => pc == null || pc.Data == null || pc.Data.IsDead || pc.Data.Disconnected);
                 Main.SilencedPlayer.Clear();
                 Main.IsHackMode = false;
                 Main.IsInvis = false;
                 Main.CanGoInvis = false;
-                Main.IsInvisible = false;
-                Main.CanGoInvisible = false;
-                Main.IsInvisible2 = false;
-                Main.CanGoInvisible2 = false;
                 Main.DoingYingYang = true;
                 foreach (var pc in PlayerControl.AllPlayerControls)
                 {
@@ -332,10 +329,6 @@ namespace TownOfHost
                 Main.IsRoundOne = false;
                 Main.IsInvis = false;
                 Main.CanGoInvis = false;
-                Main.IsInvisible = false;
-                Main.CanGoInvisible = false;
-                Main.IsInvisible2 = false;
-                Main.CanGoInvisible2 = false;
                 Main.IsRoundOneGA = false;
                 Main.unvotablePlayers.Clear();
                 Main.unvotablePlayers = new();
@@ -375,21 +368,14 @@ namespace TownOfHost
                 new LateTask(() =>
                 {
                     if (!GameStates.IsMeeting)
-                        Main.CanGoInvis = true;
+                    Main.CanGoInvis = true;
                     Utils.NotifyRoles();
                 },
                 Options.SwooperCooldown.GetFloat(), "Swooper Cooldown (After Meeting)");
                 new LateTask(() =>
                 {
                     if (!GameStates.IsMeeting)
-                        Main.CanGoInvisible2 = true;
-                    Utils.NotifyRoles();
-                },
-                Options.GodInvisCooldown.GetFloat(), "God Invisiblity Cooldown (After Meeting)");
-                new LateTask(() =>
-                {
-                    if (!GameStates.IsMeeting)
-                        Main.CanGoInvisible = true;
+                        Main.CanGoInvis3 = true;
                     Utils.NotifyRoles();
                 },
                 Options.UnseeableCooldown.GetFloat(), "Unseeable Cooldown (After Meeting)");
@@ -419,18 +405,6 @@ namespace TownOfHost
                         Main.ReverserCanAlert = true;
                         MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetReverserAlertState, Hazel.SendOption.Reliable, -1);
                         writer2.Write(Main.ReverserCanAlert);
-                        AmongUsClient.Instance.FinishRpcImmediately(writer2);
-                        Utils.NotifyRoles();
-                    }
-                },
-                Options.ReverserCD.GetFloat(), "Reverser Alert Cooldown (After Meeting)");
-                new LateTask(() =>
-                {
-                    if (!GameStates.IsMeeting)
-                    {
-                        Main.CanTransport = true;
-                        MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetTransportState, Hazel.SendOption.Reliable, -1);
-                        writer2.Write(Main.CanTransport);
                         AmongUsClient.Instance.FinishRpcImmediately(writer2);
                         Utils.NotifyRoles();
                     }

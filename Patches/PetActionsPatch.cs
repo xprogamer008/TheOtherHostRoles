@@ -69,6 +69,17 @@ class ExternalRpcPetPatch
                 Utils.TP(playerControl.NetTransform, new Vector2(position.x, position.y + 0.3636f));
             }
         }
+        if (playerControl.Is(CustomRoles.PortalMaker))
+        {
+            if (Main.LastEnteredPortalVent.ContainsKey(playerControl.PlayerId))
+            {
+                int ventId = Main.LastEnteredPortalVent[playerControl.PlayerId].Id;
+                var vent = Main.LastEnteredPortalVent[playerControl.PlayerId];
+                var position = Main.LastEnteredPortalVentLocation[playerControl.PlayerId];
+                Logger.Msg($"{playerControl.GetNameWithRole()}:{position}", "PortalMakerTeleport");
+                Utils.TP(playerControl.NetTransform, new Vector2(position.x, position.y + 0.3636f));
+            }
+        }
         if (playerControl.Is(CustomRoles.Escapist))
         {
             Escapist.OnPet(playerControl);

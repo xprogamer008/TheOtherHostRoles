@@ -8,8 +8,6 @@ using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using static TownOfHost.Translator;
 using AmongUs.GameOptions;
 using TownOfHost.PrivateExtensions;
-using Sentry;
-using LibCpp2IL.Elf;
 
 namespace TownOfHost
 {
@@ -181,6 +179,16 @@ namespace TownOfHost
                         __instance.KillButton.OverrideText($"{GetString("KillButtonText")}");
                     }
                     break;
+                case CustomRoles.Occultist:
+                    if (player.IsOccSpellMode())
+                    {
+                        __instance.KillButton.OverrideText($"{GetString("OccultistSpellButtonText")}");
+                    }
+                    else
+                    {
+                        __instance.KillButton.OverrideText($"{GetString("KillButtonText")}");
+                    }
+                    break;
                 case CustomRoles.Silencer:
                     if (Main.SilencedPlayer.Count == 0)
                     {
@@ -199,9 +207,6 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Vampire:
                     __instance.KillButton.OverrideText($"{GetString("VampireBiteButtonText")}");
-                    break;
-                case CustomRoles.Hustler:
-                    __instance.KillButton.OverrideText($"{GetString("HustlerKillButtonText")}");
                     break;
                 case CustomRoles.Arsonist:
                     __instance.KillButton.OverrideText($"{GetString("ArsonistDouseButtonText")}");
@@ -240,7 +245,7 @@ namespace TownOfHost
                     __instance.AbilityButton.OverrideText($"TRANSPARENCY");
                     break;
                 case CustomRoles.Swooper:
-                     __instance.ImpostorVentButton.OverrideText($"SWOOP");
+                        __instance.ImpostorVentButton.OverrideText($"SWOOP");
                     break;
                 case CustomRoles.Medium:
                     __instance.AbilityButton.OverrideText($"MEDITATE");
@@ -292,6 +297,12 @@ namespace TownOfHost
                     //魔女用処理
                     var ModeLang = player.IsSpellMode() ? "WitchModeSpell" : "WitchModeKill";
                     LowerInfoText.text = GetString("WitchCurrentMode") + ": " + GetString(ModeLang);
+                }
+                else if (player.Is(CustomRoles.Occultist))
+                {
+                    //魔女用処理
+                    var ModeLang = player.IsSpellMode() ? "OccultistModeSpell" : "OccultistModeKill";
+                    LowerInfoText.text = GetString("OccultistCurrentMode") + ": " + GetString(ModeLang);
                 }
                 else if (player.Is(CustomRoles.Escapist))
                 {
@@ -366,10 +377,10 @@ namespace TownOfHost
                 }
                 else if (player.Is(CustomRoles.Unseeable))
                 {
-                    var ModeLang = Main.IsInvisible ? "Yes" : "No";
-                    var ReadyLang = Main.CanGoInvisible ? "Yes" : "No";
-                    LowerInfoText.text = "Is Unseeable: " + ModeLang;
-                    LowerInfoText.text += "\nReady: " + ReadyLang;
+                    var ModeLang = Main.IsInvis3 ? "Yes" : "No";
+                    var ReadyLang = Main.CanGoInvis3 ? "Yes" : "No";
+                    LowerInfoText.text = "Unseeable: " + ModeLang;
+                    LowerInfoText.text += "\nInvisibility is Ready: " + ReadyLang;
                 }
                 else if (player.Is(CustomRoles.Transparent))
                 {
@@ -383,12 +394,6 @@ namespace TownOfHost
                     var voteAmt = Options.VoteAmtOnCompletion.GetInt() == 1 ? "Vote" : "Votes";
                     LowerInfoText.text =
                         $"Kills until {Options.VoteAmtOnCompletion.GetInt()} {voteAmt}: {Options.KillsForVote.GetInt() - Main.PickpocketKills[player.PlayerId]}";
-                }
-                else if (player.Is(CustomRoles.Hustler))
-                {
-                    var voteAmt1 = Options.VoteAmtOnCompletion2.GetInt() == 1 ? "Vote" : "Votes";
-                    LowerInfoText.text =
-                        $"Kills until {Options.VoteAmtOnCompletion2.GetInt()} {voteAmt1}: {Options.KillsForVote2.GetInt() - Main.HustlerKills[player.PlayerId]}";
                 }
                 else if (player.Is(CustomRoles.Cleaner))
                 {
@@ -563,14 +568,6 @@ namespace TownOfHost
                     }
                     player.CanUseImpostorVent();
                     goto DesyncImpostor;
-                case CustomRoles.ImitatorSheriff:
-                    if (ImitatorSheriff.ShotLimit.TryGetValue(player.PlayerId, out var Icount) && Icount == 0)
-                    {
-                        __instance.KillButton.SetDisabled();
-                        __instance.KillButton.ToggleVisible(false);
-                    }
-                    player.CanUseImpostorVent();
-                    goto DesyncImpostor;
                 case CustomRoles.Deputy:
                     if (Deputy.ShotLimit.TryGetValue(player.PlayerId, out var Dcount) && Dcount == 0)
                     {
@@ -618,7 +615,6 @@ namespace TownOfHost
                     goto DesyncImpostor;
                 case CustomRoles.Marksman:
                 case CustomRoles.TemplateRole:
-                case CustomRoles.Hustler:
                 case CustomRoles.Dracula:
                 case CustomRoles.Unseeable:
                 case CustomRoles.Sidekick:
@@ -627,13 +623,15 @@ namespace TownOfHost
                     //   TaskTextPrefix += FakeTasksText;
                     player.CanUseImpostorVent();
                     goto DesyncImpostor;
+                case CustomRoles.Occultist:
+                    //TaskTextPrefix += FakeTasksText;
+                    player.CanUseImpostorVent();
+                    goto DesyncImpostor;
 
                 case CustomRoles.AgiTater:
                 case CustomRoles.Hitman:
-                case CustomRoles.ImitatorHitman:
                 case CustomRoles.Crusader:
                 case CustomRoles.Escort:
-                case CustomRoles.ImitatorEscort:
                 case CustomRoles.NeutWitch:
                     goto DesyncImpostor;
 
@@ -731,14 +729,12 @@ namespace TownOfHost
             var player = PlayerControl.LocalPlayer;
             if ((player.GetCustomRole() == CustomRoles.Sheriff ||
                 player.GetCustomRole() == CustomRoles.Deputy ||
-                player.GetCustomRole() == CustomRoles.ImitatorSheriff ||
                 player.GetCustomRole() == CustomRoles.Investigator ||
                 player.GetCustomRole() == CustomRoles.Examiner ||
                 player.GetCustomRole() == CustomRoles.CorruptedSheriff ||
                 player.GetCustomRole() == CustomRoles.Arsonist ||
                 player.GetCustomRole() == CustomRoles.Jackal ||
                 player.GetCustomRole() == CustomRoles.Escort ||
-                player.GetCustomRole() == CustomRoles.ImitatorEscort ||
                 player.GetCustomRole() == CustomRoles.Crusader ||
                 player.GetCustomRole() == CustomRoles.Sidekick ||
                 player.GetCustomRole() == CustomRoles.Dracula ||
@@ -752,7 +748,7 @@ namespace TownOfHost
                 player.GetCustomRole() == CustomRoles.Juggernaut ||
                 player.GetCustomRole() == CustomRoles.Marksman ||
                 player.GetCustomRole() == CustomRoles.TemplateRole ||
-                player.GetCustomRole() == CustomRoles.Hustler ||
+                player.GetCustomRole() == CustomRoles.Occultist ||
                 player.GetCustomRole() == CustomRoles.BloodKnight ||
                 player.GetCustomRole() == CustomRoles.PlagueBearer ||
                 player.GetCustomRole() == CustomRoles.Pestilence ||
@@ -790,7 +786,6 @@ namespace TownOfHost
             switch (player.GetCustomRole())
             {
                 case CustomRoles.Sheriff:
-                case CustomRoles.ImitatorSheriff:
                 //     case CustomRoles.Dracula:
                 case CustomRoles.NeutWitch:
                 case CustomRoles.Deputy:
@@ -841,18 +836,6 @@ namespace TownOfHost
                     __instance.ImpostorVentButton.ToggleVisible(isActive);
                     __instance.AbilityButton.ToggleVisible(false);
                     break;
-                case CustomRoles.Wraith:
-                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
-                        __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
-                    __instance.SabotageButton.ToggleVisible(true);
-                    __instance.ReportButton.ToggleVisible(false);
-                    __instance.ImpostorVentButton.ToggleVisible(isActive && !player.Data.IsDead);
-                    //       __instance.AbilityButton.ToggleVisible(false);
-                    break;
-                case CustomRoles.GlitchTOHE:
-                    if (player.Data.Role.Role != RoleTypes.GuardianAngel) ;
-                    __instance.ReportButton.ToggleVisible(false);
-                    break;
                 case CustomRoles.CorruptedSheriff:
                     if (player.Data.Role.Role != RoleTypes.GuardianAngel)
                         __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
@@ -874,12 +857,36 @@ namespace TownOfHost
                     __instance.ImpostorVentButton.ToggleVisible(Options.DraculaCanVent.GetBool());
                     __instance.AbilityButton.ToggleVisible(false);
                     break;
+                case CustomRoles.Wraith:
+                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
+                        __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
+                    __instance.SabotageButton.ToggleVisible(true);
+                    __instance.ReportButton.ToggleVisible(false);
+                    __instance.ImpostorVentButton.ToggleVisible(isActive && !player.Data.IsDead);
+                    //       __instance.AbilityButton.ToggleVisible(false);
+                    break;
+                case CustomRoles.GlitchTOHE:
+                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
+                        __instance.ReportButton.ToggleVisible(false);
+                    break;
                 case CustomRoles.Unseeable:
                     if (player.Data.Role.Role != RoleTypes.GuardianAngel)
                         __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
                     __instance.SabotageButton.ToggleVisible(false);
                     __instance.ImpostorVentButton.ToggleVisible(isActive);
                     __instance.AbilityButton.ToggleVisible(false);
+                    break;
+                case CustomRoles.TemplateRole:
+                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
+                        __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
+                    __instance.SabotageButton.ToggleVisible(false);
+                    __instance.ImpostorVentButton.ToggleVisible(Options.TemplateRoleCanVent.GetBool() && !player.Data.IsDead);
+                    break;
+                case CustomRoles.Occultist:
+                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
+                        __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
+                    __instance.SabotageButton.ToggleVisible(false);
+                    __instance.ImpostorVentButton.ToggleVisible(Options.OccultistCanVent.GetBool() && !player.Data.IsDead);
                     break;
                 case CustomRoles.TheGlitch:
                     if (player.Data.Role.Role != RoleTypes.GuardianAngel)
@@ -923,27 +930,12 @@ namespace TownOfHost
                     __instance.ImpostorVentButton.ToggleVisible(Options.MarksmanCanVent.GetBool() && !player.Data.IsDead);
                     __instance.AbilityButton.ToggleVisible(false);
                     break;
-                case CustomRoles.TemplateRole:
-                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
-                        __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
-                    __instance.SabotageButton.ToggleVisible(false);
-                    __instance.ImpostorVentButton.ToggleVisible(Options.TemplateRoleCanVent.GetBool() && !player.Data.IsDead);
-                    __instance.AbilityButton.ToggleVisible(false);
-                    break;
-                case CustomRoles.Hustler:
-                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
-                        __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
-                    __instance.SabotageButton.ToggleVisible(false);
-                    __instance.ImpostorVentButton.ToggleVisible(Options.HustlerCanVent.GetBool() && !player.Data.IsDead);
-                    __instance.AbilityButton.ToggleVisible(false);
-                    break;
                 case CustomRoles.Opportunist:
                 case CustomRoles.Undecided:
                 case CustomRoles.Executioner:
                 case CustomRoles.Jester:
                 case CustomRoles.Swapper:
                 case CustomRoles.Amnesiac:
-                case CustomRoles.Imitator:
                     if (player.Data.Role.Role != RoleTypes.GuardianAngel)
                         __instance.KillButton.ToggleVisible(false);
                     __instance.SabotageButton.ToggleVisible(false);
@@ -972,13 +964,6 @@ namespace TownOfHost
                     __instance.ImpostorVentButton.ToggleVisible(isActive && Options.HitmanCanVent.GetBool());
                     __instance.AbilityButton.ToggleVisible(false);
                     break;
-                case CustomRoles.ImitatorHitman:
-                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
-                        __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
-                    __instance.SabotageButton.ToggleVisible(false);
-                    __instance.ImpostorVentButton.ToggleVisible(false);
-                    __instance.AbilityButton.ToggleVisible(false);
-                    break;
                 case CustomRoles.CovenWitch:
                     if (player.Data.Role.Role != RoleTypes.GuardianAngel)
                         __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
@@ -1002,13 +987,6 @@ namespace TownOfHost
                         __instance.ImpostorVentButton.ToggleVisible(false);
                     break;
                 case CustomRoles.Escort:
-                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
-                        __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
-                    __instance.SabotageButton.ToggleVisible(false);
-                    __instance.ImpostorVentButton.ToggleVisible(false);
-                    __instance.AbilityButton.ToggleVisible(false);
-                    break;
-                case CustomRoles.ImitatorEscort:
                     if (player.Data.Role.Role != RoleTypes.GuardianAngel)
                         __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
                     __instance.SabotageButton.ToggleVisible(false);
@@ -1082,7 +1060,7 @@ namespace TownOfHost
         public static void Prefix(ref RoleTeamTypes __state)
         {
             var player = PlayerControl.LocalPlayer;
-            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.ImitatorSheriff) || player.Is(CustomRoles.Deputy) || player.Is(CustomRoles.Undecided) || player.Is(CustomRoles.Examiner) || player.Is(CustomRoles.BloodKnight) || player.Is(CustomRoles.NeutWitch) || player.Is(CustomRoles.Escort) || player.Is(CustomRoles.ImitatorEscort) || player.Is(CustomRoles.Crusader) || player.Is(CustomRoles.Investigator) || player.Is(CustomRoles.Parasite) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.PlagueBearer) || player.Is(CustomRoles.TheGlitch) || player.Is(CustomRoles.Werewolf) || player.Is(CustomRoles.Opportunist) || player.Is(CustomRoles.Executioner) || player.Is(CustomRoles.Swapper) || player.Is(CustomRoles.Jester) || player.Is(CustomRoles.Pestilence))
+            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.Deputy) || player.Is(CustomRoles.Undecided) || player.Is(CustomRoles.Examiner) || player.Is(CustomRoles.BloodKnight) || player.Is(CustomRoles.NeutWitch) || player.Is(CustomRoles.Escort) || player.Is(CustomRoles.Crusader) || player.Is(CustomRoles.Investigator) || player.Is(CustomRoles.Parasite) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.PlagueBearer) || player.Is(CustomRoles.TheGlitch) || player.Is(CustomRoles.Werewolf) || player.Is(CustomRoles.Opportunist) || player.Is(CustomRoles.Executioner) || player.Is(CustomRoles.Swapper) || player.Is(CustomRoles.Jester) || player.Is(CustomRoles.Pestilence))
             {
                 __state = player.Data.Role.TeamType;
                 player.Data.Role.TeamType = RoleTeamTypes.Crewmate;
@@ -1097,7 +1075,7 @@ namespace TownOfHost
         public static void Postfix(ref RoleTeamTypes __state)
         {
             var player = PlayerControl.LocalPlayer;
-            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.ImitatorSheriff) || player.Is(CustomRoles.Deputy) || player.Is(CustomRoles.Undecided) || player.Is(CustomRoles.Examiner) || player.Is(CustomRoles.Examiner) || player.Is(CustomRoles.BloodKnight) || player.Is(CustomRoles.NeutWitch) || player.Is(CustomRoles.Escort) || player.Is(CustomRoles.ImitatorEscort) || player.Is(CustomRoles.Crusader) || player.Is(CustomRoles.Investigator) || player.Is(CustomRoles.Parasite) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.PlagueBearer) || player.Is(CustomRoles.TheGlitch) || player.Is(CustomRoles.Werewolf) || player.Is(CustomRoles.Opportunist) || player.Is(CustomRoles.Executioner) || player.Is(CustomRoles.Swapper) || player.Is(CustomRoles.Jester) || player.Is(CustomRoles.Pestilence))
+            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.Deputy) || player.Is(CustomRoles.Undecided) || player.Is(CustomRoles.Examiner) || player.Is(CustomRoles.Examiner) || player.Is(CustomRoles.BloodKnight) || player.Is(CustomRoles.NeutWitch) || player.Is(CustomRoles.Escort) || player.Is(CustomRoles.Crusader) || player.Is(CustomRoles.Investigator) || player.Is(CustomRoles.Parasite) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.PlagueBearer) || player.Is(CustomRoles.TheGlitch) || player.Is(CustomRoles.Werewolf) || player.Is(CustomRoles.Opportunist) || player.Is(CustomRoles.Executioner) || player.Is(CustomRoles.Swapper) || player.Is(CustomRoles.Jester) || player.Is(CustomRoles.Pestilence))
             {
                 player.Data.Role.TeamType = __state;
             }

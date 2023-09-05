@@ -32,7 +32,7 @@ namespace TownOfHost
             FixesOxygens = CustomOption.Create(Id + 13, Color.white, "SabotageMasterFixesOxygens", AmongUsExtensions.OptionType.Crewmate, false, Options.CustomRoleSpawnChances[CustomRoles.SabotageMaster]);
             FixesComms = CustomOption.Create(Id + 14, Color.white, "SabotageMasterFixesCommunications", AmongUsExtensions.OptionType.Crewmate, false, Options.CustomRoleSpawnChances[CustomRoles.SabotageMaster]);
             FixesElectrical = CustomOption.Create(Id + 15, Color.white, "SabotageMasterFixesElectrical", AmongUsExtensions.OptionType.Crewmate, false, Options.CustomRoleSpawnChances[CustomRoles.SabotageMaster]);
-            SabotageMasterCanVent = CustomOption.Create(Id + 16, Color.white, "SabotageMasterFixesElectrical", AmongUsExtensions.OptionType.Crewmate, false, Options.CustomRoleSpawnChances[CustomRoles.SabotageMaster]);
+            SabotageMasterCanVent = CustomOption.Create(Id + 16, Color.white, "SabotageMasterCanVent", AmongUsExtensions.OptionType.Crewmate, false, Options.CustomRoleSpawnChances[CustomRoles.SabotageMaster]);
         }
         public static void Init()
         {

@@ -198,7 +198,7 @@ namespace TownOfHost
             {
                 case RoleType.Neutral:
                     __instance.TeamTitle.text = "NEUTRAL";
-                    __instance.TeamTitle.color = Utils.GetRoleColor(CustomRoles.Child);
+                    __instance.TeamTitle.color = Utils.GetRoleColor(CustomRoles.SchrodingerCat);
                     if (PlayerControl.LocalPlayer.Is(CustomRoles.Executioner) | PlayerControl.LocalPlayer.Is(CustomRoles.Swapper))
                     {
                         byte target = 0x6;
@@ -210,7 +210,8 @@ namespace TownOfHost
                         if (PlayerControl.LocalPlayer.Is(CustomRoles.Executioner) | PlayerControl.LocalPlayer.Is(CustomRoles.Swapper))
                             __instance.ImpostorText.text += "\nVote " + Utils.GetPlayerById(target).GetRealName(isMeeting: true) + " Out";
                     }
-                    __instance.BackgroundBar.material.color = Utils.GetRoleColor(role);
+                    __instance.ImpostorText.text = GetString("NeutralIntroInfo");
+                    __instance.BackgroundBar.material.color = Utils.GetRoleColor(CustomRoles.SchrodingerCat);
                     break;
                 case RoleType.Madmate:
                     __instance.TeamTitle.text = GetString("Madmate");
@@ -222,7 +223,7 @@ namespace TownOfHost
                     break;
                 case RoleType.Crewmate:
                     if (!role.IsVanilla())
-                        __instance.BackgroundBar.material.color = Utils.GetRoleColor(role);
+                    __instance.TeamTitle.color = __instance.BackgroundBar.material.color = new Color32(140, 255, 255, byte.MaxValue);
                     break;
                 case RoleType.Coven:
                     __instance.TeamTitle.text = "COVEN";
@@ -309,7 +310,6 @@ namespace TownOfHost
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = sound;
                     break;
                 case CustomRoles.CrewPostor:
-                case CustomRoles.Magician:
                 case CustomRoles.Snitch:
                 case CustomRoles.MadSnitch:
                 case CustomRoles.Marshall:
@@ -327,12 +327,17 @@ namespace TownOfHost
                 case CustomRoles.Conjuror:
                 case CustomRoles.Parasite:
                 case CustomRoles.Coven:
+                case CustomRoles.Undertaker:
                 case CustomRoles.Silencer:
                 case CustomRoles.Vampress:
                 case CustomRoles.Reverser:
-                case CustomRoles.Undertaker:
                 case CustomRoles.Wraith:
+                case CustomRoles.Communist:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Shapeshifter);
+                    break;
+
+                case CustomRoles.GuardianAngelTOU:
+                    PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Scientist);
                     break;
 
                 case CustomRoles.SabotageMaster:
@@ -340,10 +345,15 @@ namespace TownOfHost
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = ShipStatus.Instance.SabotageSound;
                     break;
 
+                case CustomRoles.PortalMaker:
+                    PlayerControl.LocalPlayer.Data.Role.IntroSound = ShipStatus.Instance.VentEnterSound;
+                    break;
+
                 case CustomRoles.Veteran:
                 case CustomRoles.Sheriff:
                 case CustomRoles.Troll:
                 case CustomRoles.Clumsy:
+                case CustomRoles.Magician:
                 case CustomRoles.Deputy:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = PlayerControl.LocalPlayer.KillSfx;
                     break;
@@ -353,7 +363,6 @@ namespace TownOfHost
                 case CustomRoles.Bastion:
                 case CustomRoles.Arsonist:
                 case CustomRoles.Jester:
-                case CustomRoles.GuardianAngelTOU:
                 case CustomRoles.Survivor:
                 case CustomRoles.Vulture:
                 case CustomRoles.Werewolf:
@@ -369,11 +378,10 @@ namespace TownOfHost
                 case CustomRoles.BloodKnight:
                 case CustomRoles.Ninja:
                 case CustomRoles.Marksman:
-                case CustomRoles.TemplateRole:
-                case CustomRoles.Hustler:
                 case CustomRoles.Miner:
                 case CustomRoles.TheGlitch:
                 case CustomRoles.Camouflager:
+                case CustomRoles.TemplateRole:
                 case CustomRoles.Pestilence:
                 case CustomRoles.Sidekick:
                 case CustomRoles.Juggernaut:
@@ -457,7 +465,7 @@ namespace TownOfHost
     {
         public static bool Prefix(IntroCutscene __instance, ref Il2CppSystem.Collections.Generic.List<PlayerControl> yourTeam)
         {
-            if (PlayerControl.LocalPlayer.Is(CustomRoles.Sheriff) || PlayerControl.LocalPlayer.Is(CustomRoles.ImitatorSheriff) || PlayerControl.LocalPlayer.Is(CustomRoles.Deputy) || PlayerControl.LocalPlayer.Is(CustomRoles.Investigator) || PlayerControl.LocalPlayer.Is(CustomRoles.Janitor) || PlayerControl.LocalPlayer.Is(CustomRoles.Escort) || PlayerControl.LocalPlayer.Is(CustomRoles.ImitatorEscort) | PlayerControl.LocalPlayer.Is(CustomRoles.Crusader))
+            if (PlayerControl.LocalPlayer.Is(CustomRoles.Sheriff) || PlayerControl.LocalPlayer.Is(CustomRoles.Deputy) || PlayerControl.LocalPlayer.Is(CustomRoles.Investigator) || PlayerControl.LocalPlayer.Is(CustomRoles.Janitor) || PlayerControl.LocalPlayer.Is(CustomRoles.Escort) || PlayerControl.LocalPlayer.Is(CustomRoles.Crusader))
             {
                 // Begin Crewmate anyways
                 yourTeam = new Il2CppSystem.Collections.Generic.List<PlayerControl>();

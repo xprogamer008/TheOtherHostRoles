@@ -25,7 +25,6 @@ namespace TownOfHost
                 CustomRoles.Warlock or
                 CustomRoles.Consort or
                 CustomRoles.Morphling or
-                CustomRoles.ImitatorImp or
                 CustomRoles.SerialKiller or
                 CustomRoles.Mare or
                 CustomRoles.ImpostorGhost or
@@ -74,20 +73,19 @@ namespace TownOfHost
                 CustomRoles.Survivor or
                 CustomRoles.SchrodingerCat or
                 CustomRoles.Terrorist or
+                CustomRoles.Wraith or
                 CustomRoles.Executioner or
                 CustomRoles.Arsonist or
-                CustomRoles.Wraith or
                 CustomRoles.Egoist or
                 CustomRoles.AgiTater or
                 CustomRoles.EgoSchrodingerCat or
                 CustomRoles.Hitman or
-                CustomRoles.ImitatorHitman or
                 CustomRoles.CrewPostor or
                 CustomRoles.Magician or
                 CustomRoles.Marksman or
-                CustomRoles.TemplateRole or
-                CustomRoles.Hustler or
                 CustomRoles.Dracula or
+                CustomRoles.TemplateRole or
+                CustomRoles.Occultist or
                 CustomRoles.Unseeable or
                 CustomRoles.Pirate or
                 CustomRoles.Undecided or
@@ -102,7 +100,6 @@ namespace TownOfHost
                 CustomRoles.Lawyer or
                 CustomRoles.NeutWitch or
                 CustomRoles.Amnesiac or
-                CustomRoles.Imitator or
                 CustomRoles.Juggernaut or
                 CustomRoles.Sidekick or
                 CustomRoles.JSchrodingerCat or
@@ -114,12 +111,12 @@ namespace TownOfHost
                 CustomRoles.HASFox or // CAT
                 CustomRoles.BKSchrodingerCat or
                 CustomRoles.CPSchrodingerCat or
-                CustomRoles.WRASchrodingerCat or
-                CustomRoles.TEMSchrodingerCat or
-                CustomRoles.UNSSchrodingerCat or
-                CustomRoles.HUSchrodingerCat or
+                CustomRoles.UNSchrodingerCat or
                 CustomRoles.MAGSchrodingerCat or
                 CustomRoles.JugSchrodingerCat or
+                CustomRoles.OCCSchrodingerCat or
+                CustomRoles.TEMSchrodingerCat or
+                CustomRoles.WRASchrodingerCat or
                 CustomRoles.MMSchrodingerCat or
                 CustomRoles.PesSchrodingerCat or
                 CustomRoles.WWSchrodingerCat or
@@ -135,13 +132,13 @@ namespace TownOfHost
                 CustomRoles.EgoSchrodingerCat or
                 CustomRoles.CrewPostor or
                 CustomRoles.Magician or
-                CustomRoles.Phantom or
                 CustomRoles.Wraith or
+                CustomRoles.Phantom or
                 CustomRoles.Marksman or
-                CustomRoles.TemplateRole or
-                CustomRoles.Hustler or
                 CustomRoles.Pirate or
                 CustomRoles.Dracula or
+                CustomRoles.TemplateRole or
+                CustomRoles.Occultist or
                 CustomRoles.Unseeable or
                 CustomRoles.Jackal or
                 CustomRoles.Postman or
@@ -153,7 +150,6 @@ namespace TownOfHost
                 CustomRoles.AgiTater or
                 CustomRoles.Werewolf or
                 CustomRoles.Amnesiac or
-                CustomRoles.Imitator or
                 CustomRoles.Juggernaut or
                 CustomRoles.Sidekick or
                 CustomRoles.JSchrodingerCat or
@@ -162,13 +158,13 @@ namespace TownOfHost
                 CustomRoles.Painter or // CAT
                 CustomRoles.BKSchrodingerCat or
                 CustomRoles.CPSchrodingerCat or
-                CustomRoles.WRASchrodingerCat or
-                CustomRoles.TEMSchrodingerCat or
-                CustomRoles.UNSSchrodingerCat or
-                CustomRoles.HUSchrodingerCat or
                 CustomRoles.MAGSchrodingerCat or
                 CustomRoles.JugSchrodingerCat or
+                CustomRoles.OCCSchrodingerCat or
+                CustomRoles.TEMSchrodingerCat or
+                CustomRoles.UNSchrodingerCat or
                 CustomRoles.MMSchrodingerCat or
+                CustomRoles.WRASchrodingerCat or
                 CustomRoles.PesSchrodingerCat or
                 CustomRoles.WWSchrodingerCat or
                 CustomRoles.DRSchrodingerCat or
@@ -190,7 +186,6 @@ namespace TownOfHost
                 CustomRoles.GuardianAngelTOU or
                 CustomRoles.Lawyer or
                 CustomRoles.Amnesiac or
-                CustomRoles.Imitator or
                 CustomRoles.JSchrodingerCat or
                 CustomRoles.Hacker;
         }
@@ -202,7 +197,6 @@ namespace TownOfHost
                     CustomRoles.Survivor or
                     CustomRoles.SchrodingerCat or
                     CustomRoles.GuardianAngelTOU or
-                    CustomRoles.Imitator or
                     CustomRoles.Amnesiac;
         }
         public static bool UsesVents(this CustomRoles role)
@@ -224,16 +218,16 @@ namespace TownOfHost
                 CustomRoles.PlagueBearer or
                 CustomRoles.Pestilence or
                 CustomRoles.CrewPostor or
+                CustomRoles.Wraith or
                 CustomRoles.Magician or
                 CustomRoles.Dracula or
-                CustomRoles.Wraith or
+                CustomRoles.TemplateRole or
+                CustomRoles.Occultist or
                 CustomRoles.Unseeable or
                 CustomRoles.Sidekick or
                 CustomRoles.TheGlitch or
                 CustomRoles.AgiTater or
                 CustomRoles.Marksman or
-                CustomRoles.TemplateRole or
-                CustomRoles.Hustler or
                 CustomRoles.Werewolf or
                 CustomRoles.Pirate or
                 CustomRoles.BloodKnight or
@@ -289,22 +283,22 @@ namespace TownOfHost
                 CustomRoles.Bewilder or
                 CustomRoles.Flash or
                 CustomRoles.Target or
-                CustomRoles.ImitatorEscort or
+                CustomRoles.Giant or
                 CustomRoles.Lovers or
-                CustomRoles.ImitatorSheriff or
-                CustomRoles.ImitatorImp or
                 CustomRoles.LoversRecode or
                 CustomRoles.Sleuth or
                 CustomRoles.Torch or
                 CustomRoles.Medusa or
                 CustomRoles.Menace or
                 CustomRoles.Mimic or
+                CustomRoles.Mini or
                 CustomRoles.Conjuror or
+                CustomRoles.Underage or
                 CustomRoles.Necromancer or
                 CustomRoles.EgoSchrodingerCat or
                 CustomRoles.Impostor or
-                CustomRoles.Giant or
                 CustomRoles.Phantom or
+                CustomRoles.Revived or
                 CustomRoles.Crewmate or
                 CustomRoles.Engineer or
                 CustomRoles.GuardianAngel or
@@ -317,7 +311,6 @@ namespace TownOfHost
                 CustomRoles.Janitor or
                 CustomRoles.Painter or
                 CustomRoles.Amnesiac or
-                CustomRoles.Imitator or
                 CustomRoles.CSchrodingerCat or
                 CustomRoles.MSchrodingerCat;
         }
@@ -345,6 +338,7 @@ namespace TownOfHost
                 role is CustomRoles.Bait or
                 CustomRoles.Bewilder or
                 CustomRoles.Diseased or
+                CustomRoles.Mini or
                 CustomRoles.Torch;
         }
         public static bool IsImpostorModifier(this CustomRoles role)
@@ -358,19 +352,20 @@ namespace TownOfHost
                 role is CustomRoles.Bait or
                 CustomRoles.Bewilder or
                 CustomRoles.Flash or
-                CustomRoles.Giant or
                 CustomRoles.Obvious or
                 CustomRoles.Oblivious or
+                CustomRoles.Mini or
                 CustomRoles.DoubleShot or
                 CustomRoles.Lovers or
                 CustomRoles.LoversRecode or
+                CustomRoles.Giant or
+                CustomRoles.Underage or
                 CustomRoles.Diseased or
                 CustomRoles.Watcher or
-                CustomRoles.Underage or
                 CustomRoles.Sleuth or
+                CustomRoles.Menace or
                 CustomRoles.Torch or
                 CustomRoles.Soulhandler or
-                CustomRoles.Menace or
                 CustomRoles.TieBreaker;
         }
         public static bool IsDesyncRole(this CustomRoles role)
@@ -381,17 +376,15 @@ namespace TownOfHost
                 CustomRoles.Examiner or
                 CustomRoles.Deputy or
                 CustomRoles.Parasite or
+                CustomRoles.TemplateRole or
+                CustomRoles.Occultist or
                 CustomRoles.Escort or
-                CustomRoles.ImitatorEscort or
                 CustomRoles.Hitman or
-                CustomRoles.ImitatorHitman or
                 CustomRoles.Dracula or
                 CustomRoles.Unseeable or
                 CustomRoles.Escort or
-                CustomRoles.ImitatorEscort or
                 CustomRoles.BloodKnight or
                 CustomRoles.Hitman or
-                CustomRoles.ImitatorHitman or
                 CustomRoles.Jackal or
                 CustomRoles.Crusader or
                 CustomRoles.Sidekick or
@@ -404,8 +397,6 @@ namespace TownOfHost
                 CustomRoles.TheGlitch or
                 CustomRoles.AgiTater or
                 CustomRoles.Marksman or
-                CustomRoles.TemplateRole or
-                CustomRoles.Hustler or
                 CustomRoles.Werewolf or
                 CustomRoles.BloodKnight or
                 CustomRoles.Juggernaut;
@@ -415,7 +406,6 @@ namespace TownOfHost
             return
                 role is CustomRoles.TheGlitch or
                 CustomRoles.Escort or
-                CustomRoles.ImitatorEscort or
                 CustomRoles.Consort;
         }
         public static bool HostRedName(this CustomRoles role) => /*AmongUsClient.Instance.AmHost && role is CustomRoles.Hitman or CustomRoles.Crusader or CustomRoles.Escort or CustomRoles.NeutWitch;*/ false;
@@ -468,6 +458,7 @@ namespace TownOfHost
             return
                 role is CustomRoles.Shapeshifter or
                 CustomRoles.BountyHunter or
+                CustomRoles.Escapist or
                 CustomRoles.Warlock or
                 CustomRoles.SerialKiller or
                 CustomRoles.Morphling or
@@ -493,6 +484,8 @@ namespace TownOfHost
                 CustomRoles.Escapist or
                 CustomRoles.TheGlitch or
                 CustomRoles.Creeper or
+                CustomRoles.PortalMaker or
+                CustomRoles.Werewolf or
                 CustomRoles.TimeTraveler or
                 CustomRoles.Transporter;
         }
@@ -515,6 +508,7 @@ namespace TownOfHost
                 CustomRoles.Transparent or
                 CustomRoles.Spy or
                 CustomRoles.Mechanic or
+                CustomRoles.PortalMaker or
                 CustomRoles.Terrorist or
                 CustomRoles.GuardianAngelTOU;
         }

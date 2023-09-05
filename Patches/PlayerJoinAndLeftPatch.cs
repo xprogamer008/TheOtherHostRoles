@@ -218,7 +218,6 @@ toptext:<size=1><color=#FFC0CB>ServerBooster</color></size>";
                 AmongUsClient.Instance.KickPlayer(client.Id, true);
                 Logger.Info($"This is a blocked player. {client?.PlayerName}({client.FriendCode}) was banned.", "BAN");
             }
-            Logger.Info($"{client.PlayerName}(ClientID:{client.Id}/FriendCode:{client.FriendCode}) 加入房间", "Session");
             if (AmongUsClient.Instance.AmHost && client.FriendCode == "" && Options.KickPlayerFriendCodeNotExist.GetBool())
             {
                 AmongUsClient.Instance.KickPlayer(client.Id, false);

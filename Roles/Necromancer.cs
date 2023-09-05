@@ -49,7 +49,6 @@ namespace TownOfHost
                         currentRole = role;
                         break;
                     case CustomRoles.Sheriff:
-                    case CustomRoles.ImitatorSheriff:
                     case CustomRoles.Deputy:
                     case CustomRoles.CorruptedSheriff:
                         if (Options.NecroCanUseSheriff.GetBool())
@@ -226,8 +225,6 @@ namespace TownOfHost
                     }
                 case CustomRoles.Amnesiac:
                     break;
-                case CustomRoles.Imitator:
-                    break;
                 case CustomRoles.Doctor:
                     break;
                 case CustomRoles.Juggernaut:
@@ -393,6 +390,27 @@ namespace TownOfHost
                     necromancer.SyncKillOrSpell();
                     if (!necromancer.IsSpellMode()) break;
                     break;
+                case CustomRoles.Occultist:
+                    if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        new LateTask(() =>
+                        {
+                            Main.unreportableBodies.Add(necromancer.PlayerId);
+                        }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                        break;
+                    }
+                    if (necromancer.IsOccSpellMode() && !Main.SpelledOccPlayer.Contains(target))
+                    {
+                        necromancer.RpcGuardAndKill(target);
+                        Main.SpelledOccPlayer.Add(target);
+                        RPC.RpcDoOccSpell(target.PlayerId);
+                    }
+                    Main.KillOrSpell[necromancer.PlayerId] = !necromancer.IsOccSpellMode();
+                    Utils.NotifyRoles();
+                    necromancer.SyncKillOrOccSpell();
+                    if (!necromancer.IsOccSpellMode()) break;
+                    break;
                 case CustomRoles.HexMaster:
                     if (target.Is(CustomRoles.Veteran) && !Main.HasNecronomicon && Main.VetIsAlerted && Main.HexesThisRound != Options.MaxHexesPerRound.GetFloat())
                     {
@@ -520,29 +538,6 @@ namespace TownOfHost
                         break;
                     }
                     Sheriff.OnCheckMurder(necromancer, target, Process: "RemoveShotLimit");
-                    break;
-                case CustomRoles.ImitatorSheriff:
-                    skipVetCheck = true;
-                    if (target.Is(CustomRoles.Veteran) && !Main.HasNecronomicon && Main.VetIsAlerted && Options.CrewRolesVetted.GetBool())
-                    {
-                        target.RpcMurderPlayer(necromancer);
-                        break;
-                    }
-                    if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted)
-                    {
-                        target.RpcMurderPlayer(necromancer);
-                        break;
-                    }
-                    if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
-                    {
-                        target.RpcMurderPlayer(necromancer);
-                        new LateTask(() =>
-                        {
-                            Main.unreportableBodies.Add(necromancer.PlayerId);
-                        }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
-                        break;
-                    }
-                    ImitatorSheriff.OnCheckMurder(necromancer, target, Process: "RemoveShotLimit");
                     break;
                 case CustomRoles.Deputy:
                     skipVetCheck = true;

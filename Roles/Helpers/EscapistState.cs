@@ -13,10 +13,3 @@ public enum TimeTravelerState
     OnMark,
     OnRecall
 }
-
-public enum GodState
-{
-    Default = 0,
-    OnMark,
-    OnRecall
-}

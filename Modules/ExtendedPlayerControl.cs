@@ -10,7 +10,6 @@ using System.Reflection;
 using AmongUs.GameOptions;
 using PowerTools;
 using TownOfHost.PrivateExtensions;
-using System.Runtime.CompilerServices;
 
 namespace TownOfHost
 {
@@ -345,7 +344,7 @@ namespace TownOfHost
             if (Camouflager.DidCamo) return true; // No names are visible
             if (target.Is(CustomRoles.Swooper) && Main.IsInvis) return true;
             if (target.Is(CustomRoles.Transparent) && Main.IsInvis) return true;
-            if (target.Is(CustomRoles.Unseeable) && Main.IsInvisible) return true;
+            if (target.Is(CustomRoles.Unseeable) && Main.IsInvis3) return true;
             //    if (target.Is(CustomRoles.Wraith) && Main.IsInvisible) return true;
             if (source == null || target == null) return true;
             return source != target; // Player sees his own name
@@ -406,7 +405,7 @@ namespace TownOfHost
                 case CustomRoles.TemplateRole:
                     options.SetVision(player, true);
                     break;
-                case CustomRoles.Hustler:
+                case CustomRoles.Occultist:
                     options.SetVision(player, true);
                     break;
                 case CustomRoles.Terrorist:
@@ -447,17 +446,14 @@ namespace TownOfHost
                     Bomber.ApplyGameOptions(player, options);
                     break;
                 case CustomRoles.Sheriff:
-                case CustomRoles.ImitatorSheriff:
                 case CustomRoles.Deputy:
                 case CustomRoles.Investigator:
                 case CustomRoles.Examiner:
                 case CustomRoles.Janitor:
                 case CustomRoles.Arsonist:
                 case CustomRoles.Amnesiac:
-                case CustomRoles.Imitator:
                 case CustomRoles.Crusader:
                 case CustomRoles.Escort:
-                case CustomRoles.ImitatorEscort:
                     options.SetVision(player, false);
                     break;
                 case CustomRoles.PlagueBearer:
@@ -512,6 +508,11 @@ namespace TownOfHost
                 case CustomRoles.Disperser:
                     shapeshifterOptions.ShapeshifterCooldown = Options.DisperseCooldown.GetFloat();
                     shapeshifterOptions.ShapeshifterDuration = 1;
+                    break;
+                case CustomRoles.Vulture:
+                    options.SetVision(player, Options.VultureHasImpostorVision.GetBool());
+                    if (Options.VultureCanVent.GetBool())
+                        goto InfinityVent;
                     break;
                 case CustomRoles.Mayor:
                     engineerOptions.EngineerCooldown =
@@ -612,9 +613,6 @@ namespace TownOfHost
                 case CustomRoles.Hitman:
                     options.SetVision(player, Options.HitmanHasImpVision.GetBool());
                     break;
-                case CustomRoles.ImitatorHitman:
-                    options.SetVision(player, true);
-                    break;
                 case CustomRoles.Werewolf:
                     if (!Main.IsRampaged)
                         options.SetVision(player, false);
@@ -646,6 +644,9 @@ namespace TownOfHost
                     options.SetVision(player, true);
                     options.NumEmergencyMeetings = -1;
                     break;
+                case CustomRoles.Seer:
+                    options.SetVision(player, true);
+                    break;
 
                 InfinityVent:
                     engineerOptions.EngineerCooldown = 0;
@@ -656,10 +657,6 @@ namespace TownOfHost
             switch (player.GetCustomSubRole())
             {
                 case CustomRoles.Torch:
-                    if (Utils.IsActive(SystemTypes.Electrical))
-                        options.CrewLightMod *= 5;
-                    break;
-                case CustomRoles.GlitchTOHE:
                     if (Utils.IsActive(SystemTypes.Electrical))
                         options.CrewLightMod *= 5;
                     break;
@@ -721,9 +718,6 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Escort:
                     options.KillCooldown = Options.EscortCooldown.GetFloat() + Options.GlobalRoleBlockDuration.GetFloat();
-                    break;
-                case CustomRoles.ImitatorEscort:
-                    options.KillCooldown = 25 + Options.GlobalRoleBlockDuration.GetFloat();
                     break;
                 case CustomRoles.Crusader:
                     options.KillCooldown = Options.CrusadeCooldown.GetFloat();
@@ -937,6 +931,15 @@ namespace TownOfHost
             }
             return KillOrSpell;
         }
+        public static bool IsOccSpellMode(this PlayerControl player)
+        {
+            if (!Main.KillOrSpell.TryGetValue(player.PlayerId, out var KillOrOcc))
+            {
+                Main.KillOrSpell[player.PlayerId] = false;
+                KillOrOcc = false;
+            }
+            return KillOrOcc;
+        }
         public static bool IsHexMode(this PlayerControl player)
         {
             if (!Main.KillOrSpell.TryGetValue(player.PlayerId, out var KillOrHex))
@@ -961,6 +964,13 @@ namespace TownOfHost
             writer.Write(player.IsSpellMode());
             AmongUsClient.Instance.FinishRpcImmediately(writer);
         }
+        public static void SyncKillOrOccSpell(this PlayerControl player)
+        {
+            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetKillOrSpell, SendOption.Reliable, -1);
+            writer.Write(player.PlayerId);
+            writer.Write(player.IsOccSpellMode());
+            AmongUsClient.Instance.FinishRpcImmediately(writer);
+        }
         public static void SyncKillOrHex(this PlayerControl player)
         {
             MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetKillOrSpell, SendOption.Reliable, -1);
@@ -980,7 +990,6 @@ namespace TownOfHost
                 CustomRoles.FireWorks => FireWorks.CanUseKillButton(pc),
                 CustomRoles.Sniper => Sniper.CanUseKillButton(pc),
                 CustomRoles.Sheriff => Sheriff.CanUseKillButton(pc),
-                CustomRoles.ImitatorSheriff => ImitatorSheriff.CanUseKillButton(pc),
                 CustomRoles.Deputy => Deputy.CanUseKillButton(pc),
                 CustomRoles.Investigator => Investigator.CanUseKillButton(pc),
                 CustomRoles.Examiner => Examiner.CanUseKillButton(pc),
@@ -991,9 +1000,7 @@ namespace TownOfHost
                 CustomRoles.Dracula => true,
                 CustomRoles.Unseeable => true,
                 CustomRoles.Hitman => true,
-                CustomRoles.ImitatorHitman => true,
                 CustomRoles.Escort => true,
-                CustomRoles.ImitatorEscort => true,
                 CustomRoles.Crusader => true,
                 CustomRoles.Werewolf => true,
                 CustomRoles.TheGlitch => true,
@@ -1104,13 +1111,13 @@ namespace TownOfHost
         {
             if (killer.Is(CustomRoles.BloodKnight) && target.Is(CustomRoles.BKSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.CrewPostor) && target.Is(CustomRoles.CPSchrodingerCat)) return true;
-            if (killer.Is(CustomRoles.Unseeable) && target.Is(CustomRoles.UNSSchrodingerCat)) return true;
-            if (killer.Is(CustomRoles.Wraith) && target.Is(CustomRoles.WRASchrodingerCat)) return true;
-            if (killer.Is(CustomRoles.TemplateRole) && target.Is(CustomRoles.TEMSchrodingerCat)) return true;
-            if (killer.Is(CustomRoles.Hustler) && target.Is(CustomRoles.HUSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Magician) && target.Is(CustomRoles.MAGSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Clumsy) && target.Is(CustomRoles.CSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Juggernaut) && target.Is(CustomRoles.JugSchrodingerCat)) return true;
+            if (killer.Is(CustomRoles.TemplateRole) && target.Is(CustomRoles.TEMSchrodingerCat)) return true;
+            if (killer.Is(CustomRoles.Wraith) && target.Is(CustomRoles.WRASchrodingerCat)) return true;
+            if (killer.Is(CustomRoles.Occultist) && target.Is(CustomRoles.OCCSchrodingerCat)) return true;
+            if (killer.Is(CustomRoles.Unseeable) && target.Is(CustomRoles.UNSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Marksman) && target.Is(CustomRoles.MMSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Pestilence) && target.Is(CustomRoles.PesSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Werewolf) && target.Is(CustomRoles.WWSchrodingerCat)) return true;
@@ -1135,11 +1142,8 @@ namespace TownOfHost
                 case CustomRoles.TemplateRole:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.TemplateRoleKillCooldown.GetFloat();
                     break;
-                case CustomRoles.Dracula:
-                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.DraculaKillCooldown.GetFloat();
-                    break;
-                case CustomRoles.Hustler:
-                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.HustlerKillCooldown.GetFloat();
+                case CustomRoles.Occultist:
+                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.OccultistKillCooldown.GetFloat();
                     break;
                 case CustomRoles.NeutWitch:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.ControlCooldown.GetFloat();
@@ -1163,11 +1167,11 @@ namespace TownOfHost
                 case CustomRoles.Escort:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.EscortCooldown.GetFloat() + Options.GlobalRoleBlockDuration.GetFloat();
                     break;
-                case CustomRoles.ImitatorEscort:
-                    Main.AllPlayerKillCooldown[player.PlayerId] = 25 + Options.GlobalRoleBlockDuration.GetFloat();
-                    break;
                 case CustomRoles.Undertaker:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.DefaultKillCooldown + Options.HiddenCreateDuration.GetFloat();
+                    break;
+                case CustomRoles.Wraith:
+                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.WraithKillCD.GetFloat();
                     break;
                 case CustomRoles.Crusader:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.CrusadeCooldown.GetFloat();
@@ -1218,9 +1222,6 @@ namespace TownOfHost
                 case CustomRoles.Sheriff:
                     Sheriff.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
                     break;
-                case CustomRoles.ImitatorSheriff:
-                    ImitatorSheriff.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
-                    break;
                 case CustomRoles.Deputy:
                     Deputy.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
                     break;
@@ -1238,9 +1239,6 @@ namespace TownOfHost
                     break;
                 case CustomRoles.PlagueBearer:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.InfectCooldown.GetFloat();
-                    break;
-                case CustomRoles.Wraith:
-                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.WraithKillCD.GetFloat();
                     break;
                 case CustomRoles.CovenWitch:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.CovenKillCooldown.GetFloat();
@@ -1281,11 +1279,8 @@ namespace TownOfHost
                 case CustomRoles.TemplateRole:
                     KillCooldown = Options.TemplateRoleKillCooldown.GetFloat();
                     break;
-                case CustomRoles.Dracula:
-                    KillCooldown = Options.DraculaKillCooldown.GetFloat();
-                    break;
-                case CustomRoles.Hustler:
-                    KillCooldown = Options.HustlerKillCooldown.GetFloat();
+                case CustomRoles.Occultist:
+                    KillCooldown = Options.OccultistKillCooldown.GetFloat();
                     break;
                 case CustomRoles.NeutWitch:
                     KillCooldown = Options.ControlCooldown.GetFloat();
@@ -1300,11 +1295,11 @@ namespace TownOfHost
                 case CustomRoles.Escort:
                     KillCooldown = Options.EscortCooldown.GetFloat() + Options.GlobalRoleBlockDuration.GetFloat();
                     break;
-                case CustomRoles.ImitatorEscort:
-                    KillCooldown = 25 + Options.GlobalRoleBlockDuration.GetFloat();
-                    break;
                 case CustomRoles.Undertaker:
                     KillCooldown = Options.DefaultKillCooldown + Options.HiddenCreateDuration.GetFloat();
+                    break;
+                case CustomRoles.Wraith:
+                    KillCooldown = Options.WraithKillCD.GetFloat();
                     break;
                 case CustomRoles.Crusader:
                     KillCooldown = Options.CrusadeCooldown.GetFloat();
@@ -1358,9 +1353,6 @@ namespace TownOfHost
                 case CustomRoles.Sheriff:
                     Sheriff.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
                     break;
-                case CustomRoles.ImitatorSheriff:
-                    ImitatorSheriff.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
-                    break;
                 case CustomRoles.Deputy:
                     Deputy.SetKillCooldown(player.PlayerId); //シェリフはシェリフのキルクールに。
                     break;
@@ -1378,9 +1370,6 @@ namespace TownOfHost
                     break;
                 case CustomRoles.PlagueBearer:
                     KillCooldown = Options.InfectCooldown.GetFloat();
-                    break;
-                case CustomRoles.Wraith:
-                    KillCooldown = Options.WraithKillCD.GetFloat();
                     break;
                 case CustomRoles.CovenWitch:
                     KillCooldown = Options.CovenKillCooldown.GetFloat();
@@ -1681,9 +1670,7 @@ namespace TownOfHost
             switch (player.GetCustomRole())
             {
                 case CustomRoles.Amnesiac:
-                case CustomRoles.Imitator:
                 case CustomRoles.Sheriff:
-                case CustomRoles.ImitatorSheriff:
                 case CustomRoles.Deputy:
                 case CustomRoles.Investigator:
                 case CustomRoles.Examiner:
@@ -1729,14 +1716,18 @@ namespace TownOfHost
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(template_canUse && !player.Data.IsDead);
                     player.Data.Role.CanVent = template_canUse;
                     return;
-                case CustomRoles.Hustler:
-                    bool hustler_canUse = Options.HustlerCanVent.GetBool();
-                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(hustler_canUse && !player.Data.IsDead);
-                    player.Data.Role.CanVent = hustler_canUse;
+                case CustomRoles.Occultist:
+                    bool occ_canUse = Options.OccultistCanVent.GetBool();
+                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(occ_canUse && !player.Data.IsDead);
+                    player.Data.Role.CanVent = occ_canUse;
                     return;
                 case CustomRoles.PlagueBearer:
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(false);
                     player.Data.Role.CanVent = false;
+                    return;
+                case CustomRoles.Wraith:
+                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(true && !player.Data.IsDead);
+                    player.Data.Role.CanVent = true;
                     return;
                 case CustomRoles.Pestilence:
                     bool pesti_CanUse = Options.PestiCanVent.GetBool();
@@ -1760,10 +1751,6 @@ namespace TownOfHost
                     return;
                 case CustomRoles.CorruptedSheriff:
                 case CustomRoles.Medusa:
-                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(true && !player.Data.IsDead);
-                    player.Data.Role.CanVent = true;
-                    return;
-                case CustomRoles.Wraith:
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(true && !player.Data.IsDead);
                     player.Data.Role.CanVent = true;
                     return;
@@ -1819,7 +1806,7 @@ namespace TownOfHost
                 if (PlayerState.GetDeathReason(pc.PlayerId) == PlayerState.DeathReason.Torched)
                     return "They were incinerated by an Arsonist.";
                 if (PlayerState.GetDeathReason(pc.PlayerId) == PlayerState.DeathReason.Bombed)
-                    return "They were bombed by an Agitater, Fireworks, Bastion, Mine Placer, Demolitionist, Hex Master, Postman, Terrorist, or a Bomber if they didn't kill in time.";
+                    return "They were bombed by an Agitater, Fireworks, Bastion, Demolitionist, Hex Master, Postman, Terrorist, or a Bomber if they didn't kill in time.";
                 if (PlayerState.GetDeathReason(pc.PlayerId) == PlayerState.DeathReason.Suicide | PlayerState.GetDeathReason(pc.PlayerId) == PlayerState.DeathReason.LoversSuicide | Main.whoKilledWho[pc.Data.PlayerId] == pc.PlayerId)
                     return "They apparently committed suicide.";
                 var killer = Utils.GetPlayerById(Main.whoKilledWho[pc.Data.PlayerId]);
@@ -1835,12 +1822,12 @@ namespace TownOfHost
                         return $"They were hacked by a Glitch.";
                     case CustomRoles.Werewolf:
                         return $"They were mauled by the Werewolf.";
+                    case CustomRoles.Wraith:
+                        return $"They were tripped over by the Wraith.";
                     case CustomRoles.Sheriff:
                         return $"TThey were shot by the Sheriff.";
                     case CustomRoles.Deputy:
                         return $"They were shot by the Sheriff's Deputy.";
-                    case CustomRoles.Wraith:
-                        return $"They were tripped over by the Wraith.";
                     case CustomRoles.BloodKnight:
                         return $"The Blood Knight fed off of them.";
                     case CustomRoles.Medusa:
@@ -1862,7 +1849,7 @@ namespace TownOfHost
                     case CustomRoles.CrewPostor:
                         return $"They were knocked out by a CrewPostor.";
                     case CustomRoles.Magician:
-                        return $"They were knocked out by a Magician.";
+                        return $"They were tricked by the Magician.";
                     case CustomRoles.Clumsy:
                         return $"They were fell into Clumsy's accident.";
                     case CustomRoles.Veteran:
@@ -1892,6 +1879,18 @@ namespace TownOfHost
             messageWriter.WriteNetObject(target);
             AmongUsClient.Instance.FinishRpcImmediately(messageWriter);
             Utils.NotifyRoles();
+        }
+        public static void RpcMurderPlayerV3(this PlayerControl killer, PlayerControl target)
+        {
+            //用于TOHE的击杀前判断
+
+            if (killer.PlayerId == target.PlayerId && killer.shapeshifting)
+            {
+                new LateTask(() => { killer.RpcMurderPlayer(target); }, 1.5f, "Shapeshifting Suicide Delay");
+                return;
+            }
+
+            killer.RpcMurderPlayer(target);
         }
         public static void RpcShapeshiftV2(this PlayerControl shifter, PlayerControl target, bool shouldAnimate = true)
         {
@@ -1967,6 +1966,34 @@ namespace TownOfHost
                 }
             }
         }
+        public static void CheckPortalVentSwap(PlayerControl player)
+        {
+            Vector2? lastPortalLocation = Main.LastEnteredPortalVentLocation.GetValueOrDefault(player.PlayerId);
+            if (lastPortalLocation == null) return;
+            float portaldistance = Vector2.Distance(lastPortalLocation.Value, player.GetTruePosition());
+            if (portaldistance < 1) return;
+            // Logger.Error($"Player {player.GetNameWithRole()} swapped vents!", "Vent Swap");
+
+            Vector2 playerPortalPos = player.GetTruePosition();
+            Dictionary<Vent, float> targetPortalDistance = new();
+            float dis;
+            foreach (Vent vent in GameObject.FindObjectsOfType<Vent>())
+            {
+                dis = Vector2.Distance(playerPortalPos, vent.transform.position);
+                targetPortalDistance.Add(vent, dis);
+            }
+            if (targetPortalDistance.Count != 0)
+            {
+                var minp = targetPortalDistance.OrderBy(cpo => cpo.Value).FirstOrDefault();
+                // gets the closest vent
+                Vent ventp = minp.Key;
+                if (Main.LastEnteredPortalVent[player.PlayerId].Id != ventp.Id)
+                {
+                    // they are at a different Id
+                    Main.CurrentEnterdPortalVent[player.PlayerId] = ventp;
+                }
+            }
+        }
         public static void NoCheckStartMeeting(this PlayerControl reporter, GameData.PlayerInfo target)
         { /*サボタージュ中でも関係なしに会議を起こせるメソッド
             targetがnullの場合はボタンとなる*/
@@ -2010,16 +2037,15 @@ namespace TownOfHost
                 CustomRoles.PlagueBearer or
                 CustomRoles.Juggernaut or
                 CustomRoles.Dracula or
-                CustomRoles.Magician or
-                CustomRoles.Unseeable or
                 CustomRoles.Wraith or
+                CustomRoles.Unseeable or
                 CustomRoles.AgiTater or
                 CustomRoles.Arsonist or
                 CustomRoles.Pestilence or
                 CustomRoles.Pirate or
                 CustomRoles.Marksman or
                 CustomRoles.TemplateRole or
-                CustomRoles.Hustler or
+                CustomRoles.Occultist or
                 CustomRoles.BloodKnight or
                 CustomRoles.CorruptedSheriff or
                 CustomRoles.TheGlitch or
@@ -2039,27 +2065,25 @@ namespace TownOfHost
                 CustomRoles.Sheriff or
                 CustomRoles.Deputy or
                 CustomRoles.Dracula or
-                CustomRoles.Magician or
                 CustomRoles.Unseeable or
-                CustomRoles.ImitatorSheriff or
+                CustomRoles.CorruptedSheriff or
                 CustomRoles.Investigator or
                 CustomRoles.Parasite or
-                CustomRoles.Wraith or
                 CustomRoles.Janitor or
                 CustomRoles.Painter or
+                CustomRoles.Wraith or
                 CustomRoles.AgiTater or
                 CustomRoles.Arsonist or
                 CustomRoles.Pestilence or
                 CustomRoles.Examiner or
                 CustomRoles.Crusader or
                 CustomRoles.Hitman or
-                CustomRoles.ImitatorHitman or
                 CustomRoles.Escort or
-                CustomRoles.ImitatorEscort or
                 CustomRoles.NeutWitch or
+                CustomRoles.Dracula or
                 CustomRoles.Marksman or
                 CustomRoles.TemplateRole or
-                CustomRoles.Hustler or
+                CustomRoles.Occultist or
                 CustomRoles.BloodKnight or
                 CustomRoles.CorruptedSheriff or
                 CustomRoles.TheGlitch or

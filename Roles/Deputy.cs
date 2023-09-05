@@ -93,13 +93,9 @@ namespace TownOfHost
         private static void SendRPC(byte playerId)
         {
             MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetSheriffShotLimit, SendOption.Reliable, -1);
-            MessageWriter Iwriter = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetImitatorShotLimit, SendOption.Reliable, -1);
             writer.Write(playerId);
             writer.Write(ShotLimit[playerId]);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
-            Iwriter.Write(playerId);
-            Iwriter.Write(ShotLimit[playerId]);
-            AmongUsClient.Instance.FinishRpcImmediately(Iwriter);
         }
         public static void ReceiveRPC(MessageReader reader)
         {
@@ -264,10 +260,10 @@ namespace TownOfHost
                 CustomRoles.Clumsy => CanKillClumsy.GetBool(),
                 CustomRoles.Pirate => true,
                 CustomRoles.Dracula => true,
-                CustomRoles.TemplateRole => true,
                 CustomRoles.Wraith => false,
-                CustomRoles.Hustler => true,   
                 CustomRoles.Magician => true,
+                CustomRoles.TemplateRole => true,
+                CustomRoles.Occultist => true,
                 CustomRoles.Unseeable => true,
                 // COVEN //
                 CustomRoles.Coven => DeputyCanKillCoven.GetBool(),

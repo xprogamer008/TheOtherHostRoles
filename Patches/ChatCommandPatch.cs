@@ -30,6 +30,7 @@ namespace TownOfHost
             var player = PlayerControl.LocalPlayer;
             Main.isChatCommand = true;
             Logger.Info(text, "SendChat");
+            if (text.Length >= 3) if (text[..2] == "/r" && text[..3] != "/rn") args[0] = "/r";
             switch (args[0])
             {
                 case "/dump":
@@ -83,11 +84,7 @@ namespace TownOfHost
                         string subArgs1 = args.Length < 3 ? "" : args[2];
                         Guesser.GuesserShootByID(PlayerControl.LocalPlayer, subArgs, subArgs1);
                         break;
-                    case "/r":
-                        canceled = true;
-                        subArgs = text.Remove(0, 2);
-                        PublicGetRolesInfo(subArgs);
-                        break;
+
                     case "/tag":
                         string type = args.Length < 2 ? "" : args[1];
                         switch (type)
@@ -173,6 +170,11 @@ namespace TownOfHost
                             senttext += $"\n{name} : {pc.PlayerId}";
                         }
                         if (senttext != "") HudManager.Instance.Chat.AddChat(PlayerControl.LocalPlayer, senttext);
+                        break;
+                    case "/r":
+                        canceled = true;
+                        subArgs = text.Remove(0, 2);
+                        SendRolesInfo(subArgs, 255, PlayerControl.LocalPlayer.FriendCode.GetDevUser().DeBug);
                         break;
                     case "/setimp":
                         canceled = true;
@@ -509,6 +511,31 @@ namespace TownOfHost
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Crewmate);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Crewmate);
                                 break;
+                            case "Camouflager":
+                                PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Camouflager);
+                                PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Shapeshifter);
+                                RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Shapeshifter);
+                                break;
+                            case "Ninja":
+                                PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Ninja);
+                                PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Shapeshifter);
+                                RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Shapeshifter);
+                                break;
+                            case "Witch":
+                                PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Witch);
+                                PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
+                                RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
+                                break;
+                            case "Swooper":
+                                PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Swooper);
+                                PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
+                                RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
+                                break;
+                            case "Reverser":
+                                PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Reverser);
+                                PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
+                                RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
+                                break;
                             case "ga":
                                 Utils.SendMessage($"Host switched to role: {subArgs}");
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.GuardianAngel);
@@ -579,7 +606,6 @@ namespace TownOfHost
                 { CustomRoles.CorruptedSheriff, "trai" },
                 { CustomRoles.EvilGuesser, "eg"},
                 { CustomRoles.Backstabber, "back" },
-                { CustomRoles.ImitatorImp, "imiimp"},
                 //Madmate役職
                 { (CustomRoles)(-2), $"== {GetString("Madmate")} ==" }, //区切り用
                 { CustomRoles.MadGuardian, "mg" },
@@ -612,18 +638,21 @@ namespace TownOfHost
                 { CustomRoles.Oracle, "or" },
                 { CustomRoles.Medic, "me" },
                 { CustomRoles.Alturist, "Alt" },
+                { CustomRoles.PortalMaker, "por"},
+                { CustomRoles.Tracefinder, "trac" },
                 { CustomRoles.Doctor, "doc" },
-                { CustomRoles.ImitatorSheriff, "imishe" },
                 { CustomRoles.Crusader, "cru" },
                 { CustomRoles.Escort, "esc" },
                 { CustomRoles.Spy, "spy" },
+                { CustomRoles.Seer, "seer" },
                 { CustomRoles.Examiner, "Exa" },
-                { CustomRoles.Unstoppable, "uns" },
                 { CustomRoles.Cursed, "cur" },
+                { CustomRoles.Unstoppable, "uns" },
                 { CustomRoles.Veteran, "vet" },
                 { CustomRoles.Transporter, "tr" },
                 { CustomRoles.SabotageMaster, "sa" },
                 { CustomRoles.Marshall, "mars" },
+                { CustomRoles.Communist, "com" },
                 { CustomRoles.NiceGuesser, "vigi"},
                 { CustomRoles.Sheriff, "sh" },
                 { CustomRoles.Deputy, "dep" },
@@ -631,8 +660,8 @@ namespace TownOfHost
                 { CustomRoles.Mystic,"ms"},
                 { CustomRoles.Snitch, "sn" },
                 { CustomRoles.SpeedBooster, "sb" },
-                { CustomRoles.Trapper, "trp" },
                 { CustomRoles.GlitchTOHE, "glitch" },
+                { CustomRoles.Trapper, "trp" },
                 { CustomRoles.Bastion, "bas"},
                 { CustomRoles.Demolitionist, "demo"},
                 { CustomRoles.Tank, "tk"},
@@ -646,22 +675,22 @@ namespace TownOfHost
                 { CustomRoles.Executioner, "exe" },
                 { CustomRoles.Swapper, "sw" },
                 { CustomRoles.Jester, "je" },
-                { CustomRoles.Magician, "mag" },
                 { CustomRoles.Troll, "tro" },
                 { CustomRoles.Phantom, "ph" },
                 { CustomRoles.Opportunist, "op" },
                 { CustomRoles.Undecided, "un" },
                 { CustomRoles.Hitman, "hn" },
-                { CustomRoles.ImitatorHitman, "imihit" }, 
+                { CustomRoles.Occultist, "occ" },
                 { CustomRoles.Dracula, "Dra" },
-                { CustomRoles.Hustler, "hus"},
                 { CustomRoles.Unseeable, "Uns" },
                 { CustomRoles.Survivor, "sur" },
                 { CustomRoles.SchrodingerCat, "sc" },
                 { CustomRoles.Postman, "ptm" },
-                { CustomRoles.TemplateRole, "temp" },
                 { CustomRoles.Pirate, "pi"},
                 { CustomRoles.Marksman, "mar" },
+                { CustomRoles.Wraith, "wra" },
+                { CustomRoles.TemplateRole, "temp" },
+                { CustomRoles.Magician, "mag" },
                 { CustomRoles.Terrorist, "te" },
                 { CustomRoles.Jackal, "jac" },
                 { CustomRoles.Sidekick, "jacsk" },
@@ -675,13 +704,11 @@ namespace TownOfHost
                 { CustomRoles.Coven, "co" },
                 { CustomRoles.CovenWitch, "cw" },
                 { CustomRoles.Poisoner, "poison" },
-                { CustomRoles.Wraith, "wra" },
                 { CustomRoles.HexMaster, "hm" },
                 { CustomRoles.Medusa, "medu" },
                 { CustomRoles.TheGlitch, "gl" },
                 { CustomRoles.Werewolf, "ww" },
                 { CustomRoles.Amnesiac, "amne" },
-                { CustomRoles.Imitator, "imi" },
                 { CustomRoles.GuardianAngelTOU, "ga" },
                 { CustomRoles.Lawyer, "law" },
                 { CustomRoles.Hacker, "hac" },
@@ -694,12 +721,13 @@ namespace TownOfHost
                 { CustomRoles.DoubleShot, "ds" },
                 { CustomRoles.Obvious, "obv" },
                 { CustomRoles.Torch, "to" },
-                { CustomRoles.Flash, "fl" },
-                { CustomRoles.Bewilder, "be" },
                 { CustomRoles.Menace, "men" },
+                { CustomRoles.Flash, "fl" },
+                { CustomRoles.Mini, "min" },
+                { CustomRoles.Bewilder, "be" },
                 { CustomRoles.TieBreaker, "tb" },
-                { CustomRoles.Watcher, "wat" },
                 { CustomRoles.Underage, "under" },
+                { CustomRoles.Watcher, "wat" },
                 { CustomRoles.Diseased, "di" },
                 { CustomRoles.Soulhandler, "Soul"},
                 //HAS
@@ -790,11 +818,10 @@ namespace TownOfHost
                 { CustomRoles.Ninja,"ni"},
                 { CustomRoles.Grenadier,"gr"},
                 { CustomRoles.Miner,"mi"},
-                { CustomRoles.Morphling, "mor"},
-                { CustomRoles.ImitatorImp, "imiimp"},
+                { CustomRoles.Morphling, "mor" },
                 { CustomRoles.YingYanger,"yy"},
                 { CustomRoles.CorruptedSheriff, "csh" },
-                { CustomRoles.EvilGuesser, "eg"},
+                {CustomRoles.EvilGuesser, "eg"},
                 { CustomRoles.Backstabber, "back" },
                 //Madmate役職
                 { (CustomRoles)(-2), $"== {GetString("Madmate")} ==" }, //区切り用
@@ -823,28 +850,31 @@ namespace TownOfHost
                 { CustomRoles.Clumsy, "clu" },
                 { CustomRoles.Detective, "det" },
                 { CustomRoles.Transparent, "trns" },
+                { CustomRoles.Tracefinder, "trac" },
+                { CustomRoles.PortalMaker, "por"},
                 { CustomRoles.Bodyguard, "bd" },
+                { CustomRoles.Communist, "com" },
+                { CustomRoles.GlitchTOHE, "glitch" },
                 { CustomRoles.Oracle, "or" },
                 { CustomRoles.Alturist, "Alt" },
                 { CustomRoles.Doctor, "doc" },
                 { CustomRoles.Examiner, "Exa" },
+                { CustomRoles.Unstoppable, "uns" },
                 { CustomRoles.Marshall, "mars" },
+                { CustomRoles.Seer, "seer" },
                 { CustomRoles.Cursed, "cur" },
                 { CustomRoles.Spy, "spy" },
                 { CustomRoles.Medic, "me" },
                 { CustomRoles.Tracker, "tra" },
                 { CustomRoles.Crusader, "cru" },
                 { CustomRoles.Escort, "esc" },
-                { CustomRoles.ImitatorSheriff, "imishe" },
                 { CustomRoles.Veteran, "vet" },
                 { CustomRoles.Transporter, "tr" },
-                { CustomRoles.Unstoppable, "uns" },
                 { CustomRoles.Revived, "revi" },
                 { CustomRoles.SabotageMaster, "sa" },
                 { CustomRoles.Sheriff, "sh" },
                 { CustomRoles.Deputy, "dep" },
-                { CustomRoles.GlitchTOHE, "glitch" },
-                { CustomRoles.NiceGuesser, "ng"},
+                {CustomRoles.NiceGuesser, "ng"},
                 { CustomRoles.Investigator, "inve" },
                 { CustomRoles.Mystic,"ms"},
                // { CustomRoles.CorruptedSheriff, "csh" },
@@ -865,29 +895,27 @@ namespace TownOfHost
                 { CustomRoles.Swapper, "sw" },
                 { CustomRoles.Jester, "je" },
                 { CustomRoles.Troll, "tro" },
-                { CustomRoles.Magician, "mag" },
                 { CustomRoles.Phantom, "ph" },
                 { CustomRoles.Hitman, "hn" },
                 { CustomRoles.Dracula, "Dra" },
-                { CustomRoles.Hustler, "hus"},
                 { CustomRoles.Unseeable, "Uns" },
+                { CustomRoles.Wraith, "wra" },
                 { CustomRoles.Opportunist, "op" },
                 { CustomRoles.Undecided, "un" },
+                { CustomRoles.Occultist, "occ" },
                 { CustomRoles.Survivor, "sur" },
                 { CustomRoles.SchrodingerCat, "sc" },
+                { CustomRoles.Magician, "mag" },
                 { CustomRoles.Postman, "ptm" },
                 { CustomRoles.Terrorist, "te" },
-                { CustomRoles.ImitatorHitman, "imihit" },
                 { CustomRoles.Marksman, "mar" },
                 { CustomRoles.TemplateRole, "temp" },
                 { CustomRoles.Jackal, "jac" },
                 { CustomRoles.Sidekick, "jacsk" },
                 //{ CustomRoles.Juggernaut, "jn"},
                 { CustomRoles.NeutWitch, "nwi" },
-                { CustomRoles.Imitator, "imi" },
                 { CustomRoles.PlagueBearer, "pb" },
                 { CustomRoles.Pestilence, "pesti" },
-                { CustomRoles.Wraith, "wra" },
                 { CustomRoles.Juggernaut, "jug"},
                 { CustomRoles.Vulture, "vu"},
                 { CustomRoles.Coven, "co" },
@@ -909,13 +937,15 @@ namespace TownOfHost
                 { CustomRoles.Bait, "ba" },
                 { CustomRoles.Oblivious, "obl" },
                 { CustomRoles.DoubleShot, "ds" },
+                { CustomRoles.Menace, "men" },
                 { CustomRoles.Obvious, "obv" },
                 { CustomRoles.Torch, "to" },
+                { CustomRoles.Mini, "min" },
                 { CustomRoles.Flash, "fl" },
                 { CustomRoles.Bewilder, "be" },
                 { CustomRoles.TieBreaker, "tb" },
-                { CustomRoles.Watcher, "wat" },
                 { CustomRoles.Underage, "under" },
+                { CustomRoles.Watcher, "wat" },
                 { CustomRoles.Diseased, "di" },
                 { CustomRoles.Soulhandler, "Soul"},
                 //HAS
@@ -944,6 +974,202 @@ namespace TownOfHost
             }
             //msg += rolemsg;
             //Utils.SendMessage(msg);
+        }
+        public static string FixRoleNameInput(string text)
+        {
+            text = text.Replace("着", "者").Trim().ToLower();
+            return text switch
+            {
+
+                "BountyHunter" => GetString("BountyHunter"),
+                "PickPocket" => GetString("VoteStealer"),
+                "FireWorks" => GetString("FireWorks"),
+                "Mafia" => GetString("Mafia"),
+                "Mercenary" => GetString("SerialKiller"),
+                "Escapist" => GetString("Escapist"),
+                "Reverser" => GetString("Reverser"),
+                "Undertaker" => GetString("Undertaker"),
+                "Backstabber" => GetString("Backstabber"),
+                "Sniper" => GetString("Sniper"),
+                "Vampire" => GetString("Vampire"),
+                "Vampiress" => GetString("Vampiress"),
+                "Witch" => GetString("Witch"),
+                "Warlock" => GetString("Warlock"),
+                "Mare" => GetString("Mare"),
+                "Miner" => GetString("Miner"),
+                "Consort" => GetString("Consort"),
+                "YingYanger" => GetString("YingYanger"),
+                "Grenadier" => GetString("Grenadier"),
+                "Disperser" => GetString("Disperser"),
+                "Puppeteer" => GetString("Puppeteer"),
+                "Wildling" => GetString("Wildling"),
+                "IdentityThief" => GetString("IdentityTheft"),
+                "Manipulator" => GetString("Manipulator"),
+                "AgiTater" => GetString("AgiTater"),
+                "Bomber" => GetString("Bomber"),
+                "Creeper" => GetString("Creeper"),
+                "TimeThief" => GetString("TimeThief"),
+                "Silencer" => GetString("Silencer"),
+                "Ninja" => GetString("Ninja"),
+                "Swooper" => GetString("Swooper"),
+                "Spy" => GetString("Spy"),
+                "Camouflager" => GetString("Camouflager"),
+                "Freezer" => GetString("Freezer"),
+                "Cleaner" => GetString("Cleaner"),
+                "Assassin" => GetString("EvilGuesser"),
+                "LastImpostor" => GetString("LastImpostor"),
+                "MadGuardian" => GetString("MadGuardian"),
+                "Madmate" => GetString("Madmate"),
+                "MadSnitch" => GetString("MadSnitch"),
+                "MadMayor" => GetString("MadMayor"),
+                "MadMedic" => GetString("MadMedic"),
+                "CrewPostor" => GetString("CrewPostor"),
+                "Magician" => GetString("Magician"),
+                "Traitor" => GetString("CorruptedSheriff"),
+                "SideKickMadmate" => GetString("SKMadmate"),
+                "Parasite" => GetString("Parasite"),
+                "Alturist" => GetString("Alturist"),
+                "Lighter" => GetString("Lighter"),
+                "Medium" => GetString("Medium"),
+                "Demolitionist" => GetString("Demolitionist"),
+                "Bastion" => GetString("Bastion"),
+                "Vigilante" => GetString("NiceGuesser"),
+                "Escort" => GetString("Escort"),
+                "Crusader" => GetString("Crusader"),
+                "Psychic" => GetString("Psychic"),
+                "Mystic" => GetString("Mystic"),
+                "Deputy" => GetString("Deputy"),
+                "Swapper" => GetString("Swapper"),
+                "Doctor" => GetString("Doctor"),
+                "Mayor" => GetString("Mayor"),
+                "Revived" => GetString("Revived"),
+                "Unstoppable" => GetString("Unstoppable"),
+                "Clumsy" => GetString("Clumsy"),
+                "Seer" => GetString("Seer"),
+                "SabotageMaster" => GetString("SabotageMaster"),
+                "Oracle" => GetString("Oracle"),
+                "GlitchTOHE" => GetString("GlitchTOHE"),
+                "Medic" => GetString("Medic"),
+                "Paramedic" => GetString("Parademic"),
+                "Marshall" => GetString("Marshall"),
+                "Examiner" => GetString("Examiner"),
+                "Communist" => GetString("Communist"),
+                "PortalMaker" => GetString("PortalMaker"),
+                "Tracefinder" => GetString("Tracefinder"),
+                "Detective" => GetString("Detective"),
+                "Tracker" => GetString("Tracker"),
+                "Transparent" => GetString("Transparent"),
+                "Cursed" => GetString("Cursed"),
+                "TimeTraveler" => GetString("TimeTraveler"),
+                "Bodyguard" => GetString("Bodyguard"),
+                "Sheriff" => GetString("Sheriff"),
+                "Investigator" => GetString("Investigator"),
+                "Snitch" => GetString("Snitch"),
+                "Transporter" => GetString("Transporter"),
+                "SpeedBooster" => GetString("SpeedBooster"),
+                "Trapper" => GetString("Trapper"),
+                "Dictator" => GetString("Dictator"),
+                "Nurse" => GetString("Nurse"),
+                "Tank" => GetString("Tank"),
+                "Child" => GetString("Child"),
+                "Veteran" => GetString("Veteran"),
+                "Arsonist" => GetString("Arsonist"),
+                "Egoist" => GetString("Egoist"),
+                "PlagueBearer" => GetString("PlagueBearer"),
+                "Pestilence" => GetString("Pestilence"),
+                "Vulture" => GetString("Vulture"),
+                "Troll" => GetString("Troll"),
+                "TheGlitch" => GetString("TheGlitch"),
+                "Postman" => GetString("Postman"),
+                "Werewolf" => GetString("Werewolf"),
+                "NeutWitch" => GetString("NeutWitch"),
+                "Marksman" => GetString("Marksman"),
+                "GuardianAngel" => GetString("GuardianAngelTOU"),
+                "Jester" => GetString("Jester"),
+                "Amnesiac" => GetString("Amnesiac"),
+                "Hacker" => GetString("Hacker"),
+                "Dracula" => GetString("Dracula"),
+                "BloodKnight" => GetString("BloodKnight"),
+                "Hitman" => GetString("Hitman"),
+                "Phantom" => GetString("Phantom"),
+                "Pirate" => GetString("Pirate"),
+                "Template" => GetString("TemplateRole"),
+                "Occultist" => GetString("Occultist"),
+                "Juggernaut" => GetString("Juggernaut"),
+                "Unseeable" => GetString("Unseeable"),
+                "Wraith" => GetString("Wraith"),
+                "Undecided" => GetString("Undecided"),
+                "Opportunist" => GetString("Opportunist"),
+                "Survivor" => GetString("Survivor"),
+                "Terrorist" => GetString("Terrorist"),
+                "Executioner" => GetString("Executioner"),
+                "Jackal" => GetString("Jackal"),
+                "Sidekick" => GetString("Sidekick"),
+                "Lawyer" => GetString("Lawyer"),
+                "GM" => GetString("GM"),
+                "Coven" => GetString("Coven"),
+                "Poisoner" => GetString("Poisoner"),
+                "CovenWitch" => GetString("CovenWitch"),
+                "HexMaster" => GetString("HexMaster"),
+                "Medusa" => GetString("Medusa"),
+                "Lovers" => GetString("Lovers"),
+                "LoversRecode" => GetString("LoversRecode"),
+                "Flash" => GetString("Flash"),
+                "Escalation" => GetString("Escalation"),
+                "TieBreaker" => GetString("TieBreaker"),
+                "Oblivious" => GetString("Oblivious"),
+                "Sleuth" => GetString("Sleuth"),
+                "Watcher" => GetString("Watcher"),
+                "Obvious" => GetString("Obvious"),
+                "DoubleShot" => GetString("DoubleShot"),
+                "Mini" => GetString("Mini"),
+                "Menace" => GetString("Menace"),
+                "Giant" => GetString("Giant"),
+                "Soulhandler" => GetString("Soulhandler"),
+                "Underage" => GetString("Underage"),
+                "Bewilder" => GetString("Bewilder"),
+                "Bait" => GetString("Bait"),
+                "Torch" => GetString("Torch"),
+                "Diseased" => GetString("Diseased"),
+                _ => text,
+            } ;
+        }
+        public static void SendRolesInfo(string role, byte playerId, bool isDev = false, bool isUp = false)
+        {
+
+            role = role.Trim().ToLower();
+            if (role.StartsWith("/r")) role.Replace("/r", string.Empty);
+            if (role.StartsWith("/up")) role.Replace("/up", string.Empty);
+            if (role.EndsWith("\r\n")) role.Replace("\r\n", string.Empty);
+            if (role.EndsWith("\n")) role.Replace("\n", string.Empty);
+
+            if (role == "" || role == string.Empty)
+            {
+                Utils.ShowActiveRoles(playerId);
+                return;
+            }
+
+            role = FixRoleNameInput(role).ToLower().Trim().Replace(" ", string.Empty);
+
+            foreach (CustomRoles rl in Enum.GetValues(typeof(CustomRoles)))
+            {
+                if (rl.IsVanilla()) continue;
+                var roleName = GetString(rl.ToString());
+                if (role == roleName.ToLower().Trim().TrimStart('*').Replace(" ", string.Empty))
+                {
+                    string devMark = "";
+                    var sb = new StringBuilder();
+                    sb.Append(devMark + roleName + GetString($"{rl}InfoLong"));
+                    if (Options.CustomRoleSpawnChances.ContainsKey(rl))
+                    {
+                        var txt = sb.ToString();
+                        sb.Clear().Append(txt.RemoveHtmlTags());
+                    }
+                    Utils.SendMessage(sb.ToString(), playerId);
+                    return;
+                }
+            }
+            return;
         }
         public static void SendTemplate(string str = "", byte playerId = 0xff, bool noErr = false)
         {
@@ -1010,7 +1236,7 @@ namespace TownOfHost
             }
         }
         public static void OnReceiveChat(PlayerControl player, string text)
-        {
+        {       
             if (!AmongUsClient.Instance.AmHost) return;
             if (Main.SilencedPlayer.Count != 0)
             {
@@ -1062,6 +1288,7 @@ namespace TownOfHost
                 }
             }
             string subArgs = "";
+            if (text.Length >= 3) if (text[..2] == "/r" && text[..3] != "/rn") args[0] = "/r";
             switch (args[0])
             {
                 case "/l":
@@ -1149,7 +1376,7 @@ namespace TownOfHost
                     break;
                 case "/r":
                     subArgs = text.Remove(0, 2);
-                    PublicGetRolesInfo(subArgs, player.PlayerId);
+                    SendRolesInfo(subArgs, player.PlayerId, player.FriendCode.GetDevUser().DeBug);
                     break;
                 case "/t":
                 case "/template":
