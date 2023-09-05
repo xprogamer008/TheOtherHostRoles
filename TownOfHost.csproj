@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-    <Description>Town Of Roles</Description>
+    <Description>The Other Host Roles</Description>
     <Authors>Honest</Authors>
     <langVersion>preview</langVersion>
   </PropertyGroup>
