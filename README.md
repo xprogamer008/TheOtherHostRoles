@@ -39,6 +39,7 @@ New Impostor Roles:
 - Added Undertaker
 - Added Backstabber
 - Added Creeper
+- Added ShapeMaster
 
 New Madmate Roles:
 
@@ -222,7 +223,7 @@ Below is an example:
 | [Undertaker](#undertaker)			  |	[Revived](#revived)				  |									  |									|								 |						      |	  
 | [Backstabber](#backstabber)		  |	[Parademic](#parademic)			  |								      |							        |							     |							  |				
 | [Creeper](#creeper)       		  |	[Unstoppable](#unstoppable)		  |									  |									|								 |							  |
-|									  |	[TheGlitch](#the-glitch-tohe)	  |									  |									|								 |							  |
+| [ShapeMaster](#shapemaster)		  |	[TheGlitch](#the-glitch-tohe)	  |									  |									|								 |							  |
 |									  |	[Imitator](#Imitator)			  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
@@ -326,10 +327,7 @@ Unless they get a kill by deadline, they suicide instantly.<br>
 
 ### ShapeMaster
 
-**Warning**
-Unavailable.
-
-Create and idea by しゅー<br>
+Idea from [TownOfHost](https://github.com/tukasa0001/TownOfHost)<br>
 
 Team : Impostors<br>
 Basis : ShapeShifter<br>
