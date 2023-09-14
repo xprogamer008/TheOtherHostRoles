@@ -29,7 +29,7 @@ namespace TownOfHost
         public static readonly string BANNEDFRIENDCODES_FILE_PATH = "./TOR_DATA/bannedfriendcodes.txt";
         public static readonly string DiscordInviteUrl = "https://discord.gg/tohtor";
         public static readonly bool ShowDiscordButton = true;
-        public const string PluginVersion = "1.9";
+        public const string PluginVersion = "2.0";
         public const string DevVersion = "1";
         public const string FullDevVersion = $" dev {DevVersion}";
         public Harmony Harmony { get; } = new Harmony(PluginGuid);
@@ -1152,7 +1152,7 @@ namespace TownOfHost
         Reverser,
         Undertaker,
         Backstabber,
-        //ShapeMaster,
+        ShapeMaster,
         Sniper,
         Vampire,
         Vampress,
@@ -1166,6 +1166,7 @@ namespace TownOfHost
         Disperser,
         Puppeteer,
         Wildling,
+        Depressed,
         // EVENT WINNING ROLES
         IdentityTheft,
         Manipulator,

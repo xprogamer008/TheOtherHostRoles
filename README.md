@@ -9,7 +9,7 @@ DISCORD SERVER: https://discord.gg/FK5RWnQKkA --- Recommended after Innersloth i
 ## Releases
 
 AmongUs Version: **2023.7.11/2023.7.12**<br>
-**Latest Version:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases/tag/1.9)**
+**Latest Version:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases/tag/1.8)**
 
 Old Versions:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases)
 
@@ -17,12 +17,9 @@ Old Versions:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases)
 
 KNOWN BUGS:
 
-- Some Roles have double their Cooldown or half their cooldown sometimes.
 - Black screens on consoles when dead affter next meeting when impostors die. Desynced impostor roles can bypass this until they die. (Lag spikes triggered by name changes cause this)
-- Revived players by the [Alturist](#alturist) can see all the roles of the players.(this can be shut down temporairly by disabling the setting ''Ghost Can See Other Roles'')
-- Revived players by the [Doctor](#doctor) can see all the roles of the players.(this can be shut down temporairly by disabling the setting ''Roles look Similar to TOU'')
-- Revived players by the [Alturist](#alturist) can go through Walls. (Host is included)
-- Revived players by the [Doctor](#doctor) can go through Walls. (Host isn't included)
+- Revived players by the [Doctor](#doctor) and [Alturist](#alturist) can see all the roles of the players.(this can be shut down temporairly by disabling the setting ''Roles look Similar to TOU'')
+- Revived players by the [Doctor](#doctor) and [Alturist](#alturist) can go through Walls. (Host isn't included)
 
 ## Features
 
@@ -30,9 +27,9 @@ This mod only needs to be installed on the host's client to work, and works rega
 Unlike mods that use custom servers, there is no need to add servers by editing URLs or files.<br>
 If you are going to play on Custom Servers, such as MNA and MEU, it would require everyone to have the mods the host has.<br>
 
-New contend with The Other Host Roles added to this game:
+## New contend with The Other Host Roles added to this game:
 
-New Impostor Roles:
+### New Impostor Roles:
 
 - Added Wildling
 - Added Reverser
@@ -40,13 +37,14 @@ New Impostor Roles:
 - Added Backstabber
 - Added Creeper
 - Added ShapeMaster
+- Added Depressed
 
-New Madmate Roles:
+### New Madmate Roles:
 
 - Added MadMayor
 - Added MadMedic
 
-New Crewmate Roles:
+### New Crewmate Roles:
 
 - Added Detective
 - Added Transparent
@@ -65,9 +63,13 @@ New Crewmate Roles:
 - Added Parademic
 - Added Unstoppable
 - Added TheGlitch(TOHE)
-- Added Imitator
+- Added Communist
+- Added Tracefinder
+- Added PortalMaker
+- Added Seer
+- Added Lazy Guy
 
-New Neutral Roles:
+### New Neutral Roles:
 
 - Added Lawyer
 - Added Troll
@@ -78,14 +80,16 @@ New Neutral Roles:
 - Added Hustler
 - Added Template
 - Added Wraith
+- Added Occultist
 
-New Modifiers:
+### New Modifiers:
 
 - Added Soulhandler
 - Added Underage
 - Added Menace
+- Added Mini
 
-New Aditions:
+### New Aditions:
 
 - A different Doctor added.
 - Original Doctor renamed to nurse
@@ -94,6 +98,8 @@ New Aditions:
 - Transproters vent icon says ''TRANSPARENCY''
 - Swoopers vent ican says ''SWOOP''
 - Also pretty obvious that many roles have been added and there will be more to add
+
+## Important things to note
 
 However, please note that the following restrictions apply.<br>
 
@@ -204,10 +210,10 @@ Below is an example:
 | [Witch](#witch)                     | [Trapper](#trapper)               | [Phantom](#phantom)               | [Dracula](#dracula)             |                                | [Guesser](#Guesser)        |
 | [Mafia](#mafia)                     | [Demolitionist](#demolitionist)   | [Swapper](#swapper)               | [Unseeable](#unseeable)         |                                | [Underage](#underage)      |
 | [Madmate](#madmate)                 | [Bastion](#bastion)               | [Hitman](#hitman)                 | [Magician](#magician)    	    |                                | [Menace](#menace)          |
-| [MadGuardian](#madguardian)         | [Vigilante](#guesser)             | [Lawyer](#lawyer)                 | [Hustler](#hustler)             |                                |                            |
+| [MadGuardian](#madguardian)         | [Vigilante](#guesser)             | [Lawyer](#lawyer)                 | [Hustler](#hustler)             |                                | [Mini](#mini)              |
 | [MadSnitch](#madsnitch)			  | [Veteran](#veteran)               |	[Troll](#troll)                   | [Template](#template)           |                                |                            |
 | [SidekickMadmate](#sidekickmadmate) | [Child](#child)                   | [Undecided](#undecided)           | [Wraith](#wraith)	            |                                |                            |
-| [Silencer](#silencer)               | [Psychic](#psychic)               |							          |                                 |                                |                            |
+| [Silencer](#silencer)               | [Psychic](#psychic)               |							          | [Occultist](#occultist)         |                                |                            |
 | [Traitor](#traitor)                 | [Detective](#detective)           |                                   |                                 |                                |                            |
 | [Assassin](#guesser)                | [Tank](#tank)                     |                                   |                                 |                                |                            |
 | [Parasite](#parasite)               | [Transparent](#transparent)       |                                   |                                 |                                |                            |
@@ -223,11 +229,12 @@ Below is an example:
 | [Undertaker](#undertaker)			  |	[Revived](#revived)				  |									  |									|								 |						      |	  
 | [Backstabber](#backstabber)		  |	[Parademic](#parademic)			  |								      |							        |							     |							  |				
 | [Creeper](#creeper)       		  |	[Unstoppable](#unstoppable)		  |									  |									|								 |							  |
-| [ShapeMaster](#shapemaster)		  |	[TheGlitch](#theglitch)	  |									  |									|								 |							  |
-|									  |	[Imitator](#Imitator)			  |									  |									|								 |							  |
-|									  |									  |									  |									|								 |							  |
-|									  |									  |									  |									|								 |							  |
-|									  |									  |									  |									|								 |							  |
+| [ShapeMaster](#shapemaster)		  |	[TheGlitch](#theglitch)	          |									  |									|								 |							  |
+| [Depressed](#depressed)			  |	[PortalMaker](#portal-maker)	  |									  |									|								 |							  |
+|									  |	[Seer](#seer)					  |									  |									|								 |							  |
+|									  |	[Communist](#communist)			  |									  |									|								 |							  |
+|									  |	[Tracefinder](#tracefinder)		  |									  |									|								 |							  |
+|                                     | [Lazy Guy](#lazy-guy)	          |                                   |                                 |                                |                            |
 #### Notes
 
 Roles without a redirect mean they are not implemented yet but are planned.
@@ -542,6 +549,19 @@ Basis : Impostor<br>
 The Creeper is a normal Impostor that can Sabotage and Kill.<br>
 What is his ability? If you hold your pet button you can ignite yourself and make a huge explosion.<br>
 Everyone in a certain raidius will be killed and after you ignite you will die aswell.<br>
+
+### Depressed
+
+Create and Idea by EXC4LIBUR<br>
+
+Team : Impostors<br>
+Basis : Impostor<br>
+
+The Depressed had enough of life.<br>
+He wants to go but with a bang.<br>
+He can pet his button to explode.<br>
+The explosion has double the raidius of the [Creeper](#creeper)<br>
+But unlike the creeper, you can't kill.<br>
 
 ## Madmate
 
@@ -1160,6 +1180,55 @@ You can't cast a vote, report bodies and call emergency meetings.<br>
 you will get higher vision (your vison doesn't get affected by the lights) and you are immortal.<br>
 Your body also can not be found by the Detective.<br>
 
+### Tracefinder
+
+Original Idea from [TOHRE](https://Github.com/Loonie-Toons/TownOfHost-ReEdited)<br>
+
+Team : Crewmates<br>
+Basis : Scientist<br>
+
+The Tracefinder is a crewmate access with vitals.<br>
+He also has Arrows pointing towards bodies.<br>
+
+### Communist
+
+Create and Idea by EXC4LIBUR<br>
+
+Team : Crewmates<br>
+Basis : Crewmate<br>
+
+The Communist is a crewmate with more options to win.<br>
+He can win with Imps or Crews.<br>
+He cannot win with neutrals.<br>
+
+### Seer
+
+Create and Idea by EXC4LIBUR<br>
+
+Team : Crewmates<br>
+Basis : Crewmate<br>
+
+The Seer has Impostor vision and can see the cause of death in the meetings.<br>
+
+### Portal Maker
+
+Create and Idea by EXC4LIBUR<br>
+
+Team : Crewmates<br>
+Basis : Engineer<br>
+
+The Portal Maker is a role that can return to the last vent he vented into by pressing their pet button after venting somewhere.<br>
+
+### Lazy Guy
+
+Original Idea from [TOHRE](https://Github.com/Loonie-Toons/TownOfHost-ReEdited)<br>
+
+Team : Crewmates<br>
+Basis : Crewmate<br>
+
+The Lazy Guy is a crewmate role with the ability of having one task.<br>
+He also ignores tags from Witch, Puppeteer, etc...<br>
+
 ## Neutral
 
 #### Settings
@@ -1640,6 +1709,20 @@ Neutral : Hitman ability
 
 If you report a Covens body, you will become coven and you wont chnage anymore.<br>
 
+### Occultist
+
+Team : Neutral<br>
+Basis : Impostor<br>
+
+Originaly based from [Porject Lotus](https://github.com/ImaMapleTree/Lotus)<br>
+
+The Occultist has 2 killing modes.<br>
+The first is [Kill]. In kill mode you can perform normal kill with nothing at it.<br>
+The second is [Spell]. In spell mode you can spell someone with your kill button. After spelling someone, they will have a guardian angel shield blast around them.<br>
+When a meeting is called, the spelled player will have a blue cross next to their name.<br>
+If the Occultist isn't ejected till the end of the same meeting, then the spelled player will die after the meeting.<br>
+The Occultist wins alone.<br>
+
 ## Coven
 
 ### Coven Leader
@@ -1793,6 +1876,14 @@ Create and Idea by EXC4LIBUR.<br>
 Assigned to : Impostors
 
 As the Menace Modifier your kill cooldown will be reduced by certain number determent by the setting.<br>
+
+### Mini
+
+Idea by music-discussions.<br>
+Coded by EXC4LIBUR.<br>
+Inspired by [TheOtherRoles](https://github.com/TheOtherRolesAU/TheOtherRoles)<br>
+
+The Mini modifier grants his user a certain precent chance determent by the settings to block the kill from happening.<br>
 
 ## Attribute
 
