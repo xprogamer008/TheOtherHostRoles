@@ -9,7 +9,7 @@ DISCORD SERVER: https://discord.gg/FK5RWnQKkA --- Recommended after Innersloth i
 ## Releases
 
 AmongUs Version: **2023.7.11/2023.7.12**<br>
-**Latest Version:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases/tag/1.8)**
+**Latest Version:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases/tag/1.9)**
 
 Old Versions:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases)
 
@@ -223,7 +223,7 @@ Below is an example:
 | [Undertaker](#undertaker)			  |	[Revived](#revived)				  |									  |									|								 |						      |	  
 | [Backstabber](#backstabber)		  |	[Parademic](#parademic)			  |								      |							        |							     |							  |				
 | [Creeper](#creeper)       		  |	[Unstoppable](#unstoppable)		  |									  |									|								 |							  |
-| [ShapeMaster](#shapemaster)		  |	[TheGlitch](#the-glitch-tohe)	  |									  |									|								 |							  |
+| [ShapeMaster](#shapemaster)		  |	[TheGlitch](#theglitch)	  |									  |									|								 |							  |
 |									  |	[Imitator](#Imitator)			  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
 |									  |									  |									  |									|								 |							  |
