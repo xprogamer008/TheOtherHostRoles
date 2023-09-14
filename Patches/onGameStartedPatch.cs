@@ -205,6 +205,10 @@ namespace TownOfHost
                 Main.IsProtected = false;
                 Main.IsInvis = false;
                 Main.CanGoInvis = true;
+                Main.IsInvis2 = false;
+                Main.CanGoInvis2 = true;
+                Main.IsInvis3 = false;
+                Main.CanGoInvis3 = true;
                 Main.PlayerColors = new();
                 Main.whoKilledWho = new Dictionary<byte, byte>();
                 Main.SleuthReported = new();

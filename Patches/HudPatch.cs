@@ -233,6 +233,9 @@ namespace TownOfHost
                 case CustomRoles.BountyHunter:
                     BountyHunter.GetAbilityButtonText(__instance);
                     break;
+                case CustomRoles.Depressed:
+                    __instance.PetButton.OverrideText($"SUICIDE");
+                    break;
                 case CustomRoles.Veteran:
                     __instance.AbilityButton.OverrideText($"ALERT");
                     var color = Utils.GetRoleColor(PlayerControl.LocalPlayer.GetCustomRole());
@@ -379,7 +382,7 @@ namespace TownOfHost
                 {
                     var ModeLang = Main.IsInvis3 ? "Yes" : "No";
                     var ReadyLang = Main.CanGoInvis3 ? "Yes" : "No";
-                    LowerInfoText.text = "Unseeable: " + ModeLang;
+                    LowerInfoText.text = "Is Unseeable: " + ModeLang;
                     LowerInfoText.text += "\nInvisibility is Ready: " + ReadyLang;
                 }
                 else if (player.Is(CustomRoles.Transparent))
@@ -942,6 +945,10 @@ namespace TownOfHost
                     __instance.ImpostorVentButton.ToggleVisible(false);
                     if (!player.Is(CustomRoles.Jester))
                         __instance.AbilityButton.ToggleVisible(false);
+                    break;
+                case CustomRoles.Depressed:
+                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
+                        __instance.KillButton.ToggleVisible(false);
                     break;
                 case CustomRoles.Medusa:
                     if (player.Data.Role.Role != RoleTypes.GuardianAngel)

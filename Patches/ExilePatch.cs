@@ -184,6 +184,10 @@ namespace TownOfHost
                 Main.IsHackMode = false;
                 Main.IsInvis = false;
                 Main.CanGoInvis = false;
+                Main.IsInvis2 = false;
+                Main.CanGoInvis2 = false;
+                Main.IsInvis3 = false;
+                Main.CanGoInvis3 = false;
                 Main.DoingYingYang = true;
                 foreach (var pc in PlayerControl.AllPlayerControls)
                 {
@@ -329,6 +333,10 @@ namespace TownOfHost
                 Main.IsRoundOne = false;
                 Main.IsInvis = false;
                 Main.CanGoInvis = false;
+                Main.IsInvis2 = false;
+                Main.CanGoInvis2 = false;
+                Main.IsInvis3 = false;
+                Main.CanGoInvis3 = false;
                 Main.IsRoundOneGA = false;
                 Main.unvotablePlayers.Clear();
                 Main.unvotablePlayers = new();

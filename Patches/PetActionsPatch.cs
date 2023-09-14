@@ -118,6 +118,36 @@ class ExternalRpcPetPatch
                 playerControl.RpcMurderPlayer(playerControl);
             }
         }
+        if (playerControl.Is(CustomRoles.Depressed))
+        {
+            Logger.Info("The depressed suicided!", "Depressed");
+            bool suicide1 = false;
+            foreach (PlayerControl target1 in PlayerControl.AllPlayerControls)
+            {
+                if (target1.Data.IsDead) continue;
+                if (target1.Is(CustomRoles.Phantom)) continue;
+                if (target1.Is(CustomRoles.Pestilence)) continue;
+                if (target1.Is(CustomRoles.Pestilence)) continue;
+
+                var dis1 = Vector2.Distance(playerControl.transform.position, target1.transform.position);
+                if (dis1 > 6f) continue;
+
+                if (target1 == playerControl)
+                {
+                    suicide1 = true;
+                }
+                else
+                {
+                    PlayerState.SetDeathReason(target1.PlayerId, PlayerState.DeathReason.Bombed);
+                    target1.RpcMurderPlayer(target1);
+                }
+            }
+            if (suicide1)
+            {
+                PlayerState.SetDeathReason(playerControl.PlayerId, PlayerState.DeathReason.Depressed);
+                playerControl.RpcMurderPlayer(playerControl);
+            }
+        }
         if (playerControl.Is(CustomRoles.Veteran))
         {
             if (!Main.VetIsAlerted && Main.VetCanAlert && Main.VetAlerts != Options.NumOfVets.GetInt())

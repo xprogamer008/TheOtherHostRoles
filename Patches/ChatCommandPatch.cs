@@ -439,100 +439,103 @@ namespace TownOfHost
                         subArgs = args.Length < 2 ? "" : args[1];
                         switch (subArgs)
                         {
-                            case "crewmate":
-                                Utils.SendMessage($"Host switched to role: {subArgs}");
+                            case "Crewmate":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Crewmate);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Crewmate);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Crewmate);
                                 break;
-                            case "impostor":
-                                Utils.SendMessage($"Host switched to role: {subArgs}");
+                            case "ImpostoR":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Impostor);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
                                 break;
-                            case "engineer":
-                                Utils.SendMessage($"Host switched to role: {subArgs}");
+                            case "EngineeR":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Engineer);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Engineer);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Engineer);
                                 break;
-                            case "scientist":
-                                Utils.SendMessage($"Host switched to role: {subArgs}");
+                            case "ScientisT":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Scientist);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Scientist);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Scientist);
                                 break;
-                            case "shapeshifter":
-                                Utils.SendMessage($"Host switched to role: {subArgs}");
+                            case "ShapeshifteR":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Shapeshifter);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Shapeshifter);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Shapeshifter);
                                 break;
-                            case "crewghost":
-                                Utils.SendMessage($"Host switched to role: {subArgs}");
+                            case "CrewghosT":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.CrewmateGhost);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.CrewmateGhost);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.CrewmateGhost);
                                 break;
-                            case "impghost":
-                                Utils.SendMessage($"Host switched to role: {subArgs}");
+                            case "iImpghosT":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.ImpostorGhost);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.ImpostorGhost);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.ImpostorGhost);
                                 break;
-                            case "doctor":
+                            case "DoctoR":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Doctor);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Crewmate);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Crewmate);
                                 break;
-                            case "lawyer":
+                            case "LawyeR":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Lawyer);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Crewmate);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Crewmate);
                                 break;
-                            case "undertaker":
+                            case "UndertakeR":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Undertaker);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
                                 break;
-                            case "dracula":
+                            case "DraculA":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Dracula);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
                                 break;
-                            case "werewolf":
+                            case "WerewolF":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Werewolf);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
                                 break;
-                            case "alturist":
+                            case "Alturist":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Alturist);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Crewmate);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Crewmate);
                                 break;
-                            case "Camouflager":
+                            case "CamouflageR":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Camouflager);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Shapeshifter);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Shapeshifter);
                                 break;
-                            case "Ninja":
+                            case "NinjA":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Ninja);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Shapeshifter);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Shapeshifter);
                                 break;
-                            case "Witch":
+                            case "WitcH":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Witch);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
                                 break;
-                            case "Swooper":
+                            case "SwoopeR":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Swooper);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
                                 break;
-                            case "Reverser":
+                            case "ReverseR":
                                 PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Reverser);
+                                PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
+                                RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
+                                break;
+                            case "ShapeMasteR":
+                                PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.ShapeMaster);
+                                PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Shapeshifter);
+                                RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Shapeshifter);
+                                break;
+                            case "DepresseD":
+                                PlayerControl.LocalPlayer.RpcSetCustomRole(CustomRoles.Depressed);
                                 PlayerControl.LocalPlayer.RpcSetRole(RoleTypes.Impostor);
                                 RoleManager.Instance.SetRole(PlayerControl.LocalPlayer, RoleTypes.Impostor);
                                 break;
@@ -576,7 +579,7 @@ namespace TownOfHost
                 { CustomRoles.Mare, "ma" },
                 { CustomRoles.Mafia, "mf" },
                 { CustomRoles.SerialKiller, "mc" },
-                //{ CustomRoles.ShapeMaster, "sha" },
+                { CustomRoles.ShapeMaster, "sha" },
                 { CustomRoles.TimeThief, "tt"},
                 { CustomRoles.VoteStealer, "pi"},
                 { CustomRoles.Sniper, "snp" },
@@ -795,7 +798,7 @@ namespace TownOfHost
                 { CustomRoles.Mare, "ma" },
                 { CustomRoles.Mafia, "mf" },
                 { CustomRoles.SerialKiller, "sk" },
-                //{ CustomRoles.ShapeMaster, "sha" },
+                { CustomRoles.ShapeMaster, "sha" },
                 { CustomRoles.TimeThief, "tt"},
                 { CustomRoles.VoteStealer, "vs"},
                 { CustomRoles.Sniper, "snp" },
@@ -993,6 +996,7 @@ namespace TownOfHost
                 "Sniper" => GetString("Sniper"),
                 "Vampire" => GetString("Vampire"),
                 "Vampiress" => GetString("Vampiress"),
+                "ShapeMaster" => GetString("ShapeMaster"),
                 "Witch" => GetString("Witch"),
                 "Warlock" => GetString("Warlock"),
                 "Mare" => GetString("Mare"),
@@ -1008,6 +1012,7 @@ namespace TownOfHost
                 "AgiTater" => GetString("AgiTater"),
                 "Bomber" => GetString("Bomber"),
                 "Creeper" => GetString("Creeper"),
+                "Depressed" => GetString("Depressed"),
                 "TimeThief" => GetString("TimeThief"),
                 "Silencer" => GetString("Silencer"),
                 "Ninja" => GetString("Ninja"),

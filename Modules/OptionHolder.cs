@@ -121,7 +121,7 @@ namespace TownOfHost
         public static CustomOption VampireKillDelay;
         public static CustomOption DraculaKillDelay;
         public static CustomOption VampireBuff;
-        //public static CustomOption ShapeMasterShapeshiftDuration;
+        public static CustomOption ShapeMasterShapeshiftDuration;
         public static CustomOption DefaultShapeshiftCooldown;
         public static CustomOption CanMakeMadmateCount;
         public static CustomOption MadGuardianCanSeeWhoTriedToKill;
@@ -622,17 +622,14 @@ namespace TownOfHost
             SetupRoleOptions(1301, CustomRoles.Morphling, AmongUsExtensions.OptionType.Impostor);
             SetupRoleOptions(1302, CustomRoles.Mechanic, AmongUsExtensions.OptionType.Crewmate);
             SetupRoleOptions(1303, CustomRoles.Physicist, AmongUsExtensions.OptionType.Crewmate);
-            SetupRoleOptions(1306, CustomRoles.Shapeshifter, AmongUsExtensions.OptionType.Impostor);
-            ShiftCooldown = CustomOption.Create(130610, Color.white, "ShiftCooldown", AmongUsExtensions.OptionType.Impostor, 15f, 2.5f, 180f, 2.5f, CustomRoleSpawnChances[CustomRoles.Shapeshifter]);
-            ShiftDuration = CustomOption.Create(130611, Color.white, "ShiftDuration", AmongUsExtensions.OptionType.Impostor, 30f, 2.5f, 180f, 2.5f, CustomRoleSpawnChances[CustomRoles.Shapeshifter]);
             // Impostor
             BountyHunter.SetupCustomOption();
             SerialKiller.SetupCustomOption();
             SetupRoleOptions(130609, CustomRoles.Wildling, AmongUsExtensions.OptionType.Impostor);
             WildlingProtectDuration = CustomOption.Create(130612, Color.white, "ProtectDuration", AmongUsExtensions.OptionType.Impostor, 15, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Wildling]);
             WildlingCanVent = CustomOption.Create(130613, Color.white, "CanVent", AmongUsExtensions.OptionType.Impostor, false, CustomRoleSpawnChances[CustomRoles.Wildling]);
-            // SetupRoleOptions(1200, CustomRoles.ShapeMaster);
-            // ShapeMasterShapeshiftDuration = CustomOption.Create(1210, Color.white, "ShapeMasterShapeshiftDuration", 10, 1, 1000, 1, CustomRoleSpawnChances[CustomRoles.ShapeMaster]);
+            SetupRoleOptions(1200, CustomRoles.ShapeMaster, AmongUsExtensions.OptionType.Impostor);
+            ShapeMasterShapeshiftDuration = CustomOption.Create(1210, Color.white, "ShapeMasterShapeshiftDuration", AmongUsExtensions.OptionType.Impostor, 10, 1, 1000, 1, CustomRoleSpawnChances[CustomRoles.ShapeMaster]);
             SetupRoleOptions(1300, CustomRoles.Vampire, AmongUsExtensions.OptionType.Impostor);
             VampireKillDelay = CustomOption.Create(1310, Color.white, "VampireKillDelay", AmongUsExtensions.OptionType.Impostor, 5, 1, 60, 1, CustomRoleSpawnChances[CustomRoles.Vampire]);
             VampireBuff = CustomOption.Create(1311, Color.white, "VampBuff", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.Vampire]);
@@ -645,6 +642,7 @@ namespace TownOfHost
             Sniper.SetupCustomOption();
             SetupRoleOptions(2000, CustomRoles.Puppeteer, AmongUsExtensions.OptionType.Impostor);
             PuppeteerCanKillAlliedPlayers = CustomOption.Create(2010, Color.white, "PuppeteerCanKillAlliedPlayers", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.Puppeteer]);
+            SetupSingleRoleOptions(2341300, CustomRoles.Depressed, 1, AmongUsExtensions.OptionType.Impostor);
             SetupSingleRoleOptions(200099, CustomRoles.YingYanger, 1, AmongUsExtensions.OptionType.Impostor);
             YinYangCooldown = CustomOption.Create(1213, Color.white, "YinYangCooldown", AmongUsExtensions.OptionType.Impostor, 15, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.YingYanger]);
             ResetToYinYang = CustomOption.Create(1314, Color.white, "ResetToYinYang", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.YingYanger]);

@@ -410,11 +410,11 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Terrorist:
                     goto InfinityVent;
-                // case CustomRoles.ShapeMaster:
-                //     opt.RoleOptions.ShapeshifterCooldown = 0.1f;
-                //     opt.RoleOptions.ShapeshifterLeaveSkin = false;
-                //     opt.RoleOptions.ShapeshifterDuration = Options.ShapeMasterShapeshiftDuration.GetFloat();
-                //     break;
+                case CustomRoles.ShapeMaster:
+                    shapeshifterOptions.ShapeshifterCooldown = 0.1f;
+                    shapeshifterOptions.ShapeshifterLeaveSkin = false;
+                    shapeshifterOptions.ShapeshifterDuration = Options.ShapeMasterShapeshiftDuration.GetFloat();
+                    break;
                 case CustomRoles.Bastion:
                     engineerOptions.EngineerCooldown = 25;
                     engineerOptions.EngineerInVentMaxTime = 0.1f;
@@ -1254,7 +1254,7 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Janitor:
                 case CustomRoles.Painter:
-                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.STCD.GetFloat() * 2;
+                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.STCD.GetFloat() * 1;
                     break;
             }
             if (player.IsLastImpostor() & !player.Is(CustomRoles.Bomber))
@@ -1385,7 +1385,7 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Janitor:
                 case CustomRoles.Painter:
-                    KillCooldown = Options.STCD.GetFloat() * 2;
+                    KillCooldown = Options.STCD.GetFloat() * 1;
                     break;
             }
             if (player.IsLastImpostor())

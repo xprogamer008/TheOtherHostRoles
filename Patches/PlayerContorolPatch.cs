@@ -187,6 +187,7 @@ namespace TownOfHost
                     case CustomRoles.Jester:
                     case CustomRoles.Executioner:
                     case CustomRoles.Amnesiac:
+                    case CustomRoles.Depressed:
                     case CustomRoles.Opportunist:
                     case CustomRoles.Undecided:
                         return false;
@@ -733,7 +734,7 @@ namespace TownOfHost
                                 return false;
                             }
                             Main.WitchedList[target.PlayerId] = killer.PlayerId;
-                            Main.AllPlayerKillCooldown[killer.PlayerId] = Options.CovenKillCooldown.GetFloat() * 2;
+                            Main.AllPlayerKillCooldown[killer.PlayerId] = Options.CovenKillCooldown.GetFloat() * 1;
                             killer.CustomSyncSettings();
                             killer.RpcGuardAndKill(target);
                             return false;
@@ -1052,7 +1053,7 @@ namespace TownOfHost
                                 target.RpcMurderPlayer(killer);
                                 return false;
                             }
-                            Main.AllPlayerKillCooldown[killer.PlayerId] = killer.GetKillCooldown() * 2;
+                            Main.AllPlayerKillCooldown[killer.PlayerId] = killer.GetKillCooldown() * 1;
                             Utils.CustomSyncAllSettings();
                             Main.CursedPlayers[killer.PlayerId] = target;
                             Main.WarlockTimer.Add(killer.PlayerId, 0f);
@@ -1474,7 +1475,7 @@ namespace TownOfHost
                             if (target.GetCustomSubRole() != CustomRoles.Bait)
                             {
                                 Utils.CustomSyncAllSettings();
-                                Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown * 2;
+                                Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown * 1;
                                 killer.CustomSyncSettings();
                                 killer.RpcGuardAndKill(target);
                                 Main.BitPlayers.Add(target.PlayerId, (killer.PlayerId, 0f));
@@ -1485,7 +1486,7 @@ namespace TownOfHost
                                 if (Options.VampireBuff.GetBool()) //Vampire Buff will still make Vampire report but later.
                                 {
                                     Utils.CustomSyncAllSettings();
-                                    Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown * 2;
+                                    Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown * 1;
                                     killer.CustomSyncSettings();
                                     killer.RpcGuardAndKill(target);
                                     Main.BitPlayers.Add(target.PlayerId, (killer.PlayerId, 0f));
@@ -1520,7 +1521,7 @@ namespace TownOfHost
                           //if (!target.Is(CustomRoles.Bewilder))
                           // {
                             Utils.CustomSyncAllSettings();
-                            Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown * 2;
+                            Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown * 1;
                             killer.CustomSyncSettings(); //負荷軽減のため、killerだけがCustomSyncSettingsを実行
                             killer.RpcGuardAndKill(target);
                             Main.BitPlayers.Add(target.PlayerId, (killer.PlayerId, 0f));
@@ -1532,7 +1533,7 @@ namespace TownOfHost
                             if (Options.VampireBuff.GetBool()) //Vampire Buff will still make Vampire report but later.
                             {
                                 Utils.CustomSyncAllSettings();
-                                Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown * 2;
+                                Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown * 1;
                                 killer.CustomSyncSettings(); //負荷軽減のため、killerだけがCustomSyncSettingsを実行
                                 killer.RpcGuardAndKill(target);
                                 Main.BitPlayers.Add(target.PlayerId, (killer.PlayerId, 0f));
@@ -1560,7 +1561,7 @@ namespace TownOfHost
                           //if (!target.Is(CustomRoles.Bewilder))
                           // {
                             Utils.CustomSyncAllSettings();
-                            Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown + Options.HiddenCreateDuration.GetFloat();
+                            Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown + Options.HiddenCreateDuration.GetFloat() * 1;
                             killer.CustomSyncSettings(); //負荷軽減のため、killerだけがCustomSyncSettingsを実行
                             killer.RpcGuardAndKill(target);
                             Main.HiddenPlayers.Add(target.PlayerId, (killer.PlayerId, 0f));
@@ -1766,7 +1767,7 @@ namespace TownOfHost
                             return false;
                         }
                         Main.PuppeteerList[target.PlayerId] = killer.PlayerId;
-                        Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown * 2;
+                        Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown * 1;
                         killer.CustomSyncSettings(); //負荷軽減のため、killerだけがCustomSyncSettingsを実行
                         killer.RpcGuardAndKill(target);
                         return false;
@@ -1824,7 +1825,7 @@ namespace TownOfHost
                             return false;
                         }
                         Main.WitchList[target.PlayerId] = killer.PlayerId;
-                        Main.AllPlayerKillCooldown[killer.PlayerId] = Options.ControlCooldown.GetFloat() * 2f;
+                        Main.AllPlayerKillCooldown[killer.PlayerId] = Options.ControlCooldown.GetFloat() * 1f;
                         killer.CustomSyncSettings(); // sync settings so they see.
                         killer.RpcGuardAndKill(target);
                         Main.WitchesThisRound++;
@@ -2928,9 +2929,9 @@ namespace TownOfHost
                 if (__instance.Is(CustomRoles.Cleaner) && Main.CleanerCanClean[__instance.PlayerId] && !__instance.Data.IsDead && !Main.unreportableBodies.Contains(target.PlayerId) && target.GetCustomSubRole() != CustomRoles.Bait && AmongUsClient.Instance.AmHost)
                 {
                     Main.unreportableBodies.Add(target.PlayerId);
-                    Main.AllPlayerKillCooldown[__instance.PlayerId] = Main.AllPlayerKillCooldown[__instance.PlayerId] * 2;
+                    Main.AllPlayerKillCooldown[__instance.PlayerId] = Main.AllPlayerKillCooldown[__instance.PlayerId] * 1;
                     __instance.RpcGuardAndKill(__instance);
-                    Main.AllPlayerKillCooldown[__instance.PlayerId] = Main.AllPlayerKillCooldown[__instance.PlayerId] / 2;
+                    Main.AllPlayerKillCooldown[__instance.PlayerId] = Main.AllPlayerKillCooldown[__instance.PlayerId] / 1;
                     foreach (DeadBody deadBody in GameObject.FindObjectsOfType<DeadBody>())
                     {
                         if (deadBody.ParentId == target.Object.PlayerId) Object.Destroy(deadBody.gameObject);
@@ -2958,9 +2959,9 @@ namespace TownOfHost
                 if (__instance.Is(CustomRoles.Cursed) && Main.CursedCanClean[__instance.PlayerId] && !__instance.Data.IsDead && !Main.unreportableBodies.Contains(target.PlayerId) && target.GetCustomSubRole() != CustomRoles.Bait && AmongUsClient.Instance.AmHost)
                 {
                     Main.unreportableBodies.Add(target.PlayerId);
-                    Main.AllPlayerKillCooldown[__instance.PlayerId] = Main.AllPlayerKillCooldown[__instance.PlayerId] * 2;
+                    Main.AllPlayerKillCooldown[__instance.PlayerId] = Main.AllPlayerKillCooldown[__instance.PlayerId] * 1;
                     __instance.RpcGuardAndKill(__instance);
-                    Main.AllPlayerKillCooldown[__instance.PlayerId] = Main.AllPlayerKillCooldown[__instance.PlayerId] / 2;
+                    Main.AllPlayerKillCooldown[__instance.PlayerId] = Main.AllPlayerKillCooldown[__instance.PlayerId] / 1;
                     foreach (DeadBody deadBody in GameObject.FindObjectsOfType<DeadBody>())
                     {
                         if (deadBody.ParentId == target.Object.PlayerId) Object.Destroy(deadBody.gameObject);
@@ -4039,7 +4040,7 @@ namespace TownOfHost
                         }
                         else if (ar_time >= Options.ArsonistDouseTime.GetFloat())//時間以上一緒にいて塗れた時
                         {
-                            Main.AllPlayerKillCooldown[player.PlayerId] = Options.ArsonistCooldown.GetFloat() * 2;
+                            Main.AllPlayerKillCooldown[player.PlayerId] = Options.ArsonistCooldown.GetFloat() * 1;
                             Utils.CustomSyncAllSettings();//同期
                             player.RpcGuardAndKill(ar_target);//通知とクールリセット
                             Main.dousedIDs.Add(ar_target.PlayerId);
@@ -4087,7 +4088,7 @@ namespace TownOfHost
                         }
                         else if (ar_time >= Bomber.BombTime.GetFloat())//時間以上一緒にいて塗れた時
                         {
-                            Main.AllPlayerKillCooldown[player.PlayerId] = Bomber.BombCooldown.GetFloat() * 2;
+                            Main.AllPlayerKillCooldown[player.PlayerId] = Bomber.BombCooldown.GetFloat() * 1;
                             Utils.CustomSyncAllSettings();//同期
                             player.RpcGuardAndKill(ar_target);//通知とクールリセット
                             Bomber.BomberTimer.Remove(player.PlayerId);//塗が完了したのでDictionaryから削
@@ -4134,7 +4135,7 @@ namespace TownOfHost
                         }
                         else if (ar_time >= 0)//時間以上一緒にいて塗れた時
                         {
-                            Main.AllPlayerKillCooldown[player.PlayerId] = Options.InfectCooldown.GetFloat() * 2;
+                            Main.AllPlayerKillCooldown[player.PlayerId] = Options.InfectCooldown.GetFloat() * 1;
                             Utils.CustomSyncAllSettings();
                             player.RpcGuardAndKill(ar_target);
                             Main.PlagueBearerTimer.Remove(player.PlayerId);
@@ -4478,7 +4479,7 @@ namespace TownOfHost
                     foreach (var pc in PlayerControl.AllPlayerControls)
                     {
                         if (/*pc.Is(CustomRoles.Vampire) ||*/ pc.Is(CustomRoles.Warlock))
-                            Main.AllPlayerKillCooldown[pc.PlayerId] = Options.DefaultKillCooldown * 2;
+                            Main.AllPlayerKillCooldown[pc.PlayerId] = Options.DefaultKillCooldown * 1;
                     }
 
                 if (__instance.AmOwner && !Main.devNames.ContainsKey(__instance.PlayerId)) Utils.ApplySuffix();

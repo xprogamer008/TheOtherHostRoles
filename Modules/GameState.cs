@@ -70,6 +70,7 @@ namespace TownOfHost
             Kill,
             Vote,
             Suicide,
+            Depressed,
             Spell,
             LoversSuicide,
             Bite,

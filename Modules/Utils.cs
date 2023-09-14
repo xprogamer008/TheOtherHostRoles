@@ -1544,7 +1544,7 @@ namespace TownOfHost
                 {
                     var ModeLang = Main.IsInvis3 ? "Yes" : "No";
                     var ReadyLang = Main.CanGoInvis3 ? "Yes" : "No";
-                    SelfSuffix = "Unseeable: " + ModeLang;
+                    SelfSuffix = "Is Unseeable: " + ModeLang;
                     SelfSuffix += "\nInvisibility is Ready: " + ReadyLang;
                 } 
                 if (seer.Is(CustomRoles.Transparent))

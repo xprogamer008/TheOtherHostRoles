@@ -20,11 +20,13 @@ namespace TownOfHost
                 CustomRoles.Reverser or
                 CustomRoles.Escapist or
                 CustomRoles.Creeper or
+                CustomRoles.Depressed or
                 CustomRoles.Witch or
                 CustomRoles.Silencer or
                 CustomRoles.Warlock or
                 CustomRoles.Consort or
                 CustomRoles.Morphling or
+                CustomRoles.ShapeMaster or
                 CustomRoles.SerialKiller or
                 CustomRoles.Mare or
                 CustomRoles.ImpostorGhost or
@@ -462,6 +464,7 @@ namespace TownOfHost
                 CustomRoles.Warlock or
                 CustomRoles.SerialKiller or
                 CustomRoles.Morphling or
+                CustomRoles.ShapeMaster or
                 CustomRoles.FireWorks or
                 CustomRoles.Sniper or
                 CustomRoles.Consort or
@@ -472,8 +475,7 @@ namespace TownOfHost
                 CustomRoles.Camouflager or
                 CustomRoles.Vampress or
                 CustomRoles.Grenadier or
-                CustomRoles.Ninja or
-                CustomRoles.TheGlitch;
+                CustomRoles.Ninja;
         }
         public static bool PetActivatedAbility(this CustomRoles role)
         {
@@ -484,6 +486,7 @@ namespace TownOfHost
                 CustomRoles.Escapist or
                 CustomRoles.TheGlitch or
                 CustomRoles.Creeper or
+                CustomRoles.Depressed or
                 CustomRoles.PortalMaker or
                 CustomRoles.Werewolf or
                 CustomRoles.TimeTraveler or
