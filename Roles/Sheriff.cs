@@ -261,9 +261,7 @@ namespace TownOfHost
                 CustomRoles.Magician => true,
                 CustomRoles.TemplateRole => true,
                 CustomRoles.Wraith => false,
-                CustomRoles.Hustler => true,
                 CustomRoles.Unseeable => true,
-                CustomRoles.ImitatorHitman => true,
                 // COVEN //
                 CustomRoles.Coven => SheriffCanKillCoven.GetBool(),
                 CustomRoles.CovenWitch => SheriffCanKillCoven.GetBool(),
