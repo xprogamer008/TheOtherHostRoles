@@ -9,7 +9,7 @@ DISCORD SERVER: https://discord.gg/FK5RWnQKkA --- Recommended after Innersloth i
 ## Releases
 
 AmongUs Version: **2023.7.11/2023.7.12**<br>
-**Latest Version:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases/tag/2.0)**
+**Latest Version:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases/tag/1.8)**
 
 Old Versions:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases)
 
@@ -60,14 +60,14 @@ If you are going to play on Custom Servers, such as MNA and MEU, it would requir
 - Added Alturist
 - Added (NEW) Doctor
 - Added Revived
-- Added Parademic
+- Added Paramedic
 - Added Unstoppable
 - Added TheGlitch(TOHE)
 - Added Communist
 - Added Tracefinder
 - Added PortalMaker
 - Added Seer
-- Added Lazy Guy
+- Added Joker
 
 ### New Neutral Roles:
 
@@ -77,7 +77,6 @@ If you are going to play on Custom Servers, such as MNA and MEU, it would requir
 - Added Unseeable
 - Added Undecided
 - Added Magician
-- Added Hustler
 - Added Template
 - Added Wraith
 - Added Occultist
@@ -88,6 +87,11 @@ If you are going to play on Custom Servers, such as MNA and MEU, it would requir
 - Added Underage
 - Added Menace
 - Added Mini
+
+### New Faction(RETRIBUTIONIST):
+
+- Added Retributionist
+- Added Resurected
 
 ### New Aditions:
 
@@ -166,6 +170,7 @@ You can execute chat commands by typing in chat.
 #### All Clients
 | Command                     | Function                                |
 | --------------------------- | --------------------------------------- |
+| /r [ROLENAME]<br>			  | Show role describtion					|
 | /lastresult<br>/l           | Show game result                        |
 | /now<br>/n                  | Show active settings                    |
 | /now roles<br>/n r          | Show active roles settings              |
@@ -195,46 +200,46 @@ Below is an example:
 
 ## Roles
 
-| Impostors                           | Crewmates                         | Neutrals                          | Neutral Killings                | Coven                          | Modifiers                  |
-| ----------------------------------- | --------------------------------- | --------------------------------- | ------------------------------- | -------------------------------| ---------------------------|
-| [BountyHunter](#bountyhunter)       | [Investigator](#investigator)     | [Vulture](#vulture)               | [Arsonist](#arsonist)           | [Coven Leader](#coven-leader)  | [Bait](#bait)              |
-| [Camouflager](#camouflager)         | [Dictator](#dictator)             | [Hacker](#hacker)                 | [Egoist](#egoist)               | [Medusa](#medusa)              | [Bewilder](#bewilder)      |
-| [FireWorks](#fireworks)             | [Nurse](#nurse)                   | [Executioner](#executioner)       | [Juggernaut](#juggernaut)       | [Hex Master](#hex-master)      | [Sleuth](#sleuth)          |
-| [Mare](#mare)                       | [Lighter](#lighter)               | [Jester](#jester)                 | [PlagueBearer](#plaguebearer)   |				                 | [Oblivious](#oblivious)    |
-| [Puppeteer](#puppeteer)             | [Mayor](#mayor)                   | [SchrodingerCat](#schrodingercat) | [The-Glitch](#the-glitch)       |           		             | [Torch](#torch)            |
-| [Mercenary](#mercenary)             | [Mystic](#mystic)                 | [Opportunist](#opportunist)       | [Werewolf](#werewolf)           |			                     | [Flash](#flash)            |
-| [Sniper](#sniper)                   | [SabotageMaster](#sabotagemaster) | [Terrorist](#terrorist)           | [Pestilence](#pestilence)       |		                         | [Lovers](#lovers)          |
-| [TimeThief](#timethief)             | [Sheriff](#sheriff)               | [Pirate](#guesser)                | [Serial Killer](#serial-killer) |                                | [Watcher](#watcher)        |
-| [Vampire](#vampire)                 | [Snitch](#snitch)                 | [Guardian-Angel](#guardian-angel) | [Marksman](#marksman)           |                                | [Diseased](#diseased)      |
-| [Warlock](#warlock)                 | [SpeedBooster](#speedbooster)     | [Amnesiac](#amnesiac)             | [Crewpostor](#crewpostor)       |                                | [Soulhandler](#soulhandler)|
-| [Witch](#witch)                     | [Trapper](#trapper)               | [Phantom](#phantom)               | [Dracula](#dracula)             |                                | [Guesser](#Guesser)        |
-| [Mafia](#mafia)                     | [Demolitionist](#demolitionist)   | [Swapper](#swapper)               | [Unseeable](#unseeable)         |                                | [Underage](#underage)      |
-| [Madmate](#madmate)                 | [Bastion](#bastion)               | [Hitman](#hitman)                 | [Magician](#magician)    	    |                                | [Menace](#menace)          |
-| [MadGuardian](#madguardian)         | [Vigilante](#guesser)             | [Lawyer](#lawyer)                 | [Hustler](#hustler)             |                                | [Mini](#mini)              |
-| [MadSnitch](#madsnitch)			  | [Veteran](#veteran)               |	[Troll](#troll)                   | [Template](#template)           |                                |                            |
-| [SidekickMadmate](#sidekickmadmate) | [Child](#child)                   | [Undecided](#undecided)           | [Wraith](#wraith)	            |                                |                            |
-| [Silencer](#silencer)               | [Psychic](#psychic)               |							          | [Occultist](#occultist)         |                                |                            |
-| [Traitor](#traitor)                 | [Detective](#detective)           |                                   |                                 |                                |                            |
-| [Assassin](#guesser)                | [Tank](#tank)                     |                                   |                                 |                                |                            |
-| [Parasite](#parasite)               | [Transparent](#transparent)       |                                   |                                 |                                |                            |
-| [Miner](#miner)                     | [Time Traveler](#Time-Traveler)	  |                                   |                                 |                                |							  |
-| [Grenadier](#grenadier)             | [Cursed](#cursed)	              |                                   |                                 |                                |							  |
-| [Ying Yanger](#ying-yanger)		  | [Marshall](#marshall)             |                                   |                                 |                                |							  |
-| [Pickpocket](#pickpocket)           | [Clumsy](#clumsy)                 |                                   |                                 |                                |							  |
-| [Cleaner](#cleaner)                 | [Spy](#spy)	                      |                                   |                                 |                                |							  |
-| [Freezer](#freezer)				  | [Deputy](#deputy)                 |                                   |                                 |                                |							  |
-| [Wildling](#Wildling)				  | [Examiner](#examiner)	    	  |									  |									|								 |							  |
-| [MadMayor](#madmayor)				  |	[Alturist](#alturist)			  |									  |									|								 |							  |
-| [Reverser](#reverser)				  |	[Doctor](#doctor)				  |									  |									|								 |							  |
-| [Undertaker](#undertaker)			  |	[Revived](#revived)				  |									  |									|								 |						      |	  
-| [Backstabber](#backstabber)		  |	[Parademic](#parademic)			  |								      |							        |							     |							  |				
-| [Creeper](#creeper)       		  |	[Unstoppable](#unstoppable)		  |									  |									|								 |							  |
-| [ShapeMaster](#shapemaster)		  |	[TheGlitch](#theglitch)	          |									  |									|								 |							  |
-| [Depressed](#depressed)			  |	[PortalMaker](#portal-maker)	  |									  |									|								 |							  |
-|									  |	[Seer](#seer)					  |									  |									|								 |							  |
-|									  |	[Communist](#communist)			  |									  |									|								 |							  |
-|									  |	[Tracefinder](#tracefinder)		  |									  |									|								 |							  |
-|                                     | [Lazy Guy](#lazy-guy)	          |                                   |                                 |                                |                            |
+| Impostors                           | Crewmates                         | Neutrals                          | Neutral Killings                 | Coven                          | Modifiers                  |
+| ----------------------------------- | --------------------------------- | --------------------------------- | -------------------------------  | -------------------------------| ---------------------------|
+| [BountyHunter](#bountyhunter)       | [Investigator](#investigator)     | [Vulture](#vulture)               | [Arsonist](#arsonist)            | [Coven Leader](#coven-leader)  | [Bait](#bait)              |
+| [Camouflager](#camouflager)         | [Dictator](#dictator)             | [Hacker](#hacker)                 | [Egoist](#egoist)                | [Medusa](#medusa)              | [Bewilder](#bewilder)      |
+| [FireWorks](#fireworks)             | [Nurse](#nurse)                   | [Executioner](#executioner)       | [Juggernaut](#juggernaut)        | [Hex Master](#hex-master)      | [Sleuth](#sleuth)          |
+| [Mare](#mare)                       | [Lighter](#lighter)               | [Jester](#jester)                 | [PlagueBearer](#plaguebearer)    |				                 | [Oblivious](#oblivious)    |
+| [Puppeteer](#puppeteer)             | [Mayor](#mayor)                   | [SchrodingerCat](#schrodingercat) | [The-Glitch](#the-glitch)        |           		             | [Torch](#torch)            |
+| [Mercenary](#mercenary)             | [Mystic](#mystic)                 | [Opportunist](#opportunist)       | [Werewolf](#werewolf)            |			                     | [Flash](#flash)            |
+| [Sniper](#sniper)                   | [SabotageMaster](#sabotagemaster) | [Terrorist](#terrorist)           | [Pestilence](#pestilence)        |		                         | [Lovers](#lovers)          |
+| [TimeThief](#timethief)             | [Sheriff](#sheriff)               | [Pirate](#guesser)                | [Serial Killer](#serial-killer)  |                                | [Watcher](#watcher)        |
+| [Vampire](#vampire)                 | [Snitch](#snitch)                 | [Guardian-Angel](#guardian-angel) | [Marksman](#marksman)            |                                | [Diseased](#diseased)      |
+| [Warlock](#warlock)                 | [SpeedBooster](#speedbooster)     | [Amnesiac](#amnesiac)             | [Crewpostor](#crewpostor)        |                                | [Soulhandler](#soulhandler)|
+| [Witch](#witch)                     | [Trapper](#trapper)               | [Phantom](#phantom)               | [Dracula](#dracula)              |                                | [Guesser](#Guesser)        |
+| [Mafia](#mafia)                     | [Demolitionist](#demolitionist)   | [Swapper](#swapper)               | [Unseeable](#unseeable)          |                                | [Underage](#underage)      |
+| [Madmate](#madmate)                 | [Bastion](#bastion)               | [Hitman](#hitman)                 | [Magician](#magician)    	     |                                | [Menace](#menace)          |
+| [MadGuardian](#madguardian)         | [Vigilante](#guesser)             | [Lawyer](#lawyer)                 | [Hustler](#hustler)              |                                | [Mini](#mini)              |
+| [MadSnitch](#madsnitch)			  | [Veteran](#veteran)               |	[Troll](#troll)                   | [Template](#template)            |                                |                            |
+| [SidekickMadmate](#sidekickmadmate) | [Child](#child)                   | [Undecided](#undecided)           | [Wraith](#wraith)	             |                                |                            |
+| [Silencer](#silencer)               | [Psychic](#psychic)               |							          | [Occultist](#occultist)          |                                |                            |
+| [Traitor](#traitor)                 | [Detective](#detective)           |                                   | [Retributionist](#retributionist)|                                |                            |
+| [Assassin](#guesser)                | [Tank](#tank)                     |                                   |                                  |                                |                            |
+| [Parasite](#parasite)               | [Transparent](#transparent)       |                                   |                                  |                                |                            |
+| [Miner](#miner)                     | [Time Traveler](#Time-Traveler)	  |                                   |                                  |                                |							  |
+| [Grenadier](#grenadier)             | [Cursed](#cursed)	              |                                   |                                  |                                |							  |
+| [Ying Yanger](#ying-yanger)		  | [Marshall](#marshall)             |                                   |                                  |                                |							  |
+| [Pickpocket](#pickpocket)           | [Clumsy](#clumsy)                 |                                   |                                  |                                |							  |
+| [Cleaner](#cleaner)                 | [Spy](#spy)	                      |                                   |                                  |                                |							  |
+| [Freezer](#freezer)				  | [Deputy](#deputy)                 |                                   |                                  |                                |							  |
+| [Wildling](#Wildling)				  | [Examiner](#examiner)	    	  |									  |									 |								 |							  |
+| [MadMayor](#madmayor)				  |	[Alturist](#alturist)			  |									  |									 |								 |							  |
+| [Reverser](#reverser)				  |	[Doctor](#doctor)				  |									  |									 |								 |							  |
+| [Undertaker](#undertaker)			  |	[Revived](#revived)				  |									  |								   	 |								 |						      |	  
+| [Backstabber](#backstabber)		  |	[Parademic](#parademic)			  |								      |							         |							     |							  |				
+| [Creeper](#creeper)       		  |	[Unstoppable](#unstoppable)		  |									  |									 |								 |							  |
+| [ShapeMaster](#shapemaster)		  |	[TheGlitch](#theglitch)	          |									  |									 |								 |							  |
+| [Depressed](#depressed)			  |	[PortalMaker](#portal-maker)	  |									  |									 |								 |							  |
+|									  |	[Seer](#seer)					  |									  |									 |								 |							  |
+|									  |	[Communist](#communist)			  |									  |									 |								 |							  |
+|									  |	[Tracefinder](#tracefinder)		  |									  |									 |								 |							  |
+|                                     | [Joker](#joker)			          |                                   |                                  |                                |                            |
 #### Notes
 
 Roles without a redirect mean they are not implemented yet but are planned.
@@ -1221,13 +1226,15 @@ The Portal Maker is a role that can return to the last vent he vented into by pr
 
 ### Lazy Guy
 
-Original Idea from [TOHRE](https://Github.com/Loonie-Toons/TownOfHost-ReEdited)<br>
+Create and Idea by EXC4LIBUR<br>
 
 Team : Crewmates<br>
 Basis : Crewmate<br>
 
-The Lazy Guy is a crewmate role with the ability of having one task.<br>
-He also ignores tags from Witch, Puppeteer, etc...<br>
+The Joker is a very rough and confusing role for the crewmates.<br>
+First, his ejection screen is very different then others.<br>
+Second, his death reason is quite familiar.<br>
+Third, killing him can bring bad cause.<br>
 
 ## Neutral
 
@@ -1669,7 +1676,7 @@ Every time he kills someone he will gain 1 extra vote.<br>
 
 ### Template
 
-Create and idea by EXC4LIBUR<br>
+Create and Idea by EXC4LIBUR<br>
 
 Team : Neutral<br>
 Basis : Impostor<br>
@@ -1677,6 +1684,19 @@ Basis : Impostor<br>
 The Template role is really nothing special :/<br>
 The only reason why I have it is because I suck at making neutral killing roles.<br>
 You can still enjoy and play with the roles with like any other special role.<br>
+
+### Retributionist
+
+Create and Idea by EXC4LIBUR<br>
+
+Team : Neutral<br>
+Basis : Impostor<br>
+
+The Retributionist is a role that can kill and revive!<br>
+How is reviving any good in a Neutral Killer? Let me explain.<br>
+When the Retributioníst report a dead body, the dead player will be resurected.<br>
+The Resurected player ditches his old camp and joins the Retributionists side.<br>
+That Player will help achive the goals of the Retributionist.<br>
 
 ### Wraith
 
