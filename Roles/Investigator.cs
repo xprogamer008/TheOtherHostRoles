@@ -137,6 +137,7 @@ namespace TownOfHost
                 CustomRoles.Hacker => true,
                 CustomRoles.Dracula => true,
                 CustomRoles.TemplateRole => true,
+                CustomRoles.Retributionist => true,
                 CustomRoles.Occultist => true,
                 CustomRoles.Unseeable => true,
                 CustomRoles.Wraith => false,

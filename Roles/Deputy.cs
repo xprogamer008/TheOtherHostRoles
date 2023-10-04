@@ -7,7 +7,7 @@ namespace TownOfHost
 {
     public static class Deputy
     {
-        private static readonly int Id = 20400;
+        private static readonly int Id = 26823452;
         public static List<byte> playerIdList = new();
         public static PlayerControl seer;
         public static bool cDeputy = false;
@@ -36,6 +36,7 @@ namespace TownOfHost
         private static CustomOption CanKillHitman;
         private static CustomOption CanKillAgitater;
         private static CustomOption CanKillClumsy;
+        private static CustomOption CanKillRetributionist;
         public static CustomOption NoDeathPenalty;
         public static CustomOption CanKillPostman;
 
@@ -65,6 +66,7 @@ namespace TownOfHost
             CanKillAgitater = CustomOption.Create(Id + 30, Color.white, "DeputyCanKillAgitater", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
             CanKillPostman = CustomOption.Create(Id + 32, Color.white, "DeputyCanKillPostman", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
             CanKillClumsy = CustomOption.Create(Id + 33, Color.white, "DeputyCanKillClumsy", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
+            CanKillRetributionist = CustomOption.Create(Id + 34, Color.white, "DeputyCanKillClumsy", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
             CanKillCrewmatesAsIt = CustomOption.Create(Id + 27, Color.white, "DeputyCanKillCrewmatesAsIt", AmongUsExtensions.OptionType.Crewmate, false, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
             NoDeathPenalty = CustomOption.Create(Id + 31, Color.white, "NoDeathPenalty", AmongUsExtensions.OptionType.Crewmate, false, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
             ShotLimitOpt = CustomOption.Create(Id + 28, Color.white, "DeputyShotLimit", AmongUsExtensions.OptionType.Crewmate, 15, 0, 15, 1, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
@@ -258,6 +260,7 @@ namespace TownOfHost
                 CustomRoles.Werewolf => CanKillWerewolf.GetBool(),
                 CustomRoles.AgiTater => CanKillAgitater.GetBool(),
                 CustomRoles.Clumsy => CanKillClumsy.GetBool(),
+                CustomRoles.Retributionist => CanKillRetributionist.GetBool(),
                 CustomRoles.Pirate => true,
                 CustomRoles.Dracula => true,
                 CustomRoles.Wraith => false,

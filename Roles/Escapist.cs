@@ -9,7 +9,7 @@ namespace TownOfHost;
 
 public static class Escapist
 {
-    public static readonly int ID = 132746701;
+    public static readonly int ID = 04929462;
     public static List<byte> playerIdlist;
 
     public static CustomOption MarkCooldown;

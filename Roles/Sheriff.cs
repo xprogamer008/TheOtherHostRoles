@@ -36,6 +36,7 @@ namespace TownOfHost
         private static CustomOption CanKillHitman;
         private static CustomOption CanKillAgitater;
         private static CustomOption CanKillClumsy;
+        private static CustomOption CanKillRetributionist;
         public static CustomOption NoDeathPenalty;
         public static CustomOption CanKillPostman;
 
@@ -65,6 +66,7 @@ namespace TownOfHost
             CanKillAgitater = CustomOption.Create(Id + 30, Color.white, "SheriffCanKillAgitater", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
             CanKillPostman = CustomOption.Create(Id + 32, Color.white, "SheriffCanKillPostman", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
             CanKillClumsy = CustomOption.Create(Id + 33, Color.white, "SheriffCanKillClumsy", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
+            CanKillRetributionist = CustomOption.Create(Id + 33, Color.white, "SheriffCanKillRetributionist", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
             CanKillCrewmatesAsIt = CustomOption.Create(Id + 27, Color.white, "SheriffCanKillCrewmatesAsIt", AmongUsExtensions.OptionType.Crewmate, false, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
             NoDeathPenalty = CustomOption.Create(Id + 31, Color.white, "NoDeathPenalty", AmongUsExtensions.OptionType.Crewmate, false, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
             ShotLimitOpt = CustomOption.Create(Id + 28, Color.white, "SheriffShotLimit", AmongUsExtensions.OptionType.Crewmate, 15, 0, 15, 1, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
@@ -256,6 +258,7 @@ namespace TownOfHost
                 CustomRoles.Werewolf => CanKillWerewolf.GetBool(),
                 CustomRoles.AgiTater => CanKillAgitater.GetBool(),
                 CustomRoles.Clumsy => CanKillClumsy.GetBool(),
+                CustomRoles.Retributionist => CanKillRetributionist.GetBool(),
                 CustomRoles.Pirate => true,
                 CustomRoles.Dracula => true,
                 CustomRoles.Magician => true,

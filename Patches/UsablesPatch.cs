@@ -64,6 +64,8 @@ namespace TownOfHost
                 canUse = couldUse = Options.MarksmanCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.TemplateRole))
                 canUse = couldUse = Options.TemplateRoleCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.Retributionist))
+                canUse = couldUse = Options.RetributionistCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Occultist))
                 canUse = couldUse = Options.OccultistCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Dracula))
