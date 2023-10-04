@@ -87,6 +87,7 @@ namespace TownOfHost
                 CustomRoles.Marksman or
                 CustomRoles.Dracula or
                 CustomRoles.TemplateRole or
+                CustomRoles.Retributionist or
                 CustomRoles.Occultist or
                 CustomRoles.Unseeable or
                 CustomRoles.Pirate or
@@ -116,6 +117,7 @@ namespace TownOfHost
                 CustomRoles.UNSchrodingerCat or
                 CustomRoles.MAGSchrodingerCat or
                 CustomRoles.JugSchrodingerCat or
+                CustomRoles.RETSchrodingerCat or
                 CustomRoles.OCCSchrodingerCat or
                 CustomRoles.TEMSchrodingerCat or
                 CustomRoles.WRASchrodingerCat or
@@ -140,6 +142,7 @@ namespace TownOfHost
                 CustomRoles.Pirate or
                 CustomRoles.Dracula or
                 CustomRoles.TemplateRole or
+                CustomRoles.Retributionist or
                 CustomRoles.Occultist or
                 CustomRoles.Unseeable or
                 CustomRoles.Jackal or
@@ -162,6 +165,7 @@ namespace TownOfHost
                 CustomRoles.CPSchrodingerCat or
                 CustomRoles.MAGSchrodingerCat or
                 CustomRoles.JugSchrodingerCat or
+                CustomRoles.RETSchrodingerCat or
                 CustomRoles.OCCSchrodingerCat or
                 CustomRoles.TEMSchrodingerCat or
                 CustomRoles.UNSchrodingerCat or
@@ -224,6 +228,7 @@ namespace TownOfHost
                 CustomRoles.Magician or
                 CustomRoles.Dracula or
                 CustomRoles.TemplateRole or
+                CustomRoles.Retributionist or
                 CustomRoles.Occultist or
                 CustomRoles.Unseeable or
                 CustomRoles.Sidekick or
@@ -247,6 +252,15 @@ namespace TownOfHost
             return
                 role is CustomRoles.Sheriff or
                 CustomRoles.Deputy;
+        }
+        public static bool IsRetributionistTeam(this CustomRoles role)
+        {
+            return
+                role is CustomRoles.Retributionist or
+                CustomRoles.RETSchrodingerCat or
+                CustomRoles.ResurectedCREW or
+                CustomRoles.ResurectedIMP or
+                CustomRoles.ResurectedNEU;
         }
         public static bool IsCrewmate(this CustomRoles role) => !role.IsImpostorTeam() && !role.IsNeutral() && !role.IsCoven();
         public static bool CanGetCrewModifier(this CustomRoles role) => !role.IsImpostorTeam() && !role.IsNeutralBad() && !role.IsCoven();
@@ -301,6 +315,9 @@ namespace TownOfHost
                 CustomRoles.Impostor or
                 CustomRoles.Phantom or
                 CustomRoles.Revived or
+                CustomRoles.ResurectedCREW or
+                CustomRoles.ResurectedIMP or
+                CustomRoles.ResurectedNEU or
                 CustomRoles.Crewmate or
                 CustomRoles.Engineer or
                 CustomRoles.GuardianAngel or
@@ -379,6 +396,7 @@ namespace TownOfHost
                 CustomRoles.Deputy or
                 CustomRoles.Parasite or
                 CustomRoles.TemplateRole or
+                CustomRoles.Retributionist or
                 CustomRoles.Occultist or
                 CustomRoles.Escort or
                 CustomRoles.Hitman or

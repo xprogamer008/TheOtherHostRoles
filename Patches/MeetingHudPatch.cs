@@ -425,6 +425,8 @@ namespace TownOfHost
                         name = $"{realName} was The {coloredRole}.";
                         if (crole == CustomRoles.Jester)
                             name = $"You feel a sense of dread while voting out {realName}.\nThey turn out to be the {coloredRole}.<size=0>";
+                        if (crole == CustomRoles.Joker)
+                            name = $"You feel a sense of dread while voting out {realName}.\nThey turn out to be the <color=#ffc0cb>Jester</color>.<size=0>";
                         if (Main.ExecutionerTarget.ContainsValue(exileId))
                             name = $"You feel a sense of dread while voting out {realName}.\nEven though they were the {coloredRole}, they are an Executioner's target!<size=0>";
                         if (crole != CustomRoles.Jester && !Main.ExecutionerTarget.ContainsValue(exileId))
@@ -987,6 +989,38 @@ namespace TownOfHost
                             if (target.Is(CustomRoles.Sheriff))
                                 pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Sheriff), pva.NameText.text);
                             break;
+                        case CustomRoles.Retributionist:
+                            if (target.Is(CustomRoles.ResurectedCREW))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Retributionist), pva.NameText.text);
+                            if (target.Is(CustomRoles.ResurectedIMP))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Retributionist), pva.NameText.text);
+                            if (target.Is(CustomRoles.ResurectedNEU))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Retributionist), pva.NameText.text);
+                            break;
+                        case CustomRoles.ResurectedCREW:
+                            if (target.Is(CustomRoles.Retributionist))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Retributionist), pva.NameText.text);
+                            if (target.Is(CustomRoles.ResurectedIMP))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Retributionist), pva.NameText.text);
+                            if (target.Is(CustomRoles.ResurectedNEU))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Retributionist), pva.NameText.text);
+                            break;
+                        case CustomRoles.ResurectedIMP:
+                            if (target.Is(CustomRoles.Retributionist))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Retributionist), pva.NameText.text);
+                            if (target.Is(CustomRoles.ResurectedCREW))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Retributionist), pva.NameText.text);
+                            if (target.Is(CustomRoles.ResurectedNEU))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Retributionist), pva.NameText.text);
+                            break;
+                        case CustomRoles.ResurectedNEU:
+                            if (target.Is(CustomRoles.Retributionist))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Retributionist), pva.NameText.text);
+                            if (target.Is(CustomRoles.ResurectedCREW))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Retributionist), pva.NameText.text);
+                            if (target.Is(CustomRoles.ResurectedIMP))
+                                pva.NameText.text = Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Retributionist), pva.NameText.text);
+                            break;
                         case CustomRoles.MadSnitch:
                         case CustomRoles.Snitch:
                             if (seer.GetPlayerTaskState().IsTaskFinished) //seerがタスクを終えている
@@ -1000,6 +1034,10 @@ namespace TownOfHost
                         case CustomRoles.Nurse:
                             if (target.Data.IsDead) //変更対象が死人
                                 pva.NameText.text += $"({Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Nurse), target.GetDeathReason())})";
+                            break;
+                        case CustomRoles.Seer:
+                            if (target.Data.IsDead) //変更対象が死人
+                                pva.NameText.text += $"({Helpers.ColorString(Utils.GetRoleColor(CustomRoles.Seer), target.GetDeathReason())})";
                             break;
                         case CustomRoles.Parademic:
                             if (target.Data.IsDead) //変更対象が死人

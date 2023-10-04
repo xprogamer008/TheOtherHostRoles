@@ -102,6 +102,7 @@ namespace TownOfHost
                 Main.KilledDemo = new List<byte>();
                 Main.targetArrows = new();
                 Main.KilledDiseased = new List<byte>();
+                Main.KilledJoker = new List<byte>();
                 EndGameHelper.EveryoneDied = false;
                 Main.VetCanAlert = true;
                 Main.ReverserCanAlert = true;
@@ -415,6 +416,9 @@ namespace TownOfHost
 
                         if (RoleGoingInList(CustomRoles.TemplateRole))
                             rolesChosen.Add(CustomRoles.TemplateRole);
+
+                        if (RoleGoingInList(CustomRoles.Retributionist))
+                            rolesChosen.Add(CustomRoles.Retributionist);
 
                         if (RoleGoingInList(CustomRoles.Occultist))
                             rolesChosen.Add(CustomRoles.Occultist);
@@ -1690,7 +1694,7 @@ namespace TownOfHost
                             if (player.GetCustomRole() is CustomRoles.Detective or CustomRoles.Tracker or CustomRoles.Tank) continue;
                             break;
                         case CustomRoles.Soulhandler:
-                            if (player.GetCustomRole() is CustomRoles.Nurse or CustomRoles.Parademic or CustomRoles.Investigator) continue;
+                            if (player.GetCustomRole() is CustomRoles.Nurse or CustomRoles.Parademic or CustomRoles.Investigator or CustomRoles.Seer) continue;
                             break;
                         case CustomRoles.DoubleShot:
                             if (player.GetCustomRole() is not CustomRoles.EvilGuesser and not CustomRoles.NiceGuesser) continue;

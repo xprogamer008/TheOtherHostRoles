@@ -87,6 +87,7 @@ namespace TownOfHost
             Screamed,
             Trolled,
             Troller,
+            JoHid,
             Hidden,
             etc = -1
         }
@@ -167,9 +168,10 @@ namespace TownOfHost
     public static class GameStates
     {
         public static bool InGame = false;
+        public static bool AlreadyDied = false;
+        public static bool IsModHost => PlayerControl.AllPlayerControls.ToArray().FirstOrDefault(x => x.PlayerId == 0 && x.IsModClient());
         public static bool IsLobby => AmongUsClient.Instance.GameState == AmongUsClient.GameStates.Joined;
         public static bool IsInGame => InGame;
-        public static bool IsModHost => PlayerControl.AllPlayerControls.ToArray().FirstOrDefault(x => x.PlayerId == 0 && x.IsModClient());
         public static bool IsEnded => AmongUsClient.Instance.GameState == AmongUsClient.GameStates.Ended;
         public static bool IsNotJoined => AmongUsClient.Instance.GameState == AmongUsClient.GameStates.NotJoined;
         public static bool IsOnlineGame => AmongUsClient.Instance.NetworkMode == NetworkModes.OnlineGame;
@@ -177,6 +179,21 @@ namespace TownOfHost
         public static bool IsFreePlay => AmongUsClient.Instance.NetworkMode == NetworkModes.FreePlay;
         public static bool IsInTask => InGame && !MeetingHud.Instance;
         public static bool IsMeeting => InGame && MeetingHud.Instance;
-        public static bool IsCountDown => GameStartManager.InstanceExists && GameStartManager.Instance.startState.ToString() == "Countdown";
+        public static bool IsVoting => IsMeeting && MeetingHud.Instance.state is MeetingHud.VoteStates.Voted or MeetingHud.VoteStates.NotVoted;
+        public static bool IsProceeding => IsMeeting && MeetingHud.Instance.state is MeetingHud.VoteStates.Proceeding;
+        public static bool IsCountDown => GameStartManager.InstanceExists && GameStartManager.Instance.startState == GameStartManager.StartingStates.Countdown;
+        /**********TOP ZOOM.cs***********/
+        public static bool IsShip => ShipStatus.Instance != null;
+        public static bool IsCanMove => PlayerControl.LocalPlayer?.CanMove is true;
+        public static bool IsDead => PlayerControl.LocalPlayer?.Data?.IsDead is true;
+    }
+    public static class MeetingStates
+    {
+        public static DeadBody[] DeadBodies = null;
+        public static GameData.PlayerInfo ReportTarget = null;
+        public static bool IsEmergencyMeeting => ReportTarget == null;
+        public static bool IsExistDeadBody => DeadBodies.Length > 0;
+        public static bool MeetingCalled = false;
+        public static bool FirstMeeting = true;
     }
 }

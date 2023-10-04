@@ -92,6 +92,31 @@ namespace TownOfHost
                     break;
             }
         }
+        public static void SetResurectedRoleType(this PlayerControl player)
+        {
+            switch (player.GetRoleType())
+            {
+                case RoleType.Crewmate:
+                    player.RpcSetCustomRole(CustomRoles.ResurectedCREW);
+                    RoleManager.Instance.SetRole(player, RoleTypes.Crewmate);
+                    break;
+                case RoleType.Impostor:
+                    player.RpcSetCustomRole(CustomRoles.ResurectedIMP);
+                    RoleManager.Instance.SetRole(player, RoleTypes.Impostor);
+                    break;
+                case RoleType.Neutral:
+                    if (!player.GetCustomRole().IsNeutralKilling())
+                    {
+                        player.RpcSetCustomRole(CustomRoles.ResurectedNEU);
+                        RoleManager.Instance.SetRole(player, RoleTypes.Crewmate);
+                    }
+                    break;
+                case RoleType.Madmate:
+                    player.RpcSetCustomRole(CustomRoles.ResurectedCREW);
+                    RoleManager.Instance.SetRole(player, RoleTypes.Crewmate);
+                    break;
+            }
+        }
         public static void RpcSetCustomRole(byte PlayerId, CustomRoles role)
         {
             if (AmongUsClient.Instance.AmHost)
@@ -403,6 +428,9 @@ namespace TownOfHost
                     options.SetVision(player, true);
                     break;
                 case CustomRoles.TemplateRole:
+                    options.SetVision(player, true);
+                    break;
+                case CustomRoles.Retributionist:
                     options.SetVision(player, true);
                     break;
                 case CustomRoles.Occultist:
@@ -729,6 +757,8 @@ namespace TownOfHost
 
             if (Main.KilledDiseased.Contains(player.PlayerId))
                 options.KillCooldown *= Options.DiseasedMultiplier.GetFloat();
+            if (Main.KilledJoker.Contains(player.PlayerId))
+                options.KillCooldown *= Options.JokerMultiplier.GetFloat();
 
             if (Main.AllPlayerSpeed.ContainsKey(player.PlayerId))
             {
@@ -770,6 +800,11 @@ namespace TownOfHost
             {
                 options.CrewLightMod = Options.BewilderVision.GetFloat();
                 options.ImpostorLightMod = Options.BewilderVision.GetFloat();
+            }
+            if (Main.KilledJoker.Contains(player.PlayerId) && !player.Is(CustomRoles.CovenWitch))
+            {
+                options.CrewLightMod = 0.5f;
+                options.ImpostorLightMod = 0.5f;
             }
             if (player.GetCustomRole().IsCoven() && Main.HasNecronomicon)
             {
@@ -1114,6 +1149,11 @@ namespace TownOfHost
             if (killer.Is(CustomRoles.Magician) && target.Is(CustomRoles.MAGSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Clumsy) && target.Is(CustomRoles.CSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Juggernaut) && target.Is(CustomRoles.JugSchrodingerCat)) return true;
+            // Retributionist start
+            if (killer.Is(CustomRoles.Retributionist) && target.Is(CustomRoles.RETSchrodingerCat)
+                && target.Is(CustomRoles.ResurectedCREW) && target.Is(CustomRoles.ResurectedIMP) 
+                && target.Is(CustomRoles.ResurectedNEU)) return true;
+            // Retributionist end
             if (killer.Is(CustomRoles.TemplateRole) && target.Is(CustomRoles.TEMSchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Wraith) && target.Is(CustomRoles.WRASchrodingerCat)) return true;
             if (killer.Is(CustomRoles.Occultist) && target.Is(CustomRoles.OCCSchrodingerCat)) return true;
@@ -1141,6 +1181,9 @@ namespace TownOfHost
                     break;
                 case CustomRoles.TemplateRole:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.TemplateRoleKillCooldown.GetFloat();
+                    break;
+                case CustomRoles.Retributionist:
+                    Main.AllPlayerKillCooldown[player.PlayerId] = Options.RetributionistKillCooldown.GetFloat();
                     break;
                 case CustomRoles.Occultist:
                     Main.AllPlayerKillCooldown[player.PlayerId] = Options.OccultistKillCooldown.GetFloat();
@@ -1279,6 +1322,9 @@ namespace TownOfHost
                 case CustomRoles.TemplateRole:
                     KillCooldown = Options.TemplateRoleKillCooldown.GetFloat();
                     break;
+                case CustomRoles.Retributionist:
+                    KillCooldown = Options.RetributionistKillCooldown.GetFloat();
+                    break;
                 case CustomRoles.Occultist:
                     KillCooldown = Options.OccultistKillCooldown.GetFloat();
                     break;
@@ -1392,6 +1438,8 @@ namespace TownOfHost
                 KillCooldown = Options.LastImpostorKillCooldown.GetFloat();
             if (Main.KilledDiseased.Contains(player.PlayerId))
                 KillCooldown *= Options.DiseasedMultiplier.GetFloat();
+            if (Main.KilledJoker.Contains(player.PlayerId))
+                KillCooldown *= Options.JokerMultiplier.GetFloat();
             return KillCooldown;
         }
         public static void TrapperKilled(this PlayerControl killer, PlayerControl target)
@@ -1715,6 +1763,11 @@ namespace TownOfHost
                     bool template_canUse = Options.TemplateRoleCanVent.GetBool();
                     DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(template_canUse && !player.Data.IsDead);
                     player.Data.Role.CanVent = template_canUse;
+                    return;
+                case CustomRoles.Retributionist:
+                    bool retributionist_canUse = Options.RetributionistCanVent.GetBool();
+                    DestroyableSingleton<HudManager>.Instance.ImpostorVentButton.ToggleVisible(retributionist_canUse && !player.Data.IsDead);
+                    player.Data.Role.CanVent = retributionist_canUse;
                     return;
                 case CustomRoles.Occultist:
                     bool occ_canUse = Options.OccultistCanVent.GetBool();
@@ -2045,6 +2098,7 @@ namespace TownOfHost
                 CustomRoles.Pirate or
                 CustomRoles.Marksman or
                 CustomRoles.TemplateRole or
+                CustomRoles.Retributionist or
                 CustomRoles.Occultist or
                 CustomRoles.BloodKnight or
                 CustomRoles.CorruptedSheriff or
@@ -2083,6 +2137,7 @@ namespace TownOfHost
                 CustomRoles.Dracula or
                 CustomRoles.Marksman or
                 CustomRoles.TemplateRole or
+                CustomRoles.Retributionist or
                 CustomRoles.Occultist or
                 CustomRoles.BloodKnight or
                 CustomRoles.CorruptedSheriff or

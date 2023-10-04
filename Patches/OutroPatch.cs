@@ -33,6 +33,8 @@ namespace TownOfHost
                     //if (p.GetCustomSubRole() == CustomRoles.LoversRecode) continue;
                     bool canWin = p.Is(RoleType.Crewmate) || p.Is(CustomRoles.Communist);
                     if (canWin) winner.Add(p);
+                    if (canWin) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (!canWin) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
                 }
             }
             if (GameManager.Instance.DidImpostorsWin(endGameResult.GameOverReason))
@@ -45,6 +47,8 @@ namespace TownOfHost
                     //if (p.GetCustomSubRole() == CustomRoles.LoversRecode) continue;
                     bool canWin = p.Is(RoleType.Impostor) || p.Is(RoleType.Madmate) || p.Is(CustomRoles.CrewPostor) || p.Is(CustomRoles.CPSchrodingerCat) || p.Is(CustomRoles.CorruptedSheriff) || p.Is(CustomRoles.Communist);
                     if (canWin) winner.Add(p);
+                    if (canWin) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!canWin) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                     if (p.Data.IsDead | PlayerState.isDead[p.PlayerId]) deathAmount++;
                 }
                 Egoist.OverrideCustomWinner(deathAmount);
@@ -57,6 +61,8 @@ namespace TownOfHost
                     foreach (var p in PlayerControl.AllPlayerControls)
                     {
                         if (p.GetCustomRole().IsJackalTeam()) winner.Add(p);
+                        if (p.GetCustomRole().IsJackalTeam()) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                        if (!p.GetCustomRole().IsJackalTeam()) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                     }
                 }
             }
@@ -80,6 +86,8 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     if (p.Is(CustomRoles.Werewolf) | p.Is(CustomRoles.BKSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Werewolf) | p.Is(CustomRoles.BKSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Werewolf) | !p.Is(CustomRoles.BKSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.AgiTater)
@@ -88,6 +96,8 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     if (p.Is(CustomRoles.AgiTater)) winner.Add(p);
+                    if (p.Is(CustomRoles.AgiTater)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.AgiTater)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Marksman)
@@ -96,6 +106,8 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     if (p.Is(CustomRoles.Marksman) | p.Is(CustomRoles.MMSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Marksman) | p.Is(CustomRoles.MMSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Marksman) | !p.Is(CustomRoles.MMSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Phantom)
@@ -120,6 +132,8 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     if (p.Is(CustomRoles.TheGlitch) | p.Is(CustomRoles.TGSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.TheGlitch) | p.Is(CustomRoles.TGSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.TheGlitch) | !p.Is(CustomRoles.TGSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Vulture)
@@ -128,6 +142,8 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     if (p.Is(CustomRoles.Vulture)) winner.Add(p);
+                    if (p.Is(CustomRoles.Vulture)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Vulture)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Dracula)
@@ -135,9 +151,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Dracula)/* | p.Is(CustomRoles.SKSchrodingerCat)*/) winner.Add(p);
-                    if (p.Is(CustomRoles.Dracula)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.Dracula)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.Dracula) | p.Is(CustomRoles.DRSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Dracula) | p.Is(CustomRoles.DRSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Dracula) | !p.Is(CustomRoles.DRSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Wraith)
@@ -156,6 +172,18 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     if (p.Is(CustomRoles.TemplateRole) | p.Is(CustomRoles.TEMSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.TemplateRole) | p.Is(CustomRoles.TEMSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.TemplateRole) | !p.Is(CustomRoles.TEMSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                }
+            }
+            if (Main.currentWinner == CustomWinner.Retributionist)
+            {
+                winner.Clear();
+                foreach (var p in PlayerControl.AllPlayerControls)
+                {
+                    if (p.Is(CustomRoles.Retributionist) | p.Is(CustomRoles.RETSchrodingerCat) | p.Is(CustomRoles.ResurectedCREW) | p.Is(CustomRoles.ResurectedIMP) | p.Is(CustomRoles.ResurectedNEU)) winner.Add(p);
+                    if (p.Is(CustomRoles.Retributionist) | p.Is(CustomRoles.RETSchrodingerCat) | p.Is(CustomRoles.ResurectedCREW) | p.Is(CustomRoles.ResurectedIMP) | p.Is(CustomRoles.ResurectedNEU)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Retributionist) | !p.Is(CustomRoles.RETSchrodingerCat) | !p.Is(CustomRoles.ResurectedCREW) | !p.Is(CustomRoles.ResurectedIMP) | !p.Is(CustomRoles.ResurectedNEU)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Occultist)
@@ -164,6 +192,8 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     if (p.Is(CustomRoles.Occultist) | p.Is(CustomRoles.OCCSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Occultist) | p.Is(CustomRoles.OCCSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Occultist) | !p.Is(CustomRoles.OCCSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Magician)
@@ -172,6 +202,8 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     if (p.Is(CustomRoles.Magician) | p.Is(CustomRoles.MAGSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Magician) | p.Is(CustomRoles.MAGSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Magician) | !p.Is(CustomRoles.MAGSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Unseeable)
@@ -180,6 +212,8 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     if (p.Is(CustomRoles.Unseeable) | p.Is(CustomRoles.UNSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Unseeable) | p.Is(CustomRoles.UNSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Unseeable) | !p.Is(CustomRoles.UNSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.BloodKnight)
@@ -188,6 +222,8 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     if (p.Is(CustomRoles.BloodKnight) | p.Is(CustomRoles.BKSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.BloodKnight) | p.Is(CustomRoles.BKSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.BloodKnight) | !p.Is(CustomRoles.BKSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Pestilence)
@@ -196,6 +232,8 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     if (p.Is(CustomRoles.Pestilence) || p.Is(CustomRoles.PlagueBearer) | p.Is(CustomRoles.PesSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Pestilence) | p.Is(CustomRoles.PesSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Pestilence) | !p.Is(CustomRoles.PesSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Pirate && CustomRoles.Pirate.IsEnable())
@@ -206,6 +244,8 @@ namespace TownOfHost
                     if (p.PlayerId == Main.WonPirateID)
                     {
                         winner.Add(p);
+                        if (p.Is(CustomRoles.Pirate)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                        if (!p.Is(CustomRoles.Pirate)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                     }
                 }
             }
@@ -215,6 +255,8 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     if (p.Is(CustomRoles.Juggernaut) | p.Is(CustomRoles.JugSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Juggernaut) | p.Is(CustomRoles.JugSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Juggernaut) | !p.Is(CustomRoles.JugSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Coven)
@@ -255,6 +297,8 @@ namespace TownOfHost
                     if (p.PlayerId == Main.ExiledJesterID)
                     {
                         winner.Add(p);
+                        if (p.Is(CustomRoles.Jester)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                        if (!p.Is(CustomRoles.Jester)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                     }
                 }
             }
@@ -267,6 +311,8 @@ namespace TownOfHost
                     if (p.PlayerId == Main.WonTerroristID)
                     {
                         winner.Add(p);
+                        if (p.Is(CustomRoles.Terrorist)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                        if (!p.Is(CustomRoles.Terrorist)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                     }
                 }
             }
@@ -298,6 +344,8 @@ namespace TownOfHost
                     if (p.PlayerId == Main.WonExecutionerID)
                     {
                         winner.Add(p);
+                        if (p.Is(CustomRoles.Executioner)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                        if (!p.Is(CustomRoles.Executioner)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                     }
                 }
             }
@@ -309,6 +357,8 @@ namespace TownOfHost
                     if (p.PlayerId == Main.WonHackerID)
                     {
                         winner.Add(p);
+                        if (p.Is(CustomRoles.Hacker)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                        if (!p.Is(CustomRoles.Hacker)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                     }
                 }
             }
@@ -321,6 +371,23 @@ namespace TownOfHost
                     {
                         winner.Add(p);
                     }
+                }
+            }
+            if (Main.currentWinner == CustomWinner.CrewmateDisconnected)
+            {
+                winner = new();
+                foreach (var p in PlayerControl.AllPlayerControls)
+                {
+                    if (p.Is(RoleType.Crewmate) | p.Is(RoleType.Impostor) | p.Is(RoleType.Madmate) | p.Is(RoleType.Neutral) | p.Is(RoleType.Coven)) winner.Add(p);
+
+                }
+            }
+            if (Main.currentWinner == CustomWinner.Dead)
+            {
+                winner = new();
+                foreach (var p in PlayerControl.AllPlayerControls)
+                {
+
                 }
             }
             if (Main.currentWinner == CustomWinner.Troll && CustomRoles.Troll.IsEnable())
@@ -342,6 +409,8 @@ namespace TownOfHost
                     if (p.Is(CustomRoles.Arsonist))
                     {
                         winner.Add(p);
+                        if (p.Is(CustomRoles.Arsonist)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                        if (!p.Is(CustomRoles.Arsonist)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                     }
                 }
             }
@@ -604,12 +673,33 @@ namespace TownOfHost
                     textRenderer.text = GetString("ForceEndText");
                     textRenderer.color = Color.gray;
                     break;
+                case CustomWinner.Error:
+                    __instance.WinText.text = GetString("ErrorEndText");
+                    __instance.WinText.color = Color.red;
+                    __instance.BackgroundBar.material.color = Color.red;
+                    textRenderer.text = GetString("ErrorEndTextDescription");
+                    textRenderer.color = Color.white;
+                    break;
                 case CustomWinner.DisconnectError:
                     __instance.WinText.text = $"Player Disconnected\nBy Error";
                     //    __instance.WinText.color = Color.white;
                     __instance.BackgroundBar.material.color = Utils.GetRoleColor(CustomRoles.Impostor);
                     textRenderer.text = "Game force ended to prevent black screens";
                     //    textRenderer.color = Utils.GetRoleColor(CustomRoles.Marshall);
+                    break;
+                case CustomWinner.CrewmateDisconnected:
+                    __instance.WinText.text = $"Most Crewmates\nDisconnected";
+                    //    __instance.WinText.color = Color.white;
+                    __instance.BackgroundBar.material.color = Utils.GetRoleColor(CustomRoles.Impostor);
+                    //    textRenderer.text = "Game force ended to prevent black screens";
+                    //    textRenderer.color = Utils.GetRoleColor(CustomRoles.Marshall);
+                    break;
+                case CustomWinner.Dead:
+                    //    __instance.WinText.text = $"Player Disconnected\nBy Error";
+                    //    __instance.WinText.color = Color.white;
+                    __instance.BackgroundBar.material.color = Utils.GetRoleColor(CustomRoles.Impostor);
+                    textRenderer.text = "Everyone died";
+                    textRenderer.color = Utils.GetRoleColor(CustomRoles.Child);
                     break;
             }
 
@@ -618,7 +708,7 @@ namespace TownOfHost
                 var addWinnerRole = (CustomRoles)additionalwinners;
                 AdditionalWinnerText += "＆" + Helpers.ColorString(Utils.GetRoleColor(addWinnerRole), Utils.GetRoleName(addWinnerRole));
             }
-            if (Main.currentWinner != CustomWinner.Draw && Main.currentWinner != CustomWinner.DisconnectError /*&& Main.currentWinner != CustomWinner.None*/)
+            if (Main.currentWinner != CustomWinner.Draw && Main.currentWinner != CustomWinner.DisconnectError && Main.currentWinner != CustomWinner.Dead && Main.currentWinner != CustomWinner.CrewmateDisconnected)
             {
                 textRenderer.text = $"<color={CustomWinnerColor}>{CustomWinnerText}{AdditionalWinnerText}{GetString("Win")}</color>";
             }

@@ -354,6 +354,13 @@ namespace TownOfHost
         public static CustomOption PKTAH;
         public static CustomOption NecroCanUseSheriff;
 
+        //RETRIBUTIONIST
+        public static CustomOption RetributionistKillCooldown;
+        public static CustomOption RetributionistCanVent;
+
+        //JOKER
+        public static CustomOption JokerMultiplier;
+
         //VETERAN
         public static CustomOption VetCD;
         public static CustomOption VetDuration;
@@ -523,6 +530,7 @@ namespace TownOfHost
         public static CustomOption GameProgression;
         public static CustomOption AmnesiacRememberAnnouncement;
         public static CustomOption GuardianAngelVoteImmunity;
+        public static CustomOption EndWhenPlayerBug;
         // TOS EXTRA SHIT //
         public static CustomOption KillCooldownResets;
         // STOP ASKING FOR IT SMH
@@ -621,7 +629,7 @@ namespace TownOfHost
 
             SetupRoleOptions(1301, CustomRoles.Morphling, AmongUsExtensions.OptionType.Impostor);
             SetupRoleOptions(1302, CustomRoles.Mechanic, AmongUsExtensions.OptionType.Crewmate);
-            SetupRoleOptions(1303, CustomRoles.Physicist, AmongUsExtensions.OptionType.Crewmate);
+            SetupRoleOptions(9426, CustomRoles.Physicist, AmongUsExtensions.OptionType.Crewmate);
             // Impostor
             BountyHunter.SetupCustomOption();
             SerialKiller.SetupCustomOption();
@@ -642,7 +650,7 @@ namespace TownOfHost
             Sniper.SetupCustomOption();
             SetupRoleOptions(2000, CustomRoles.Puppeteer, AmongUsExtensions.OptionType.Impostor);
             PuppeteerCanKillAlliedPlayers = CustomOption.Create(2010, Color.white, "PuppeteerCanKillAlliedPlayers", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.Puppeteer]);
-            SetupSingleRoleOptions(2341300, CustomRoles.Depressed, 1, AmongUsExtensions.OptionType.Impostor);
+            SetupSingleRoleOptions(2832910, CustomRoles.Depressed, 1, AmongUsExtensions.OptionType.Impostor);
             SetupSingleRoleOptions(200099, CustomRoles.YingYanger, 1, AmongUsExtensions.OptionType.Impostor);
             YinYangCooldown = CustomOption.Create(1213, Color.white, "YinYangCooldown", AmongUsExtensions.OptionType.Impostor, 15, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.YingYanger]);
             ResetToYinYang = CustomOption.Create(1314, Color.white, "ResetToYinYang", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.YingYanger]);
@@ -655,13 +663,13 @@ namespace TownOfHost
             HiddenKillDelay = CustomOption.Create(2341310, Color.white, "KillDelay", AmongUsExtensions.OptionType.Impostor, 5, 1, 60, 1, CustomRoleSpawnChances[CustomRoles.Undertaker]);
             UndertakerCanVent = CustomOption.Create(2341311, Color.white, "UndertakerCanVent", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.Undertaker]);
             Mare.SetupCustomOption();
-            SetupSingleRoleOptions(2341300, CustomRoles.Creeper, 1, AmongUsExtensions.OptionType.Impostor);
+            SetupSingleRoleOptions(95739224, CustomRoles.Creeper, 1, AmongUsExtensions.OptionType.Impostor);
             TimeThief.SetupCustomOption();
             SetupRoleOptions(20094335, CustomRoles.IdentityTheft, AmongUsExtensions.OptionType.Impostor);
             SetupRoleOptions(20094330, CustomRoles.VoteStealer, AmongUsExtensions.OptionType.Impostor);
             KillsForVote = CustomOption.Create(20094340, Color.white, "KillsForVote", AmongUsExtensions.OptionType.Impostor, 1, 1, 12, 1, CustomRoleSpawnChances[CustomRoles.VoteStealer]);
             VoteAmtOnCompletion = CustomOption.Create(20094341, Color.white, "VoteAmtOnCompletion", AmongUsExtensions.OptionType.Impostor, 1, 1, 99, 1, CustomRoleSpawnChances[CustomRoles.VoteStealer]);
-            SetupRoleOptions(2008234234, CustomRoles.Miner, AmongUsExtensions.OptionType.Impostor);
+            SetupRoleOptions(20049274, CustomRoles.Miner, AmongUsExtensions.OptionType.Impostor);
             SetupSingleRoleOptions(20010, CustomRoles.Reverser, 1, AmongUsExtensions.OptionType.Impostor);
             NumOfReverses = CustomOption.Create(20011, Color.white, "NReverses", AmongUsExtensions.OptionType.Crewmate, 10, 1, 15, 1, CustomRoleSpawnChances[CustomRoles.Reverser]);
             ReverserCD = CustomOption.Create(20012, Color.white, "ReverserCD", AmongUsExtensions.OptionType.Impostor, 30, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Reverser]);
@@ -670,7 +678,7 @@ namespace TownOfHost
             PestiAttacksReverser = CustomOption.Create(20015, Color.white, "PestiAttacksReverser", AmongUsExtensions.OptionType.Impostor, PestiAttacksReverserString, PestiAttacksReverserString[2], CustomRoleSpawnChances[CustomRoles.Reverser]);
             SetupRoleOptions(2007424235, CustomRoles.Disperser, AmongUsExtensions.OptionType.Impostor);
             DisperseCooldown = CustomOption.Create(200126, Color.white, "DisperseCooldown", AmongUsExtensions.OptionType.Impostor, 30, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Disperser]);
-            SetupRoleOptions(2007424234, CustomRoles.Cleaner, AmongUsExtensions.OptionType.Impostor);
+            SetupRoleOptions(2007485027, CustomRoles.Cleaner, AmongUsExtensions.OptionType.Impostor);
             SetupSingleRoleOptions(2011, CustomRoles.Freezer, 1, AmongUsExtensions.OptionType.Impostor);
             FreezerCooldown = CustomOption.Create(200125, Color.white, "FreezerCooldown", AmongUsExtensions.OptionType.Impostor, 20, 2.5f, 60, 2.5f, CustomRoleSpawnChances[CustomRoles.Freezer]);
             FreezerDuration = CustomOption.Create(200135, Color.white, "FreezerDuration", AmongUsExtensions.OptionType.Impostor, 10, 2.5f, 60, 2.5f, CustomRoleSpawnChances[CustomRoles.Freezer]);
@@ -683,7 +691,7 @@ namespace TownOfHost
             PlayersForTraitor = CustomOption.Create(2040030, Color.white, "TraitorSpawn", AmongUsExtensions.OptionType.Impostor, 1, 0, 15, 1, CustomRoleSpawnChances[CustomRoles.CorruptedSheriff]);
             TraitorCanSpawnIfNK = CustomOption.Create(2040031, Color.white, "TraitorCanSpawnIfNK", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.CorruptedSheriff]);
             TraitorCanSpawnIfCoven = CustomOption.Create(2040032, Color.white, "TraitorCanSpawnIfCoven", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.CorruptedSheriff]);
-            SetupSingleRoleOptions(2600, CustomRoles.Swooper, 1, AmongUsExtensions.OptionType.Impostor);
+            SetupSingleRoleOptions(959274, CustomRoles.Swooper, 1, AmongUsExtensions.OptionType.Impostor);
             SwooperDuration = CustomOption.Create(260010, Color.white, "SwooperDuration", AmongUsExtensions.OptionType.Impostor, 30f, 2.5f, 60f, 2.5f, CustomRoleSpawnChances[CustomRoles.Swooper]);
             SwooperCooldown = CustomOption.Create(260011, Color.white, "SwooperCooldown", AmongUsExtensions.OptionType.Impostor, 15f, 2.5f, 60f, 2.5f, CustomRoleSpawnChances[CustomRoles.Swooper]);
             //SwooperCanVentInvis = CustomOption.Create(260012, Color.white, "SwooperCanVentInvis", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.Swooper]);
@@ -706,7 +714,7 @@ namespace TownOfHost
             MadMayorVotesAppearBlack = CustomOption.Create(20213, Color.white, "MadMayorVotesAppearBlack", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.MadMayor]);
             MadMayorHasPortableButton = CustomOption.Create(20211, Color.white, "MadMayorHasPortableButton", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.MadMayor]);
             MadMayorNumOfUseButton = CustomOption.Create(20212, Color.white, "MadMayorNumOfUseButton", AmongUsExtensions.OptionType.Crewmate, 1, 1, 99, 1, MadMayorHasPortableButton);
-            SetupRoleOptions(20200, CustomRoles.MadMedic, AmongUsExtensions.OptionType.Impostor);
+            SetupRoleOptions(40271431, CustomRoles.MadMedic, AmongUsExtensions.OptionType.Impostor);
             SetupRoleOptions(205000, CustomRoles.CrewPostor, AmongUsExtensions.OptionType.Impostor);
             CrewPostorTasks = OverrideTasksData.Create(10121, CustomRoles.CrewPostor, AmongUsExtensions.OptionType.Neutral);
             SetupRoleOptions(10200, CustomRoles.MadSnitch, AmongUsExtensions.OptionType.Impostor);
@@ -742,47 +750,47 @@ namespace TownOfHost
             SetupRoleOptions(1308, CustomRoles.Marshall, AmongUsExtensions.OptionType.Crewmate);
             MadmatesSeeMarshall = CustomOption.Create(2052068, Color.white, "RevealsToMadmates", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.Marshall]);
             MarshallTasks = OverrideTasksData.Create(2052069, CustomRoles.Marshall, AmongUsExtensions.OptionType.Crewmate);
-            SetupRoleOptions(700850, CustomRoles.Psychic, AmongUsExtensions.OptionType.Crewmate);
+            SetupRoleOptions(037421, CustomRoles.Psychic, AmongUsExtensions.OptionType.Crewmate);
             CkshowEvil = CustomOption.Create(1318, Color.white, "CrewKillingRed", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Psychic]);
             NBshowEvil = CustomOption.Create(1313, Color.white, "NBareRed", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Psychic]);
             NEshowEvil = CustomOption.Create(1314, Color.white, "NEareRed", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Psychic]);
             MadmatesAreEvil = CustomOption.Create(1315, Color.white, "MadMateIsRed", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Psychic]);
             GAdependsOnTaregtRole = CustomOption.Create(1316, Color.white, "GAdependsOnTaregtRole", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Psychic]);
             ExeTargetShowsEvil = CustomOption.Create(1317, Color.white, "ExeTargetShowsEvil", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Psychic]);
-            SetupSingleRoleOptions(20010, CustomRoles.Veteran, 1, AmongUsExtensions.OptionType.Crewmate);
+            SetupSingleRoleOptions(148217, CustomRoles.Veteran, 1, AmongUsExtensions.OptionType.Crewmate);
             NumOfVets = CustomOption.Create(20011, Color.white, "NVet", AmongUsExtensions.OptionType.Crewmate, 10, 1, 15, 1, CustomRoleSpawnChances[CustomRoles.Veteran]);
             VetCD = CustomOption.Create(20012, Color.white, "VetCD", AmongUsExtensions.OptionType.Crewmate, 30, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Veteran]);
             VetDuration = CustomOption.Create(20013, Color.white, "VetDur", AmongUsExtensions.OptionType.Crewmate, 15, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Veteran]);
             CrewRolesVetted = CustomOption.Create(20014, Color.white, "CRGV", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Veteran]);
             PestiAttacksVet = CustomOption.Create(20015, Color.white, "PestiAttacks", AmongUsExtensions.OptionType.Crewmate, PestiAttacksVetString, PestiAttacksVetString[2], CustomRoleSpawnChances[CustomRoles.Veteran]);
-            SetupRoleOptions(205000, CustomRoles.Clumsy, AmongUsExtensions.OptionType.Crewmate);
+            SetupRoleOptions(285621, CustomRoles.Clumsy, AmongUsExtensions.OptionType.Crewmate);
             ClumsyTasks = OverrideTasksData.Create(10121, CustomRoles.Clumsy, AmongUsExtensions.OptionType.Crewmate);
             SetupRoleOptions(2008234234, CustomRoles.PortalMaker, AmongUsExtensions.OptionType.Crewmate);
             SetupRoleOptions(9920603, CustomRoles.Detective, AmongUsExtensions.OptionType.Crewmate);
             DetectiveArrow = CustomOption.Create(9920602, Color.white, "DetectiveHasArrow", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.Detective]);
             SetupRoleOptions(700850, CustomRoles.Alturist, AmongUsExtensions.OptionType.Crewmate);
-            AlturistArrow = CustomOption.Create(9920602, Color.white, "AlturistHasArrow", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Alturist]);
-            SetupRoleOptions(700850, CustomRoles.Parademic, AmongUsExtensions.OptionType.Crewmate);
+            AlturistArrow = CustomOption.Create(93649164, Color.white, "AlturistHasArrow", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Alturist]);
+            SetupRoleOptions(700274, CustomRoles.Parademic, AmongUsExtensions.OptionType.Crewmate);
             ParademicTaskCompletedBatteryCharge = CustomOption.Create(20710, Color.white, "ParademicTaskCompletedBatteryCharge", AmongUsExtensions.OptionType.Crewmate, 5, 0, 10, 1, CustomRoleSpawnChances[CustomRoles.Parademic]);
             SetupRoleOptions(362672, CustomRoles.GlitchTOHE, AmongUsExtensions.OptionType.Crewmate);
             SetupRoleOptions(2007424234, CustomRoles.Cursed, AmongUsExtensions.OptionType.Crewmate);
-            SetupRoleOptions(20100, CustomRoles.Lighter, AmongUsExtensions.OptionType.Crewmate);
+            SetupRoleOptions(028462, CustomRoles.Lighter, AmongUsExtensions.OptionType.Crewmate);
             LighterTaskCompletedVision = CustomOption.Create(20110, Color.white, "LighterTaskCompletedVision", AmongUsExtensions.OptionType.Crewmate, 2f, 0f, 5f, 0.25f, CustomRoleSpawnChances[CustomRoles.Lighter]);
             LighterTaskCompletedDisableLightOut = CustomOption.Create(20111, Color.white, "LighterTaskCompletedDisableLightOut", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Lighter]);
             SetupSingleRoleOptions(20100, CustomRoles.Unstoppable, 1, AmongUsExtensions.OptionType.Crewmate);
             UnstoppableTasks = OverrideTasksData.Create(99910120, CustomRoles.Unstoppable, AmongUsExtensions.OptionType.Crewmate);
-            SetupRoleOptions(205000, CustomRoles.Communist, AmongUsExtensions.OptionType.Crewmate);
-            SetupRoleOptions(205000, CustomRoles.Seer, AmongUsExtensions.OptionType.Crewmate);
+            SetupRoleOptions(155056, CustomRoles.Communist, AmongUsExtensions.OptionType.Crewmate);
+            SetupRoleOptions(073614, CustomRoles.Seer, AmongUsExtensions.OptionType.Crewmate);
             SetupRoleOptions(040808, CustomRoles.Transparent, AmongUsExtensions.OptionType.Crewmate);
             TransparentDuration = CustomOption.Create(260010, Color.white, "TransparentDuration", AmongUsExtensions.OptionType.Crewmate, 30f, 2.5f, 60f, 2.5f, CustomRoleSpawnChances[CustomRoles.Transparent]);
             TransparentCooldown = CustomOption.Create(260011, Color.white, "TransparentCooldown", AmongUsExtensions.OptionType.Crewmate, 15f, 2.5f, 60f, 2.5f, CustomRoleSpawnChances[CustomRoles.Transparent]);
             //TransparentCanVentInvis = CustomOption.Create(260012, Color.white, "TransparentCanVentInvis", AmongUsExtensions.OptionType.Impostor, true, CustomRoleSpawnChances[CustomRoles.Transparent]);
-            SetupRoleOptions(20200, CustomRoles.Mayor, AmongUsExtensions.OptionType.Crewmate);
+            SetupRoleOptions(6402854, CustomRoles.Mayor, AmongUsExtensions.OptionType.Crewmate);
             MayorAdditionalVote = CustomOption.Create(20210, Color.white, "MayorAdditionalVote", AmongUsExtensions.OptionType.Crewmate, 1, 1, 99, 1, CustomRoleSpawnChances[CustomRoles.Mayor]);
             MayorVotesAppearBlack = CustomOption.Create(20213, Color.white, "MayorVotesAppearBlack", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Mayor]);
             MayorHasPortableButton = CustomOption.Create(20211, Color.white, "MayorHasPortableButton", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.Mayor]);
             MayorNumOfUseButton = CustomOption.Create(20212, Color.white, "MayorNumOfUseButton", AmongUsExtensions.OptionType.Crewmate, 1, 1, 99, 1, MayorHasPortableButton);
-            SetupRoleOptions(20200, CustomRoles.Doctor, AmongUsExtensions.OptionType.Crewmate);
+            SetupRoleOptions(04082008, CustomRoles.Doctor, AmongUsExtensions.OptionType.Crewmate);
             DoctorArrow = CustomOption.Create(625362, Color.white, "DoctorHasArrow", AmongUsExtensions.OptionType.Crewmate, true, CustomRoleSpawnChances[CustomRoles.Doctor]);
             SabotageMaster.SetupCustomOption();
             Sheriff.SetupCustomOption();
@@ -820,6 +828,8 @@ namespace TownOfHost
             MediumCooldown = CustomOption.Create(6000022, Color.white, "MediumCooldown", AmongUsExtensions.OptionType.Crewmate, 30, 2.5f, 60, 2.5f, MediumArrow);
             MediumArrow.SetBroken(true);
             SetupRoleOptions(826392, CustomRoles.Tracker, AmongUsExtensions.OptionType.Crewmate);
+            SetupSingleRoleOptions(1385491, CustomRoles.Joker, 1, AmongUsExtensions.OptionType.Crewmate);
+            JokerMultiplier = CustomOption.Create(20021, Color.white, "JokerMultiplier", AmongUsExtensions.OptionType.Crewmate, 2f, 1.5f, 5f, 0.25f, CustomRoleSpawnChances[CustomRoles.Joker]);
             SetupRoleOptions(20600, CustomRoles.SpeedBooster, AmongUsExtensions.OptionType.Crewmate);
             SpeedBoosterUpSpeed = CustomOption.Create(20610, Color.white, "SpeedBoosterUpSpeed", AmongUsExtensions.OptionType.Crewmate, 2f, 0.25f, 3f, 0.25f, CustomRoleSpawnChances[CustomRoles.SpeedBooster]);
             SetupRoleOptions(20700, CustomRoles.Nurse, AmongUsExtensions.OptionType.Crewmate);
@@ -836,7 +846,7 @@ namespace TownOfHost
             SetupRoleOptions(30009, CustomRoles.Mystic, AmongUsExtensions.OptionType.Crewmate, locked: true);
             KillFlashDuration = CustomOption.Create(90000, Color.white, "KillFlashDuration", AmongUsExtensions.OptionType.Crewmate, 0.3f, 0.1f, 1, 0.1f, CustomRoleSpawnChances[CustomRoles.Mystic]);
 
-            SetupRoleOptions(30008, CustomRoles.Child, AmongUsExtensions.OptionType.Crewmate);
+            SetupRoleOptions(3048264, CustomRoles.Child, AmongUsExtensions.OptionType.Crewmate);
             ChildKnown = CustomOption.Create(30011, Color.white, "ChildKnown", AmongUsExtensions.OptionType.Crewmate, false, CustomRoleSpawnChances[CustomRoles.Child]);
             //SetupRoleOptions(30100, CustomRoles.Sleuth);
             //SleuthReport = CustomOption.Create(30110, Color.white, "SleuthReport", false, CustomRoleSpawnChances[CustomRoles.Sleuth]);
@@ -890,7 +900,7 @@ namespace TownOfHost
             HitmanHasImpVision = CustomOption.Create(509129, Color.white, "HitmanHasImpVision", AmongUsExtensions.OptionType.Neutral, false, CustomRoleSpawnChances[CustomRoles.Hitman]);
             HitmanCanWinWithExeJes = CustomOption.Create(509139, Color.white, "HitmanCanWinWithExeJes", AmongUsExtensions.OptionType.Neutral, false, CustomRoleSpawnChances[CustomRoles.Hitman]);
             
-            SetupRoleOptions(205000, CustomRoles.Magician, AmongUsExtensions.OptionType.Neutral);
+            SetupRoleOptions(4027214, CustomRoles.Magician, AmongUsExtensions.OptionType.Neutral);
             MagicianTasks = OverrideTasksData.Create(10121, CustomRoles.Magician, AmongUsExtensions.OptionType.Neutral);
             
             SetupRoleOptions(50400, CustomRoles.SchrodingerCat, AmongUsExtensions.OptionType.Neutral);
@@ -903,7 +913,6 @@ namespace TownOfHost
             ExecutionerChangeRolesAfterTargetKilled = CustomOption.Create(50711, Color.white, "ExecutionerChangeRolesAfterTargetKilled", AmongUsExtensions.OptionType.Neutral, ExecutionerChangeRoles, ExecutionerChangeRoles[1], CustomRoleSpawnChances[CustomRoles.Executioner]);
             SetupSingleRoleOptions(50712, CustomRoles.Swapper, 1, AmongUsExtensions.OptionType.Neutral);
             //Jackalは1人固定
-            // SetupSingleRoleOptions(383012, CustomRoles.Dracula, 1, AmongUsExtensions.OptionType.Neutral);
             SetupSingleRoleOptions(509000, CustomRoles.BloodKnight, 1, AmongUsExtensions.OptionType.Neutral);
             BKcanVent = CustomOption.Create(09005, Color.white, "CanVent", AmongUsExtensions.OptionType.Neutral, true, CustomRoleSpawnChances[CustomRoles.BloodKnight]);
             BKkillCd = CustomOption.Create(509012, Color.white, "KillCD", AmongUsExtensions.OptionType.Neutral, 30, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.BloodKnight]);
@@ -925,9 +934,9 @@ namespace TownOfHost
             ControlCooldown = CustomOption.Create(50917, Color.white, "ControlCooldown", AmongUsExtensions.OptionType.Neutral, 30, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.NeutWitch]);
             NumOfWitchesPerRound = CustomOption.Create(60031, Color.white, "NumOfWitchesPerRound", AmongUsExtensions.OptionType.Neutral, 3, 1, 15, 1, CustomRoleSpawnChances[CustomRoles.NeutWitch]);
 
-            SetupSingleRoleOptions(70001, CustomRoles.Occultist, 1, AmongUsExtensions.OptionType.Neutral);
-            OccultistKillCooldown = CustomOption.Create(600110, Color.white, "OccultistKillCooldown", AmongUsExtensions.OptionType.Neutral, 30, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Occultist]);
-            OccultistCanVent = CustomOption.Create(60032, Color.white, "OccultistCanVent", AmongUsExtensions.OptionType.Neutral, true, CustomRoleSpawnChances[CustomRoles.Occultist]);
+            SetupSingleRoleOptions(775638, CustomRoles.Occultist, 1, AmongUsExtensions.OptionType.Neutral);
+            OccultistKillCooldown = CustomOption.Create(957324, Color.white, "OccultistKillCooldown", AmongUsExtensions.OptionType.Neutral, 30, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Occultist]);
+            OccultistCanVent = CustomOption.Create(057331, Color.white, "OccultistCanVent", AmongUsExtensions.OptionType.Neutral, true, CustomRoleSpawnChances[CustomRoles.Occultist]);
 
             //SetupSingleRoleOptions(60000, CustomRoles.Coven, 3, AmongUsExtensions.OptionType.Neutral);
             SetUpCovenOptions(60000);
@@ -947,6 +956,10 @@ namespace TownOfHost
             StoneDuration = CustomOption.Create(60026, Color.white, "StoneDur", AmongUsExtensions.OptionType.Neutral, 15, 2.5f, 120, 2.5f, MedusaOn);
             StoneReport = CustomOption.Create(60027, Color.white, "StoneTime", AmongUsExtensions.OptionType.Neutral, 35, 2.5f, 120, 2.5f, MedusaOn);
 
+            SetupSingleRoleOptions(773813, CustomRoles.Retributionist, 1, AmongUsExtensions.OptionType.Neutral);
+            RetributionistKillCooldown = CustomOption.Create(600110, Color.white, "RetributionistKillCooldown", AmongUsExtensions.OptionType.Neutral, 30, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Retributionist]);
+            RetributionistCanVent = CustomOption.Create(980353, Color.white, "RetributionistCanVent", AmongUsExtensions.OptionType.Neutral, true, CustomRoleSpawnChances[CustomRoles.Retributionist]);
+
             //MimicOn = CustomOption.Create(60016, Color.white, "MimicOn", false, CustomRoleSpawnChances[CustomRoles.Coven]);
             //NecromancerOn = CustomOption.Create(60017, Color.white, "NecromancerOn", false, CustomRoleSpawnChances[CustomRoles.Coven]);
             // NecroCanUseSheriff = CustomOption.Create(60019, Color.white, "NecroCanUseSheriff", false, NecromancerOn);
@@ -961,7 +974,7 @@ namespace TownOfHost
             MarksmanKillCooldown = CustomOption.Create(600110, Color.white, "MarksmanKillCooldown", AmongUsExtensions.OptionType.Neutral, 30, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.Marksman]);
             MarksmanCanVent = CustomOption.Create(60032, Color.white, "MarksmanCanVent", AmongUsExtensions.OptionType.Neutral, true, CustomRoleSpawnChances[CustomRoles.Marksman]);
 
-            SetupSingleRoleOptions(70001, CustomRoles.TemplateRole, 1, AmongUsExtensions.OptionType.Neutral);
+            SetupSingleRoleOptions(7048226, CustomRoles.TemplateRole, 1, AmongUsExtensions.OptionType.Neutral);
             TemplateRoleKillCooldown = CustomOption.Create(600110, Color.white, "TemplateRoleKillCooldown", AmongUsExtensions.OptionType.Neutral, 30, 2.5f, 120, 2.5f, CustomRoleSpawnChances[CustomRoles.TemplateRole]);
             TemplateRoleCanVent = CustomOption.Create(60032, Color.white, "TemplateRoleCanVent", AmongUsExtensions.OptionType.Neutral, true, CustomRoleSpawnChances[CustomRoles.TemplateRole]);
 
@@ -1015,7 +1028,7 @@ namespace TownOfHost
             SetupSingleRoleOptions(200026, CustomRoles.DoubleShot, 1, AmongUsExtensions.OptionType.Modifier);
             SetupSingleRoleOptions(262527, CustomRoles.Menace, 1, AmongUsExtensions.OptionType.Modifier);
             MenaceKillCooldown = CustomOption.Create(9920802, Color.white, "MenaceKillCooldown", AmongUsExtensions.OptionType.Modifier, 15, 2.5f, 30, 2.5f, CustomRoleSpawnChances[CustomRoles.Menace]);
-            SetupSingleRoleOptions(262527, CustomRoles.Mini, 1, AmongUsExtensions.OptionType.Modifier);
+            SetupSingleRoleOptions(268462, CustomRoles.Mini, 1, AmongUsExtensions.OptionType.Modifier);
             BlockChance = CustomOption.Create(12310, Color.white, "BlockChance", AmongUsExtensions.OptionType.Modifier, 50, 5, 100, 5, CustomRoleSpawnChances[CustomRoles.Mini]);
             //   SetupSingleRoleOptions(2000666, CustomRoles.Guesser, 1, AmongUsExtensions.OptionType.Modifier);
             SetupSingleRoleOptions(200028, CustomRoles.Obvious, 1, AmongUsExtensions.OptionType.Modifier);
@@ -1024,7 +1037,7 @@ namespace TownOfHost
             SetupSingleRoleOptions(362926, CustomRoles.Giant, 1, AmongUsExtensions.OptionType.Modifier);
             SetupSingleRoleOptions(30100, CustomRoles.Sleuth, 1, AmongUsExtensions.OptionType.Modifier);
             SetupSingleRoleOptions(9930102, CustomRoles.Soulhandler, 1, AmongUsExtensions.OptionType.Modifier);
-            SetupSingleRoleOptions(9930102, CustomRoles.Underage, 1, AmongUsExtensions.OptionType.Modifier);
+            SetupSingleRoleOptions(9994722, CustomRoles.Underage, 1, AmongUsExtensions.OptionType.Modifier);
             SetupSingleRoleOptions(301859, CustomRoles.TieBreaker, 1, AmongUsExtensions.OptionType.Modifier);
             SetupSingleRoleOptions(30000, CustomRoles.Watcher, 1, AmongUsExtensions.OptionType.Modifier);
             SetupSingleRoleOptions(50300, CustomRoles.LoversRecode, 2, AmongUsExtensions.OptionType.Modifier);
@@ -1218,6 +1231,8 @@ namespace TownOfHost
 
             EnableHiddenRoles = CustomOption.Create(100610, Color.yellow, "EnableHiddenRoles", AmongUsExtensions.OptionType.GameOption, true, null, true)
                 .SetGameMode(CustomGameMode.Standard);
+            EndWhenPlayerBug = CustomOption.Create(10068663, Color.blue, "EndWhenPlayerBug", AmongUsExtensions.OptionType.GameOption, true, null, true)
+                .SetGameMode(CustomGameMode.All);
 
             // その他
             CamoComms = CustomOption.Create(100607, Color.white, "CamoComms", AmongUsExtensions.OptionType.GameOption, false, null, true)

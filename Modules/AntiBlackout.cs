@@ -19,7 +19,7 @@ namespace TownOfHost
         ///<summary>
         ///AntiBlackout内の処理が必要であるかどうか
         ///</summary>
-        public static bool IsRequired => Options.NoGameEnd.GetBool() || CustomRoles.Arsonist.IsEnable() || CustomRoles.Marksman.IsEnable() || CustomRoles.TheGlitch.IsEnable() || CustomRoles.Dracula.IsEnable() || CustomRoles.Unseeable.IsEnable() || CustomRoles.Werewolf.IsEnable() || CustomRoles.Wraith.IsEnable() || CustomRoles.Occultist.IsEnable() || CustomRoles.TemplateRole.IsEnable() || CustomRoles.Jackal.IsEnable() || CustomRoles.PlagueBearer.IsEnable() || CustomRoles.Pestilence.IsEnable() || CustomRoles.Juggernaut.IsEnable() || CustomRoles.Coven.IsEnable() || CustomRoles.BloodKnight.IsEnable() || CustomRoles.AgiTater.IsEnable();
+        public static bool IsRequired => Options.NoGameEnd.GetBool() || CustomRoles.Arsonist.IsEnable() || CustomRoles.Marksman.IsEnable() || CustomRoles.TheGlitch.IsEnable() || CustomRoles.Dracula.IsEnable() || CustomRoles.Unseeable.IsEnable() || CustomRoles.Werewolf.IsEnable() || CustomRoles.Wraith.IsEnable() || CustomRoles.Occultist.IsEnable() || CustomRoles.Retributionist.IsEnable() || CustomRoles.Retributionist.IsEnable() || CustomRoles.TemplateRole.IsEnable() || CustomRoles.Jackal.IsEnable() || CustomRoles.PlagueBearer.IsEnable() || CustomRoles.Pestilence.IsEnable() || CustomRoles.Juggernaut.IsEnable() || CustomRoles.Coven.IsEnable() || CustomRoles.BloodKnight.IsEnable() || CustomRoles.AgiTater.IsEnable();
         ///<summary>
         ///インポスター以外の人数とインポスターの人数の差
         ///</summary>

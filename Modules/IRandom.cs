@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using TownOfHost;
 
-namespace TheOtherHostRoles;
+namespace TownOfHost;
 
 public interface IRandom
 {

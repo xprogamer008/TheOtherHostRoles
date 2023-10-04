@@ -8,6 +8,8 @@ using Il2CppInterop.Runtime.InteropTypes.Arrays;
 using static TownOfHost.Translator;
 using AmongUs.GameOptions;
 using TownOfHost.PrivateExtensions;
+using Sentry;
+using LibCpp2IL.Elf;
 
 namespace TownOfHost
 {
@@ -273,6 +275,9 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Doctor:
                     __instance.ReportButton.OverrideText($"REVIVE");
+                    break;
+                case CustomRoles.Retributionist:
+                    __instance.ReportButton.OverrideText($"RESURECT");
                     break;
                 }
                 if (LowerInfoText == null)
@@ -618,6 +623,7 @@ namespace TownOfHost
                     goto DesyncImpostor;
                 case CustomRoles.Marksman:
                 case CustomRoles.TemplateRole:
+                case CustomRoles.Retributionist:
                 case CustomRoles.Dracula:
                 case CustomRoles.Unseeable:
                 case CustomRoles.Sidekick:
@@ -751,6 +757,7 @@ namespace TownOfHost
                 player.GetCustomRole() == CustomRoles.Juggernaut ||
                 player.GetCustomRole() == CustomRoles.Marksman ||
                 player.GetCustomRole() == CustomRoles.TemplateRole ||
+                player.GetCustomRole() == CustomRoles.Retributionist ||
                 player.GetCustomRole() == CustomRoles.Occultist ||
                 player.GetCustomRole() == CustomRoles.BloodKnight ||
                 player.GetCustomRole() == CustomRoles.PlagueBearer ||
@@ -884,6 +891,12 @@ namespace TownOfHost
                         __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
                     __instance.SabotageButton.ToggleVisible(false);
                     __instance.ImpostorVentButton.ToggleVisible(Options.TemplateRoleCanVent.GetBool() && !player.Data.IsDead);
+                    break;
+                case CustomRoles.Retributionist:
+                    if (player.Data.Role.Role != RoleTypes.GuardianAngel)
+                        __instance.KillButton.ToggleVisible(isActive && !player.Data.IsDead);
+                    __instance.SabotageButton.ToggleVisible(false);
+                    __instance.ImpostorVentButton.ToggleVisible(Options.RetributionistCanVent.GetBool() && !player.Data.IsDead);
                     break;
                 case CustomRoles.Occultist:
                     if (player.Data.Role.Role != RoleTypes.GuardianAngel)

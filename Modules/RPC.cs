@@ -29,6 +29,7 @@ namespace TownOfHost
         ResetNameColorData,
         DoSpell,
         DoOccSpell,
+        AntiBlackout,
         DoSilence,
         SniperSync,
         SetLoversPlayers,
@@ -132,6 +133,32 @@ namespace TownOfHost
             var rpcType = (CustomRPC)callId;
             switch (rpcType)
             {
+                case CustomRPC.AntiBlackout:
+                    if (Options.EndWhenPlayerBug.GetBool())
+                    {
+                        Logger.Fatal($"{__instance?.Data?.PlayerName}({__instance.PlayerId}): {reader.ReadString()} 错误，根据设定终止游戏", "Anti-black");
+                        ChatUpdatePatch.DoBlockChat = true;
+                        Main.OverrideWelcomeMsg = string.Format(GetString("RpcAntiBlackOutNotifyInLobby"), __instance?.Data?.PlayerName, GetString("EndWhenPlayerBug"));
+                        _ = new LateTask(() =>
+                        {
+                            Logger.SendInGame(string.Format(GetString("RpcAntiBlackOutEndGame"), __instance?.Data?.PlayerName), true);
+                        }, 3f, "Anti-Black Msg SendInGame");
+                        _ = new LateTask(() =>
+                        {
+                            CustomWinnerHolder.ResetAndSetWinner(CustomWinner.Error);
+                            GameManager.Instance.LogicFlow.CheckEndCriteria();
+                            RPC.ForceEndGameV2(CustomWinner.Error);
+                        }, 5.5f, "Anti-Black End Game");
+                    }
+                    else if (GameStates.IsOnlineGame)
+                    {
+                        Logger.Fatal($"{__instance?.Data?.PlayerName}({__instance.PlayerId}): Change Role Setting Postfix 错误，根据设定继续游戏", "Anti-black");
+                        _ = new LateTask(() =>
+                        {
+                            Logger.SendInGame(string.Format(GetString("RpcAntiBlackOutIgnored"), __instance?.Data?.PlayerName), true);
+                        }, 3f, "Anti-Black Msg SendInGame");
+                    }
+                    break;
                 case CustomRPC.VersionCheck:
                     try
                     {
@@ -559,6 +586,12 @@ namespace TownOfHost
                     case CustomWinner.Draw:
                         ForceEndGame();
                         break;
+                    case CustomWinner.CrewmateDisconnected:
+                        CrewmateDisconnected();
+                        break;
+                    case CustomWinner.Dead:
+                        EveryoneDied();
+                        break;
                     case CustomWinner.DisconnectError:
                         DisconnectError();
                         break;
@@ -612,6 +645,9 @@ namespace TownOfHost
                         break;
                     case CustomWinner.TemplateRole:
                         TemplateRoleWin();
+                        break;
+                    case CustomWinner.Retributionist:
+                        RetributionistWin();
                         break;
                     case CustomWinner.Occultist:
                         OccultistWin();
@@ -801,6 +837,11 @@ namespace TownOfHost
             Main.currentWinner = CustomWinner.TemplateRole;
             CustomWinTrigger(0);
         }
+        public static void RetributionistWin()
+        {
+            Main.currentWinner = CustomWinner.Retributionist;
+            CustomWinTrigger(0);
+        }
         public static void OccultistWin()
         {
             Main.currentWinner = CustomWinner.Occultist;
@@ -891,7 +932,7 @@ namespace TownOfHost
         }
         public static void EveryoneDied()
         {
-            //   Main.currentWinner = CustomWinner.None;
+            Main.currentWinner = CustomWinner.Dead;
             CustomWinTrigger(0);
         }
         public static void TaskerWin(byte ffaID)
@@ -918,6 +959,30 @@ namespace TownOfHost
             {
                 ShipStatus.Instance.enabled = false;
                 GameManager.Instance.RpcEndGame(GameOverReason.ImpostorByKill, false);
+            }
+        }
+        public static void ForceEndGameV2(CustomWinner win)
+        {
+            if (ShipStatus.Instance == null) return;
+            try { CustomWinnerHolder.ResetAndSetWinner(win); }
+            catch { }
+            if (AmongUsClient.Instance.AmHost)
+            {
+                ShipStatus.Instance.enabled = false;
+                try { GameManager.Instance.LogicFlow.CheckEndCriteria(); }
+                catch { }
+                try { GameManager.Instance.RpcEndGame(GameOverReason.ImpostorDisconnect, false); }
+                catch { }
+            }
+        }
+        public static void CrewmateDisconnected()
+        {
+            if (ShipStatus.Instance == null) return;
+            Main.currentWinner = CustomWinner.CrewmateDisconnected;
+            if (AmongUsClient.Instance.AmHost)
+            {
+                ShipStatus.Instance.enabled = false;
+                GameManager.Instance.RpcEndGame(GameOverReason.ImpostorDisconnect, false);
             }
         }
         public static void PlaySound(byte playerID, Sounds sound)

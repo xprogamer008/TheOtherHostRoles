@@ -316,6 +316,18 @@ namespace TownOfHost
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = DestroyableSingleton<HudManager>.Instance.TaskCompleteSound;
                     break;
 
+                case CustomRoles.Retributionist:
+                case CustomRoles.RETSchrodingerCat:
+                case CustomRoles.ResurectedCREW:
+                case CustomRoles.ResurectedIMP:
+                case CustomRoles.ResurectedNEU:
+                    __instance.TeamTitle.text = "RETRIBUTIONIST";
+                    __instance.TeamTitle.color = Utils.GetRoleColor(CustomRoles.Retributionist);
+                    __instance.ImpostorText.gameObject.SetActive(true);
+                    __instance.ImpostorText.text = GetString("RetributionistIntroInfo");
+                    __instance.BackgroundBar.material.color = Utils.GetRoleColor(CustomRoles.Retributionist);
+                    break;
+
                 case CustomRoles.Swapper:
                 case CustomRoles.Executioner:
                 //case CustomRoles.Vampire:
@@ -395,6 +407,7 @@ namespace TownOfHost
                 case CustomRoles.Medium:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = PlayerControl.LocalPlayer.MyPhysics.ImpostorDiscoveredSound;
                     break;
+
                 case CustomRoles.GuardianAngel:
                     var allSounds = SoundManager.Instance.allSources;
                     List<AudioClip> allSoundsFr = new();
@@ -411,6 +424,7 @@ namespace TownOfHost
                     __instance.TeamTitle.color = Utils.GetRoleColor(CustomRoles.Child);
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = DestroyableSingleton<HudManager>.Instance.TaskCompleteSound;
                     break;
+
                 case CustomRoles.GM:
                     __instance.TeamTitle.text = Utils.GetRoleName(role);
                     __instance.TeamTitle.color = Utils.GetRoleColor(role);

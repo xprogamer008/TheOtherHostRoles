@@ -670,6 +670,7 @@ namespace TownOfHost
                 { CustomRoles.Tank, "tk"},
                 { CustomRoles.TimeTraveler, "time"},
                 { CustomRoles.Parademic, "pard"},
+                { CustomRoles.Joker, "jok"},
                 //Neutral役職
                 { (CustomRoles)(-5), $"== {GetString("Neutral")} ==" }, //区切り用
                 { CustomRoles.Arsonist, "ar" },
@@ -693,6 +694,8 @@ namespace TownOfHost
                 { CustomRoles.Marksman, "mar" },
                 { CustomRoles.Wraith, "wra" },
                 { CustomRoles.TemplateRole, "temp" },
+                { CustomRoles.Retributionist, "ret" },
+                { CustomRoles.ResurectedCREW, "res" },
                 { CustomRoles.Magician, "mag" },
                 { CustomRoles.Terrorist, "te" },
                 { CustomRoles.Jackal, "jac" },
@@ -889,6 +892,7 @@ namespace TownOfHost
                 { CustomRoles.Tank, "tk"},
                 { CustomRoles.TimeTraveler, "time"},
                 { CustomRoles.Parademic, "pard"},
+                { CustomRoles.Joker, "jok" },
                 //Neutral役職
                 { (CustomRoles)(-5), $"== {GetString("Neutral")} ==" }, //区切り用
                 { CustomRoles.Arsonist, "ar" },
@@ -913,6 +917,8 @@ namespace TownOfHost
                 { CustomRoles.Terrorist, "te" },
                 { CustomRoles.Marksman, "mar" },
                 { CustomRoles.TemplateRole, "temp" },
+                { CustomRoles.Retributionist, "ret" },
+                { CustomRoles.ResurectedCREW, "res" },
                 { CustomRoles.Jackal, "jac" },
                 { CustomRoles.Sidekick, "jacsk" },
                 //{ CustomRoles.Juggernaut, "jn"},
@@ -1076,6 +1082,7 @@ namespace TownOfHost
                 "Dictator" => GetString("Dictator"),
                 "Nurse" => GetString("Nurse"),
                 "Tank" => GetString("Tank"),
+                "Joker" => GetString("Joker"),
                 "Child" => GetString("Child"),
                 "Veteran" => GetString("Veteran"),
                 "Arsonist" => GetString("Arsonist"),
@@ -1099,7 +1106,9 @@ namespace TownOfHost
                 "Phantom" => GetString("Phantom"),
                 "Pirate" => GetString("Pirate"),
                 "Template" => GetString("TemplateRole"),
+                "Retributionist" => GetString("Retributionist"),
                 "Occultist" => GetString("Occultist"),
+                "Resurected" => GetString("ResurectedCREW"),
                 "Juggernaut" => GetString("Juggernaut"),
                 "Unseeable" => GetString("Unseeable"),
                 "Wraith" => GetString("Wraith"),
@@ -1397,6 +1406,7 @@ namespace TownOfHost
     [HarmonyPatch(typeof(ChatController), nameof(ChatController.Update))]
     class ChatUpdatePatch
     {
+        public static bool DoBlockChat = false;
         public static void Postfix(ChatController __instance)
         {
             if (!AmongUsClient.Instance.AmHost || Main.MessagesToSend.Count < 1 || (Main.MessagesToSend[0].Item2 == byte.MaxValue && Main.MessageWait.Value > __instance.timeSinceLastMessage)) return;

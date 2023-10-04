@@ -88,6 +88,21 @@ namespace TownOfHost
                         RPC.ForceEndGame();
                     }, 0.5f, "Host Force End Game");
                 }
+                if (Input.GetKeyDown(KeyCode.Return) && Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.LeftShift) && GameStates.IsInGame)
+                {
+                    if (ShipStatus.Instance != null)
+                        foreach (var pc in PlayerControl.AllPlayerControls)
+                        {
+                            //     pc.RpcSetRole(RoleTypes.GuardianAngel);
+                        }
+                    new LateTask(() =>
+                    {
+                        MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.EndGame, Hazel.SendOption.Reliable, -1);
+                        writer.Write((int)CustomWinner.CrewmateDisconnected);
+                        AmongUsClient.Instance.FinishRpcImmediately(writer);
+                        RPC.CrewmateDisconnected();
+                    }, 0.5f, "Host Force End Game");
+                }
                 //ミーティングを強制終了
                 if (Input.GetKeyDown(KeyCode.Return) && Input.GetKey(KeyCode.M) && Input.GetKey(KeyCode.LeftShift) && GameStates.IsMeeting)
                 {
@@ -117,7 +132,7 @@ namespace TownOfHost
                     Utils.ShowActiveSettingsHelp();
                 }
 
-                if (Input.GetKeyDown(KeyCode.Delete) && Input.GetKey(KeyCode.LeftControl) && GameObject.Find(GameOptionsMenuPatch.TownOfHostObjectName) != null/* && GameObject.Find(GameOptionsMenuPatch.TownOfHostOtherObjectName) != null*/)
+                if (Input.GetKeyDown(KeyCode.P) && Input.GetKey(KeyCode.I) && GameObject.Find(GameOptionsMenuPatch.TownOfHostObjectName) != null/* && GameObject.Find(GameOptionsMenuPatch.TownOfHostOtherObjectName) != null*/)
                 {
                     CustomOption.Options.ToArray().Where(x => x.Id > 0).Do(x => x.UpdateSelection(x.DefaultSelection));
                 }

@@ -53,6 +53,50 @@ namespace TownOfHost
             }
             return returned;
         }
+        public static void ErrorEnd(string text)
+        {
+            if (AmongUsClient.Instance.AmHost)
+            {
+                Logger.Fatal($"{text} 错误，触发防黑屏措施", "Anti-black");
+                ChatUpdatePatch.DoBlockChat = true;
+                Main.OverrideWelcomeMsg = GetString("AntiBlackOutNotifyInLobby");
+                _ = new LateTask(() =>
+                {
+                    Logger.SendInGame(GetString("AntiBlackOutLoggerSendInGame"), true);
+                }, 3f, "Anti-Black Msg SendInGame");
+                _ = new LateTask(() =>
+                {
+                    CustomWinnerHolder.ResetAndSetWinner(CustomWinner.Error);
+                    GameManager.Instance.LogicFlow.CheckEndCriteria();
+                    RPC.ForceEndGameV2(CustomWinner.Error);
+                }, 5.5f, "Anti-Black End Game");
+            }
+            else
+            {
+                MessageWriter writer = AmongUsClient.Instance.StartRpc(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.AntiBlackout, SendOption.Reliable);
+                writer.Write(text);
+                writer.EndMessage();
+                if (Options.EndWhenPlayerBug.GetBool())
+                {
+                    _ = new LateTask(() =>
+                    {
+                        Logger.SendInGame(GetString("AntiBlackOutRequestHostToForceEnd"), true);
+                    }, 3f, "Anti-Black Msg SendInGame");
+                }
+                else
+                {
+                    _ = new LateTask(() =>
+                    {
+                        Logger.SendInGame(GetString("AntiBlackOutHostRejectForceEnd"), true);
+                    }, 3f, "Anti-Black Msg SendInGame");
+                    _ = new LateTask(() =>
+                    {
+                        AmongUsClient.Instance.ExitGame(DisconnectReasons.Custom);
+                        Logger.Fatal($"{text} 错误，已断开游戏", "Anti-black");
+                    }, 8f, "Anti-Black Exit Game");
+                }
+            }
+        }
         public static void SetVision(this NormalGameOptionsV07 opt, PlayerControl player, bool HasImpVision)
         {
             if (HasImpVision)
@@ -304,6 +348,7 @@ namespace TownOfHost
                     if (cRole == CustomRoles.Juggernaut) hasTasks = false;
                     if (cRole == CustomRoles.PlagueBearer) hasTasks = false;
                     if (cRole == CustomRoles.TemplateRole) hasTasks = false;
+                    if (cRole == CustomRoles.Retributionist) hasTasks = false;
                     if (cRole == CustomRoles.Occultist) hasTasks = false;
                     if (cRole == CustomRoles.Pestilence) hasTasks = false;
                     if (cRole == CustomRoles.Coven) hasTasks = false;
@@ -1213,9 +1258,24 @@ namespace TownOfHost
             RPC.TrollWin(Troll.PlayerId);
             EndGameHelper.AssignWinner(Troll.PlayerId);
         }
-        public static void SendMessage(string text, byte sendTo = byte.MaxValue)
+        public static void JokerDeath(GameData.PlayerInfo Troll)
         {
             if (!AmongUsClient.Instance.AmHost) return;
+            foreach (var pc in PlayerControl.AllPlayerControls)
+            {
+                if (pc.Is(CustomRoles.Joker))
+                {
+                    {
+                        //キルされた場合は自爆扱い
+                        PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.JoHid);
+                    }
+                }
+            }
+        }
+        public static void SendMessage(string text, byte sendTo = byte.MaxValue, string title = "")
+        {
+            if (!AmongUsClient.Instance.AmHost) return;
+            if (title == "") title = "<color=#aaaaff>" + GetString("DefaultSystemMessageTitle") + "</color>";
             Main.MessagesToSend.Add((text, sendTo));
         }
         public static void RemoveChat(byte id)
@@ -1840,6 +1900,7 @@ namespace TownOfHost
                     || seer.Is(CustomRoles.Executioner)
                     || seer.Is(CustomRoles.Swapper)
                     || seer.Is(CustomRoles.Nurse) //seerがドクター
+                    || seer.Is(CustomRoles.Seer) //seerがドクター
                     || seer.Is(CustomRoles.Parademic) //seerがドクター
                     || seer.Is(CustomRoles.Soulhandler) //seerがドクター
                     || seer.Is(CustomRoles.Puppeteer)
@@ -2160,6 +2221,26 @@ namespace TownOfHost
                         {
                             TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Deputy), TargetPlayerName);
                         }
+                        if (seer.Is(CustomRoles.Deputy) && target.Is(CustomRoles.Sheriff))
+                        {
+                            TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Sheriff), TargetPlayerName);
+                        }
+                        if (seer.Is(CustomRoles.Retributionist) && target.Is(CustomRoles.ResurectedCREW) && target.Is(CustomRoles.ResurectedIMP) && target.Is(CustomRoles.ResurectedNEU))
+                        {
+                            TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Retributionist), TargetPlayerName);
+                        }
+                        if (seer.Is(CustomRoles.ResurectedCREW) && target.Is(CustomRoles.Retributionist) && target.Is(CustomRoles.ResurectedIMP) && target.Is(CustomRoles.ResurectedNEU))
+                        {
+                            TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Retributionist), TargetPlayerName);
+                        }
+                        if (seer.Is(CustomRoles.ResurectedIMP) && target.Is(CustomRoles.Retributionist) && target.Is(CustomRoles.ResurectedCREW) && target.Is(CustomRoles.ResurectedNEU))
+                        {
+                            TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Retributionist), TargetPlayerName);
+                        }
+                        if (seer.Is(CustomRoles.ResurectedNEU) && target.Is(CustomRoles.Retributionist) && target.Is(CustomRoles.ResurectedIMP) && target.Is(CustomRoles.ResurectedCREW))
+                        {
+                            TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Retributionist), TargetPlayerName);
+                        }
                         if (seer.Is(CustomRoles.Soulhandler) && target.Data.IsDead)
                         {
                             if (target.Is(RoleType.Crewmate) && target.Data.IsDead)
@@ -2172,10 +2253,6 @@ namespace TownOfHost
                                 TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Impostor), TargetPlayerName);
                             if (target.Is(RoleType.Coven) && target.Data.IsDead)
                                 TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.NeutWitch), TargetPlayerName);
-                        }
-                        if (seer.Is(CustomRoles.Deputy) && target.Is(CustomRoles.Sheriff))
-                        {
-                            TargetPlayerName = Helpers.ColorString(GetRoleColor(CustomRoles.Sheriff), TargetPlayerName);
                         }
                         if (target.Is(CustomRoles.Marshall) && target.GetPlayerTaskState().IsTaskFinished && seer.GetCustomRole().IsCrewmate())
                         {

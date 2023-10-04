@@ -12,7 +12,7 @@ using UnityEngine;
 using static UnityEngine.UI.Button;
 using Object = UnityEngine.Object;
 
-namespace TheOtherHostRoles;
+namespace TownOfHost;
 
 [HarmonyPatch]
 public class MainMenuManagerPatch
