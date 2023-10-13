@@ -132,7 +132,7 @@ namespace TownOfHost
                     {
                         if (!pc.Data.IsDead && !pc.GetCustomRole().IsCoven())
                         {
-                            if (!pc.Is(CustomRoles.Pestilence))
+                            if (!pc.Is(CustomRoles.Pestilence) && !pc.Is(CustomRoles.PesCat))
                             {
                                 pc.RpcMurderPlayer(pc);
                                 PlayerState.SetDeathReason(pc.PlayerId, PlayerState.DeathReason.Bombed);
@@ -182,12 +182,15 @@ namespace TownOfHost
                 Main.SpelledOccPlayer.RemoveAll(pc => pc == null || pc.Data == null || pc.Data.IsDead || pc.Data.Disconnected);
                 Main.SilencedPlayer.Clear();
                 Main.IsHackMode = false;
+                Main.IsCatHackMode = false;
                 Main.IsInvis = false;
                 Main.CanGoInvis = false;
                 Main.IsInvis2 = false;
                 Main.CanGoInvis2 = false;
                 Main.IsInvis3 = false;
                 Main.CanGoInvis3 = false;
+                Main.IsInvis4 = false;
+                Main.CanGoInvis4 = false;
                 Main.DoingYingYang = true;
                 foreach (var pc in PlayerControl.AllPlayerControls)
                 {
@@ -209,6 +212,16 @@ namespace TownOfHost
                             //pc?.MyPhysics?.RpcBootFromVent(__instance.Id);
                             Main.RampageReady = true;
                         }, Options.RampageDur.GetFloat(), "Werewolf Rampage Cooldown");
+                    }
+                    if (pc.Is(CustomRoles.WWCat))
+                    {
+                        Main.Is2Rampaged = false;
+                        Main.Rampage2Ready = false;
+                        new LateTask(() =>
+                        {
+                            //pc?.MyPhysics?.RpcBootFromVent(__instance.Id);
+                            Main.Rampage2Ready = true;
+                        }, Options.RampageDur.GetFloat(), "WWCat Rampage Cooldown");
                     }
                     if (pc.Is(CustomRoles.Warlock))
                     {
@@ -301,7 +314,7 @@ namespace TownOfHost
                     {
                         if (player == null) continue;
                         if (player.Data.IsDead || player.Data.Disconnected) continue;
-                        if (!player.Is(CustomRoles.Pestilence) && !player.Is(CustomRoles.Postman))
+                        if (!player.Is(CustomRoles.Pestilence) && !player.Is(CustomRoles.PesCat) && !player.Is(CustomRoles.Postman))
                         {
                             player.RpcMurderPlayer(player);
                             PlayerState.SetDeathReason(player.PlayerId, PlayerState.DeathReason.Bombed);
@@ -330,6 +343,7 @@ namespace TownOfHost
                     }, 0.25f, "EndGameTaskForPostman");
                 }
                 Main.IsRampaged = false;
+                Main.Is2Rampaged = false;
                 Main.IsRoundOne = false;
                 Main.IsInvis = false;
                 Main.CanGoInvis = false;
@@ -337,6 +351,8 @@ namespace TownOfHost
                 Main.CanGoInvis2 = false;
                 Main.IsInvis3 = false;
                 Main.CanGoInvis3 = false;
+                Main.IsInvis4 = false;
+                Main.CanGoInvis4 = false;
                 Main.IsRoundOneGA = false;
                 Main.unvotablePlayers.Clear();
                 Main.unvotablePlayers = new();
@@ -344,6 +360,7 @@ namespace TownOfHost
                 Main.GazeReady = false;
                 Main.WitchesThisRound = 0;
                 Main.bkProtected = false;
+                Main.bkcProtected = false;
                 Main.WildlingProtected = false;
                 Main.VetIsAlerted = false;
                 Main.VetCanAlert = false;
@@ -376,6 +393,12 @@ namespace TownOfHost
                 new LateTask(() =>
                 {
                     if (!GameStates.IsMeeting)
+                        Main.Rampage2Ready = true;
+                    Utils.NotifyRoles();
+                }, Options.RampageCD.GetFloat(), "WWCat Rampage Cooldown (After Meeting)");
+                new LateTask(() =>
+                {
+                    if (!GameStates.IsMeeting)
                     Main.CanGoInvis = true;
                     Utils.NotifyRoles();
                 },
@@ -387,6 +410,13 @@ namespace TownOfHost
                     Utils.NotifyRoles();
                 },
                 Options.UnseeableCooldown.GetFloat(), "Unseeable Cooldown (After Meeting)");
+                new LateTask(() =>
+                {
+                    if (!GameStates.IsMeeting)
+                        Main.CanGoInvis4 = true;
+                    Utils.NotifyRoles();
+                },
+                Options.UnseeableCooldown.GetFloat(), "UNCat Cooldown (After Meeting)");
                 new LateTask(() =>
                 {
                     if (!GameStates.IsMeeting)

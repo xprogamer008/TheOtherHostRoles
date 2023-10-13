@@ -384,6 +384,7 @@ namespace TownOfHost
                 case CustomRoles.Mayor:
                 case CustomRoles.Dictator:
                 case CustomRoles.MadMayor:
+                case CustomRoles.Copycat:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Crewmate);
                     break;
 
@@ -401,6 +402,7 @@ namespace TownOfHost
                 case CustomRoles.MadGuardian:
                 case CustomRoles.SchrodingerCat:
                 case CustomRoles.MadMedic:
+                case CustomRoles.SerialNeutKiller:
                     PlayerControl.LocalPlayer.Data.Role.IntroSound = GetIntroSound(RoleTypes.Impostor);
                     break;
 

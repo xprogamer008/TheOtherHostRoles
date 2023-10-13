@@ -34,6 +34,11 @@ namespace TownOfHost
                             lp.RpcMurderPlayer(lp);
                             PlayerState.SetDeathReason(lp.PlayerId, PlayerState.DeathReason.LoversSuicide);
                         }
+                        if (!lp.Is(CustomRoles.PesCat))
+                        {
+                            lp.RpcMurderPlayer(lp);
+                            PlayerState.SetDeathReason(lp.PlayerId, PlayerState.DeathReason.LoversSuicide);
+                        }
                         Main.LoversPlayers.Remove(lp);
                     }
                 }

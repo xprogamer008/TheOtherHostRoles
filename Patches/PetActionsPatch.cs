@@ -98,6 +98,8 @@ class ExternalRpcPetPatch
                 if (target.Is(CustomRoles.Phantom)) continue;
                 if (target.Is(CustomRoles.Pestilence)) continue;
                 if (target.Is(CustomRoles.Pestilence)) continue;
+                if (target.Is(CustomRoles.PesCat)) continue;
+                if (target.Is(CustomRoles.PesCat)) continue;
 
                 var dis = Vector2.Distance(playerControl.transform.position, target.transform.position);
                 if (dis > 3f) continue;
@@ -128,6 +130,8 @@ class ExternalRpcPetPatch
                 if (target1.Is(CustomRoles.Phantom)) continue;
                 if (target1.Is(CustomRoles.Pestilence)) continue;
                 if (target1.Is(CustomRoles.Pestilence)) continue;
+                if (target1.Is(CustomRoles.PesCat)) continue;
+                if (target1.Is(CustomRoles.PesCat)) continue;
 
                 var dis1 = Vector2.Distance(playerControl.transform.position, target1.transform.position);
                 if (dis1 > 6f) continue;
@@ -169,6 +173,14 @@ class ExternalRpcPetPatch
             Main.IsHackMode = !Main.IsHackMode;
             MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetGlitchState, Hazel.SendOption.Reliable, -1);
             writer2.Write(Main.IsHackMode);
+            AmongUsClient.Instance.FinishRpcImmediately(writer2);
+            Utils.NotifyRoles();
+        }
+        if (playerControl.Is(CustomRoles.TGCat))
+        {
+            Main.IsCatHackMode = !Main.IsCatHackMode;
+            MessageWriter writer2 = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetTGCatState, Hazel.SendOption.Reliable, -1);
+            writer2.Write(Main.IsCatHackMode);
             AmongUsClient.Instance.FinishRpcImmediately(writer2);
             Utils.NotifyRoles();
         }

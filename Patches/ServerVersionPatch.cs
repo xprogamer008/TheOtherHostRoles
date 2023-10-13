@@ -1,6 +1,6 @@
 ﻿using HarmonyLib;
 
-namespace TownOfHost.Patches;
+namespace TownOfHost;
 
 [HarmonyPatch(typeof(Constants), nameof(Constants.GetBroadcastVersion))]
 class ServerUpdatePatch

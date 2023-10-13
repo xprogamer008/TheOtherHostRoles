@@ -42,7 +42,7 @@ namespace TownOfHost
             var usableDistance = __instance.UsableDistance;
 
             if (pc.IsDead) return false; //死んでる人は強制的にfalseに。
-            else if (pc.Object.Is(CustomRoles.Sheriff) || pc.Object.Is(CustomRoles.Deputy) || pc.Object.Is(CustomRoles.Examiner) || pc.Object.Data.IsImpostor() && GameOptionsManager.Instance.CurrentGameOptions.GameMode == GameModes.HideNSeek || pc.Object.Is(CustomRoles.AgiTater) || pc.Object.Is(CustomRoles.PlagueBearer) || pc.Object.Is(CustomRoles.Amnesiac) || pc.Object.Is(CustomRoles.Escort) || pc.Object.Is(CustomRoles.Crusader) || pc.Object.Is(CustomRoles.Janitor) || pc.Object.Is(CustomRoles.Investigator) || (pc.Object.Is(CustomRoles.Arsonist) && !pc.Object.IsDouseDone() && !Options.TOuRArso.GetBool()))
+            else if (pc.Object.Is(CustomRoles.Sheriff) || pc.Object.Is(CustomRoles.Deputy) || pc.Object.Is(CustomRoles.Examiner) || pc.Object.Data.IsImpostor() && GameOptionsManager.Instance.CurrentGameOptions.GameMode == GameModes.HideNSeek || pc.Object.Is(CustomRoles.CrewCat) || pc.Object.Is(CustomRoles.AgiTater) || pc.Object.Is(CustomRoles.PlagueBearer) || pc.Object.Is(CustomRoles.CPCat) || pc.Object.Is(CustomRoles.MAGCat) || pc.Object.Is(CustomRoles.Copycat) || pc.Object.Is(CustomRoles.Amnesiac) || pc.Object.Is(CustomRoles.Escort) || pc.Object.Is(CustomRoles.Crusader) || pc.Object.Is(CustomRoles.Janitor) || pc.Object.Is(CustomRoles.Investigator) || (pc.Object.Is(CustomRoles.Arsonist) && !pc.Object.IsDouseDone() && !Options.TOuRArso.GetBool()))
                 return false;
             else if (pc.Object.Is(CustomRoles.Arsonist) && pc.Object.IsDouseDone() && !Options.TOuRArso.GetBool())
                 canUse = couldUse = VentForTrigger = true;
@@ -84,6 +84,8 @@ namespace TownOfHost
                 canUse = couldUse = true;
             else if (pc.Object.Is(CustomRoles.Wraith))
                 canUse = couldUse = true;
+            else if (pc.Object.Is(CustomRoles.SerialNeutKiller))
+                canUse = couldUse = Options.SerialNeutKillerCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Painter))
                 canUse = couldUse = Options.STIgnoreVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Janitor))
@@ -99,6 +101,38 @@ namespace TownOfHost
             else if (pc.Object.Is(CustomRoles.HexMaster) && Main.HasNecronomicon)
                 canUse = couldUse = true;
             else if (pc.Object.Is(CustomRoles.Medusa))
+                canUse = couldUse = true;
+            else if (pc.Object.Is(CustomRoles.IMPCat))
+                canUse = couldUse = true;
+            else if (pc.Object.Is(CustomRoles.OCCCat))
+                canUse = couldUse = Options.OccultistCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.RETCat))
+                canUse = couldUse = Options.RetributionistCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.TEMCat))
+                canUse = couldUse = Options.TemplateRoleCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.WRACat))
+                canUse = couldUse = true;
+            else if (pc.Object.Is(CustomRoles.UNCat))
+                canUse = couldUse = true;
+            else if (pc.Object.Is(CustomRoles.MMCat))
+                canUse = couldUse = Options.MarksmanCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.PesCat))
+                canUse = couldUse = Options.PestiCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.WWCat))
+                canUse = couldUse = true;
+            else if (pc.Object.Is(CustomRoles.TGCat))
+                canUse = couldUse = true;
+            else if (pc.Object.Is(CustomRoles.JugCat))
+                canUse = couldUse = Options.JuggerCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.BKCat))
+                canUse = couldUse = Options.BKcanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.SnkCat))
+                canUse = couldUse = Options.SerialNeutKillerCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.JacCat))
+                canUse = couldUse = Options.JackalCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.DRCat))
+                canUse = couldUse = Options.DraculaCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.EgoCat))
                 canUse = couldUse = true;
             else if (pc.Role.TeamType == RoleTeamTypes.Impostor || pc.Role.Role == RoleTypes.Engineer) // インポスター陣営ベースの役職とエンジニアベースの役職は常にtrue
                 canUse = couldUse = true;
