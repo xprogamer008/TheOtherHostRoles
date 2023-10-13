@@ -80,6 +80,7 @@ If you are going to play on Custom Servers, such as MNA and MEU, it would requir
 - Added Template
 - Added Wraith
 - Added Occultist
+- Added Copycat
 
 ### New Modifiers:
 
@@ -218,7 +219,7 @@ Below is an example:
 | [MadGuardian](#madguardian)         | [Vigilante](#guesser)             | [Lawyer](#lawyer)                 | [Hustler](#hustler)              |                                | [Mini](#mini)              |
 | [MadSnitch](#madsnitch)			  | [Veteran](#veteran)               |	[Troll](#troll)                   | [Template](#template)            |                                |                            |
 | [SidekickMadmate](#sidekickmadmate) | [Child](#child)                   | [Undecided](#undecided)           | [Wraith](#wraith)	             |                                |                            |
-| [Silencer](#silencer)               | [Psychic](#psychic)               |							          | [Occultist](#occultist)          |                                |                            |
+| [Silencer](#silencer)               | [Psychic](#psychic)               |	[Copycat](#copycat)		          | [Occultist](#occultist)          |                                |                            |
 | [Traitor](#traitor)                 | [Detective](#detective)           |                                   | [Retributionist](#retributionist)|                                |                            |
 | [Assassin](#guesser)                | [Tank](#tank)                     |                                   |                                  |                                |                            |
 | [Parasite](#parasite)               | [Transparent](#transparent)       |                                   |                                  |                                |                            |
@@ -1723,9 +1724,9 @@ You can Imitate by reporting a dead body.<br>
 When you report a different body you will get that bodys role and your role will switch.<br>
 the role types you report is the roles you will get:<br>
 
-Imp : Imp ability
-Crew : Sheriff ability
-Neutral : Hitman ability
+Imp : Imp ability<br>
+Crew : Sheriff ability<br>
+Neutral : Hitman ability<br>
 
 If you report a Covens body, you will become coven and you wont chnage anymore.<br>
 
@@ -1742,6 +1743,19 @@ The second is [Spell]. In spell mode you can spell someone with your kill button
 When a meeting is called, the spelled player will have a blue cross next to their name.<br>
 If the Occultist isn't ejected till the end of the same meeting, then the spelled player will die after the meeting.<br>
 The Occultist wins alone.<br>
+
+### Copycat
+
+Team : Neutral<br>
+Basis : Impostor<br>
+
+Originaly based from [Porject Lotus](https://github.com/ImaMapleTree/Lotus)<br>
+
+The Copycat is similar to the [SchrodingerCat](#schrodingercat) but there is a twist.<br>
+When he gets killed, not only does he join the killers side, he also gets the killers ability.<br>
+Example:<br>
+[Cleaner](#cleaner) kills Copycat = Copycat gets [Cleaners](#cleaner) ability.<br>
+[Marksman](#marksman) kills Copycat = Copycat gets [Marksmans](#marksman) ability<br>
 
 ## Coven
 
