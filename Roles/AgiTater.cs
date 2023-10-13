@@ -69,9 +69,9 @@ namespace TownOfHost
             if (target.Data.IsDead) return;
             if (PassCooldown.GetFloat() != 0f)
                 CanPass = false;
-            if (target.Is(CustomRoles.Pestilence) || (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted))
+            if (target.Is(CustomRoles.Pestilence) || target.Is(CustomRoles.PesCat) || (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted))
                 target.RpcMurderPlayer(player);
-            if (target.Is(CustomRoles.Pestilence) || (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted))
+            if (target.Is(CustomRoles.Pestilence) || target.Is(CustomRoles.PesCat) || (target.Is(CustomRoles.Reverser) && Main.ReverserIsAlerted))
                 target.RpcMurderPlayer(player);
             else
             {
@@ -94,7 +94,7 @@ namespace TownOfHost
                     new LateTask(() =>
                     {
                         var bombed = Utils.GetPlayerById(CurrentBombedPlayer);
-                        if (!bombed.Is(CustomRoles.Pestilence))
+                        if (!bombed.Is(CustomRoles.Pestilence) && !bombed.Is(CustomRoles.PesCat))
                         {
                             if (bombed.Is(CustomRoles.Veteran))
                             {

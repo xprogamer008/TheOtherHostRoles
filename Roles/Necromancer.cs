@@ -179,6 +179,63 @@ namespace TownOfHost
                             target.RpcMurderPlayer(necromancer);
                             break;
                         }
+                        if (target.Is(CustomRoles.PesCat))
+                        {
+                            target.RpcMurderPlayer(necromancer);
+                            break;
+                        }
+                        necromancer.RpcMurderPlayer(target);
+                        //necromancer.RpcGuardAndKill(target);
+                        break;
+                    }
+                    if (Main.isCurseAndKill[necromancer.PlayerId]) necromancer.RpcGuardAndKill(target);
+                    break;
+                //break;
+                case CustomRoles.TGCat:
+                    if (target.Is(CustomRoles.Veteran) && !Main.HasNecronomicon && Main.VetIsAlerted && !Main.IsCatHackMode)
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        break;
+                    }
+                    if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted && !Main.IsCatHackMode)
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        break;
+                    }
+                    if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        new LateTask(() =>
+                        {
+                            Main.unreportableBodies.Add(necromancer.PlayerId);
+                        }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                        break;
+                    }
+                    if (Main.IsCatHackMode && Main.CursedPlayers[necromancer.PlayerId] == necromancer)
+                    { //Warlockが変身時以外にキルしたら、呪われる処理
+                        Utils.CustomSyncAllSettings();
+                        Main.CursedPlayers[necromancer.PlayerId] = target;
+                        Main.WarlockTimer.Add(necromancer.PlayerId, 0f);
+                        Main.isCurseAndKill[necromancer.PlayerId] = true;
+                        necromancer.RpcGuardAndKill(target);
+                        new LateTask(() =>
+                        {
+                            Main.CursedPlayers[necromancer.PlayerId] = necromancer;
+                        }, Options.GlobalRoleBlockDuration.GetFloat(), "Glitch Hacking");
+                        break;
+                    }
+                    if (!Main.IsCatHackMode)
+                    {
+                        if (target.Is(CustomRoles.Pestilence))
+                        {
+                            target.RpcMurderPlayer(necromancer);
+                            break;
+                        }
+                        if (target.Is(CustomRoles.PesCat))
+                        {
+                            target.RpcMurderPlayer(necromancer);
+                            break;
+                        }
                         necromancer.RpcMurderPlayer(target);
                         //necromancer.RpcGuardAndKill(target);
                         break;
@@ -207,6 +264,50 @@ namespace TownOfHost
                             target.RpcMurderPlayer(necromancer);
                             break;
                         }
+                        if (target.Is(CustomRoles.PesCat))
+                        {
+                            target.RpcMurderPlayer(necromancer);
+                            break;
+                        }
+                        if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
+                        {
+                            target.RpcMurderPlayer(necromancer);
+                            new LateTask(() =>
+                            {
+                                Main.unreportableBodies.Add(necromancer.PlayerId);
+                            }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            break;
+                        }
+                        necromancer.RpcMurderPlayer(target);
+                        break;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                case CustomRoles.WWCat:
+                    if (Main.Is2Rampaged)
+                    {
+                        if (target.Is(CustomRoles.Veteran) && !Main.HasNecronomicon && Main.VetIsAlerted)
+                        {
+                            target.RpcMurderPlayer(necromancer);
+                            break;
+                        }
+                        if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted)
+                        {
+                            target.RpcMurderPlayer(necromancer);
+                            break;
+                        }
+                        if (target.Is(CustomRoles.Pestilence))
+                        {
+                            target.RpcMurderPlayer(necromancer);
+                            break;
+                        }
+                        if (target.Is(CustomRoles.PesCat))
+                        {
+                            target.RpcMurderPlayer(necromancer);
+                            break;
+                        }
                         if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                         {
                             target.RpcMurderPlayer(necromancer);
@@ -225,7 +326,11 @@ namespace TownOfHost
                     }
                 case CustomRoles.Amnesiac:
                     break;
-                case CustomRoles.Doctor:
+                case CustomRoles.Copycat:
+                    break;
+                case CustomRoles.MAGCat:
+                    break;
+                case CustomRoles.CPCat:
                     break;
                 case CustomRoles.Juggernaut:
                     //calculating next kill cooldown
@@ -248,6 +353,25 @@ namespace TownOfHost
                     necromancer.CustomSyncSettings();
                     necromancer.RpcMurderPlayer(target);
                     break;
+                case CustomRoles.JugCat:
+                    //calculating next kill cooldown
+                    if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        new LateTask(() =>
+                        {
+                            Main.unreportableBodies.Add(necromancer.PlayerId);
+                        }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                        break;
+                    }
+                    Main.JugCatKillAmounts++;
+                    float DecreasedCatAmount = Main.JugCatKillAmounts * Options.JuggerDecrease.GetFloat();
+                    Main.AllPlayerKillCooldown[necromancer.PlayerId] = Options.JuggerKillCooldown.GetFloat() - DecreasedCatAmount;
+                    if (Main.AllPlayerKillCooldown[necromancer.PlayerId] < 1)
+                        Main.AllPlayerKillCooldown[necromancer.PlayerId] = 1;
+                    //after calculating make the kill happen ?
+                    necromancer.CustomSyncSettings();
+                    necromancer.RpcMurderPlayer(target);
                     break;
                 case CustomRoles.BountyHunter: //キルが発生する前にここの処理をしないとバグる
 
@@ -411,6 +535,27 @@ namespace TownOfHost
                     necromancer.SyncKillOrOccSpell();
                     if (!necromancer.IsOccSpellMode()) break;
                     break;
+                case CustomRoles.OCCCat:
+                    if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        new LateTask(() =>
+                        {
+                            Main.unreportableBodies.Add(necromancer.PlayerId);
+                        }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                        break;
+                    }
+                    if (necromancer.IsCatOccSpellMode() && !Main.SpelledCatOccPlayer.Contains(target))
+                    {
+                        necromancer.RpcGuardAndKill(target);
+                        Main.SpelledCatOccPlayer.Add(target);
+                        RPC.RpcDoCatOccSpell(target.PlayerId);
+                    }
+                    Main.KillOrSpell[necromancer.PlayerId] = !necromancer.IsCatOccSpellMode();
+                    Utils.NotifyRoles();
+                    necromancer.SyncKillOrCatOccSpell();
+                    if (!necromancer.IsCatOccSpellMode()) break;
+                    break;
                 case CustomRoles.HexMaster:
                     if (target.Is(CustomRoles.Veteran) && !Main.HasNecronomicon && Main.VetIsAlerted && Main.HexesThisRound != Options.MaxHexesPerRound.GetFloat())
                     {
@@ -562,6 +707,29 @@ namespace TownOfHost
                     }
                     Deputy.OnCheckMurder(necromancer, target, Process: "RemoveShotLimit");
                     break;
+                case CustomRoles.CrewCat:
+                    skipVetCheck = true;
+                    if (target.Is(CustomRoles.Veteran) && !Main.HasNecronomicon && Main.VetIsAlerted)
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        break;
+                    }
+                    if (target.Is(CustomRoles.Reverser) && !Main.HasNecronomicon && Main.ReverserIsAlerted)
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        break;
+                    }
+                    if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        new LateTask(() =>
+                        {
+                            Main.unreportableBodies.Add(necromancer.PlayerId);
+                        }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                        break;
+                    }
+                    Sheriff.OnCheckMurder(necromancer, target, Process: "RemoveShotLimit");
+                    break;
                 case CustomRoles.BloodKnight:
                     if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
                     {
@@ -578,6 +746,25 @@ namespace TownOfHost
                         new LateTask(() =>
                         {
                             Main.bkProtected = false;
+                        }, Options.BKprotectDur.GetFloat(), "Blood Knight Duration");
+                    }
+                    break;
+                case CustomRoles.BKCat:
+                    if (target.Is(CustomRoles.Medusa) && Main.IsGazing)
+                    {
+                        target.RpcMurderPlayer(necromancer);
+                        new LateTask(() =>
+                        {
+                            Main.unreportableBodies.Add(necromancer.PlayerId);
+                        }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                        break;
+                    }
+                    if (!Main.bkcProtected)
+                    {
+                        Main.bkcProtected = true;
+                        new LateTask(() =>
+                        {
+                            Main.bkcProtected = false;
                         }, Options.BKprotectDur.GetFloat(), "Blood Knight Duration");
                     }
                     break;
@@ -623,13 +810,22 @@ namespace TownOfHost
                 canUse = couldUse = Options.JesterCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Pestilence))
                 canUse = couldUse = Options.PestiCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.PesCat))
+                canUse = couldUse = Options.PestiCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Juggernaut))
+                canUse = couldUse = Options.JuggerCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.JugCat))
                 canUse = couldUse = Options.JuggerCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.Dracula))
                 canUse = couldUse = Options.DraculaCanVent.GetBool();
+            else if (pc.Object.Is(CustomRoles.DRCat))
+                canUse = couldUse = Options.DraculaCanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.BloodKnight))
                 canUse = couldUse = Options.BKcanVent.GetBool();
+            se if (pc.Object.Is(CustomRoles.BKCat))
+                canUse = couldUse = Options.BKcanVent.GetBool();
             else if (pc.Object.Is(CustomRoles.TheGlitch))
+            else if (pc.Object.Is(CustomRoles.TGCat))
             */
             switch (currentRole)
             {
@@ -640,17 +836,27 @@ namespace TownOfHost
                     return Options.JackalCanVent.GetBool();
                 case CustomRoles.Pestilence:
                     return Options.PestiCanVent.GetBool();
+                case CustomRoles.PesCat:
+                    return Options.PestiCanVent.GetBool();
                 case CustomRoles.Juggernaut:
+                    return Options.JuggerCanVent.GetBool();
+                case CustomRoles.JugCat:
                     return Options.JuggerCanVent.GetBool();
                 case CustomRoles.Dracula:
                     return Options.DraculaCanVent.GetBool();
+                case CustomRoles.DRCat:
+                    return Options.DraculaCanVent.GetBool();
                 case CustomRoles.BloodKnight:
+                    return Options.BKcanVent.GetBool();
+                case CustomRoles.BKCat:
                     return Options.BKcanVent.GetBool();
 
                 case CustomRoles.Necromancer:
                 case CustomRoles.Werewolf:
+                case CustomRoles.WWCat:
                 case CustomRoles.Medusa:
                 case CustomRoles.TheGlitch:
+                case CustomRoles.TGCat:
                 case CustomRoles.CorruptedSheriff:
                     return true;
             }

@@ -37,6 +37,7 @@ namespace TownOfHost
         private static CustomOption CanKillAgitater;
         private static CustomOption CanKillClumsy;
         private static CustomOption CanKillRetributionist;
+        private static CustomOption CanKillCopycat;
         public static CustomOption NoDeathPenalty;
         public static CustomOption CanKillPostman;
 
@@ -67,6 +68,7 @@ namespace TownOfHost
             CanKillPostman = CustomOption.Create(Id + 32, Color.white, "SheriffCanKillPostman", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
             CanKillClumsy = CustomOption.Create(Id + 33, Color.white, "SheriffCanKillClumsy", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
             CanKillRetributionist = CustomOption.Create(Id + 33, Color.white, "SheriffCanKillRetributionist", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
+            CanKillCopycat = CustomOption.Create(Id + 33, Color.white, "SheriffCanKillCopycat", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
             CanKillCrewmatesAsIt = CustomOption.Create(Id + 27, Color.white, "SheriffCanKillCrewmatesAsIt", AmongUsExtensions.OptionType.Crewmate, false, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
             NoDeathPenalty = CustomOption.Create(Id + 31, Color.white, "NoDeathPenalty", AmongUsExtensions.OptionType.Crewmate, false, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
             ShotLimitOpt = CustomOption.Create(Id + 28, Color.white, "SheriffShotLimit", AmongUsExtensions.OptionType.Crewmate, 15, 0, 15, 1, Options.CustomRoleSpawnChances[CustomRoles.Sheriff]);
@@ -259,12 +261,34 @@ namespace TownOfHost
                 CustomRoles.AgiTater => CanKillAgitater.GetBool(),
                 CustomRoles.Clumsy => CanKillClumsy.GetBool(),
                 CustomRoles.Retributionist => CanKillRetributionist.GetBool(),
+                CustomRoles.Copycat => CanKillCopycat.GetBool(),
                 CustomRoles.Pirate => true,
                 CustomRoles.Dracula => true,
+                CustomRoles.Wraith => false,
                 CustomRoles.Magician => true,
                 CustomRoles.TemplateRole => true,
-                CustomRoles.Wraith => false,
+                CustomRoles.SerialNeutKiller => true,
+                CustomRoles.Occultist => true,
                 CustomRoles.Unseeable => true,
+                CustomRoles.Lawyer => true,
+                // CAT ROLES //
+                CustomRoles.IMPCat => true,
+                CustomRoles.OCCCat => true,
+                CustomRoles.TEMCat => true,
+                CustomRoles.RETCat => true,
+                CustomRoles.WRACat => false,
+                CustomRoles.UNCat => true,
+                CustomRoles.MMCat => true,
+                CustomRoles.WWCat => true,
+                CustomRoles.TGCat => true,
+                CustomRoles.JugCat => true,
+                CustomRoles.BKCat => true,
+                CustomRoles.SnkCat => true,
+                CustomRoles.JacCat => true,
+                CustomRoles.DRCat => true,
+                CustomRoles.EgoCat => true,
+                CustomRoles.MAGCat => true,
+                CustomRoles.CPCat => true,
                 // COVEN //
                 CustomRoles.Coven => SheriffCanKillCoven.GetBool(),
                 CustomRoles.CovenWitch => SheriffCanKillCoven.GetBool(),

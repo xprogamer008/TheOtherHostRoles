@@ -14,6 +14,7 @@ namespace TownOfHost
         static readonly int Id = 3428702;
         static List<byte> playerIdList = new();
         static Dictionary<byte, int> GuesserShootLimit;
+        static CustomOption GuesserCanKillCount;
         public static Dictionary<byte, bool> isEvilGuesserExiled;
         public static Dictionary<byte, int> GuessesThisRound;
         static Dictionary<int, CustomRoles> RoleAndNumber;
@@ -158,6 +159,17 @@ namespace TownOfHost
             IsSkillUsed[PlayerId] = false;
             IsEvilGuesserMeeting = false;
         }
+        public static void Add(byte PlayerId)
+        {
+            playerIdList.Add(PlayerId);
+            if (Utils.GetPlayerById(PlayerId).Is(CustomRoles.Pirate))
+                GuesserShootLimit[PlayerId] = 99;
+            else
+                GuesserShootLimit[PlayerId] = GuesserCanKillCount.GetInt();
+            isEvilGuesserExiled[PlayerId] = false;
+            IsSkillUsed[PlayerId] = false;
+            IsEvilGuesserMeeting = false;
+        }
 
         public static void OnMeeting()
         {
@@ -170,6 +182,40 @@ namespace TownOfHost
         public static bool IsEnable()
         {
             return playerIdList.Count > 0;
+        }
+        public static void SetRoleToGuesser(PlayerControl player)//ゲッサーをイビルとナイスに振り分ける
+        {
+            if (IsEvilGuesser[player.PlayerId]) Main.AllPlayerCustomRoles[player.PlayerId] = CustomRoles.EvilGuesser;
+            else if (IsNeutralGuesser[player.PlayerId]) Main.AllPlayerCustomRoles[player.PlayerId] = CustomRoles.Pirate;
+            else if (IsNeutralGuesser[player.PlayerId]) Main.AllPlayerCustomRoles[player.PlayerId] = CustomRoles.SerialNeutKiller;
+            else if (IsNeutralGuesser[player.PlayerId]) Main.AllPlayerCustomSubRoles[player.PlayerId] = CustomRoles.Guesser;
+            else Main.AllPlayerCustomRoles[player.PlayerId] = CustomRoles.NiceGuesser;
+        }
+        public static CustomRoles GetGuessingType(CustomRoles role, string targetrolenum)
+        {
+            switch (role)
+            {
+                case CustomRoles.EvilGuesser:
+                    RoleAndNumberAss.TryGetValue(int.Parse(targetrolenum), out var r);
+                    return r;
+                    break;
+                case CustomRoles.NiceGuesser:
+                    RoleAndNumber.TryGetValue(int.Parse(targetrolenum), out var re);
+                    return re;
+                    break;
+                //    case CustomRoles.NeutSerialKiller:
+                case CustomRoles.Pirate:
+                case CustomRoles.Guesser:
+                    RoleAndNumberPirate.TryGetValue(int.Parse(targetrolenum), out var ree);
+                    return ree;
+                    break;
+            }
+            if (role.IsCoven())
+            {
+                RoleAndNumberCoven.TryGetValue(int.Parse(targetrolenum), out var ree);
+                return ree;
+            }
+            return CustomRoles.Amnesiac;
         }
         public static bool CanGuess(this PlayerControl pc)
         {
@@ -393,7 +439,7 @@ namespace TownOfHost
                 {
                     foreach (var lp in Main.LoversPlayers)
                     {
-                        if (!lp.Is(CustomRoles.Pestilence))
+                        if (!lp.Is(CustomRoles.Pestilence) && !lp.Is(CustomRoles.PesCat))
                         {
                             lp.RpcGuesserMurderPlayer();
                             PlayerState.SetDeathReason(lp.PlayerId, PlayerState.DeathReason.LoversSuicide);
@@ -681,7 +727,7 @@ namespace TownOfHost
                 if (pc.Is(CustomRoles.Sheriff) || pc.Is(CustomRoles.Deputy) || pc.Is(CustomRoles.Investigator) ||
                     (!(Main.currentWinner == CustomWinner.Arsonist) && pc.Is(CustomRoles.Arsonist)) || (Main.currentWinner != CustomWinner.Vulture && pc.Is(CustomRoles.Vulture)) || (Main.currentWinner != CustomWinner.Marksman && pc.Is(CustomRoles.Marksman)) || (Main.currentWinner != CustomWinner.Magician && pc.Is(CustomRoles.Magician)) || (Main.currentWinner != CustomWinner.TemplateRole && pc.Is(CustomRoles.TemplateRole)) || (Main.currentWinner != CustomWinner.Retributionist && pc.Is(CustomRoles.Retributionist)) || (Main.currentWinner != CustomWinner.Occultist && pc.Is(CustomRoles.Occultist)) || (Main.currentWinner != CustomWinner.Pirate && pc.Is(CustomRoles.Pirate)) ||
                     (Main.currentWinner != CustomWinner.Jackal && pc.Is(CustomRoles.Jackal)) || (Main.currentWinner != CustomWinner.BloodKnight && pc.Is(CustomRoles.BloodKnight)) || (Main.currentWinner != CustomWinner.Pestilence && pc.Is(CustomRoles.Pestilence)) || (Main.currentWinner != CustomWinner.Coven && pc.GetRoleType() == RoleType.Coven) || (Main.currentWinner != CustomWinner.Dracula && pc.Is(CustomRoles.Dracula)) || (Main.currentWinner != CustomWinner.Unseeable && pc.Is(CustomRoles.Unseeable)) ||
-                    LoseImpostorRole || (Main.currentWinner != CustomWinner.Werewolf && pc.Is(CustomRoles.Werewolf)) || (Main.currentWinner != CustomWinner.AgiTater && pc.Is(CustomRoles.AgiTater)) || (Main.currentWinner != CustomWinner.TheGlitch && pc.Is(CustomRoles.TheGlitch)))
+                    LoseImpostorRole || (Main.currentWinner != CustomWinner.Werewolf && pc.Is(CustomRoles.Werewolf)) || (Main.currentWinner != CustomWinner.AgiTater && pc.Is(CustomRoles.AgiTater)) || (Main.currentWinner != CustomWinner.SerialNeutKiller && pc.Is(CustomRoles.SerialNeutKiller)) || (Main.currentWinner != CustomWinner.TheGlitch && pc.Is(CustomRoles.TheGlitch)))
                 {
                     pc.RpcSetRole(RoleTypes.CrewmateGhost);
                 }
