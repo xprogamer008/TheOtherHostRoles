@@ -1,5 +1,7 @@
 # The Other Host Roles
 
+### THANKS FOR THE SUPPORT OVER THE MONTHS AND THANKS FOR THESE PEOPLE WHO HELPED ME IN SOME SITUATIONS: PUMPKIN / MUSIC-DISCUSSIONS / KARPED1EM AND THE TOWN OF HOST ENHANCED DEVS. IF YOU STILL WANT TOH: TOR CONTENT GO TO [THIS LINK)[https://www.youtube.com/@pumpkingaming5548]
+
 ## Regarding this mod
 
 This mod is not affiliated with Among Us or Innersloth LLC, Town Of Host, and the content contained therein is not endorsed or otherwise sponsored by Innersloth LLC. Portions of the materials contained herein are property of Innersloth LLC. © Innersloth LLC.
