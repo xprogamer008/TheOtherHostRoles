@@ -8,8 +8,8 @@ DISCORD SERVER: https://discord.gg/FK5RWnQKkA --- Recommended after Innersloth i
 
 ## Releases
 
-AmongUs Version: **2023.7.11/2023.7.12**<br>
-**Latest Version:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases/tag/1.8)**
+AmongUs Version: **2024.3.05**<br>
+**Latest Version:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases/tag/2.2)**
 
 Old Versions:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases)
 
