@@ -27,7 +27,7 @@ This mod only needs to be installed on the host's client to work, and works rega
 Unlike mods that use custom servers, there is no need to add servers by editing URLs or files.<br>
 If you are going to play on Custom Servers, such as MNA and MEU, it would require everyone to have the mods the host has.<br>
 
-## New contend with The Other Host Roles added to this game:
+## New content with The Other Host Roles added to this game:
 
 ### New Impostor Roles:
 
