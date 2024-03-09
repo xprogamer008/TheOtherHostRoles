@@ -54,14 +54,14 @@ namespace TownOfHost
                     if (SkillLimit.GetFloat() > 0 && UsedSkillCount >= SkillLimit.GetFloat()) break;
                     if (amount is 64 or 65)
                     {
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Reactor, 67);
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Reactor, 66);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Reactor, 67);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Reactor, 66);
                         UsedSkillCount++;
                     }
                     if (amount is 16 or 17)
                     {
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Reactor, 19);
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Reactor, 18);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Reactor, 19);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Reactor, 18);
                         UsedSkillCount++;
                     }
                     break;
@@ -70,8 +70,8 @@ namespace TownOfHost
                     if (SkillLimit.GetFloat() > 0 && UsedSkillCount >= SkillLimit.GetFloat()) break;
                     if (amount is 64 or 65)
                     {
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Laboratory, 67);
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Laboratory, 66);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Laboratory, 67);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Laboratory, 66);
                         UsedSkillCount++;
                     }
                     break;
@@ -80,8 +80,8 @@ namespace TownOfHost
                     if (SkillLimit.GetFloat() > 0 && UsedSkillCount >= SkillLimit.GetFloat()) break;
                     if (amount is 64 or 65)
                     {
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.LifeSupp, 67);
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.LifeSupp, 66);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.LifeSupp, 67);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.LifeSupp, 66);
                         UsedSkillCount++;
                     }
                     break;
@@ -90,8 +90,8 @@ namespace TownOfHost
                     if (SkillLimit.GetFloat() > 0 && UsedSkillCount >= SkillLimit.GetFloat()) break;
                     if (amount is 16 or 17)
                     {
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Comms, 19);
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Comms, 18);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Comms, 19);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Comms, 18);
                     }
                     UsedSkillCount++;
                     break;
@@ -132,38 +132,38 @@ namespace TownOfHost
                 case SystemTypes.Reactor:
                     if (amount is 64 or 65)
                     {
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Reactor, 67);
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Reactor, 66);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Reactor, 67);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Reactor, 66);
                         HackerUsedSkillCount++;
                     }
                     if (amount is 16 or 17)
                     {
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Reactor, 19);
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Reactor, 18);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Reactor, 19);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Reactor, 18);
                         HackerUsedSkillCount++;
                     }
                     break;
                 case SystemTypes.Laboratory:
                     if (amount is 64 or 65)
                     {
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Laboratory, 67);
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Laboratory, 66);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Laboratory, 67);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Laboratory, 66);
                         HackerUsedSkillCount++;
                     }
                     break;
                 case SystemTypes.LifeSupp:
                     if (amount is 64 or 65)
                     {
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.LifeSupp, 67);
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.LifeSupp, 66);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.LifeSupp, 67);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.LifeSupp, 66);
                         HackerUsedSkillCount++;
                     }
                     break;
                 case SystemTypes.Comms:
                     if (amount is 16 or 17)
                     {
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Comms, 19);
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Comms, 18);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Comms, 19);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Comms, 18);
                     }
                     HackerUsedSkillCount++;
                     break;

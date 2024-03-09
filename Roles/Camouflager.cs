@@ -45,7 +45,7 @@ namespace TownOfHost
                     }
                     if (revert.inVent)
                         revert.MyPhysics.ExitAllVents();
-                    revert.RpcRevertShapeshift(false);
+                    revert.CmdCheckRevertShapeshift(false);
                 }
                 DidCamo = false;
             }
@@ -73,3 +73,4 @@ namespace TownOfHost
         }
     }
 }
+

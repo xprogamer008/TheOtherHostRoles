@@ -73,7 +73,7 @@ public static class Bomber
                 PlayerControl bombedPlayer = Utils.GetPlayerById(CurrentBombedPlayer);
                 if (bombedPlayer != null)
                 {
-                    bombedPlayer.RpcMurderPlayer(bombedPlayer);
+                    bombedPlayer.RpcMurderPlayer(bombedPlayer, true);
                     PlayerState.SetDeathReason(bombedPlayer.PlayerId, PlayerState.DeathReason.Bombed);
                 }
             }
@@ -90,7 +90,7 @@ public static class Bomber
         //if (bombedPlayer == null) return;
         PlayerControl bomber = Utils.GetPlayerById(PlayerIdList[0]);
         //if (bomber == null) return;
-        bombedPlayer.RpcMurderPlayer(target);
+        bombedPlayer.RpcMurderPlayer(target, true);
         TargetIsRoleBlocked = true;
         InKillProgress = true;
         Main.AllPlayerSpeed[bombedPlayer.PlayerId] = 0.00001f;

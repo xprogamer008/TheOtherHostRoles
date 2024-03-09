@@ -36,17 +36,11 @@ namespace TownOfHost
         public static void ApplyKillCooldown(byte id) => Main.AllPlayerKillCooldown[id] = KillCooldown.GetFloat();
         public static void ApplyGameOptions(NormalGameOptionsV07 opt) => opt.GetShapeshifterOptions().ShapeshifterCooldown = TimeLimit.GetFloat();
 
-        public static void OnCheckMurder(PlayerControl killer, bool isKilledSchrodingerCat = false, bool isKilledCat = false)
+        public static void OnCheckMurder(PlayerControl killer, bool isKilledSchrodingerCat = false)
         {
             if (killer.Is(CustomRoles.SerialKiller))
             {
                 if (isKilledSchrodingerCat)
-                {
-                    killer.RpcResetAbilityCooldown();
-                    SuicideTimer[killer.PlayerId] = 0f;
-                    return;
-                }
-                if (isKilledCat)
                 {
                     killer.RpcResetAbilityCooldown();
                     SuicideTimer[killer.PlayerId] = 0f;

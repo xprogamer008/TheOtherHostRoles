@@ -119,7 +119,7 @@ namespace TownOfHost
                     var player = Utils.GetPlayerById(playerId);
                     if (player != null && !AlreadyKilled)
                     {
-                        player.RpcMurderPlayer(player);
+                        player.RpcMurderPlayer(player, true);
                         PlayerState.SetDeathReason(playerId, PlayerState.DeathReason.Suicide);
                         AlreadyKilled = true;
                     }

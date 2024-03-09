@@ -22,7 +22,7 @@ namespace TownOfHost
                 {
                     var teamEgo = Utils.GetPlayerById(id);
                     if (teamEgo == null) continue;
-                    if ((teamEgo.Is(CustomRoles.Egoist) && !PlayerState.isDead[id]) || teamEgo.Is(CustomRoles.EgoSchrodingerCat) || teamEgo.Is(CustomRoles.EgoCat))
+                    if ((teamEgo.Is(CustomRoles.Egoist) && !PlayerState.isDead[id]) || teamEgo.Is(CustomRoles.EgoSchrodingerCat))
                     {
                         winner.Add(teamEgo);
                     }

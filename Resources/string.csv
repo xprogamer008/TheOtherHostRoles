@@ -758,7 +758,8 @@ SyncedButtonCount,Max Button Count,Максимальное Количество
 AddedTheSkeld,Include TheSkeld,Добавить TheSkeld,TheSkeldを追加,添加骷髅舰地图,將The Skeld地圖列入選項
 AddedMIRAHQ,Include MIRAHQ,Добавить MiraHQ,MIRAHQを追加,添加米拉总部地图,將MIRA HQ地圖列入選項
 AddedPolus,Include Polus,Добавить Polus,Polusを追加,添加波鲁斯地图,將Polus地圖列入選項
-AddedTheAirShip,Include TheAirShip,Добавить TheAirship,TheAirShipを追加,添加飞艇地图,將The AirShip列入選項
+AddedTheAirShip,Include The AirShip,Добавить TheAirship,TheAirShipを追加,添加飞艇地图,將The AirShip列入選項
+AddedTheFungle,Inculude The Fungle,Inculude The Fungle,Inculude The Fungle,Inculude The Fungle,Inculude The Fungle
 LadderDeath,Fall From Ladders (Not Sure if Working),Падение с лестницы,ハシゴから転落,从梯子上下滑落时会摔死（目前属于测试）,從梯子上下滑時可能會摔死
 LadderDeathChance,Fall To Death Chance,Шанс Разбиться Насмерть,転落する確率,从梯子上摔死概率,從梯子上下滑摔死機率
 FreezerCooldown,Freeze Cooldown,Откат Заморозки,FreezerCooldown,冻结冷却时间,FreezerCooldown
