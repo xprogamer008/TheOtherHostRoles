@@ -2132,12 +2132,12 @@ Roles from:
 8. [Foolers Mod](https://github.com/MengTube/Foolers-Mod)<br>
 9. [Town-Of-Us-R](https://github.com/eDonnes124/Town-Of-Us-R)<br>
 10. Mek - Role Ideas (Bewilder, Bastion, Demolitionist)<br>
-11. Original [Town Of Host](https://github.com/tukasa0001/TownOfHost) (Mod itself plus pull requests for roles such as the guesser roles)
+11. Original [Town Of Host](https://github.com/tukasa0001/TownOfHost) (Mod itself plus pull requests for roles such as the guesser roles)<br>
 12.[Town Of Chaos](https://www.youtube.com/@pumpkingaming5548)<br>
 13.[TOHE-R](https://Github.com/Loonie-Toons/TOHE-Restored)<br>
 
 ## Developers
-Orinal Develipors:
+Original Develipors:
 - [Discussions](https://github.com/music-discussion) ([YouTube](https://www.youtube.com/channel/UCAawAIWR5XfJE6T0JdYpzzg)) - Coding
 - [MC-AS-Huier](https://github.com/MC-AS-Huier) - SChinese Translations
 - [Tommy-XL](https://github.com/Tommy-XL) - Rus Translations
