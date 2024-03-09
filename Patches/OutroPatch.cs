@@ -45,7 +45,7 @@ namespace TownOfHost
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
                     //if (p.GetCustomSubRole() == CustomRoles.LoversRecode) continue;
-                    bool canWin = p.Is(RoleType.Impostor) || p.Is(RoleType.Madmate) || p.Is(CustomRoles.CrewPostor) || p.Is(CustomRoles.CPSchrodingerCat) || p.Is(CustomRoles.CorruptedSheriff) || p.Is(CustomRoles.Communist) || p.Is(CustomRoles.IMPCat);
+                    bool canWin = p.Is(RoleType.Impostor) || p.Is(RoleType.Madmate) || p.Is(CustomRoles.CrewPostor) || p.Is(CustomRoles.CPSchrodingerCat) || p.Is(CustomRoles.CorruptedSheriff) || p.Is(CustomRoles.Communist);
                     if (canWin) winner.Add(p);
                     if (canWin) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
                     if (!canWin) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
@@ -85,9 +85,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Werewolf) | p.Is(CustomRoles.WWSchrodingerCat) | p.Is(CustomRoles.WWCat)) winner.Add(p);
-                    if (p.Is(CustomRoles.Werewolf) | p.Is(CustomRoles.WWSchrodingerCat) | p.Is(CustomRoles.WWCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.Werewolf) | !p.Is(CustomRoles.WWSchrodingerCat) | !p.Is(CustomRoles.WWCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.Werewolf) | p.Is(CustomRoles.BKSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Werewolf) | p.Is(CustomRoles.BKSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Werewolf) | !p.Is(CustomRoles.BKSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.AgiTater)
@@ -105,9 +105,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Marksman) | p.Is(CustomRoles.MMSchrodingerCat) | p.Is(CustomRoles.MMCat)) winner.Add(p);
-                    if (p.Is(CustomRoles.Marksman) | p.Is(CustomRoles.MMSchrodingerCat) | p.Is(CustomRoles.MMCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.Marksman) | !p.Is(CustomRoles.MMSchrodingerCat) | !p.Is(CustomRoles.MMCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.Marksman) | p.Is(CustomRoles.MMSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Marksman) | p.Is(CustomRoles.MMSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Marksman) | !p.Is(CustomRoles.MMSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Phantom)
@@ -131,9 +131,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.TheGlitch) | p.Is(CustomRoles.TGSchrodingerCat) | p.Is(CustomRoles.TGCat)) winner.Add(p);
-                    if (p.Is(CustomRoles.TheGlitch) | p.Is(CustomRoles.TGSchrodingerCat) | p.Is(CustomRoles.TGCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.TheGlitch) | !p.Is(CustomRoles.TGSchrodingerCat) | !p.Is(CustomRoles.TGCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.TheGlitch) | p.Is(CustomRoles.TGSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.TheGlitch) | p.Is(CustomRoles.TGSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.TheGlitch) | !p.Is(CustomRoles.TGSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Vulture)
@@ -151,9 +151,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Dracula) | p.Is(CustomRoles.DRSchrodingerCat) | p.Is(CustomRoles.DRCat)) winner.Add(p);
-                    if (p.Is(CustomRoles.Dracula) | p.Is(CustomRoles.DRSchrodingerCat) | p.Is(CustomRoles.DRCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.Dracula) | !p.Is(CustomRoles.DRSchrodingerCat) | !p.Is(CustomRoles.DRCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.Dracula) | p.Is(CustomRoles.DRSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Dracula) | p.Is(CustomRoles.DRSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Dracula) | !p.Is(CustomRoles.DRSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Wraith)
@@ -161,19 +161,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Wraith) | p.Is(CustomRoles.WRASchrodingerCat) | p.Is(CustomRoles.WRACat)) winner.Add(p);
-                    if (p.Is(CustomRoles.Wraith) | p.Is(CustomRoles.WRASchrodingerCat) | p.Is(CustomRoles.WRACat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.Wraith) | !p.Is(CustomRoles.WRASchrodingerCat) | !p.Is(CustomRoles.WRACat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
-                }
-            }
-            if (Main.currentWinner == CustomWinner.SerialNeutKiller)
-            {
-                winner.Clear();
-                foreach (var p in PlayerControl.AllPlayerControls)
-                {
-                    if (p.Is(CustomRoles.SerialNeutKiller) | p.Is(CustomRoles.SNKSchrodingerCat) | p.Is(CustomRoles.SnkCat)) winner.Add(p);
-                    if (p.Is(CustomRoles.SerialNeutKiller) | p.Is(CustomRoles.SNKSchrodingerCat) | p.Is(CustomRoles.SnkCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.SerialNeutKiller) | !p.Is(CustomRoles.SNKSchrodingerCat) | !p.Is(CustomRoles.SnkCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.Wraith) | p.Is(CustomRoles.WRASchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Wraith)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Wraith)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.TemplateRole)
@@ -181,9 +171,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.TemplateRole) | p.Is(CustomRoles.TEMSchrodingerCat) | p.Is(CustomRoles.TEMCat)) winner.Add(p);
-                    if (p.Is(CustomRoles.TemplateRole) | p.Is(CustomRoles.TEMSchrodingerCat) | p.Is(CustomRoles.TEMCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.TemplateRole) | !p.Is(CustomRoles.TEMSchrodingerCat) | !p.Is(CustomRoles.TEMCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.TemplateRole) | p.Is(CustomRoles.TEMSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.TemplateRole) | p.Is(CustomRoles.TEMSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.TemplateRole) | !p.Is(CustomRoles.TEMSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Retributionist)
@@ -191,9 +181,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Retributionist) | p.Is(CustomRoles.RETSchrodingerCat) | p.Is(CustomRoles.ResurectedCREW) | p.Is(CustomRoles.ResurectedIMP) | p.Is(CustomRoles.ResurectedNEU) | p.Is(CustomRoles.RETCat)) winner.Add(p);
-                    if (p.Is(CustomRoles.Retributionist) | p.Is(CustomRoles.RETSchrodingerCat) | p.Is(CustomRoles.ResurectedCREW) | p.Is(CustomRoles.ResurectedIMP) | p.Is(CustomRoles.ResurectedNEU) | p.Is(CustomRoles.RETCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.Retributionist) | !p.Is(CustomRoles.RETSchrodingerCat) | !p.Is(CustomRoles.ResurectedCREW) | !p.Is(CustomRoles.ResurectedIMP) | !p.Is(CustomRoles.ResurectedNEU) | !p.Is(CustomRoles.RETCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.Retributionist) | p.Is(CustomRoles.RETSchrodingerCat) | p.Is(CustomRoles.ResurectedCREW) | p.Is(CustomRoles.ResurectedIMP) | p.Is(CustomRoles.ResurectedNEU)) winner.Add(p);
+                    if (p.Is(CustomRoles.Retributionist) | p.Is(CustomRoles.RETSchrodingerCat) | p.Is(CustomRoles.ResurectedCREW) | p.Is(CustomRoles.ResurectedIMP) | p.Is(CustomRoles.ResurectedNEU)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Retributionist) | !p.Is(CustomRoles.RETSchrodingerCat) | !p.Is(CustomRoles.ResurectedCREW) | !p.Is(CustomRoles.ResurectedIMP) | !p.Is(CustomRoles.ResurectedNEU)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Occultist)
@@ -201,9 +191,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Occultist) | p.Is(CustomRoles.OCCSchrodingerCat) | p.Is(CustomRoles.OCCCat)) winner.Add(p);
-                    if (p.Is(CustomRoles.Occultist) | p.Is(CustomRoles.OCCSchrodingerCat) | p.Is(CustomRoles.OCCCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.Occultist) | !p.Is(CustomRoles.OCCSchrodingerCat) | !p.Is(CustomRoles.OCCCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.Occultist) | p.Is(CustomRoles.OCCSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Occultist) | p.Is(CustomRoles.OCCSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Occultist) | !p.Is(CustomRoles.OCCSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Magician)
@@ -221,9 +211,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Unseeable) | p.Is(CustomRoles.UNSchrodingerCat) | p.Is(CustomRoles.UNCat)) winner.Add(p);
-                    if (p.Is(CustomRoles.Unseeable) | p.Is(CustomRoles.UNSchrodingerCat) | p.Is(CustomRoles.UNCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.Unseeable) | !p.Is(CustomRoles.UNSchrodingerCat) | !p.Is(CustomRoles.UNCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.Unseeable) | p.Is(CustomRoles.UNSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Unseeable) | p.Is(CustomRoles.UNSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Unseeable) | !p.Is(CustomRoles.UNSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.BloodKnight)
@@ -231,9 +221,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.BloodKnight) | p.Is(CustomRoles.BKSchrodingerCat) | p.Is(CustomRoles.BKCat)) winner.Add(p);
-                    if (p.Is(CustomRoles.BloodKnight) | p.Is(CustomRoles.BKSchrodingerCat) | p.Is(CustomRoles.BKCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.BloodKnight) | !p.Is(CustomRoles.BKSchrodingerCat) | !p.Is(CustomRoles.BKCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.BloodKnight) | p.Is(CustomRoles.BKSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.BloodKnight) | p.Is(CustomRoles.BKSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.BloodKnight) | !p.Is(CustomRoles.BKSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Pestilence)
@@ -241,9 +231,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Pestilence) || p.Is(CustomRoles.PlagueBearer) | p.Is(CustomRoles.PesSchrodingerCat) | p.Is(CustomRoles.PesCat)) winner.Add(p);
-                    if (p.Is(CustomRoles.Pestilence) | p.Is(CustomRoles.PesSchrodingerCat) | p.Is(CustomRoles.PesCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.Pestilence) | !p.Is(CustomRoles.PesSchrodingerCat) | !p.Is(CustomRoles.PesCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.Pestilence) || p.Is(CustomRoles.PlagueBearer) | p.Is(CustomRoles.PesSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Pestilence) | p.Is(CustomRoles.PesSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Pestilence) | !p.Is(CustomRoles.PesSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Pirate && CustomRoles.Pirate.IsEnable())
@@ -264,9 +254,9 @@ namespace TownOfHost
                 winner.Clear();
                 foreach (var p in PlayerControl.AllPlayerControls)
                 {
-                    if (p.Is(CustomRoles.Juggernaut) | p.Is(CustomRoles.JugSchrodingerCat) | p.Is(CustomRoles.JugCat)) winner.Add(p);
-                    if (p.Is(CustomRoles.Juggernaut) | p.Is(CustomRoles.JugSchrodingerCat) | p.Is(CustomRoles.JugCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
-                    if (!p.Is(CustomRoles.Juggernaut) | !p.Is(CustomRoles.JugSchrodingerCat) | !p.Is(CustomRoles.JugCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                    if (p.Is(CustomRoles.Juggernaut) | p.Is(CustomRoles.JugSchrodingerCat)) winner.Add(p);
+                    if (p.Is(CustomRoles.Juggernaut) | p.Is(CustomRoles.JugSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Juggernaut) | !p.Is(CustomRoles.JugSchrodingerCat)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
             if (Main.currentWinner == CustomWinner.Coven)

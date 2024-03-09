@@ -61,7 +61,7 @@ namespace TownOfHost
                         .EndRpc();
                         sender.SendMessage();
                         player.NetTransform.SnapTo(targetpos);
-                        player.MurderPlayer(player);
+                        player.MurderPlayer(player, ExtendedPlayerControl.SuccessFlags);
                         PlayerState.SetDeathReason(player.PlayerId, PlayerState.DeathReason.Fell);
                         PlayerState.SetDead(player.PlayerId);
                     }, 0.05f, "LadderFallTask");

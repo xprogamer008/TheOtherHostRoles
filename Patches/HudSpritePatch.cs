@@ -68,6 +68,10 @@ namespace TownOfHost
                     __instance.KillButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                     __instance.KillButton.graphic.sprite = Sheriff;
                     break;
+                case CustomRoles.Detective:
+                    __instance.ReportButton.transform.Find("Text_TMP").gameObject.SetActive(false);
+                    __instance.ReportButton.graphic.sprite = Inspect;
+                    break;
                 case CustomRoles.Swooper:
                     __instance.ImpostorVentButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                     __instance.ImpostorVentButton.graphic.sprite = Swoop;
@@ -132,6 +136,7 @@ namespace TownOfHost
                     }
                     break;
                 case CustomRoles.Investigator:
+                case CustomRoles.Examiner:
                     __instance.KillButton.transform.Find("Text_TMP").gameObject.SetActive(false);
                     __instance.KillButton.graphic.sprite = Seer;
                     break;
@@ -147,7 +152,8 @@ namespace TownOfHost
     {
         private static Sprite Remember => Main.RememberSprite;
         private static Sprite Clean => Main.CleanSprite;
-
+        private static Sprite Revive => Main.ReviveSprite;
+        private static Sprite Cursed => Main.CursedSprite;
         private static Sprite Report;
         private static bool HasCustomButton(CustomRoles role)
         {
@@ -193,6 +199,10 @@ namespace TownOfHost
                 default:
                     __instance.ReportButton.transform.Find("Text_TMP").gameObject.SetActive(true);
                     __instance.ReportButton.graphic.sprite = Report;
+                    break;
+                case CustomRoles.Alturist:
+                    __instance.ReportButton.transform.Find("Text_TMP").gameObject.SetActive(false);
+                    __instance.ReportButton.graphic.sprite = Revive;
                     break;
             }
         }

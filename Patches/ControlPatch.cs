@@ -111,7 +111,7 @@ namespace TownOfHost
                     {
                         if (pc == null || pc.Data.IsDead || pc.Data.Disconnected) continue;
                         if (pc.Data.Role.Role != RoleTypes.Shapeshifter) continue;
-                        if (Main.CheckShapeshift[pc.PlayerId]) pc.RpcRevertShapeshift(true);
+                        if (Main.CheckShapeshift[pc.PlayerId]) pc.CmdCheckRevertShapeshift(true);
                     }
                 }
                 //即スタート
@@ -399,17 +399,17 @@ namespace TownOfHost
                 //エアシップのトイレのドアを全て開ける
                 if (Input.GetKeyDown(KeyCode.P))
                 {
-                    ShipStatus.Instance.RpcRepairSystem(SystemTypes.Doors, 79);
-                    ShipStatus.Instance.RpcRepairSystem(SystemTypes.Doors, 80);
-                    ShipStatus.Instance.RpcRepairSystem(SystemTypes.Doors, 81);
-                    ShipStatus.Instance.RpcRepairSystem(SystemTypes.Doors, 82);
+                    ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Doors, 79);
+                    ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Doors, 80);
+                    ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Doors, 81);
+                    ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Doors, 82);
                 }
                 //ShipStatus.Instance.
                 if (Input.GetKeyDown(KeyCode.U))
                 {
                     foreach (var pc in PlayerControl.AllPlayerControls)
                     {
-                        pc.RpcRevertShapeshift(true);
+                        pc.CmdCheckRevertShapeshift(true);
                     }
                 }
 

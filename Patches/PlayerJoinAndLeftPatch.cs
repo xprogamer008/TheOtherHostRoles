@@ -757,7 +757,7 @@ toptext:<size=1><color=#FFC0CB>ServerBooster</color></size>";
                     foreach (PlayerControl revert in PlayerControl.AllPlayerControls)
                     {
                         if (revert.Is(CustomRoles.Phantom) || revert == null || revert.Data.IsDead || revert.Data.Disconnected || revert == data.Character) continue;
-                        revert.RpcRevertShapeshift(true);
+                        revert.RpcRevertShapeshiftV2(true);
                     }
                     Camouflager.DidCamo = false;
                 }

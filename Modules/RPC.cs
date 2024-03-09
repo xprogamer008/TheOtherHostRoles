@@ -21,7 +21,6 @@ namespace TownOfHost
         SetKillOrSpell,
         SetKillOrSilence,
         SetSheriffShotLimit,
-        SetCrewCatShotLimit,
         SetDeputyShotLimit,
         SetTimeThiefKillCount,
         SetDousedPlayer,
@@ -30,7 +29,6 @@ namespace TownOfHost
         ResetNameColorData,
         DoSpell,
         DoOccSpell,
-        DoCatOccSpell,
         AntiBlackout,
         DoSilence,
         SniperSync,
@@ -76,7 +74,6 @@ namespace TownOfHost
         SetVetAlertState,
         SetReverserAlertState,
         SetGlitchState,
-        SetTGCatState,
         SetTransportState,
         SendPostmanInfo,
         SetEscapistState,
@@ -231,9 +228,6 @@ namespace TownOfHost
                 case CustomRPC.SetSheriffShotLimit:
                     Sheriff.ReceiveRPC(reader);
                     break;
-                case CustomRPC.SetCrewCatShotLimit:
-                    Sheriff.ReceiveRPC(reader);
-                    break;
                 case CustomRPC.SetDeputyShotLimit:
                     Deputy.ReceiveRPC(reader);
                     break;
@@ -277,9 +271,6 @@ namespace TownOfHost
                     break;
                 case CustomRPC.DoOccSpell:
                     Main.SpelledOccPlayer.Add(Utils.GetPlayerById(reader.ReadByte()));
-                    break;
-                case CustomRPC.DoCatOccSpell:
-                    Main.SpelledCatOccPlayer.Add(Utils.GetPlayerById(reader.ReadByte()));
                     break;
                 case CustomRPC.DoSilence:
                     Main.SilencedPlayer.Add(Utils.GetPlayerById(reader.ReadByte()));
@@ -460,9 +451,6 @@ namespace TownOfHost
                     break;
                 case CustomRPC.SetGlitchState:
                     Main.IsHackMode = reader.ReadBoolean();
-                    break;
-                case CustomRPC.SetTGCatState:
-                    Main.IsCatHackMode = reader.ReadBoolean();
                     break;
                 case CustomRPC.SetTransportState:
                     Main.CanTransport = reader.ReadBoolean();
@@ -658,9 +646,6 @@ namespace TownOfHost
                     case CustomWinner.TemplateRole:
                         TemplateRoleWin();
                         break;
-                    case CustomWinner.SerialNeutKiller:
-                        SerialNeutKillerWin();
-                        break;
                     case CustomWinner.Retributionist:
                         RetributionistWin();
                         break;
@@ -852,11 +837,6 @@ namespace TownOfHost
             Main.currentWinner = CustomWinner.TemplateRole;
             CustomWinTrigger(0);
         }
-        public static void SerialNeutKillerWin()
-        {
-            Main.currentWinner = CustomWinner.SerialNeutKiller;
-            CustomWinTrigger(0);
-        }
         public static void RetributionistWin()
         {
             Main.currentWinner = CustomWinner.Retributionist;
@@ -1044,9 +1024,6 @@ namespace TownOfHost
                 case CustomRoles.Sheriff:
                     Sheriff.Add(targetId);
                     break;
-                case CustomRoles.CrewCat:
-                    Sheriff.Add(targetId);
-                    break;
                 case CustomRoles.Deputy:
                     Deputy.Add(targetId);
                     break;
@@ -1095,12 +1072,6 @@ namespace TownOfHost
         public static void RpcDoOccSpell(byte player)
         {
             MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.DoOccSpell, Hazel.SendOption.Reliable, -1);
-            writer.Write(player);
-            AmongUsClient.Instance.FinishRpcImmediately(writer);
-        }
-        public static void RpcDoCatOccSpell(byte player)
-        {
-            MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.DoCatOccSpell, Hazel.SendOption.Reliable, -1);
             writer.Write(player);
             AmongUsClient.Instance.FinishRpcImmediately(writer);
         }

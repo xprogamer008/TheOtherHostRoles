@@ -23,6 +23,7 @@ namespace TownOfHost
                 MapNames.Polus => 1.5f,
                 //MapNames.Dleks => 1.5f,
                 MapNames.Airship => 1.5f,
+                MapNames.Fungle => 1.8f,
                 _ => 0.0f
             };
         }
@@ -71,7 +72,7 @@ namespace TownOfHost
                                 if (!OldDesyncCommsPlayers.Contains(pc.PlayerId))
                                     OldDesyncCommsPlayers.Add(pc.PlayerId);
 
-                                MessageWriter SabotageFixWriter = AmongUsClient.Instance.StartRpcImmediately(ShipStatus.Instance.NetId, (byte)RpcCalls.RepairSystem, SendOption.Reliable, clientId);
+                                MessageWriter SabotageFixWriter = AmongUsClient.Instance.StartRpcImmediately(ShipStatus.Instance.NetId, (byte)RpcCalls.UpdateSystem, SendOption.Reliable, clientId);
                                 SabotageFixWriter.Write((byte)SystemTypes.Comms);
                                 MessageExtensions.WriteNetObject(SabotageFixWriter, pc);
                                 SabotageFixWriter.Write((byte)128);
@@ -99,7 +100,7 @@ namespace TownOfHost
 
                                     sender.SendMessage();*/
 
-                                    MessageWriter SabotageFixWriter = AmongUsClient.Instance.StartRpcImmediately(ShipStatus.Instance.NetId, (byte)RpcCalls.RepairSystem, SendOption.Reliable, clientId);
+                                    MessageWriter SabotageFixWriter = AmongUsClient.Instance.StartRpcImmediately(ShipStatus.Instance.NetId, (byte)RpcCalls.UpdateSystem, SendOption.Reliable, clientId);
                                     SabotageFixWriter.Write((byte)SystemTypes.Comms);
                                     MessageExtensions.WriteNetObject(SabotageFixWriter, pc);
                                     SabotageFixWriter.Write((byte)16);

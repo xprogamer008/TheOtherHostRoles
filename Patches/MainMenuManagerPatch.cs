@@ -145,7 +145,7 @@ public class MainMenuManagerPatch
 }
 
 // 来源：https://github.com/ykundesu/SuperNewRoles/blob/master/SuperNewRoles/Patches/HorseModePatch.cs
-[HarmonyPatch(typeof(Constants), nameof(Constants.ShouldHorseAround))]
+
 public static class HorseModePatch
 {
     public static bool isHorseMode = false;
@@ -155,7 +155,7 @@ public static class HorseModePatch
         return false;
     }
 }
-[HarmonyPatch(typeof(Constants), nameof(Constants.ShouldFlipSkeld))]
+
 public static class DleksPatch
 {
     public static bool isDleks = false;

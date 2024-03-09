@@ -64,7 +64,6 @@ namespace TownOfHost
 
                 Main.chosenEngiRoles = new List<CustomRoles>();
                 Main.chosenScientistRoles = new List<CustomRoles>();
-                Main.chosenGuardianAngelRoles = new List<CustomRoles>();
                 Main.chosenShifterRoles = new List<CustomRoles>();
                 Main.chosenRoles = new List<CustomRoles>();
                 Main.chosenImpRoles = new List<CustomRoles>();
@@ -109,10 +108,8 @@ namespace TownOfHost
                 Main.ReverserCanAlert = true;
                 Main.CanTransport = true;
                 Main.JugKillAmounts = 0;
-                Main.JugCatKillAmounts = 0;
                 Main.AteBodies = 0;
                 Main.TeamJuggernautAlive = false;
-                Main.TeamJugCatAlive = false;
                 Main.TeamPestiAlive = false;
                 Main.Grenaiding = false;
                 Main.ResetVision = false;
@@ -165,7 +162,6 @@ namespace TownOfHost
                 Main.IsRoundOne = true;
                 Main.IsRoundOneGA = true;
                 Main.MarksmanKills = 0;
-                Main.MMCatKills = 0;
                 Main.GAprotects = 0;
                 Main.ProtectedThisRound = false;
                 Main.CurrentTarget = new Dictionary<byte, byte>();
@@ -178,16 +174,12 @@ namespace TownOfHost
 
                 Main.IsRampaged = false;
                 Main.RampageReady = true;
-                Main.Is2Rampaged = false;
-                Main.Rampage2Ready = true;
                 Main.Impostors = new();
                 Main.lastAmountOfTasks = new();
                 Main.AllImpostorCount = 0;
                 Main.HasTarget = new Dictionary<byte, bool>();
                 Main.IsHackMode = false;
-                Main.IsCatHackMode = false;
                 Main.bkProtected = false;
-                Main.bkcProtected = false;
                 Main.WildlingProtected = false;
                 Main.CleanerCanClean = new Dictionary<byte, bool>();
                 Main.CursedCanClean = new Dictionary<byte, bool>();
@@ -218,8 +210,6 @@ namespace TownOfHost
                 Main.CanGoInvis2 = true;
                 Main.IsInvis3 = false;
                 Main.CanGoInvis3 = true;
-                Main.IsInvis4 = false;
-                Main.CanGoInvis4 = true;
                 Main.PlayerColors = new();
                 Main.whoKilledWho = new Dictionary<byte, byte>();
                 Main.SleuthReported = new();
@@ -427,9 +417,6 @@ namespace TownOfHost
                         if (RoleGoingInList(CustomRoles.TemplateRole))
                             rolesChosen.Add(CustomRoles.TemplateRole);
 
-                        if (RoleGoingInList(CustomRoles.SerialNeutKiller))
-                            rolesChosen.Add(CustomRoles.SerialNeutKiller);
-
                         if (RoleGoingInList(CustomRoles.Retributionist))
                             rolesChosen.Add(CustomRoles.Retributionist);
 
@@ -542,9 +529,6 @@ namespace TownOfHost
                         if (RoleGoingInList(CustomRoles.Amnesiac))
                             rolesChosenNon.Add(CustomRoles.Amnesiac);
 
-                        if (RoleGoingInList(CustomRoles.Copycat))
-                            rolesChosenNon.Add(CustomRoles.Copycat);
-
                         if (RoleGoingInList(CustomRoles.Phantom))
                             rolesChosenNon.Add(CustomRoles.Phantom);
 
@@ -567,7 +551,7 @@ namespace TownOfHost
                                     AllnonNKPlayers.Remove(player);
                                     if (role.IsEngineer())
                                         Main.chosenEngiRoles.Add(role);
-                                    else if (role is CustomRoles.Amnesiac or CustomRoles.Hitman or CustomRoles.Copycat)
+                                    else if (role is CustomRoles.Amnesiac or CustomRoles.Hitman)
                                     {
                                         List<PlayerControl> urself = new();
                                         urself.Add(player);
@@ -683,8 +667,6 @@ namespace TownOfHost
                                     Main.chosenEngiRoles.Add(role);
                                 else if (role is CustomRoles.Nurse or CustomRoles.Parademic or CustomRoles.Physicist or CustomRoles.Tracefinder)
                                     Main.chosenScientistRoles.Add(role);
-                                else if (role is CustomRoles.GuardianAngel)
-                                    Main.chosenGuardianAngelRoles.Add(role);
                                 else
                                     Main.chosenRoles.Add(role);
                             }
@@ -696,10 +678,6 @@ namespace TownOfHost
                     int ScientistNum = roleOpt.GetNumPerGame(RoleTypes.Scientist);
                     int AdditionalScientistNum = Main.chosenScientistRoles.Count;
                     roleOpt.SetRoleRate(RoleTypes.Scientist, ScientistNum + AdditionalScientistNum, AdditionalScientistNum > 0 ? 100 : roleOpt.GetChancePerGame(RoleTypes.Scientist));
-
-                    int GuardianAngelNum = roleOpt.GetNumPerGame(RoleTypes.GuardianAngel);
-                    int AdditionalGuardianAngelNum = Main.chosenGuardianAngelRoles.Count;
-                    roleOpt.SetRoleRate(RoleTypes.GuardianAngel, GuardianAngelNum + AdditionalGuardianAngelNum, AdditionalGuardianAngelNum > 0 ? 100 : roleOpt.GetChancePerGame(RoleTypes.GuardianAngel));
 
                     int EngineerNum = roleOpt.GetNumPerGame(RoleTypes.Engineer);
                     int AdditionalEngineerNum = Main.chosenEngiRoles.Count;
@@ -979,11 +957,6 @@ namespace TownOfHost
                     {
                         AssignCustomRolesFromList(role, Scientists);
                     }
-                    Logger.Msg("RoleManager.SelectRoles.Postfix / Check (6/10)", "Load Check (Select Roles.Postfix)");
-                    foreach (var role in Main.chosenGuardianAngelRoles)
-                    {
-                        AssignCustomRolesFromList(role, GuardianAngels);
-                    }
                     Logger.Msg("RoleManager.SelectRoles.Postfix / Check (7/10)", "Load Check (Select Roles.Postfix)");
                     foreach (var role in Main.chosenShifterRoles)
                     {
@@ -1137,11 +1110,7 @@ namespace TownOfHost
                             case CustomRoles.Occultist:
                                 Main.KillOrSpell.Add(pc.PlayerId, false);
                                 break;
-                            case CustomRoles.OCCCat:
-                                Main.KillOrSpell.Add(pc.PlayerId, false);
-                                break;
                             case CustomRoles.TheGlitch:
-                            case CustomRoles.TGCat:
                             case CustomRoles.Warlock:
                             case CustomRoles.Consort:
                             case CustomRoles.Escort:
@@ -1279,9 +1248,6 @@ namespace TownOfHost
                             case CustomRoles.Sheriff:
                                 Sheriff.Add(pc.PlayerId);
                                 break;
-                            case CustomRoles.CrewCat:
-                                Sheriff.Add(pc.PlayerId);
-                                break;
                             case CustomRoles.Deputy:
                                 Deputy.Add(pc.PlayerId);
                                 break;
@@ -1378,11 +1344,6 @@ namespace TownOfHost
                     int ScientistNum = roleOpt.GetNumPerGame(RoleTypes.Scientist);
                     ScientistNum -= Main.chosenScientistRoles.Count;
                     roleOpt.SetRoleRate(RoleTypes.Scientist, ScientistNum, roleOpt.GetChancePerGame(RoleTypes.Scientist));
-                    Logger.Msg("RoleManager.SelectRoles.Postfix Pt. 2 / Check (4/6)", "Load Check (Select Roles.Postfix Pt. 2)");
-
-                    int GuardianAngelNum = roleOpt.GetNumPerGame(RoleTypes.GuardianAngel);
-                    GuardianAngelNum -= Main.chosenGuardianAngelRoles.Count;
-                    roleOpt.SetRoleRate(RoleTypes.GuardianAngel, GuardianAngelNum, roleOpt.GetChancePerGame(RoleTypes.GuardianAngel));
                     Logger.Msg("RoleManager.SelectRoles.Postfix Pt. 2 / Check (4/6)", "Load Check (Select Roles.Postfix Pt. 2)");
 
                     int EngineerNum = roleOpt.GetNumPerGame(RoleTypes.Engineer);
@@ -1727,7 +1688,7 @@ namespace TownOfHost
                             if (player.GetCustomRole() is CustomRoles.Trapper) continue;
                             break;
                         case CustomRoles.Guesser:
-                            if (player.GetCustomRole() is CustomRoles.Pirate or CustomRoles.SerialNeutKiller or CustomRoles.EvilGuesser or CustomRoles.NiceGuesser) continue;
+                            if (player.GetCustomRole() is CustomRoles.Pirate or CustomRoles.EvilGuesser or CustomRoles.NiceGuesser) continue;
                             break;
                         case CustomRoles.Bewilder:
                             if (player.GetCustomRole() is CustomRoles.Detective or CustomRoles.Tracker or CustomRoles.Tank) continue;

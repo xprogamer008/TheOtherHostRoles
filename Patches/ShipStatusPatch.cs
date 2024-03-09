@@ -42,7 +42,7 @@ namespace TownOfHost
             }
         }
     }
-    [HarmonyPatch(typeof(ShipStatus), nameof(ShipStatus.RepairSystem))]
+    [HarmonyPatch(typeof(ShipStatus), nameof(ShipStatus.UpdateSystem), new Type[] { typeof(SystemTypes), typeof(PlayerControl), typeof(byte) })]
     class RepairSystemPatch
     {
         public static bool IsComms;
@@ -103,13 +103,17 @@ namespace TownOfHost
                 foreach (PlayerControl target in PlayerControl.AllPlayerControls)
                     target.RpcRevertShapeshift(true);
             }*/
-            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.Deputy) || player.Is(CustomRoles.Examiner) || player.Is(CustomRoles.NeutWitch) || player.Is(CustomRoles.Dracula) || player.Is(CustomRoles.DRCat) || player.Is(CustomRoles.UNCat) || player.Is(CustomRoles.Unseeable) || player.Is(CustomRoles.Investigator) || player.Is(CustomRoles.Escort) || player.Is(CustomRoles.CrewCat) || player.Is(CustomRoles.Crusader) || player.Is(CustomRoles.Parasite) || player.Is(CustomRoles.Marksman) || player.Is(CustomRoles.MMCat) || player.Is(CustomRoles.BKCat) || player.Is(CustomRoles.BloodKnight) || player.Is(CustomRoles.WRACat) || player.Is(CustomRoles.Wraith) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.Occultist) || player.Is(CustomRoles.CPCat) || player.Is(CustomRoles.MAGCat) || player.Is(CustomRoles.Copycat) || player.Is(CustomRoles.OCCCat) || player.Is(CustomRoles.TEMCat) || player.Is(CustomRoles.SnkCat) || player.Is(CustomRoles.JacCat) || player.Is(CustomRoles.TemplateRole) || player.Is(CustomRoles.RETCat) || player.Is(CustomRoles.Retributionist) || player.Is(CustomRoles.WWCat) || player.Is(CustomRoles.Werewolf) || player.Is(CustomRoles.AgiTater) || player.Is(CustomRoles.TheGlitch) || player.Is(CustomRoles.TGCat) || player.GetRoleType() == RoleType.Coven || player.Is(CustomRoles.PlagueBearer) || player.Is(CustomRoles.PesCat) || player.Is(CustomRoles.Pestilence) || player.Is(CustomRoles.Juggernaut) | player.Is(CustomRoles.JugCat) || ((player.Is(CustomRoles.Jackal) || player.Is(CustomRoles.Sidekick)) && !Options.JackalCanUseSabotage.GetBool()) || Main.Grenaiding)
+            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.Deputy) || player.Is(CustomRoles.Examiner) || player.Is(CustomRoles.NeutWitch) || player.Is(CustomRoles.Dracula) || player.Is(CustomRoles.Unseeable) || player.Is(CustomRoles.Investigator) || player.Is(CustomRoles.Escort) || player.Is(CustomRoles.Crusader) || player.Is(CustomRoles.Parasite) || player.Is(CustomRoles.Marksman) || player.Is(CustomRoles.BloodKnight) || player.Is(CustomRoles.Wraith) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.Occultist) || player.Is(CustomRoles.TemplateRole) || player.Is(CustomRoles.Retributionist) || player.Is(CustomRoles.Werewolf) || player.Is(CustomRoles.AgiTater) || player.Is(CustomRoles.TheGlitch) || player.GetRoleType() == RoleType.Coven || player.Is(CustomRoles.PlagueBearer) || player.Is(CustomRoles.Pestilence) || player.Is(CustomRoles.Juggernaut) || ((player.Is(CustomRoles.Jackal) || player.Is(CustomRoles.Sidekick)) && !Options.JackalCanUseSabotage.GetBool()) || Main.Grenaiding)
             {
                 if (systemType == SystemTypes.Sabotage && AmongUsClient.Instance.NetworkMode != NetworkModes.FreePlay) return false; //シェリフにサボタージュをさせない ただしフリープレイは例外
             }
+            if (player.Is(CustomRoles.Sheriff) || player.Is(CustomRoles.Deputy) || player.Is(CustomRoles.Examiner) || player.Is(CustomRoles.NeutWitch) || player.Is(CustomRoles.Dracula) || player.Is(CustomRoles.Unseeable) || player.Is(CustomRoles.Investigator) || player.Is(CustomRoles.Escort) || player.Is(CustomRoles.Crusader) || player.Is(CustomRoles.Parasite) || player.Is(CustomRoles.Marksman) || player.Is(CustomRoles.BloodKnight) || player.Is(CustomRoles.Arsonist) || player.Is(CustomRoles.Occultist) || player.Is(CustomRoles.TemplateRole) || player.Is(CustomRoles.Retributionist) || player.Is(CustomRoles.Werewolf) || player.Is(CustomRoles.AgiTater) || player.Is(CustomRoles.TheGlitch) || player.GetRoleType() == RoleType.Coven || player.Is(CustomRoles.PlagueBearer) || player.Is(CustomRoles.Pestilence) || player.Is(CustomRoles.Juggernaut) || ((player.Is(CustomRoles.Jackal) || player.Is(CustomRoles.Sidekick)) && !Options.JackalCanUseSabotage.GetBool()) || Main.Grenaiding)
+            {
+                if (systemType == SystemTypes.Doors && AmongUsClient.Instance.NetworkMode != NetworkModes.FreePlay) return false; //シェリフにサボタージュをさせない ただしフリープレイは例外
+            }
             else
             {
-                if (CustomRoles.TheGlitch.IsEnable() | CustomRoles.TGCat.IsEnable() | CustomRoles.Escort.IsEnable() | CustomRoles.Consort.IsEnable())
+                if (CustomRoles.TheGlitch.IsEnable() | CustomRoles.Escort.IsEnable() | CustomRoles.Consort.IsEnable())
                 {
                     List<byte> hackedPlayers = new();
                     foreach (var cp in Main.CursedPlayers)
@@ -167,20 +171,20 @@ namespace TownOfHost
                         Utils.NotifyRoles(ForceLoop: true);
                 }, 0.1f, "RepairSystem NotifyRoles");
         }
-        public static void CheckAndOpenDoorsRange(ShipStatus __instance, int amount, int min, int max)
+        public static void CheckAndOpenDoorsRange(ShipStatus __instance, byte amount, byte min, byte max)
         {
-            var Ids = new List<int>();
+            var Ids = new List<byte>();
             for (var i = min; i <= max; i++)
             {
                 Ids.Add(i);
             }
             CheckAndOpenDoors(__instance, amount, Ids.ToArray());
         }
-        private static void CheckAndOpenDoors(ShipStatus __instance, int amount, params int[] DoorIds)
+        private static void CheckAndOpenDoors(ShipStatus __instance, byte amount, params byte[] DoorIds)
         {
             if (DoorIds.Contains(amount)) foreach (var id in DoorIds)
                 {
-                    __instance.RpcRepairSystem(SystemTypes.Doors, id);
+                    __instance.RpcUpdateSystem(SystemTypes.Doors, id);
                 }
         }
     }
@@ -192,7 +196,7 @@ namespace TownOfHost
             return !(Options.CurrentGameMode() == CustomGameMode.HideAndSeek || Options.IsStandardHAS) || Options.AllowCloseDoors.GetBool();
         }
     }
-    [HarmonyPatch(typeof(SwitchSystem), nameof(SwitchSystem.RepairDamage))]
+    [HarmonyPatch(typeof(SwitchSystem), nameof(SwitchSystem.UpdateSystem))]
     class SwitchSystemRepairPatch
     {
         public static void Postfix(SwitchSystem __instance, [HarmonyArgument(0)] PlayerControl player, [HarmonyArgument(1)] byte amount)

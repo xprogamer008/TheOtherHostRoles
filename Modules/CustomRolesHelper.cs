@@ -76,63 +76,43 @@ namespace TownOfHost
                 CustomRoles.SchrodingerCat or
                 CustomRoles.Terrorist or
                 CustomRoles.Wraith or
-                CustomRoles.WRACat or
                 CustomRoles.Executioner or
                 CustomRoles.Arsonist or
                 CustomRoles.Egoist or
                 CustomRoles.AgiTater or
-                CustomRoles.SerialNeutKiller or
-                CustomRoles.SnkCat or
                 CustomRoles.EgoSchrodingerCat or
                 CustomRoles.Hitman or
-                CustomRoles.EgoCat or
                 CustomRoles.CrewPostor or
                 CustomRoles.Magician or
                 CustomRoles.Marksman or
-                CustomRoles.MMCat or
                 CustomRoles.Dracula or
-                CustomRoles.DRCat or
                 CustomRoles.TemplateRole or
-                CustomRoles.TEMCat or
-                CustomRoles.OCCCat or
-                CustomRoles.RETCat or
                 CustomRoles.Retributionist or
                 CustomRoles.Occultist or
                 CustomRoles.Unseeable or
-                CustomRoles.UNCat or
                 CustomRoles.Pirate or
                 CustomRoles.Undecided or
                 CustomRoles.Jackal or
-                CustomRoles.JacCat or
                 CustomRoles.PlagueBearer or
                 CustomRoles.Pestilence or
-                CustomRoles.PesCat or
                 CustomRoles.TheGlitch or
-                CustomRoles.TGCat or
                 CustomRoles.Postman or
                 CustomRoles.Werewolf or
-                CustomRoles.WWCat or
                 CustomRoles.Swapper or
                 CustomRoles.GuardianAngelTOU or
                 CustomRoles.Lawyer or
                 CustomRoles.NeutWitch or
                 CustomRoles.Amnesiac or
-                CustomRoles.Copycat or
-                CustomRoles.MAGCat or
-                CustomRoles.CPCat or
                 CustomRoles.Juggernaut or
-                CustomRoles.JugCat or
                 CustomRoles.Sidekick or
                 CustomRoles.JSchrodingerCat or
                 CustomRoles.Hacker or
                 CustomRoles.Phantom or
                 CustomRoles.BloodKnight or
-                CustomRoles.BKCat or
                 CustomRoles.HASTroll or
                 CustomRoles.Painter or
                 CustomRoles.HASFox or // CAT
                 CustomRoles.BKSchrodingerCat or
-                CustomRoles.SNKSchrodingerCat or
                 CustomRoles.CPSchrodingerCat or
                 CustomRoles.UNSchrodingerCat or
                 CustomRoles.MAGSchrodingerCat or
@@ -144,7 +124,7 @@ namespace TownOfHost
                 CustomRoles.MMSchrodingerCat or
                 CustomRoles.PesSchrodingerCat or
                 CustomRoles.WWSchrodingerCat or
-                CustomRoles.DRSchrodingerCat or
+                CustomRoles.DRSchrodingerCat or   
                 CustomRoles.TGSchrodingerCat;
         }
         public static bool IsNeutralBad(this CustomRoles role)
@@ -157,50 +137,30 @@ namespace TownOfHost
                 CustomRoles.CrewPostor or
                 CustomRoles.Magician or
                 CustomRoles.Wraith or
-                CustomRoles.WRACat or
                 CustomRoles.Phantom or
                 CustomRoles.Marksman or
-                CustomRoles.MMCat or
                 CustomRoles.Pirate or
-                CustomRoles.SerialNeutKiller or
-                CustomRoles.SnkCat or
                 CustomRoles.Dracula or
-                CustomRoles.DRCat or
                 CustomRoles.TemplateRole or
-                CustomRoles.TEMCat or
-                CustomRoles.OCCCat or
                 CustomRoles.Retributionist or
-                CustomRoles.RETCat or
                 CustomRoles.Occultist or
                 CustomRoles.Unseeable or
-                CustomRoles.UNCat or
                 CustomRoles.Jackal or
-                CustomRoles.JacCat or
                 CustomRoles.Postman or
                 CustomRoles.NeutWitch or
                 CustomRoles.Lawyer or
-                CustomRoles.EgoCat or
                 CustomRoles.PlagueBearer or
                 CustomRoles.Pestilence or
-                CustomRoles.PesCat or
                 CustomRoles.TheGlitch or
-                CustomRoles.TGCat or
                 CustomRoles.AgiTater or
                 CustomRoles.Werewolf or
-                CustomRoles.WWCat or
                 CustomRoles.Amnesiac or
-                CustomRoles.Copycat or
-                CustomRoles.MAGCat or
-                CustomRoles.CPCat or
                 CustomRoles.Juggernaut or
-                CustomRoles.JugCat or
                 CustomRoles.Sidekick or
                 CustomRoles.JSchrodingerCat or
                 CustomRoles.BloodKnight or
-                CustomRoles.BKCat or
                 CustomRoles.HASTroll or
                 CustomRoles.Painter or // CAT
-                CustomRoles.SNKSchrodingerCat or
                 CustomRoles.BKSchrodingerCat or
                 CustomRoles.CPSchrodingerCat or
                 CustomRoles.MAGSchrodingerCat or
@@ -232,9 +192,6 @@ namespace TownOfHost
                 CustomRoles.GuardianAngelTOU or
                 CustomRoles.Lawyer or
                 CustomRoles.Amnesiac or
-                CustomRoles.Copycat or
-                CustomRoles.MAGCat or
-                CustomRoles.CPCat or
                 CustomRoles.JSchrodingerCat or
                 CustomRoles.Hacker;
         }
@@ -256,7 +213,6 @@ namespace TownOfHost
                 CustomRoles.Transparent or
                 CustomRoles.Spy or
                 CustomRoles.Dracula or
-                CustomRoles.DRCat or
                 CustomRoles.GuardianAngelTOU;
         }
         public static bool IsNeutralKilling(this CustomRoles role)
@@ -265,39 +221,23 @@ namespace TownOfHost
                 role is CustomRoles.Arsonist or
                 CustomRoles.Egoist or
                 CustomRoles.Jackal or
-                CustomRoles.JacCat or
                 CustomRoles.PlagueBearer or
                 CustomRoles.Pestilence or
-                CustomRoles.PesCat or
                 CustomRoles.CrewPostor or
                 CustomRoles.Wraith or
-                CustomRoles.WRACat or
-                CustomRoles.SerialNeutKiller or
-                CustomRoles.SnkCat or
                 CustomRoles.Magician or
                 CustomRoles.Dracula or
-                CustomRoles.DRCat or
                 CustomRoles.TemplateRole or
-                CustomRoles.EgoCat or
-                CustomRoles.TEMCat or
-                CustomRoles.OCCCat or
                 CustomRoles.Retributionist or
-                CustomRoles.RETCat or
                 CustomRoles.Occultist or
                 CustomRoles.Unseeable or
-                CustomRoles.UNCat or
                 CustomRoles.Sidekick or
                 CustomRoles.TheGlitch or
-                CustomRoles.TGCat or
                 CustomRoles.AgiTater or
                 CustomRoles.Marksman or
-                CustomRoles.MMCat or
                 CustomRoles.Werewolf or
-                CustomRoles.WWCat or
                 CustomRoles.Pirate or
                 CustomRoles.BloodKnight or
-                CustomRoles.BKCat or
-                CustomRoles.JugCat or
                 CustomRoles.Juggernaut;
         }
         public static bool IsJackalTeam(this CustomRoles role)
@@ -305,14 +245,12 @@ namespace TownOfHost
             return
                 role is CustomRoles.Jackal or
                 CustomRoles.JSchrodingerCat or
-                CustomRoles.JacCat or
                 CustomRoles.Sidekick;
         }
         public static bool IsSheriffTeam(this CustomRoles role)
         {
             return
                 role is CustomRoles.Sheriff or
-                CustomRoles.CrewCat or
                 CustomRoles.Deputy;
         }
         public static bool IsRetributionistTeam(this CustomRoles role)
@@ -322,8 +260,7 @@ namespace TownOfHost
                 CustomRoles.RETSchrodingerCat or
                 CustomRoles.ResurectedCREW or
                 CustomRoles.ResurectedIMP or
-                CustomRoles.ResurectedNEU or
-                CustomRoles.RETCat;
+                CustomRoles.ResurectedNEU;
         }
         public static bool IsCrewmate(this CustomRoles role) => !role.IsImpostorTeam() && !role.IsNeutral() && !role.IsCoven();
         public static bool CanGetCrewModifier(this CustomRoles role) => !role.IsImpostorTeam() && !role.IsNeutralBad() && !role.IsCoven();
@@ -385,7 +322,6 @@ namespace TownOfHost
                 CustomRoles.Engineer or
                 CustomRoles.GuardianAngel or
                 CustomRoles.Pestilence or
-                CustomRoles.PesCat or
                 CustomRoles.JSchrodingerCat or
                 CustomRoles.LastImpostor or
                 CustomRoles.CorruptedSheriff or
@@ -394,14 +330,7 @@ namespace TownOfHost
                 CustomRoles.Janitor or
                 CustomRoles.Painter or
                 CustomRoles.Amnesiac or
-                CustomRoles.Copycat or
-                CustomRoles.MAGCat or
-                CustomRoles.CPCat or
                 CustomRoles.CSchrodingerCat or
-                CustomRoles.CrewCat or
-                CustomRoles.IMPCat or
-                CustomRoles.OCCCat or
-                CustomRoles.TEMCat or
                 CustomRoles.MSchrodingerCat;
         }
         public static RoleType GetRoleType(this CustomRoles role)
@@ -468,52 +397,34 @@ namespace TownOfHost
                 CustomRoles.Parasite or
                 CustomRoles.TemplateRole or
                 CustomRoles.Retributionist or
-                CustomRoles.RETCat or
                 CustomRoles.Occultist or
                 CustomRoles.Escort or
                 CustomRoles.Hitman or
                 CustomRoles.Dracula or
-                CustomRoles.DRCat or
                 CustomRoles.Unseeable or
-                CustomRoles.UNCat or
                 CustomRoles.Escort or
                 CustomRoles.BloodKnight or
-                CustomRoles.BKCat or
-                CustomRoles.SerialNeutKiller or
-                CustomRoles.SnkCat or
-                CustomRoles.CrewCat or
-                CustomRoles.IMPCat or
-                CustomRoles.TEMCat or
-                CustomRoles.OCCCat or
                 CustomRoles.Hitman or
                 CustomRoles.Jackal or
-                CustomRoles.JacCat or
                 CustomRoles.Crusader or
                 CustomRoles.Sidekick or
                 CustomRoles.Arsonist or
                 CustomRoles.Egoist or
-                CustomRoles.EgoCat or
                 CustomRoles.Jackal or
                 CustomRoles.PlagueBearer or
                 CustomRoles.Pestilence or
-                CustomRoles.PesCat or
                 CustomRoles.Sidekick or
                 CustomRoles.TheGlitch or
-                CustomRoles.TGCat or
                 CustomRoles.AgiTater or
                 CustomRoles.Marksman or
-                CustomRoles.MMCat or
                 CustomRoles.Werewolf or
-                CustomRoles.WWCat or
                 CustomRoles.BloodKnight or
-                CustomRoles.JugCat or
                 CustomRoles.Juggernaut;
         }
         public static bool CanRoleBlock(this CustomRoles role)
         {
             return
                 role is CustomRoles.TheGlitch or
-                CustomRoles.TGCat or
                 CustomRoles.Escort or
                 CustomRoles.Consort;
         }
@@ -592,10 +503,10 @@ namespace TownOfHost
                 CustomRoles.Miner or
                 CustomRoles.Escapist or
                 CustomRoles.TheGlitch or
-                CustomRoles.TGCat or
                 CustomRoles.Creeper or
                 CustomRoles.Depressed or
                 CustomRoles.PortalMaker or
+                CustomRoles.Werewolf or
                 CustomRoles.TimeTraveler or
                 CustomRoles.Transporter;
         }

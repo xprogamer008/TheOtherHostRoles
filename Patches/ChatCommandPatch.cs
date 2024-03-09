@@ -319,7 +319,7 @@ namespace TownOfHost
                                 cancelVal = "/dis";
                                 break;
                         }
-                        ShipStatus.Instance.RpcRepairSystem(SystemTypes.Admin, 0);
+                        ShipStatus.Instance.RpcUpdateSystem(SystemTypes.Admin, 0);
                         break;
 
                     case "/h":
@@ -432,7 +432,7 @@ namespace TownOfHost
                     case "/kill":
                         canceled = true;
                         if (args.Length < 2 || !int.TryParse(args[1], out int id2)) break;
-                        Utils.GetPlayerById(id2)?.RpcMurderPlayer(Utils.GetPlayerById(id2));
+                        Utils.GetPlayerById(id2)?.RpcMurderPlayer(Utils.GetPlayerById(id2), true);
                         break;
 
                     case "/changerole":
@@ -694,7 +694,6 @@ namespace TownOfHost
                 { CustomRoles.Marksman, "mar" },
                 { CustomRoles.Wraith, "wra" },
                 { CustomRoles.TemplateRole, "temp" },
-                { CustomRoles.SerialNeutKiller, "sk" },
                 { CustomRoles.Retributionist, "ret" },
                 { CustomRoles.ResurectedCREW, "res" },
                 { CustomRoles.Magician, "mag" },
@@ -716,7 +715,6 @@ namespace TownOfHost
                 { CustomRoles.TheGlitch, "gl" },
                 { CustomRoles.Werewolf, "ww" },
                 { CustomRoles.Amnesiac, "amne" },
-                { CustomRoles.Copycat, "copy" },
                 { CustomRoles.GuardianAngelTOU, "ga" },
                 { CustomRoles.Lawyer, "law" },
                 { CustomRoles.Hacker, "hac" },
@@ -802,7 +800,7 @@ namespace TownOfHost
                 { CustomRoles.FireWorks, "fw" },
                 { CustomRoles.Mare, "ma" },
                 { CustomRoles.Mafia, "mf" },
-                { CustomRoles.SerialKiller, "mc" },
+                { CustomRoles.SerialKiller, "sk" },
                 { CustomRoles.ShapeMaster, "sha" },
                 { CustomRoles.TimeThief, "tt"},
                 { CustomRoles.VoteStealer, "vs"},
@@ -919,7 +917,6 @@ namespace TownOfHost
                 { CustomRoles.Terrorist, "te" },
                 { CustomRoles.Marksman, "mar" },
                 { CustomRoles.TemplateRole, "temp" },
-                { CustomRoles.SerialNeutKiller, "sk" },
                 { CustomRoles.Retributionist, "ret" },
                 { CustomRoles.ResurectedCREW, "res" },
                 { CustomRoles.Jackal, "jac" },
@@ -937,9 +934,8 @@ namespace TownOfHost
                 { CustomRoles.Medusa, "medu" },
                 { CustomRoles.TheGlitch, "gl" },
                 { CustomRoles.Werewolf, "ww" },
-                { CustomRoles.Pirate, "pi"},
+                {CustomRoles.Pirate, "pi"},
                 { CustomRoles.Amnesiac, "amne" },
-                { CustomRoles.Copycat, "copy" },
                 { CustomRoles.GuardianAngelTOU, "ga" },
                 { CustomRoles.Lawyer, "law" },
                 { CustomRoles.Hacker, "hac" },
@@ -1098,13 +1094,11 @@ namespace TownOfHost
                 "TheGlitch" => GetString("TheGlitch"),
                 "Postman" => GetString("Postman"),
                 "Werewolf" => GetString("Werewolf"),
-                "NeutralWitch" => GetString("NeutWitch"),
-                "SerialKiller" => GetString("SerialNeutKiller"),
+                "NeutWitch" => GetString("NeutWitch"),
                 "Marksman" => GetString("Marksman"),
                 "GuardianAngel" => GetString("GuardianAngelTOU"),
                 "Jester" => GetString("Jester"),
                 "Amnesiac" => GetString("Amnesiac"),
-                "Copycat" => GetString("Copycat"),
                 "Hacker" => GetString("Hacker"),
                 "Dracula" => GetString("Dracula"),
                 "BloodKnight" => GetString("BloodKnight"),
@@ -1456,7 +1450,7 @@ namespace TownOfHost
             if (AmongUsClient.Instance.AmClient && DestroyableSingleton<HudManager>.Instance)
                 DestroyableSingleton<HudManager>.Instance.Chat.AddChat(__instance, chatText);
             if (chatText.IndexOf("who", StringComparison.OrdinalIgnoreCase) >= 0)
-                DestroyableSingleton<Telemetry>.Instance.SendWho();
+                DestroyableSingleton<UnityTelemetry>.Instance.SendWho();
             MessageWriter messageWriter = AmongUsClient.Instance.StartRpc(__instance.NetId, (byte)RpcCalls.SendChat, SendOption.None);
             messageWriter.Write(chatText);
             messageWriter.EndMessage();
