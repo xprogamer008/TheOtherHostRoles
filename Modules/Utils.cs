@@ -395,6 +395,7 @@ namespace TownOfHost
                     if (cRole == CustomRoles.EgoSchrodingerCat) hasTasks = false;
                     if (cRole == CustomRoles.JSchrodingerCat) hasTasks = false;
                     if (cRole == CustomRoles.Egoist) hasTasks = false;
+                    if (cRole == CustomRoles.Masochist) hasTasks = false;
                     if (cRole == CustomRoles.Jackal) hasTasks = false;
                     if (cRole == CustomRoles.Sidekick) hasTasks = false;
                     if (cRole == CustomRoles.Juggernaut) hasTasks = false;
@@ -529,6 +530,9 @@ namespace TownOfHost
                     break;
                 case CustomRoles.Hacker:
                     ProgressText = Helpers.ColorString(GetRoleColor(CustomRoles.Hacker), $"({Main.HackerFixedSaboCount[playerId]}/{Options.SaboAmount.GetInt()})");
+                    break;
+                case CustomRoles.Masochist:
+                    ProgressText = Helpers.ColorString(GetRoleColor(CustomRoles.Masochist), $"({Main.MasochistAttackCount}/{Options.AttackCount.GetInt()})");
                     break;
                 case CustomRoles.Postman:
                     ProgressText += $"{Postman.GetProgressText(playerId)}";
@@ -1178,7 +1182,7 @@ namespace TownOfHost
                             if (Options.NBshowEvil.GetBool())
                                 if (role is CustomRoles.Opportunist or CustomRoles.Undecided or CustomRoles.Survivor or CustomRoles.GuardianAngelTOU or CustomRoles.Lawyer or CustomRoles.Amnesiac or CustomRoles.SchrodingerCat) badPlayers.Add(pc);
                             if (Options.NEshowEvil.GetBool())
-                                if (role is CustomRoles.Jester or CustomRoles.Troll or CustomRoles.Terrorist or CustomRoles.Executioner or CustomRoles.Swapper or CustomRoles.Hacker or CustomRoles.Vulture) badPlayers.Add(pc);
+                                if (role is CustomRoles.Jester or CustomRoles.Troll or CustomRoles.Masochist or CustomRoles.Terrorist or CustomRoles.Executioner or CustomRoles.Swapper or CustomRoles.Hacker or CustomRoles.Vulture) badPlayers.Add(pc);
                             break;
                         case RoleType.Madmate:
                             if (!Options.MadmatesAreEvil.GetBool()) break;

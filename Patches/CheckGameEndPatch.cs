@@ -24,6 +24,7 @@ namespace TownOfHost
             if (CheckAndEndGameForTerrorist(instance)) return false;
             if (CheckAndEndGameForExecutioner(instance)) return false;
             if (CheckAndEndGameForSwapper(instance)) return false;
+            if (CheckAndEndGameForMasochist(instance)) return false;
             if (CheckAndEndGameForHacker(instance)) return false;
             if (Main.currentWinner == CustomWinner.Default)
             {
@@ -74,6 +75,7 @@ namespace TownOfHost
                     if (CheckAndEndGameForOccultistWin(instance, statistics)) return false;
                     if (CheckAndEndGameForWraithWin(instance, statistics)) return false;
                     if (CheckAndEndGameForMagicianWin(instance, statistics)) return false;
+                    if (CheckAndEndGameForMasochist(instance, statistics)) return false;
                     if (CheckAndEndGameForKnighthWin(instance, statistics)) return false;
                     if (CheckAndEndGameForVultureWin(instance, statistics)) return false;
                     if (CheckAndEndGameForPestiWin(instance, statistics)) return false;
@@ -262,6 +264,30 @@ namespace TownOfHost
             }
             return false;
         }
+        private static bool CheckAndEndGameForMasochist(ShipStatus __instance, PlayerStatistics statistics)
+        {
+            if (Main.MasochistAttackCount == Options.AttackCount.GetFloat())
+            {
+                //Vulture wins.
+                var people = statistics.TotalAlive;
+                __instance.enabled = false;
+                var endReason = TempData.LastDeathReason switch
+                {
+                    DeathReason.Exile => GameOverReason.ImpostorByVote,
+                    DeathReason.Kill => GameOverReason.ImpostorByKill,
+                    _ => GameOverReason.ImpostorByVote,
+                };
+
+                MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.EndGame, Hazel.SendOption.Reliable, -1);
+                writer.Write((byte)CustomWinner.Masochist);
+                AmongUsClient.Instance.FinishRpcImmediately(writer);
+                RPC.MasochistWin();
+
+                ResetRoleAndEndGame(endReason, false);
+                return true;
+            }
+            return false;
+        }
         private static bool CheckAndEndGameForVultureWin(ShipStatus __instance, PlayerStatistics statistics)
         {
             if (Main.AteBodies == Options.BodiesAmount.GetFloat())
@@ -330,6 +356,16 @@ namespace TownOfHost
                 RPC.PestiWin();
 
                 ResetRoleAndEndGame(endReason, false);
+                return true;
+            }
+            return false;
+        }
+        private static bool CheckAndEndGameForMasochist(ShipStatus __instance)
+        {
+            if (Main.currentWinner == CustomWinner.Masochist && Main.CustomWinTrigger)
+            {
+                __instance.enabled = false;
+                ResetRoleAndEndGame(GameOverReason.ImpostorByKill, false);
                 return true;
             }
             return false;
@@ -975,7 +1011,7 @@ namespace TownOfHost
                 if (!pc.Data.IsDead) Main.AliveAtTheEndOfTheRound.Add(pc.PlayerId);
                 var LoseImpostorRole = Main.AliveImpostorCount == 0 ? pc.Is(RoleType.Impostor) : pc.Is(CustomRoles.Egoist);
                 if (pc.Is(CustomRoles.Sheriff) || pc.Is(CustomRoles.Deputy) || pc.Is(CustomRoles.Investigator) || pc.Is(CustomRoles.Janitor) || (Main.currentWinner != CustomWinner.Dracula && pc.Is(CustomRoles.Dracula)) || pc.Is(CustomRoles.Escort) || pc.Is(CustomRoles.Crusader) ||
-                    (!(Main.currentWinner == CustomWinner.Arsonist) && pc.Is(CustomRoles.Arsonist)) || (Main.currentWinner == CustomWinner.Lovers && !Main.LoversPlayers.Contains(pc)) || (pc.Is(CustomRoles.Hitman) && pc.Data.IsDead) || (Main.currentWinner != CustomWinner.Vulture && pc.Is(CustomRoles.Vulture)) || (Main.currentWinner != CustomWinner.Painter && pc.Is(CustomRoles.Painter)) || (Main.currentWinner != CustomWinner.TemplateRole && pc.Is(CustomRoles.TemplateRole)) || (Main.currentWinner != CustomWinner.Retributionist && pc.Is(CustomRoles.Retributionist)) || (Main.currentWinner != CustomWinner.Occultist && pc.Is(CustomRoles.Occultist)) || (Main.currentWinner != CustomWinner.Wraith && pc.Is(CustomRoles.Wraith)) || (Main.currentWinner != CustomWinner.Magician && pc.Is(CustomRoles.Magician)) || (Main.currentWinner != CustomWinner.Marksman && pc.Is(CustomRoles.Marksman)) || (Main.currentWinner != CustomWinner.Pirate && pc.Is(CustomRoles.Pirate)) ||
+                    (!(Main.currentWinner == CustomWinner.Arsonist) && pc.Is(CustomRoles.Arsonist)) || (Main.currentWinner == CustomWinner.Lovers && !Main.LoversPlayers.Contains(pc)) || (pc.Is(CustomRoles.Hitman) && pc.Data.IsDead) || (Main.currentWinner != CustomWinner.Vulture && pc.Is(CustomRoles.Vulture)) || (Main.currentWinner != CustomWinner.Masochist && pc.Is(CustomRoles.Masochist)) || (Main.currentWinner != CustomWinner.Painter && pc.Is(CustomRoles.Painter)) || (Main.currentWinner != CustomWinner.TemplateRole && pc.Is(CustomRoles.TemplateRole)) || (Main.currentWinner != CustomWinner.Retributionist && pc.Is(CustomRoles.Retributionist)) || (Main.currentWinner != CustomWinner.Occultist && pc.Is(CustomRoles.Occultist)) || (Main.currentWinner != CustomWinner.Wraith && pc.Is(CustomRoles.Wraith)) || (Main.currentWinner != CustomWinner.Magician && pc.Is(CustomRoles.Magician)) || (Main.currentWinner != CustomWinner.Marksman && pc.Is(CustomRoles.Marksman)) || (Main.currentWinner != CustomWinner.Pirate && pc.Is(CustomRoles.Pirate)) ||
                     (Main.currentWinner != CustomWinner.Jackal && pc.Is(CustomRoles.Jackal)) || (Main.currentWinner != CustomWinner.Swapper && pc.Is(CustomRoles.Swapper)) || (Main.currentWinner != CustomWinner.BloodKnight && pc.Is(CustomRoles.BloodKnight)) || (Main.currentWinner != CustomWinner.Pestilence && pc.Is(CustomRoles.Pestilence)) || (Main.currentWinner != CustomWinner.Coven && pc.GetRoleType() == RoleType.Coven) ||
                     LoseImpostorRole || (Main.currentWinner != CustomWinner.Werewolf && pc.Is(CustomRoles.Werewolf)) || (Main.currentWinner != CustomWinner.TheGlitch && pc.Is(CustomRoles.TheGlitch)) || (Main.currentWinner != CustomWinner.Unseeable && pc.Is(CustomRoles.Unseeable)))
                 {

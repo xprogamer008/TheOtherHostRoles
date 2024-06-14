@@ -146,6 +146,16 @@ namespace TownOfHost
                     if (!p.Is(CustomRoles.Vulture)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
                 }
             }
+            if (Main.currentWinner == CustomWinner.Masochist)
+            {
+                winner.Clear();
+                foreach (var p in PlayerControl.AllPlayerControls)
+                {
+                    if (p.Is(CustomRoles.Masochist)) winner.Add(p);
+                    if (p.Is(CustomRoles.Masochist)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.ImpostorGhost);
+                    if (!p.Is(CustomRoles.Masochist)) p.RpcSetRole(AmongUs.GameOptions.RoleTypes.CrewmateGhost);
+                }
+            }
             if (Main.currentWinner == CustomWinner.Dracula)
             {
                 winner.Clear();

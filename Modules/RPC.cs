@@ -50,6 +50,7 @@ namespace TownOfHost
         SetVeteranAlert,
         SetReverserAlert,
         SetMedusaInfo,
+        SetMasochistProgress,
         SetHackerProgress,
         SetPirateProgress,
         SeeredPlayer,
@@ -363,6 +364,9 @@ namespace TownOfHost
                     int hcount = reader.ReadInt32();
                     Main.HackerFixedSaboCount[hackerid] = hcount;
                     break;
+                case CustomRPC.SetMasochistProgress: // DONE
+                    Main.MasochistAttackCount = reader.ReadInt32();
+                    break;
                 case CustomRPC.SeeredPlayer: // DONE
                     byte targetid = reader.ReadByte();
                     Investigator.hasSeered[targetid] = true;
@@ -625,6 +629,9 @@ namespace TownOfHost
                     case CustomWinner.Hacker:
                         HackerWin(winner[0]);
                         break;
+                    case CustomWinner.Masochist:
+                        MasochistWin();
+                        break;
                     case CustomWinner.Arsonist:
                         SingleArsonistWin();
                         break;
@@ -769,6 +776,11 @@ namespace TownOfHost
             Main.WonHackerID = hackerID;
             Main.currentWinner = CustomWinner.Hacker;
             CustomWinTrigger(hackerID);
+        }
+        public static void MasochistWin()
+        {
+            Main.currentWinner = CustomWinner.Masochist;
+            CustomWinTrigger(0);
         }
         public static void FFAwin(byte ffaID)
         {

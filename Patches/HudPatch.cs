@@ -435,6 +435,8 @@ namespace TownOfHost
                     {
                         if (player.Is(CustomRoles.Pirate))
                             TaskTextPrefix += Helpers.ColorString(player.GetRoleColor(), $"Successfully plunder {Guesser.PirateGuessAmount.GetInt()} players.");
+                        else if (player.Is(CustomRoles.Masochist))
+                            TaskTextPrefix += Helpers.ColorString(player.GetRoleColor(), $"Get attacked {Options.AttackCount.GetInt()} times to win.");
                         else if (player.Is(CustomRoles.Executioner) | player.Is(CustomRoles.Swapper))
                         {
                             byte target = 0x6;

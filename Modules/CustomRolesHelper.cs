@@ -86,6 +86,7 @@ namespace TownOfHost
                 CustomRoles.Magician or
                 CustomRoles.Marksman or
                 CustomRoles.Dracula or
+                CustomRoles.Masochist or
                 CustomRoles.TemplateRole or
                 CustomRoles.Retributionist or
                 CustomRoles.Occultist or
@@ -146,6 +147,7 @@ namespace TownOfHost
                 CustomRoles.Occultist or
                 CustomRoles.Unseeable or
                 CustomRoles.Jackal or
+                CustomRoles.Masochist or
                 CustomRoles.Postman or
                 CustomRoles.NeutWitch or
                 CustomRoles.Lawyer or
@@ -188,6 +190,7 @@ namespace TownOfHost
                 CustomRoles.SchrodingerCat or
                 CustomRoles.Terrorist or
                 CustomRoles.Executioner or
+                CustomRoles.Masochist or
                 CustomRoles.EgoSchrodingerCat or
                 CustomRoles.GuardianAngelTOU or
                 CustomRoles.Lawyer or

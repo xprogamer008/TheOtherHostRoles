@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "6Rwr0vjnLAhvFE+Ar6dx829twjucy6r/EXQNVuZEC9lApLnVdUkGCGcamvlaFjtQozGalC2FEaR7dBC7L6EQGQ==",
+  "dgSpecHash": "xlMOzisIusxENFz3i4+S1YX2uZo2AA9+GQV34aF44hxqtSiOU3G04eIPpz74p+iwgmoXYH6kJqJBN8ZsCPUSNg==",
   "success": true,
-  "projectFilePath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TheOtherHostRoles-2.2\\TownOfHost.csproj",
+  "projectFilePath": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\TheOtherHostRoles-v2.3\\TownOfHost.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\yasin\\.nuget\\packages\\gitinfo\\2.0.20\\gitinfo.2.0.20.nupkg.sha512"
+    "C:\\Users\\yasin\\.nuget\\packages\\gitinfo\\2.0.20\\gitinfo.2.0.20.nupkg.sha512",
+    "C:\\Users\\yasin\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.28\\microsoft.windowsdesktop.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\yasin\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.28\\microsoft.netcore.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\yasin\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.28\\microsoft.aspnetcore.app.ref.6.0.28.nupkg.sha512"
   ],
   "logs": []
 }

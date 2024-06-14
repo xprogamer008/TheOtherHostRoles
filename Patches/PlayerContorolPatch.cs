@@ -779,6 +779,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         Main.CleanerCanClean[killer.PlayerId] = false;
                         MessageWriter writer = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.RpcSetCleanerClean, Hazel.SendOption.Reliable, -1);
                         writer.Write(killer.PlayerId);
@@ -828,6 +838,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         break;
                     case CustomRoles.Swooper:
                         if (target.Is(CustomRoles.Veteran) && Main.VetIsAlerted)
@@ -847,6 +867,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         if (Main.IsInvis)
@@ -947,6 +977,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         if (Main.IsInvis3)
                         {
                             killer.RpcGuardAndKill(target);
@@ -1045,6 +1085,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         if (target.GetCustomRole().CanRoleBlock())
                         {
                             killer.RpcGuardAndKill(target);
@@ -1085,6 +1135,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         if (!Main.CheckShapeshift[killer.PlayerId])
@@ -1137,6 +1197,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         if (Options.FreeForAllOn.GetBool() && Options.CurrentGameMode() == CustomGameMode.HideAndSeek)
                             if (target.CurrentOutfit.ColorId == killer.CurrentOutfit.ColorId) return false;
                         break;
@@ -1160,6 +1230,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         Manipulator.killedList.Add(target.Data.PlayerId);
                         break;
                     case CustomRoles.Bomber:
@@ -1180,6 +1260,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         Main.AllPlayerKillCooldown[killer.PlayerId] = 10f;
@@ -1210,6 +1300,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         if (Main.IsHackMode && Main.CursedPlayers[killer.PlayerId] == null)
@@ -1288,6 +1388,16 @@ namespace TownOfHost
                         break;
                     case CustomRoles.Ninja:
                         Ninja.KillCheck(killer, target);
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         return false;
                     case CustomRoles.Necromancer:
                         Necromancer.OnCheckMurder(killer, target);
@@ -1317,6 +1427,16 @@ namespace TownOfHost
                                 {
                                     Main.unreportableBodies.Add(killer.PlayerId);
                                 }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                                return false;
+                            }
+                            if (target.Is(CustomRoles.Masochist))
+                            {
+                                killer.RpcGuardAndKill(target);
+                                {
+                                    Main.MasochistAttackCount++;
+                                    MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                                }
                                 return false;
                             }
                             bool returnFalse = false;
@@ -1393,6 +1513,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         if (Main.MarksmanKills != 2)
                             Main.MarksmanKills++;
                         killer.CustomSyncSettings();
@@ -1415,6 +1545,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         killer.RpcGuardAndKill(target);
@@ -1441,6 +1581,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         Main.JugKillAmounts++;
@@ -1473,6 +1623,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         if (Main.CheckShapeshift[killer.PlayerId]) return false;
                         BountyHunter.OnCheckMurder(killer, target);
                         break;
@@ -1496,6 +1656,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         SerialKiller.OnCheckMurder(killer);
                         break;
                     case CustomRoles.Vampress:
@@ -1516,6 +1686,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         if (!Main.CheckShapeshift[killer.PlayerId])
@@ -1563,6 +1743,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         if (target.GetCustomSubRole() != CustomRoles.Bait)
                         { //キルキャンセル&自爆処理
                           //if (!target.Is(CustomRoles.Bewilder))
@@ -1601,6 +1791,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         if (target.GetCustomSubRole() != CustomRoles.Bait)
@@ -1648,6 +1848,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         if (!Main.CheckShapeshift[killer.PlayerId] && !Main.isCurseAndKill[killer.PlayerId])
                         { //Warlockが変身時以外にキルしたら、呪われる処理
                             Main.isCursed = true;
@@ -1687,6 +1897,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         if (Main.SilencedPlayer.Count > 0)
                         {
                             killer.RpcMurderPlayer(target, true);
@@ -1721,6 +1941,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         if (killer.IsSpellMode() && !Main.SpelledPlayer.Contains(target))
                         {
                             killer.RpcGuardAndKill(target);
@@ -1750,6 +1980,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         if (killer.IsOccSpellMode() && !Main.SpelledOccPlayer.Contains(target))
@@ -1813,6 +2053,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         Main.PuppeteerList[target.PlayerId] = killer.PlayerId;
                         Main.AllPlayerKillCooldown[killer.PlayerId] = Options.DefaultKillCooldown * 1;
                         killer.CustomSyncSettings(); //負荷軽減のため、killerだけがCustomSyncSettingsを実行
@@ -1836,6 +2086,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         Main.IsShapeShifted.Add(killer.PlayerId);
@@ -1871,6 +2131,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         Main.WitchList[target.PlayerId] = killer.PlayerId;
                         Main.AllPlayerKillCooldown[killer.PlayerId] = Options.ControlCooldown.GetFloat() * 1f;
                         killer.CustomSyncSettings(); // sync settings so they see.
@@ -1900,6 +2170,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         TimeThief.OnCheckMurder(killer);
                         break;
                     case CustomRoles.VoteStealer:
@@ -1920,6 +2200,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         Main.KillCount[killer.PlayerId]++;
@@ -1953,6 +2243,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         if (Main.DoingYingYang)
@@ -2076,6 +2376,16 @@ namespace TownOfHost
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
                             return false;
                         }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
+                            return false;
+                        }
                         if (!Sheriff.NoDeathPenalty.GetBool())
                         {
                             Sheriff.OnCheckMurder(killer, target, Process: "RemoveShotLimit");
@@ -2107,6 +2417,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         if (!Deputy.NoDeathPenalty.GetBool())
@@ -2217,6 +2537,16 @@ namespace TownOfHost
                             {
                                 Main.unreportableBodies.Add(killer.PlayerId);
                             }, Options.StoneReport.GetFloat(), "Medusa Stone Gazing");
+                            return false;
+                        }
+                        if (target.Is(CustomRoles.Masochist))
+                        {
+                            killer.RpcGuardAndKill(target);
+                            {
+                                Main.MasochistAttackCount++;
+                                MessageWriter writera = AmongUsClient.Instance.StartRpcImmediately(PlayerControl.LocalPlayer.NetId, (byte)CustomRPC.SetMasochistProgress, Hazel.SendOption.Reliable, -1);
+
+                            }
                             return false;
                         }
                         if (!Main.bkProtected)
@@ -3820,7 +4150,12 @@ namespace TownOfHost
         public static void Postfix(PlayerControl __instance)
         {
             var player = __instance;
-
+            if (__instance == null)
+            {
+                // Log an error or handle the null reference as needed
+                Logger.Error("PlayerControl instance is null in FixedUpdatePatch.Postfix", "FixedUpdatePatch");
+                return;
+            }
             if (AmongUsClient.Instance.AmHost)
             {
                 if (GameStates.IsLobby && (ModUpdater.hasUpdate || ModUpdater.isBroken) && AmongUsClient.Instance.IsGamePublic)

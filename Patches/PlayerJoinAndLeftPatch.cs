@@ -616,56 +616,6 @@ toptext:<size=1><color=#FFC0CB>ServerBooster</color></size>";
                     Main.CurrentTarget.Remove(data.Character.PlayerId);
                     Main.HasTarget[data.Character.PlayerId] = false;
                 }
-
-                if (Main.HostClientId == __instance.ClientId)
-                {
-                    var clientId = -1;
-                    var player = PlayerControl.LocalPlayer;
-                    var title = "<color=#aaaaff>" + GetString("DefaultSystemMessageTitle") + "</color>";
-                    var name = player?.Data?.PlayerName;
-                    var msg = "";
-                    if (GameStates.IsInGame)
-                    {
-                        Utils.ErrorEnd("Host exits the game");
-                        msg = GetString("Message.HostLeftGameInGame");
-                    }
-                    else if (GameStates.IsLobby)
-                        msg = GetString("Message.HostLeftGameInLobby");
-
-                    player.SetName(title);
-                    DestroyableSingleton<HudManager>.Instance.Chat.AddChat(player, msg);
-                    player.SetName(name);
-
-                    var writer = CustomRpcSender.Create("MessagesToSend", SendOption.None);
-                    writer.StartMessage(clientId);
-                    writer.StartRpc(player.NetId, (byte)RpcCalls.SetName)
-                        .Write(title)
-                        .EndRpc();
-                    writer.StartRpc(player.NetId, (byte)RpcCalls.SendChat)
-                        .Write(msg)
-                        .EndRpc();
-                    writer.StartRpc(player.NetId, (byte)RpcCalls.SetName)
-                        .Write(player.Data.PlayerName)
-                        .EndRpc();
-                    writer.EndMessage();
-                    writer.SendMessage();
-                }
-                switch (reason)
-                {
-                    case DisconnectReasons.Hacking:
-                        Logger.SendInGame(string.Format(GetString("PlayerLeftByAU-Anticheat"), data?.PlayerName));
-                        break;
-                    case DisconnectReasons.Error:
-                        Logger.SendInGame(string.Format(GetString("PlayerLeftByError"), data?.PlayerName));
-                        _ = new LateTask(() =>
-                        {
-                            CustomWinnerHolder.ResetAndSetWinner(CustomWinner.Error);
-                            GameManager.Instance.enabled = false;
-                            GameManager.Instance.RpcEndGame(GameOverReason.ImpostorDisconnect, false);
-                        }, 3f, "Disconnect Error Auto-end");
-
-                        break;
-                }
                 if (Main.CurrentTarget.ContainsValue(data.Character.PlayerId))
                 {
                     byte Protector = 0x73;

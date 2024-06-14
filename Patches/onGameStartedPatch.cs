@@ -108,6 +108,7 @@ namespace TownOfHost
                 Main.ReverserCanAlert = true;
                 Main.CanTransport = true;
                 Main.JugKillAmounts = 0;
+                Main.MasochistAttackCount = 0;
                 Main.AteBodies = 0;
                 Main.TeamJuggernautAlive = false;
                 Main.TeamPestiAlive = false;
@@ -525,6 +526,9 @@ namespace TownOfHost
 
                         if (RoleGoingInList(CustomRoles.Vulture))
                             rolesChosenNon.Add(CustomRoles.Vulture);
+
+                        if (RoleGoingInList(CustomRoles.Masochist))
+                            rolesChosenNon.Add(CustomRoles.Masochist);
 
                         if (RoleGoingInList(CustomRoles.Amnesiac))
                             rolesChosenNon.Add(CustomRoles.Amnesiac);
@@ -1685,13 +1689,13 @@ namespace TownOfHost
                             if (player.GetCustomRole() is CustomRoles.SpeedBooster or CustomRoles.Mare) continue;
                             break;
                         case CustomRoles.Bait:
-                            if (player.GetCustomRole() is CustomRoles.Trapper) continue;
+                            if (player.GetCustomRole() is CustomRoles.Trapper or CustomRoles.Masochist) continue;
                             break;
                         case CustomRoles.Guesser:
                             if (player.GetCustomRole() is CustomRoles.Pirate or CustomRoles.EvilGuesser or CustomRoles.NiceGuesser) continue;
                             break;
                         case CustomRoles.Bewilder:
-                            if (player.GetCustomRole() is CustomRoles.Detective or CustomRoles.Tracker or CustomRoles.Tank) continue;
+                            if (player.GetCustomRole() is CustomRoles.Detective or CustomRoles.Tracker or CustomRoles.Masochist or CustomRoles.Tank) continue;
                             break;
                         case CustomRoles.Soulhandler:
                             if (player.GetCustomRole() is CustomRoles.Nurse or CustomRoles.Parademic or CustomRoles.Investigator or CustomRoles.Seer) continue;
