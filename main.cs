@@ -29,7 +29,7 @@ namespace TownOfHost
         public static readonly string BANNEDFRIENDCODES_FILE_PATH = "./TOR_DATA/bannedfriendcodes.txt";
         public static readonly string DiscordInviteUrl = "https://discord.gg/tohtor";
         public static readonly bool ShowDiscordButton = true;
-        public const string PluginVersion = "2.2";
+        public const string PluginVersion = "2.3";
         public const string DevVersion = "1";
         public const string FullDevVersion = $" dev {DevVersion}";
         public Harmony Harmony { get; } = new Harmony(PluginGuid);
@@ -172,6 +172,7 @@ namespace TownOfHost
         public static byte WonTerroristID;
         public static byte WonPirateID;
         public static byte WonExecutionerID;
+        public static byte WonMasochistID;
         public static byte WonHackerID;
         public static byte WonArsonistID;
         public static byte WonChildID;
@@ -187,6 +188,7 @@ namespace TownOfHost
         public static int DiscussionTime;
         public static int VotingTime;
         public static int JugKillAmounts;
+        public static int MasochistAttackCount;
         public static int TrackerArrow;
         public static int TracefinderArrow;
         public static int AteBodies;
@@ -613,6 +615,7 @@ namespace TownOfHost
                     { CustomRoles.Survivor, "#FFE64D"},
                     { CustomRoles.Troll, "#209424"},
                     { CustomRoles.AgiTater, "#F4A460"},
+                    { CustomRoles.Masochist, "#584405"},
                     { CustomRoles.Dracula, "#BA2D3E"},
                     { CustomRoles.Unseeable, "#F3F063"},
                     { CustomRoles.SchrodingerCat, "#696969"},
@@ -895,6 +898,7 @@ namespace TownOfHost
                     { CustomRoles.GuardianAngelTOU, AttackEnum.None},
                     { CustomRoles.TheGlitch, AttackEnum.Basic},
                     { CustomRoles.Werewolf, AttackEnum.Powerful},
+                    { CustomRoles.Masochist, AttackEnum.None},
                     { CustomRoles.Amnesiac, AttackEnum.None},
                     { CustomRoles.Demolitionist, AttackEnum.Unstoppable},
                     { CustomRoles.Bastion, AttackEnum.Unstoppable},
@@ -1017,6 +1021,7 @@ namespace TownOfHost
                     { CustomRoles.NeutWitch, DefenseEnum.None},
                     { CustomRoles.Hitman, DefenseEnum.None},
                     { CustomRoles.BloodKnight, DefenseEnum.None},
+                    { CustomRoles.Masochist, DefenseEnum.Invincible},
                     { CustomRoles.Veteran, DefenseEnum.None},
                     { CustomRoles.GuardianAngelTOU, DefenseEnum.None},
                     { CustomRoles.TheGlitch, DefenseEnum.None},
@@ -1302,6 +1307,7 @@ namespace TownOfHost
         Undecided,
         Opportunist,
         Survivor,
+        Masochist,
         Terrorist,
         Executioner,
         Jackal,
@@ -1516,6 +1522,7 @@ namespace TownOfHost
         Swapper = CustomRoles.Swapper,
         HASTroll = CustomRoles.HASTroll,
         Phantom = CustomRoles.Phantom,
+        Masochist = CustomRoles.Masochist,
         TemplateRole = CustomRoles.TemplateRole,
         Retributionist = CustomRoles.Retributionist,
         Occultist = CustomRoles.Occultist,

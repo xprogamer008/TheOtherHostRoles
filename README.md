@@ -9,7 +9,7 @@ DISCORD SERVER: https://discord.gg/FK5RWnQKkA --- Recommended after Innersloth i
 ## Releases
 
 AmongUs Version: **2024.3.05**<br>
-**Latest Version:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases/tag/2.2)**
+**Latest Version:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases/tag/2.3)**
 
 Old Versions:[Here](https://GitHub.com/xprogamer008/TheOtherHostRoles/releases)
 
@@ -80,6 +80,7 @@ If you are going to play on Custom Servers, such as MNA and MEU, it would requir
 - Added Template
 - Added Wraith
 - Added Occultist
+- Added Masochist
 
 ### New Modifiers:
 
@@ -218,7 +219,7 @@ Below is an example:
 | [MadGuardian](#madguardian)         | [Vigilante](#guesser)             | [Lawyer](#lawyer)                 | [Hustler](#hustler)              |                                | [Mini](#mini)              |
 | [MadSnitch](#madsnitch)			  | [Veteran](#veteran)               |	[Troll](#troll)                   | [Template](#template)            |                                |                            |
 | [SidekickMadmate](#sidekickmadmate) | [Child](#child)                   | [Undecided](#undecided)           | [Wraith](#wraith)	             |                                |                            |
-| [Silencer](#silencer)               | [Psychic](#psychic)               |							          | [Occultist](#occultist)          |                                |                            |
+| [Silencer](#silencer)               | [Psychic](#psychic)               | [Masochist}(#masochist)           | [Occultist](#occultist)          |                                |                            |
 | [Traitor](#traitor)                 | [Detective](#detective)           |                                   | [Retributionist](#retributionist)|                                |                            |
 | [Assassin](#guesser)                | [Tank](#tank)                     |                                   |                                  |                                |                            |
 | [Parasite](#parasite)               | [Transparent](#transparent)       |                                   |                                  |                                |                            |
@@ -500,7 +501,7 @@ The Freezer is an Impostor who can shapeshift into a player to freeze them in pl
 
 ### Wildling
 
-Idea from [TOHE-R](https://Github.com/Loonie-Toons/TOHE-Restored)<br>
+Idea from [TOHEN](https://github.com/0xDrMoe/TownofHost-Enhanced/releases)<br>
 
 Team : Impostors<br>
 Basis : Impostor<br>
@@ -1116,7 +1117,7 @@ but if he takes to long to report a body, he will instead make the body unreport
 
 ### Marshall
   
-Idea from [TOHE-R](https://Github.com/Loonie-Toons/TOHE-Restored)<br>
+Idea from [TOHEN](https://github.com/0xDrMoe/TownofHost-Enhanced/releases)<br>
   
 Team : Crewmates<br>
 Basis : Crewmate<br>
@@ -1178,7 +1179,7 @@ After you completed all of your tasks, you and your target will no longer die du
 Team : Crewmates<br>
 Basis : Crewmate<br>
 
-Originaly based from TOHE<br>
+Originaly based from [TOHE](https://github.com/KARPED1EM/TownOfNext)<br>
 
 As TheGlitch you are a ghost like creature.<br>
 You can't cast a vote, report bodies and call emergency meetings.<br>
@@ -1187,7 +1188,7 @@ Your body also can not be found by the Detective.<br>
 
 ### Tracefinder
 
-Original Idea from [TOHRE](https://Github.com/Loonie-Toons/TownOfHost-ReEdited)<br>
+Original Idea from [TOHEN](https://github.com/0xDrMoe/TownofHost-Enhanced/releases)<br>
 
 Team : Crewmates<br>
 Basis : Scientist<br>
@@ -1652,6 +1653,17 @@ The Hitman is a neutral benign role with the ability to kill.<br>
 Hitman can win with anyone and does not count as a killer.<br>
 Optionally, Hitman can also win with roles like Jester and Executioner.<br>
 
+### Masochist
+  
+Idea by [TOHEN](https://github.com/0xDrMoe/TownofHost-Enhanced)<br><br>
+  
+Team : Neutral<br>
+Basis : Crewmate<br>
+Victory Condition : Get attacked a certain amount of times to win<br>
+  
+The Masochist is a neutral evil who must be attacked a set amount of times to win.<br>
+Because of this, the Masochist is pratically unkillable.<br>
+  
 ### Undecided
 
 Create and idea by EXC4LIBUR
@@ -1700,7 +1712,7 @@ That Player will help achive the goals of the Retributionist.<br>
 
 ### Wraith
 
-Idea by [TOHE-R](https://Gihub.com/Loonie-Toons/TOHE-Restored)<br>
+Idea by [TOHEN](https://github.com/0xDrMoe/TownofHost-Enhanced)<br>
   
 Team : Neutral<br>
 Basis : Impostor<br>
@@ -2132,9 +2144,10 @@ Roles from:
 8. [Foolers Mod](https://github.com/MengTube/Foolers-Mod)<br>
 9. [Town-Of-Us-R](https://github.com/eDonnes124/Town-Of-Us-R)<br>
 10. Mek - Role Ideas (Bewilder, Bastion, Demolitionist)<br>
-11. Original [Town Of Host](https://github.com/tukasa0001/TownOfHost)<br>
+11.[Town Of Host](https://github.com/tukasa0001/TownOfHost)<br>
 12.[Town Of Chaos](https://www.youtube.com/@pumpkingaming5548)<br>
-13.[TOHE-R](https://Github.com/Loonie-Toons/TOHE-Restored)<br>
+13.[TOHEN](https://github.com/0xDrMoe/TownofHost-Enhanced)<br>
+14.[TOHE](https://github.com/KARPED1EM/TownOfNext)<br>
 
 ## Developers
 Original Develipors:
