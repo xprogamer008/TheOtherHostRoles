@@ -66,7 +66,7 @@ namespace TownOfHost
             CanKillAgitater = CustomOption.Create(Id + 30, Color.white, "DeputyCanKillAgitater", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
             CanKillPostman = CustomOption.Create(Id + 32, Color.white, "DeputyCanKillPostman", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
             CanKillClumsy = CustomOption.Create(Id + 33, Color.white, "DeputyCanKillClumsy", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
-            CanKillRetributionist = CustomOption.Create(Id + 34, Color.white, "DeputyCanKillClumsy", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
+            CanKillRetributionist = CustomOption.Create(Id + 34, Color.white, "DeputyCanKillRetributionist", AmongUsExtensions.OptionType.Crewmate, true, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
             CanKillCrewmatesAsIt = CustomOption.Create(Id + 27, Color.white, "DeputyCanKillCrewmatesAsIt", AmongUsExtensions.OptionType.Crewmate, false, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
             NoDeathPenalty = CustomOption.Create(Id + 31, Color.white, "NoDeathPenalty", AmongUsExtensions.OptionType.Crewmate, false, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
             ShotLimitOpt = CustomOption.Create(Id + 28, Color.white, "DeputyShotLimit", AmongUsExtensions.OptionType.Crewmate, 15, 0, 15, 1, Options.CustomRoleSpawnChances[CustomRoles.Deputy]);
